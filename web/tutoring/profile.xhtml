@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <title>#{msgs.app_title}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <ui:decorate template="/app_templates/app_template.xhtml">      
+            <h2>#{langBean.isEnglish?profileBean.student.firstNameEn:profileBean.student.firstNameAr} 
+                #{langBean.isEnglish?profileBean.student.lastNameEn: profileBean.student.lastNameAr}</h2>      
+            <p>#{msgs.major}: #{profileBean.student.major}</p>
+            <p>--#{msgs.credit_score}: #{profileBean.student.creditScore}</p>
+            <p>#{msgsprofileBean.email}: #{contentProfileBean.emailAddress}</p>
+
+
+            <p:commandButton  value="#{msgs.see_offered_courses}" 
+                                      styleClass="commandButton" 
+                                      style="float:#{langBean.styleFloat};"                                      
+                                      action="/tutoring/search_results.xhtml">
+            </p:commandButton>
+            <p:commandButton  value="#{msgs.message}" 
+                                      styleClass="commandButton" 
+                                      style="float:#{langBean.styleFloat};"                                      
+                                      action="mailto:#{profileBean.student.emailAddress}">
+            </p:commandButton>
+        </ui:decorate>
+    </h:body>
+</html>
