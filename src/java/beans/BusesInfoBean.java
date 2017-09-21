@@ -1,0 +1,52 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package beans;
+
+
+import daos.BusesDao;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import models.BusesInfo;
+/**
+ *
+ * @author MOH
+ */
+@ViewScoped
+public class BusesInfoBean implements Serializable {
+    
+    private final BusesDao busesDao = new BusesDao();
+    private ArrayList<BusesInfo> busesInfo; 
+    
+     @Inject 
+    private SessionBean sessionBean;
+     
+     public BusesInfoBean(){}
+     
+        @PostConstruct
+    public void init(){
+        try {            
+            busesInfo = busesDao.buildBusesInfo();            
+        } catch (Exception ex) {
+            Logger.getLogger(ManageEventsBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public ArrayList<BusesInfo> getBusesInfo() {
+        return busesInfo;
+    }
+
+    public void setBusesInfo(ArrayList<BusesInfo> busesInfo) {
+        this.busesInfo = busesInfo;
+    }
+   
+     
+    
+}
