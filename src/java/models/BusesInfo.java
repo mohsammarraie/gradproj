@@ -19,30 +19,33 @@ public class BusesInfo implements Serializable {
     private String routeAr;
     private String licensePlate;
     private int capacity;
+    private DriverInfo driverInfo;
 
-    public BusesInfo(){}
-    /**
-     *
-     * @param busID
-     * @param driverID
-     * @param departureTime
-     * @param arrivalTime
-     * @param routeEn
-     * @param routeAr
-     * @param licensePlate
-     * @param capacity
-     */
-    public BusesInfo(int busID, int driverID, String departureTime, String arrivalTime, String routeEn, String routeAr, String licensePlate, int capacity) {
-        this.busID = busID;
-        this.driverID = driverID;
-        this.departureTime = departureTime;
-        this.arrivalTime = arrivalTime;
-        this.routeEn = routeEn;
-        this.routeAr = routeAr;
-        this.licensePlate = licensePlate;
-        this.capacity = capacity;
-    }
-
+//    public BusesInfo(){}
+//    /**
+//     *
+//     * @param busID
+//     * @param driverID
+//     * @param departureTime
+//     * @param arrivalTime
+//     * @param routeEn
+//     * @param routeAr
+//     * @param licensePlate
+//     * @param capacity
+//     * @param driverInfo
+//     */
+//    public BusesInfo(int busID, int driverID, String departureTime, String arrivalTime, String routeEn, String routeAr, String licensePlate, int capacity, DriverInfo driverInfo) {
+//        this.busID = busID;
+//        this.driverID = driverID;
+//        this.departureTime = departureTime;
+//        this.arrivalTime = arrivalTime;
+//        this.routeEn = routeEn;
+//        this.routeAr = routeAr;
+//        this.licensePlate = licensePlate;
+//        this.capacity = capacity;
+//        this.driverInfo = driverInfo;
+//        
+//    }
 
   
     public int getBusID() {
@@ -107,6 +110,14 @@ public class BusesInfo implements Serializable {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public DriverInfo getDriverInfo() {
+        return driverInfo;
+    }
+
+    public void setDriverInfo(DriverInfo driverInfo) {
+        this.driverInfo = driverInfo;
     }
     
     

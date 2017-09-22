@@ -23,8 +23,9 @@ and open the template in the editor.
                            id="bus_info_tbl"
                            value = "#{busesInfoBean.busesInfo}"
                            class = "dataTable"
-                           var="event"
+                           var="busesInfo"
                            rows="2"
+                           rowsPerPageTemplate="1,2,3"
                            dir="#{langBean.dir}"
                            emptyMessage="#{msgs.no_buses}"
                            paginator="true"
@@ -37,8 +38,6 @@ and open the template in the editor.
                             <f:facet name="header" id="header">
                                 #{msgs.buses}
                             </f:facet> 
-
-                            <p:column selectionMode="single" style="width:5%"/>
 
                             <p:column headerText="#{msgs.bus_id}"
                                       style="width:15%"

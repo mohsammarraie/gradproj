@@ -5,7 +5,6 @@
  */
 package beans;
 
-
 import daos.BusesDao;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,27 +14,30 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import models.BusesInfo;
+import daos.DriverDao;
+import javax.inject.Named;
 /**
  *
  * @author MOH
  */
+@Named(value = "busesInfoBean")
 @ViewScoped
 public class BusesInfoBean implements Serializable {
-    
+    private final DriverDao driverDao = new DriverDao();
     private final BusesDao busesDao = new BusesDao();
     private ArrayList<BusesInfo> busesInfo; 
     
-     @Inject 
+    @Inject 
     private SessionBean sessionBean;
      
-     public BusesInfoBean(){}
+    public BusesInfoBean(){}
      
         @PostConstruct
-    public void init(){
+      public void init(){
         try {            
-            busesInfo = busesDao.buildBusesInfo();            
+            busesInfo = busesDao.buildBusesInfo(driverDao.buildDriverInfoMap());            
         } catch (Exception ex) {
-            Logger.getLogger(ManageEventsBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BusesInfoBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -47,6 +49,5 @@ public class BusesInfoBean implements Serializable {
         this.busesInfo = busesInfo;
     }
    
-     
     
 }
