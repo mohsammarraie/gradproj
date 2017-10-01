@@ -107,5 +107,86 @@ public class BusesDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
+    
+        public void insertBus(BusesInfo busesInfo) throws Exception {                
+        try {
+            Connection conn = getConnection();
+            
+            String sql = "INSERT INTO BUSES_INFO (BUS_ID,"
+                    + " DEPARTURE_TIME,"
+                    + " ARRIVAL_TIME,"
+                    + " ROUTE_EN,"
+                    + " ROUTE_AR,"
+                    + " LICENSE_PLATE,"
+                    + " CAPACITY,"
+                    + " DRIVER_ID)"
+                    + " VALUES ((select max(BUS_ID) from BUSES_INFO)+1,?,?,?,?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql); 
+            
+            ps.setString(1, busesInfo.getDepartureTime());
+            ps.setString(2, busesInfo.getArrivalTime());
+            ps.setString(3, busesInfo.getRouteEn());
+            ps.setString(4, busesInfo.getRouteAr());
+            ps.setString(5, busesInfo.getLicensePlate());
+            ps.setInt(6, busesInfo.getCapacity());
+            ps.setInt(7, busesInfo.getDriverInfo().getDriverID());   
+            
+            
+            ps.executeUpdate();
+            
+            ps.close();
+ 
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+    
+    public void updateBus(BusesInfo busesInfo) throws Exception {
+        try {
+            Connection conn = getConnection();
+
+            String sql = "UPDATE BUSES_INFO SET"
+                    + " DEPARTURE_TIME=?,"
+                    + " ARRIVAL_TIME=?,"
+                    + " ROUTE_EN=?,"
+                    + " ROUTE_AR=?,"
+                    + " LICENSE_PLATE=?,"
+                    + " CAPACITY=?,"
+                    + " DRIVER_ID=?"
+                    + " WHERE BUS_ID=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            ps.setString(1, busesInfo.getDepartureTime());
+            ps.setString(2, busesInfo.getArrivalTime());
+            ps.setString(3, busesInfo.getRouteEn());
+            ps.setString(4, busesInfo.getRouteAr());
+            ps.setString(5, busesInfo.getLicensePlate());
+            ps.setInt(6, busesInfo.getCapacity());
+            ps.setInt(7, busesInfo.getDriverInfo().getDriverID());         
+            ps.setInt(8, busesInfo.getBusID());
+
+            ps.executeUpdate();
+            
+            ps.close();
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+    
+    public void deleteBus(int busID) throws Exception {
+        Connection conn = getConnection();
+        
+        try {
+            String sql = "DELETE FROM BUSES_INFO WHERE BUS_ID=?";                               
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, busID);
+            
+            ps.executeUpdate();
+
+            ps.close();
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
         
 }

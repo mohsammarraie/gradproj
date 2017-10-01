@@ -23,22 +23,33 @@ import javax.inject.Named;
 @Named(value = "busesInfoBean")
 @ViewScoped
 public class BusesInfoBean implements Serializable {
+
+    private BusesInfo selectedBus;
     private final DriverDao driverDao = new DriverDao();
     private final BusesDao busesDao = new BusesDao();
-    private ArrayList<BusesInfo> busesInfo; 
-    
-    @Inject 
+    private ArrayList<BusesInfo> busesInfo;
+
+    @Inject
     private SessionBean sessionBean;
-     
-    public BusesInfoBean(){}
-     
-        @PostConstruct
-      public void init(){
-        try {            
-            busesInfo = busesDao.buildBusesInfo(driverDao.buildDriverInfoMap());            
+
+    public BusesInfoBean() {
+    }
+
+    @PostConstruct
+    public void init() {
+        try {
+            busesInfo = busesDao.buildBusesInfo(driverDao.buildDriverInfoMap());
         } catch (Exception ex) {
             Logger.getLogger(BusesInfoBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public BusesInfo getSelectedBus() {
+        return selectedBus;
+    }
+
+    public void setSelectedBus(BusesInfo selectedBus) {
+        this.selectedBus = selectedBus;
     }
 
     public ArrayList<BusesInfo> getBusesInfo() {
@@ -48,6 +59,17 @@ public class BusesInfoBean implements Serializable {
     public void setBusesInfo(ArrayList<BusesInfo> busesInfo) {
         this.busesInfo = busesInfo;
     }
-   
-    
+
+    public void saveSelectedItemId() {
+        sessionBean.setSelectedItemId(selectedBus.getBusID());
+    }
+
+    public void deleteSelectedBus() {
+        try {
+            busesDao.deleteBus(selectedBus.getBusID());
+        } catch (Exception ex) {
+            Logger.getLogger(BusesInfoBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

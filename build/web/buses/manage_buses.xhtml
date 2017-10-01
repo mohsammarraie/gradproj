@@ -22,10 +22,12 @@ and open the template in the editor.
                     <p:dataTable 
                            id="bus_info_tbl"
                            value = "#{busesInfoBean.busesInfo}"
+                           selection="#{busesInfoBean.selectedBus}"
+                           rowKey="#{busesInfo.busID}"  
                            class = "dataTable"
                            var="busesInfo"
                            rows="2"
-                           rowsPerPageTemplate="1,2,3"
+                           rowsPerPageTemplate="1,5,10"
                            dir="#{langBean.dir}"
                            emptyMessage="#{msgs.no_buses}"
                            paginator="true"
@@ -38,7 +40,8 @@ and open the template in the editor.
                             <f:facet name="header" id="header">
                                 #{msgs.buses}
                             </f:facet> 
-
+                            <p:column selectionMode="single" style="width:5%"/>
+                            
                             <p:column headerText="#{msgs.bus_id}"
                                       style="width:15%"
                                       sortBy="#{busesInfo.busID}">                    
@@ -49,6 +52,14 @@ and open the template in the editor.
                                       style="width:15%"
                                       sortBy="#{busesInfo.driverID}">                    
                                 <h:outputText value="#{busesInfo.driverID}"/>  
+                            </p:column>
+                            
+                            <p:column headerText="#{msgs.name}"
+                                style="width:20%"
+                                filterBy="#{langBean.isEnglish?busesInfo.driverInfo.nameEn:busesInfo.driverInfo.nameAr}"
+                                filterMatchMode="contains"
+                                sortBy="#{langBean.isEnglish?busesInfo.driverInfo.nameEn:busesInfo.driverInfo.nameAr}">                    
+                                <h:outputText value="#{langBean.isEnglish?busesInfo.driverInfo.nameEn:busesInfo.driverInfo.nameAr}"/>  
                             </p:column>
                             
                             <p:column headerText="#{msgs.departure_time}"
@@ -82,8 +93,37 @@ and open the template in the editor.
                                       sortBy="#{busesInfo.capacity}">                    
                                 <h:outputText value="#{busesInfo.capacity}"/>  
                             </p:column>
-
+                            <f:facet name="footer">
+                                <p:toolbar style="border: none">
+                                    <p:toolbarGroup align="#{languageBean.screenLeft}">
+                                        <p:commandButton value="#{msgs.delete}"
+                                                 icon="ui-icon-minus"                                  
+                                                 iconPos="#{langBean.styleFloat}"
+                                                 styleClass="commandButton"
+                                                 style="float:#{langBean.styleFloat}"                                                                                                
+                                                 disabled="#{busesInfoBean.selectedBus==null}"
+                                                 onclick="return confirm('#{msgs.confirm_delete_event}?');"
+                                                 actionListener="#{busesInfoBean.deleteSelectedBus()}"
+                                                 action="manage_buses" />
+                                        <p:commandButton value="#{msgs.edit}"
+                                                 icon="ui-icon-pencil"                                  
+                                                 iconPos="#{langBean.styleFloat}"
+                                                 styleClass="commandButton"
+                                                 style="float:#{langBean.styleFloat}"                                                                                                
+                                                 disabled="#{busesInfoBean.selectedBus==null}"                                                 
+                                                 actionListener="#{busesInfoBean.saveSelectedItemId()}"
+                                                 action="add_edit_buses" />
+                                    </p:toolbarGroup>
+                                </p:toolbar>
+                            </f:facet>
                         </p:dataTable>
+                      <p:commandButton value="#{msgs.add}"
+                                 icon="ui-icon-plus"                                  
+                                 iconPos="#{langBean.styleFloat}"
+                                 styleClass="commandButton"
+                                 style="float:#{langBean.styleFloat}" 
+                                 actionListener="#{sessionBean.setSelectedItemId(-1)}"
+                                 action="add_edit_buses" /> 
                 </h:form>
                
             </ui:decorate>
