@@ -77,18 +77,17 @@ public class DriverDao extends ConnectionDao {
         try {
             Connection conn = getConnection();
 
-            String sql2 = "INSERT INTO DRIVER_INFO (DRIVER_ID,"
+            String sql = "INSERT INTO DRIVER_INFO (DRIVER_ID,"
                     + " NAME_EN,"
-                    + " NAME_AR"
+                    + " NAME_AR)"
                     + " VALUES ((select max(DRIVER_ID) from DRIVER_INFO)+1,?,?)";
-             PreparedStatement ps2 = conn.prepareStatement(sql2); 
+             PreparedStatement ps = conn.prepareStatement(sql); 
             
-             ps2.setString(2, driverInfo.getNameEn());
-             ps2.setString(3, driverInfo.getNameAr());
-               
-            ps2.executeUpdate();
-            
-            ps2.close();
+             ps.setString(1, driverInfo.getNameEn());
+             ps.setString(2, driverInfo.getNameAr());
+             
+             ps.executeUpdate();
+             ps.close();
             
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
@@ -100,7 +99,7 @@ public class DriverDao extends ConnectionDao {
 
             String sql = "UPDATE DRIVER_INFO SET"
                     + " NAME_EN=?,"
-                    + " NAME_AR=?,"
+                    + " NAME_AR=?"
                     + " WHERE DRIVER_ID=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             
@@ -109,8 +108,8 @@ public class DriverDao extends ConnectionDao {
             ps.setInt(3, driverInfo.getDriverID());
 
             ps.executeUpdate();
-            
             ps.close();
+            
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
         }
