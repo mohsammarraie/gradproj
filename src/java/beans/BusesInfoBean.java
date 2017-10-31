@@ -67,6 +67,7 @@ public class BusesInfoBean implements Serializable {
     public void deleteSelectedBus() {
         try {
             busesDao.deleteBus(selectedBus.getBusID());
+            sessionBean.navigate("manage_buses");
         } catch (Exception ex) {
             Logger.getLogger(BusesInfoBean.class.getName()).log(Level.SEVERE, null, ex);
         }

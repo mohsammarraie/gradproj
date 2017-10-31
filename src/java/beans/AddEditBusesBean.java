@@ -16,6 +16,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import models.BusesInfo;
 import models.DriverInfo;
+import java.sql.Timestamp;
+import java.util.Date;
 /**
  *
  * @author MOH
@@ -30,8 +32,8 @@ public class AddEditBusesBean implements Serializable{
     private int driverID;
 //    private String nameEn;
 //    private String nameAr;
-    private String departureTime;
-    private String arrivalTime;
+    private Date departureTime;
+    private Date arrivalTime;
     private String routeEn;
     private String routeAr;
     private String licensePlate;
@@ -95,19 +97,19 @@ public class AddEditBusesBean implements Serializable{
         this.driverID = driverID;
     }
 
-    public String getDepartureTime() {
+    public Date getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(String departureTime) {
+    public void setDepartureTime(Date departureTime) {
         this.departureTime = departureTime;
     }
 
-    public String getArrivalTime() {
+    public Date getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(String arrivalTime) {
+    public void setArrivalTime(Date arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
@@ -150,8 +152,8 @@ public class AddEditBusesBean implements Serializable{
             DriverInfo driverInfoID = driverInfos.get(driverID - 1);
             busesInfo.setBusID(busID);
             busesInfo.setDriverInfo(driverInfoID);
-            busesInfo.setDepartureTime(departureTime);
-            busesInfo.setArrivalTime(arrivalTime);
+            busesInfo.setDepartureTime(new Timestamp(departureTime.getTime()));
+            busesInfo.setArrivalTime(new Timestamp(arrivalTime.getTime()));
             busesInfo.setRouteEn(routeEn);
             busesInfo.setRouteAr(routeAr);
             busesInfo.setLicensePlate(licensePlate);

@@ -5,6 +5,8 @@
  */
 package models;
 import java.io.Serializable;
+import java.sql.Timestamp;
+
 /**
  *
  * @author MOH
@@ -13,14 +15,14 @@ public class BusesInfo implements Serializable {
     
     private int busID;
     private int driverID;
-    private String departureTime;
-    private String arrivalTime;
+    private Timestamp departureTime;
+    private Timestamp arrivalTime;
     private String routeEn;
     private String routeAr;
     private String licensePlate;
     private int capacity;
     private DriverInfo driverInfo;
-
+ 
 //    public BusesInfo(){}
 //    /**
 //     *
@@ -64,19 +66,19 @@ public class BusesInfo implements Serializable {
         this.driverID = driverID;
     }
 
-    public String getDepartureTime() {
+    public Timestamp getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(String departureTime) {
+    public void setDepartureTime(Timestamp departureTime) {
         this.departureTime = departureTime;
     }
 
-    public String getArrivalTime() {
+    public Timestamp getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(String arrivalTime) {
+    public void setArrivalTime(Timestamp arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 

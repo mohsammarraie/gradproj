@@ -25,24 +25,31 @@ and open the template in the editor.
                                  columns="3"                              
                                  dir="#{langBean.dir}">
                         <p:outputLabel value="#{msgs.departure_time}:" for="departure_time"/>
-                        <p:inputText id="departure_time"
-                                     style="width:600px"
-                                     value="#{addEditBusesBean.departureTime}"                                      
-                                     required="true"
-                                     maxlength="512"
-                                     requiredMessage="#{msgs.required_msg}">
-                        </p:inputText>
+                        <p:calendar id="departure_time"
+                                    value="#{addEditBusesBean.departureTime}"
+                                    dir="ltr"
+                                    pattern="HH:mm"
+                                    timeOnly="true"
+                                    navigator="true"
+                                    required="true"
+                                    yearRange="c-10:c+1"
+                                    timeInput="true"
+                                    requiredMessage=" #{msgs.required_msg}"/> 
                         <h:message for="departure_time" styleClass="errorMsg"/>
 
                         <p:outputLabel value="#{msgs.arrival_time}:" for="arrival_time"/>
-                        <p:inputText id="arrival_time"
-                                     value="#{addEditBusesBean.arrivalTime}"
-                                     style="width:600px"
-                                     required="true"
-                                     maxlength="512"
-                                     requiredMessage=" #{msgs.required_msg}">
-                        </p:inputText>
-                        <h:message for="arrival_time" styleClass="errorMsg"/>
+                        <p:calendar id="arrival_time"
+                                    value="#{addEditBusesBean.arrivalTime}"
+                                    dir="ltr"
+                                    pattern="HH:mm"
+                                    timeOnly="true"
+                                    navigator="true"
+                                    required="true"
+                                    yearRange="c-10:c+1"
+                                    timeInput="true"
+                                    requiredMessage=" #{msgs.required_msg}"/> 
+                        <h:message for="arrival_time" styleClass="errorMsg"/>  
+                    
                         
                         <p:outputLabel value="#{msgs.driver_name_en}:" for="driver_name_en"/>
                         <p:selectOneMenu value="#{addEditBusesBean.driverID}"
@@ -65,6 +72,8 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}">
+                            <f:validateLength minimum="1" />
+                            <f:validateRegex pattern="^[a-zA-Z]{3,20}-[a-zA-Z]{3,20}$"/>
                         </p:inputText>
                         <h:message for="route_en" styleClass="errorMsg"/>
 
@@ -76,7 +85,10 @@ and open the template in the editor.
                                      dir="rtl"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}">
+                            <f:validateLength minimum="2"/>
+                             <f:validateRegex pattern="^[ا-ي]{2,20}-[ا-ي]{2,20}$"/>
                         </p:inputText>
+                        
                         <h:message for="route_ar" styleClass="errorMsg"/>
                         
                         <p:outputLabel value="#{msgs.license_plate}:" for="license_plate"/>
@@ -86,6 +98,7 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}">
+                            <f:validateRegex pattern="^[0-9]{1,2}-[0-9]{1,5}$"/>
                         </p:inputText>
                         <h:message for="license_plate" styleClass="errorMsg"/>
                                                         
@@ -107,8 +120,9 @@ and open the template in the editor.
                                  styleClass="commandButton"
                                  icon="ui-icon-disk"
                                  iconPos="#{langBean.styleFloat}"
-                                 style="float:#{langBean.styleFloat}"                                                                   
-                                 actionListener="#{addEditBusesBean.saveBus()}" />
+                                 style="float:#{langBean.styleFloat}" 
+                                 ajax="false"
+                                 action="#{addEditBusesBean.saveBus()}" />
                 <p:commandButton value="#{msgs.cancel}"
                                  icon="ui-icon-cancel"  
                                  iconPos="#{langBean.styleFloat}"

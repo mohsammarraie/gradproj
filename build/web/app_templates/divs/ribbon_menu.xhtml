@@ -173,6 +173,13 @@
                                       actionListener="#{sessionBean.setMenuIndex(5)}"
                                       action="/buses/manage_drivers.xhtml">                       
                     </p:commandButton>
+                    <p:commandButton  value="Geolocation" 
+                                      styleClass="ribbonButton" 
+                                      style="float:#{langBean.styleFloat};"
+                                      actionListener="#{sessionBean.setMenuIndex(5)}"
+                                      action="/buses/geolocation_test.xhtml">                       
+                    </p:commandButton>
+                    
                 </p:ribbonGroup>               
             </p:tab>
         </p:ribbon>

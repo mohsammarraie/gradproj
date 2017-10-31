@@ -46,8 +46,8 @@ public class BusesDao extends ConnectionDao {
         
         busesInfo.setBusID(rs.getInt("BUS_ID"));
         busesInfo.setDriverID(rs.getInt("DRIVER_ID"));
-        busesInfo.setDepartureTime(rs.getString("DEPARTURE_TIME"));                    
-        busesInfo.setArrivalTime(rs.getString("ARRIVAL_TIME"));                    
+        busesInfo.setDepartureTime(rs.getTimestamp("DEPARTURE_TIME"));                    
+        busesInfo.setArrivalTime(rs.getTimestamp("ARRIVAL_TIME"));                    
         busesInfo.setRouteEn(rs.getString("ROUTE_EN"));                    
         busesInfo.setRouteAr(rs.getString("ROUTE_AR"));                    
         busesInfo.setLicensePlate(rs.getString("LICENSE_PLATE")); 
@@ -63,8 +63,8 @@ public class BusesDao extends ConnectionDao {
         
         busesInfo.setBusID(rs.getInt("BUS_ID"));
         busesInfo.setDriverID(rs.getInt("DRIVER_ID"));
-        busesInfo.setDepartureTime(rs.getString("DEPARTURE_TIME"));                    
-        busesInfo.setArrivalTime(rs.getString("ARRIVAL_TIME"));                    
+        busesInfo.setDepartureTime(rs.getTimestamp("DEPARTURE_TIME"));                    
+        busesInfo.setArrivalTime(rs.getTimestamp("ARRIVAL_TIME"));                    
         busesInfo.setRouteEn(rs.getString("ROUTE_EN"));                    
         busesInfo.setRouteAr(rs.getString("ROUTE_AR"));                    
         busesInfo.setLicensePlate(rs.getString("LICENSE_PLATE")); 
@@ -83,8 +83,8 @@ public class BusesDao extends ConnectionDao {
             Connection conn = getConnection();
             
             String sql = "SELECT BUSES_INFO.*, "
-                    + " DRIVER_INFO.NAME_EN as TYPE_EN,"
-                    + " DRIVER_INFO.NAME_AR as TYPE_AR "
+                    + " DRIVER_INFO.NAME_EN as DRIVER_NAME_EN,"
+                    + " DRIVER_INFO.NAME_AR as DRIVER_NAME_AR "
                     + " FROM BUSES_INFO, DRIVER_INFO "
                     + " WHERE BUSES_INFO.DRIVER_ID=DRIVER_INFO.DRIVER_ID AND"
                     + " BUS_ID=?";                        
@@ -95,8 +95,8 @@ public class BusesDao extends ConnectionDao {
 
             while (rs.next()) {
                 busesInfo = populateBusesInfo(rs);
-                busesInfo.getDriverInfo().setNameEn(rs.getString("TYPE_EN"));
-                busesInfo.getDriverInfo().setNameAr(rs.getString("TYPE_AR"));
+                busesInfo.getDriverInfo().setNameEn(rs.getString("DRIVER_NAME_EN"));
+                busesInfo.getDriverInfo().setNameAr(rs.getString("DRIVER_NAME_AR"));
             }
 
             rs.close();
@@ -123,8 +123,8 @@ public class BusesDao extends ConnectionDao {
                     + " VALUES ((select max(BUS_ID) from BUSES_INFO)+1,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql); 
             
-            ps.setString(1, busesInfo.getDepartureTime());
-            ps.setString(2, busesInfo.getArrivalTime());
+            ps.setTimestamp(1, busesInfo.getDepartureTime());
+            ps.setTimestamp(2, busesInfo.getArrivalTime());
             ps.setString(3, busesInfo.getRouteEn());
             ps.setString(4, busesInfo.getRouteAr());
             ps.setString(5, busesInfo.getLicensePlate());
@@ -156,8 +156,8 @@ public class BusesDao extends ConnectionDao {
                     + " WHERE BUS_ID=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             
-            ps.setString(1, busesInfo.getDepartureTime());
-            ps.setString(2, busesInfo.getArrivalTime());
+            ps.setTimestamp(1, busesInfo.getDepartureTime());
+            ps.setTimestamp(2, busesInfo.getArrivalTime());
             ps.setString(3, busesInfo.getRouteEn());
             ps.setString(4, busesInfo.getRouteAr());
             ps.setString(5, busesInfo.getLicensePlate());

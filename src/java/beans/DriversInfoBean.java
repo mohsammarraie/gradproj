@@ -27,7 +27,7 @@ public class DriversInfoBean implements Serializable {
     private ArrayList<DriverInfo> driverInfo; 
     
     @Inject 
-    private SessionBean sessionBean1;
+    private SessionBean sessionBean;
      
     public DriversInfoBean(){}
      
@@ -52,19 +52,26 @@ public class DriversInfoBean implements Serializable {
         return driverInfo;
     }
 
+
+    
+    
+
     public void setDriverInfo(ArrayList<DriverInfo> driverInfo) {
         this.driverInfo = driverInfo;
     }
 
 
     public void saveSelectedItemId(){
-        sessionBean1.setSelectedItemId(selectedDriver.getDriverID());
+        sessionBean.setSelectedItemId(selectedDriver.getDriverID());
     }
     
     public void deleteSelectedDriver(){
         try {
             driverDao.deleteDriver(selectedDriver.getDriverID());
+            sessionBean.navigate("manage_drivers");
+
         } catch (Exception ex) {
+            sessionBean.navigate("error_page");
             Logger.getLogger(DriversInfoBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

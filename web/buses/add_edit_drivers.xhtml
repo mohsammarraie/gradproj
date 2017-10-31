@@ -32,6 +32,8 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}">
+                            <f:validateRegex pattern="[a-zA-Z]+"/>
+
                         </p:inputText>
                         <h:message for="name_en" styleClass="errorMsg"/>
 
@@ -43,6 +45,7 @@ and open the template in the editor.
                                      dir="rtl"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}">
+                             <f:validateRegex pattern="[ا-ي]+"/>
                         </p:inputText>
                         <h:message for="name_ar" styleClass="errorMsg"/>
                                     
@@ -52,6 +55,7 @@ and open the template in the editor.
                 <p:commandButton value="#{msgs.save}"
                                  styleClass="commandButton"
                                  icon="ui-icon-disk"
+                                 ajax="false"
                                  iconPos="#{langBean.styleFloat}"
                                  style="float:#{langBean.styleFloat}"                                                                   
                                  actionListener="#{addEditDriversBean.saveDriver()}" />
