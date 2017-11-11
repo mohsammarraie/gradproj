@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{msgs.manage_stops}</title>
+    </h:head>
+    <h:body>
+        <ui:decorate template="/app_templates/app_template.xhtml">  
+            <h:form id="add_stop">            
+                <p:messages id="msgs" closable="true" globalOnly="true"/>
+
+                <p:panel header="#{msgs.stops}"                            
+                         style="min-height:400px; 
+                                direction:#{langBean.dir};margin-top:10px; font-size:10pt">
+                    <h:panelGrid id="add"
+                                 style="float: #{langBean.styleFloat};" 
+                                 columns="3"                              
+                                 dir="#{langBean.dir}">
+                        
+                        <p:outputLabel value="#{msgs.stop_name_en}:" for="stop_name_en"/>
+                        <p:inputText id="stop_name_en"
+                                     value="#{addEditStopBean.stopNameEn}"
+                                     style="width:600px"
+                                     required="true"
+                                     maxlength="512"
+                                     requiredMessage=" #{msgs.required_msg}">
+                            <f:validateRegex pattern="[a-zA-Z]+"/>
+                        </p:inputText>
+                        <h:message for="stop_name_en" styleClass="errorMsg"/>
+                           
+                        <p:outputLabel value="#{msgs.stop_name_ar}:" for="stop_name_ar"/>
+                        <p:inputText id="stop_name_ar"
+                                     value="#{addEditStopBean.stopNameAr}"
+                                     style="width:600px"
+                                     required="true"
+                                     maxlength="512"
+                                     requiredMessage=" #{msgs.required_msg}">
+                            <f:validateRegex pattern="[ا-ي]+"/>
+                        </p:inputText>
+                        <h:message for="stop_name_ar" styleClass="errorMsg"/>
+                                     
+                    </h:panelGrid>
+                </p:panel>
+
+                <p:commandButton value="#{msgs.save}"
+                                 styleClass="commandButton"
+                                 icon="ui-icon-disk"
+                                 ajax="false"
+                                 iconPos="#{langBean.styleFloat}"
+                                 style="float:#{langBean.styleFloat}"                                                                   
+                                 actionListener="#{addEditStopBean.saveStop()}" />
+                <p:commandButton value="#{msgs.cancel}"
+                                 icon="ui-icon-cancel"  
+                                 iconPos="#{langBean.styleFloat}"
+                                 styleClass="commandButton"
+                                 immediate="true" 
+                                 style="float:#{langBean.styleFloat}"                                 
+                                 action="manage_stops" />                                   
+            </h:form>
+        </ui:decorate>
+    </h:body>
+</html>

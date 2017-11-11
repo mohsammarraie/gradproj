@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{msgs.manage_routes}</title>
+    </h:head>
+    <h:body>
+        <ui:decorate template="/app_templates/app_template.xhtml">  
+            <h:form id="add_route">            
+                <p:messages id="msgs" closable="true" globalOnly="true"/>
+
+                <p:panel header="#{msgs.route}"                            
+                         style="min-height:400px; 
+                                direction:#{langBean.dir};margin-top:10px; font-size:10pt">
+                    <h:panelGrid id="add"
+                                 style="float: #{langBean.styleFloat};" 
+                                 columns="3"                              
+                                 dir="#{langBean.dir}">
+                        
+                        <p:outputLabel value="#{msgs.source_en}:" for="source_en"/>
+                        <p:inputText id="source_en"
+                                     value="#{addEditRouteBean.sourceEn}"
+                                     style="width:600px"
+                                     required="true"
+                                     maxlength="512"
+                                     requiredMessage=" #{msgs.required_msg}">
+                            <f:validateRegex pattern="[a-zA-Z]+"/>
+                        </p:inputText>
+                        <h:message for="source_en" styleClass="errorMsg"/>
+                           
+                        <p:outputLabel value="#{msgs.source_ar}:" for="source_ar"/>
+                        <p:inputText id="source_ar"
+                                     value="#{addEditRouteBean.sourceAr}"
+                                     style="width:600px"
+                                     required="true"
+                                     maxlength="512"
+                                     requiredMessage=" #{msgs.required_msg}">
+                            <f:validateRegex pattern="[ا-ي]+"/>
+                        </p:inputText>
+                        <h:message for="source_ar" styleClass="errorMsg"/>
+                        
+                        <p:outputLabel value="#{msgs.destination_en}:" for="destination_en"/>
+                        <p:inputText id="destination_en"
+                                     value="#{addEditRouteBean.destinationEn}"
+                                     style="width:600px"
+                                     required="true"
+                                     maxlength="512"
+                                     requiredMessage=" #{msgs.required_msg}">
+                            <f:validateRegex pattern="[a-zA-Z]+"/>
+                        </p:inputText>
+                        <h:message for="destination_en" styleClass="errorMsg"/>
+                        
+                        <p:outputLabel value="#{msgs.destination_ar}:" for="destination_ar"/>
+                        <p:inputText id="destination_ar"
+                                     value="#{addEditRouteBean.destinationAr}"
+                                     style="width:600px"
+                                     required="true"
+                                     maxlength="512"
+                                     requiredMessage=" #{msgs.required_msg}">
+                            <f:validateRegex pattern="[ا-ي]+"/>
+                        </p:inputText>
+                        <h:message for="destination_ar" styleClass="errorMsg"/>
+              
+                                    
+                    </h:panelGrid>
+                </p:panel>
+
+                <p:commandButton value="#{msgs.save}"
+                                 styleClass="commandButton"
+                                 icon="ui-icon-disk"
+                                 ajax="false"
+                                 iconPos="#{langBean.styleFloat}"
+                                 style="float:#{langBean.styleFloat}"                                                                   
+                                 actionListener="#{addEditRouteBean.saveRoute()}" />
+                <p:commandButton value="#{msgs.cancel}"
+                                 icon="ui-icon-cancel"  
+                                 iconPos="#{langBean.styleFloat}"
+                                 styleClass="commandButton"
+                                 immediate="true" 
+                                 style="float:#{langBean.styleFloat}"                                 
+                                 action="manage_routes" />                                   
+            </h:form>
+        </ui:decorate>
+    </h:body>
+</html>

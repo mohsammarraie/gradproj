@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import models.BusesInfo;
-import models.DriverInfo;
+import models.DriversInfo;
 
 /**
  *
@@ -16,20 +16,20 @@ import models.DriverInfo;
 
 public class BusesDao extends ConnectionDao {
 
-        public ArrayList<BusesInfo> buildBusesInfo(HashMap<Integer, DriverInfo> driverInfos) 
+        public ArrayList<BusesInfo> buildBusesInfo() 
             throws Exception {
         ArrayList<BusesInfo> list = new ArrayList<>();        
         
         try {   
             Connection conn = getConnection();
             
-            String sql = "SELECT * FROM BUSES_INFO";                        
+            String sql = "SELECT * FROM BUSES.BUSES";                        
             PreparedStatement ps = conn.prepareStatement(sql);            
 
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                list.add(populateBusesInfoWithDriverInfo(rs, driverInfos));
+                list.add(populateBusesInfo(rs));
             }
             
             rs.close();
@@ -40,40 +40,15 @@ public class BusesDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-    private BusesInfo populateBusesInfoWithDriverInfo(ResultSet rs, HashMap<Integer, DriverInfo> driverInfos) 
-            throws SQLException {
-        BusesInfo busesInfo = new BusesInfo();
-        
-        busesInfo.setBusID(rs.getInt("BUS_ID"));
-        busesInfo.setDriverID(rs.getInt("DRIVER_ID"));
-        busesInfo.setDepartureTime(rs.getTimestamp("DEPARTURE_TIME"));                    
-        busesInfo.setArrivalTime(rs.getTimestamp("ARRIVAL_TIME"));                    
-        busesInfo.setRouteEn(rs.getString("ROUTE_EN"));                    
-        busesInfo.setRouteAr(rs.getString("ROUTE_AR"));                    
-        busesInfo.setLicensePlate(rs.getString("LICENSE_PLATE")); 
-        busesInfo.setCapacity(rs.getInt("CAPACITY"));
-        
-        DriverInfo driverInfo = driverInfos.get(rs.getInt("DRIVER_ID"));        
-        busesInfo.setDriverInfo(driverInfo);                
-        
-        return busesInfo;
-    } 
+
         private BusesInfo populateBusesInfo(ResultSet rs) throws SQLException {
         BusesInfo busesInfo = new BusesInfo();
         
-        busesInfo.setBusID(rs.getInt("BUS_ID"));
-        busesInfo.setDriverID(rs.getInt("DRIVER_ID"));
-        busesInfo.setDepartureTime(rs.getTimestamp("DEPARTURE_TIME"));                    
-        busesInfo.setArrivalTime(rs.getTimestamp("ARRIVAL_TIME"));                    
-        busesInfo.setRouteEn(rs.getString("ROUTE_EN"));                    
-        busesInfo.setRouteAr(rs.getString("ROUTE_AR"));                    
-        busesInfo.setLicensePlate(rs.getString("LICENSE_PLATE")); 
-        busesInfo.setCapacity(rs.getInt("CAPACITY"));
-        
-        DriverInfo driverInfo = new DriverInfo();
-        driverInfo.setDriverID(rs.getInt("DRIVER_ID"));        
-        busesInfo.setDriverInfo(driverInfo);               
-    
+        busesInfo.setBusID(rs.getInt("BUS_ID")); 
+        busesInfo.setChasisNumber(rs.getInt("CHASIS_NUMBER"));
+        busesInfo.setLicenseNumber(rs.getString("LICENSE_NUMBER")); 
+        busesInfo.setCapacity(rs.getInt("CAPACITY")); 
+             
         return busesInfo;
     }
         
@@ -82,12 +57,8 @@ public class BusesDao extends ConnectionDao {
             BusesInfo busesInfo = null;
             Connection conn = getConnection();
             
-            String sql = "SELECT BUSES_INFO.*, "
-                    + " DRIVER_INFO.NAME_EN as DRIVER_NAME_EN,"
-                    + " DRIVER_INFO.NAME_AR as DRIVER_NAME_AR "
-                    + " FROM BUSES_INFO, DRIVER_INFO "
-                    + " WHERE BUSES_INFO.DRIVER_ID=DRIVER_INFO.DRIVER_ID AND"
-                    + " BUS_ID=?";                        
+               String sql = "SELECT * FROM BUSES.BUSES"
+                    + " WHERE BUS_ID=?";                      
             PreparedStatement ps = conn.prepareStatement(sql);            
             ps.setInt(1, BusID);
             
@@ -95,8 +66,9 @@ public class BusesDao extends ConnectionDao {
 
             while (rs.next()) {
                 busesInfo = populateBusesInfo(rs);
-                busesInfo.getDriverInfo().setNameEn(rs.getString("DRIVER_NAME_EN"));
-                busesInfo.getDriverInfo().setNameAr(rs.getString("DRIVER_NAME_AR"));
+                busesInfo.setChasisNumber(rs.getInt("CHASIS_NUMBER"));
+                busesInfo.setCapacity(rs.getInt("CAPACITY"));
+                busesInfo.setLicenseNumber(rs.getString("LICENSE_NUMBER"));
             }
 
             rs.close();
@@ -112,25 +84,16 @@ public class BusesDao extends ConnectionDao {
         try {
             Connection conn = getConnection();
             
-            String sql = "INSERT INTO BUSES_INFO (BUS_ID,"
-                    + " DEPARTURE_TIME,"
-                    + " ARRIVAL_TIME,"
-                    + " ROUTE_EN,"
-                    + " ROUTE_AR,"
-                    + " LICENSE_PLATE,"
-                    + " CAPACITY,"
-                    + " DRIVER_ID)"
-                    + " VALUES ((select max(BUS_ID) from BUSES_INFO)+1,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO BUSES.BUSES (BUS_ID,"
+                    + " CHASIS_NUMBER,"
+                    + " LICENSE_NUMBER,"
+                    + " CAPACITY)"
+                    + " VALUES ((select max(BUS_ID) from BUSES.BUSES)+1,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql); 
             
-            ps.setTimestamp(1, busesInfo.getDepartureTime());
-            ps.setTimestamp(2, busesInfo.getArrivalTime());
-            ps.setString(3, busesInfo.getRouteEn());
-            ps.setString(4, busesInfo.getRouteAr());
-            ps.setString(5, busesInfo.getLicensePlate());
-            ps.setInt(6, busesInfo.getCapacity());
-            ps.setInt(7, busesInfo.getDriverInfo().getDriverID());   
-            
+            ps.setInt(1, busesInfo.getChasisNumber());
+            ps.setString(2, busesInfo.getLicenseNumber());
+            ps.setInt(3, busesInfo.getCapacity());
             
             ps.executeUpdate();
             
@@ -145,25 +108,19 @@ public class BusesDao extends ConnectionDao {
         try {
             Connection conn = getConnection();
 
-            String sql = "UPDATE BUSES_INFO SET"
-                    + " DEPARTURE_TIME=?,"
-                    + " ARRIVAL_TIME=?,"
-                    + " ROUTE_EN=?,"
-                    + " ROUTE_AR=?,"
-                    + " LICENSE_PLATE=?,"
-                    + " CAPACITY=?,"
-                    + " DRIVER_ID=?"
+            String sql = "UPDATE BUSES.BUSES SET"
+             
+                    + " LICENSE_NUMBER=?,"
+                    + " CHASIS_NUMBER=?,"
+                    + " CAPACITY=?"
                     + " WHERE BUS_ID=?";
-            PreparedStatement ps = conn.prepareStatement(sql);
             
-            ps.setTimestamp(1, busesInfo.getDepartureTime());
-            ps.setTimestamp(2, busesInfo.getArrivalTime());
-            ps.setString(3, busesInfo.getRouteEn());
-            ps.setString(4, busesInfo.getRouteAr());
-            ps.setString(5, busesInfo.getLicensePlate());
-            ps.setInt(6, busesInfo.getCapacity());
-            ps.setInt(7, busesInfo.getDriverInfo().getDriverID());         
-            ps.setInt(8, busesInfo.getBusID());
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, busesInfo.getLicenseNumber());
+            ps.setInt(2, busesInfo.getChasisNumber());
+            ps.setInt(3, busesInfo.getCapacity());     
+            ps.setInt(4, busesInfo.getBusID());
 
             ps.executeUpdate();
             
@@ -177,7 +134,7 @@ public class BusesDao extends ConnectionDao {
         Connection conn = getConnection();
         
         try {
-            String sql = "DELETE FROM BUSES_INFO WHERE BUS_ID=?";                               
+            String sql = "DELETE FROM BUSES.BUSES WHERE BUS_ID=?";                               
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, busID);
             

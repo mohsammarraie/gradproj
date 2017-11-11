@@ -13,58 +13,62 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>#{msgs.buses}</title>
+        <title>#{msgs.drivers}</title>
     </h:head>
     <h:body>
         <div>
             <ui:decorate template="/app_templates/app_template.xhtml">
-                <h:form id="bus_info_form">
+                <h:form id="driver_info_form">
                     <p:dataTable 
-                           id="bus_info_tbl"
-                           value = "#{busesInfoBean.busesInfo}"
-                           selection="#{busesInfoBean.selectedBus}"
-                           rowKey="#{busesInfo.busID}"  
+                           id="driver_info_tbl"
+                           value = "#{driversInfoBean.driverInfo}"
+                           selection="#{driversInfoBean.selectedDriver}"
+                           rowKey="#{driverInfo.driverID}"  
                            class = "dataTable"
-                           var="busesInfo"
+                           var="driverInfo"
                            rows="2"
-                           rowsPerPageTemplate="2,5,10"
+                           rowsPerPageTemplate="1,5,10"
                            dir="#{langBean.dir}"
-                           emptyMessage="#{msgs.no_buses}"
+                           emptyMessage="#{msgs.no_drivers}"
                            paginator="true"
                            paginatorPosition="top" 
                            paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
                              >
                             <p:ajax event="rowSelectRadio"
-                              update=":bus_info_form:bus_info_tbl"/>  
+                              update=":driver_info_form:driver_info_tbl"/>  
 
                             <f:facet name="header" id="header">
-                                #{msgs.buses}
+                                #{msgs.drivers}
                             </f:facet> 
                             <p:column selectionMode="single" style="width:5%"/>
                             
-                            <p:column headerText="#{msgs.bus_id}"
+                            <p:column headerText="#{msgs.driver_id}"
                                       style="width:15%"
-                                      sortBy="#{busesInfo.busID}">                    
-                                <h:outputText value="#{busesInfo.busID}"/>  
+                                      sortBy="#{driverInfo.driverID}">                    
+                                <h:outputText value="#{driverInfo.driverID}"/>  
+                            </p:column>
+
+                            
+                            <p:column headerText="#{msgs.name}"
+                                style="width:20%"
+                                filterBy="#{langBean.isEnglish?driverInfo.firstNameEn:driverInfo.firstNameAr}"
+                                filterMatchMode="contains"
+                                sortBy="#{langBean.isEnglish?driverInfo.firstNameEn:driverInfo.firstNameAr}">                    
+                                <h:outputText value="#{langBean.isEnglish?driverInfo.firstNameEn:driverInfo.firstNameAr}"/>  
                             </p:column>
                             
-                            <p:column headerText="#{msgs.chasis_number}"
-                                      style="width:15%"
-                                      sortBy="#{busesInfo.chasisNumber}">                    
-                                <h:outputText value="#{busesInfo.chasisNumber}"/>  
-                            </p:column>
-           
-                            
-                            <p:column headerText="#{msgs.license_plate}"
-                                      style="width:15%"
-                                      sortBy="#{busesInfo.licenseNumber}">                    
-                                <h:outputText value="#{busesInfo.licenseNumber}"/>  
+                            <p:column headerText="#{msgs.name}"
+                                style="width:20%"
+                                filterBy="#{langBean.isEnglish?driverInfo.lastNameEn:driverInfo.lastNameAr}"
+                                filterMatchMode="contains"
+                                sortBy="#{langBean.isEnglish?driverInfo.lastNameEn:driverInfo.lastNameAr}">                    
+                                <h:outputText value="#{langBean.isEnglish?driverInfo.lastNameEn:driverInfo.lastNameAr}"/>  
                             </p:column>
                             
-                            <p:column headerText="#{msgs.capacity}"
-                                      style="width:15%"
-                                      sortBy="#{busesInfo.capacity}">                    
-                                <h:outputText value="#{busesInfo.capacity}"/>  
+                             <p:column headerText="#{msgs.phone}"
+                                    style="width:20%"
+                                    sortBy="#{driverInfo.phoneNumber}">                    
+                                <h:outputText value="#{driverInfo.phoneNumber}"/>  
                             </p:column>
                             
                             <f:facet name="footer">
@@ -75,18 +79,18 @@ and open the template in the editor.
                                                  iconPos="#{langBean.styleFloat}"
                                                  styleClass="commandButton"
                                                  style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{busesInfoBean.selectedBus==null}"
-                                                 onclick="return confirm('#{msgs.confirm_delete_bus}?');"
-                                                 actionListener="#{busesInfoBean.deleteSelectedBus()}"
-                                                 action="manage_buses" />
+                                                 disabled="#{driversInfoBean.selectedDriver==null}"
+                                                 onclick="return confirm('#{msgs.confirm_delete_driver}?');"
+                                                 actionListener="#{driversInfoBean.deleteSelectedDriver()}"
+                                                 action="manage_drivers" />
                                         <p:commandButton value="#{msgs.edit}"
                                                  icon="ui-icon-pencil"                                  
                                                  iconPos="#{langBean.styleFloat}"
                                                  styleClass="commandButton"
                                                  style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{busesInfoBean.selectedBus==null}"                                                 
-                                                 actionListener="#{busesInfoBean.saveSelectedItemId()}"
-                                                 action="add_edit_bus" />
+                                                 disabled="#{driversInfoBean.selectedDriver==null}"                                                 
+                                                 actionListener="#{driversInfoBean.saveSelectedItemId()}"
+                                                 action="add_edit_driver" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
                             </f:facet>
@@ -97,7 +101,7 @@ and open the template in the editor.
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
                                  actionListener="#{sessionBean.setSelectedItemId(-1)}"
-                                 action="add_edit_bus" /> 
+                                 action="add_edit_driver" /> 
                 </h:form>
                
             </ui:decorate>

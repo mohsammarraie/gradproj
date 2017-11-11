@@ -13,59 +13,52 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>#{msgs.buses}</title>
+        <title>#{msgs.manage_schedules}</title>
     </h:head>
     <h:body>
         <div>
             <ui:decorate template="/app_templates/app_template.xhtml">
-                <h:form id="bus_info_form">
+                <h:form id="schedule_info_form">
                     <p:dataTable 
-                           id="bus_info_tbl"
-                           value = "#{busesInfoBean.busesInfo}"
-                           selection="#{busesInfoBean.selectedBus}"
-                           rowKey="#{busesInfo.busID}"  
+                           id="schedule_info_tbl"
+                           value = "#{manageSchedulesBean.schedulesInfo}"
+                           selection="#{manageSchedulesBean.selectedSchedule}"
+                           rowKey="#{schedulesInfo.scheduleID}"  
                            class = "dataTable"
-                           var="busesInfo"
+                           var="schedulesInfo"
                            rows="2"
-                           rowsPerPageTemplate="2,5,10"
+                           rowsPerPageTemplate="1,5,10"
                            dir="#{langBean.dir}"
-                           emptyMessage="#{msgs.no_buses}"
+                           emptyMessage="#{msgs.no_schedules}"
                            paginator="true"
                            paginatorPosition="top" 
                            paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
                              >
                             <p:ajax event="rowSelectRadio"
-                              update=":bus_info_form:bus_info_tbl"/>  
+                              update=":schedule_info_form:schedule_info_tbl"/>  
 
                             <f:facet name="header" id="header">
-                                #{msgs.buses}
+                                #{msgs.schedules}
                             </f:facet> 
                             <p:column selectionMode="single" style="width:5%"/>
                             
-                            <p:column headerText="#{msgs.bus_id}"
+                            <p:column headerText="#{msgs.schedule_id}"
                                       style="width:15%"
-                                      sortBy="#{busesInfo.busID}">                    
-                                <h:outputText value="#{busesInfo.busID}"/>  
+                                      sortBy="#{schedulesInfo.scheduleID}">                    
+                                <h:outputText value="#{schedulesInfo.scheduleID}"/>  
+                            </p:column>
+                                   <p:column headerText="#{msgs.departure_time}"
+                                      style="width:15%"
+                                      sortBy="#{schedulesInfo.departureTime}">                    
+                                <h:outputText value="#{schedulesInfo.departureTime}"/>  
                             </p:column>
                             
-                            <p:column headerText="#{msgs.chasis_number}"
+                            <p:column headerText="#{msgs.arrival_time}"
                                       style="width:15%"
-                                      sortBy="#{busesInfo.chasisNumber}">                    
-                                <h:outputText value="#{busesInfo.chasisNumber}"/>  
-                            </p:column>
-           
-                            
-                            <p:column headerText="#{msgs.license_plate}"
-                                      style="width:15%"
-                                      sortBy="#{busesInfo.licenseNumber}">                    
-                                <h:outputText value="#{busesInfo.licenseNumber}"/>  
+                                      sortBy="#{schedulesInfo.arrivalTime}">                    
+                                <h:outputText value="#{schedulesInfo.arrivalTime}"/>  
                             </p:column>
                             
-                            <p:column headerText="#{msgs.capacity}"
-                                      style="width:15%"
-                                      sortBy="#{busesInfo.capacity}">                    
-                                <h:outputText value="#{busesInfo.capacity}"/>  
-                            </p:column>
                             
                             <f:facet name="footer">
                                 <p:toolbar style="border: none">
@@ -75,18 +68,18 @@ and open the template in the editor.
                                                  iconPos="#{langBean.styleFloat}"
                                                  styleClass="commandButton"
                                                  style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{busesInfoBean.selectedBus==null}"
-                                                 onclick="return confirm('#{msgs.confirm_delete_bus}?');"
-                                                 actionListener="#{busesInfoBean.deleteSelectedBus()}"
-                                                 action="manage_buses" />
+                                                 disabled="#{manageSchedulesBean.selectedSchedule==null}"
+                                                 onclick="return confirm('#{msgs.confirm_delete_schedule}?');"
+                                                 actionListener="#{manageSchedulesBean.deleteSelectedSchedule()}"
+                                                 action="manage_schedules" />
                                         <p:commandButton value="#{msgs.edit}"
                                                  icon="ui-icon-pencil"                                  
                                                  iconPos="#{langBean.styleFloat}"
                                                  styleClass="commandButton"
                                                  style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{busesInfoBean.selectedBus==null}"                                                 
-                                                 actionListener="#{busesInfoBean.saveSelectedItemId()}"
-                                                 action="add_edit_bus" />
+                                                 disabled="#{manageSchedulesBean.selectedSchedule==null}"                                                 
+                                                 actionListener="#{manageSchedulesBean.saveSelectedItemId()}"
+                                                 action="add_edit_schedule" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
                             </f:facet>
@@ -97,7 +90,7 @@ and open the template in the editor.
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
                                  actionListener="#{sessionBean.setSelectedItemId(-1)}"
-                                 action="add_edit_bus" /> 
+                                 action="add_edit_schedule" /> 
                 </h:form>
                
             </ui:decorate>

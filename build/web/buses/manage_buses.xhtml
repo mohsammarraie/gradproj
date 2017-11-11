@@ -27,7 +27,7 @@ and open the template in the editor.
                            class = "dataTable"
                            var="busesInfo"
                            rows="2"
-                           rowsPerPageTemplate="1,5,10"
+                           rowsPerPageTemplate="2,5,10"
                            dir="#{langBean.dir}"
                            emptyMessage="#{msgs.no_buses}"
                            paginator="true"
@@ -48,44 +48,17 @@ and open the template in the editor.
                                 <h:outputText value="#{busesInfo.busID}"/>  
                             </p:column>
                             
-                             <p:column headerText="#{msgs.driver_id}"
+                            <p:column headerText="#{msgs.chasis_number}"
                                       style="width:15%"
-                                      sortBy="#{busesInfo.driverID}">                    
-                                <h:outputText value="#{busesInfo.driverID}"/>  
+                                      sortBy="#{busesInfo.chasisNumber}">                    
+                                <h:outputText value="#{busesInfo.chasisNumber}"/>  
                             </p:column>
-                            
-                            <p:column headerText="#{msgs.name}"
-                                style="width:20%"
-                                filterBy="#{langBean.isEnglish?busesInfo.driverInfo.nameEn:busesInfo.driverInfo.nameAr}"
-                                filterMatchMode="contains"
-                                sortBy="#{langBean.isEnglish?busesInfo.driverInfo.nameEn:busesInfo.driverInfo.nameAr}">                    
-                                <h:outputText value="#{langBean.isEnglish?busesInfo.driverInfo.nameEn:busesInfo.driverInfo.nameAr}"/>  
-                            </p:column>
-                            
-                            <p:column headerText="#{msgs.departure_time}"
-                                      style="width:15%"
-                                      sortBy="#{busesInfo.departureTime}">                    
-                                <h:outputText value="#{busesInfo.departureTime}"/>  
-                            </p:column>
-                            
-                            <p:column headerText="#{msgs.arrival_time}"
-                                      style="width:15%"
-                                      sortBy="#{busesInfo.arrivalTime}">                    
-                                <h:outputText value="#{busesInfo.arrivalTime}"/>  
-                            </p:column>
-                            
-                            <p:column headerText="#{msgs.route}"
-                                style="width:20%"
-                                filterBy="#{langBean.isEnglish?busesInfo.routeEn:busesInfo.routeAr}"
-                                filterMatchMode="contains"
-                                sortBy="#{langBean.isEnglish?busesInfo.routeEn:busesInfo.routeAr}">                    
-                              <h:outputText value="#{langBean.isEnglish?busesInfo.routeEn:busesInfo.routeAr}"/>  
-                            </p:column>
+           
                             
                             <p:column headerText="#{msgs.license_plate}"
                                       style="width:15%"
-                                      sortBy="#{busesInfo.licensePlate}">                    
-                                <h:outputText value="#{busesInfo.licensePlate}"/>  
+                                      sortBy="#{busesInfo.licenseNumber}">                    
+                                <h:outputText value="#{busesInfo.licenseNumber}"/>  
                             </p:column>
                             
                             <p:column headerText="#{msgs.capacity}"
@@ -93,6 +66,7 @@ and open the template in the editor.
                                       sortBy="#{busesInfo.capacity}">                    
                                 <h:outputText value="#{busesInfo.capacity}"/>  
                             </p:column>
+                            
                             <f:facet name="footer">
                                 <p:toolbar style="border: none">
                                     <p:toolbarGroup align="#{languageBean.screenLeft}">
@@ -112,7 +86,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{busesInfoBean.selectedBus==null}"                                                 
                                                  actionListener="#{busesInfoBean.saveSelectedItemId()}"
-                                                 action="add_edit_buses" />
+                                                 action="add_edit_bus" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
                             </f:facet>
@@ -123,7 +97,7 @@ and open the template in the editor.
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
                                  actionListener="#{sessionBean.setSelectedItemId(-1)}"
-                                 action="add_edit_buses" /> 
+                                 action="add_edit_bus" /> 
                 </h:form>
                
             </ui:decorate>
