@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import models.RouteStopsInfo;
 import models.StopsInfo;
 /**
  *
@@ -34,7 +35,8 @@ public class RouteStopsDao extends ConnectionDao{
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                list.add(populateRouteStopsInfo(rs));
+                list.add(populateStopsInfo(rs));
+             
             }
             
             rs.close();
@@ -50,7 +52,7 @@ public class RouteStopsDao extends ConnectionDao{
         Connection conn = getConnection();
         
         try {            
-            String sql = "SELECT BUSES.STOPS.STOP_ID, STOP_NAME_EN, STOP_NAME_AR from BUSES.STOPS  JOIN"
+            String sql = "SELECT BUSES.STOPS.STOP_ID, STOP_NAME_EN, STOP_NAME_AR, STOPS_ORDER from BUSES.STOPS  JOIN"
                     + " BUSES.ROUTE_STOPS ON BUSES.STOPS.STOP_ID = BUSES.ROUTE_STOPS.STOP_ID" 
                     + " JOIN BUSES.ROUTES ON "
                     + " BUSES.ROUTES.ROUTE_ID = BUSES.ROUTE_STOPS.ROUTE_ID"
@@ -60,7 +62,8 @@ public class RouteStopsDao extends ConnectionDao{
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                StopsInfo stopsInfo = populateRouteStopsInfo(rs);
+                StopsInfo stopsInfo = populateStopsInfo(rs);
+                
                 map.put(stopsInfo.getStopID(), stopsInfo);
             }
             
@@ -73,7 +76,7 @@ public class RouteStopsDao extends ConnectionDao{
         }
     }
     
-      private StopsInfo populateRouteStopsInfo(ResultSet rs) throws SQLException {
+      private StopsInfo populateStopsInfo(ResultSet rs) throws SQLException {
         StopsInfo stopsInfo = new StopsInfo();
         
         stopsInfo.setStopID(rs.getInt("STOP_ID"));
@@ -82,18 +85,25 @@ public class RouteStopsDao extends ConnectionDao{
      
         return stopsInfo;
     } 
-    public void insertRouteStop(StopsInfo stopsInfo) throws Exception {                
+//      private RouteStopsInfo populateRouteStopsInfo(ResultSet rs)throws SQLException {
+//          
+//      RouteStopsInfo routeStopsInfo =new RouteStopsInfo();
+//      routeStopsInfo.setStopsOrder(rs.getInt("STOPS_ORDER"));
+//      return routeStopsInfo;
+//      
+//      }
+      
+    public void insertRouteStop(int stopID, int routeID) throws Exception {                
         try {
             Connection conn = getConnection();
 
-            String sql = "INSERT INTO BUSES.STOPS  (STOP_ID,"
-                    + " STOP_NAME_EN,"
-                    + " STOP_NAME_AR)"
-                    + " VALUES ((select max(STOP_ID) from BUSES.STOPS)+1,?,?)";
+            String sql = "INSERT INTO BUSES.ROUTE_STOPS  (STOP_ID,"
+                    + " ROUTE_ID)"
+                    + " VALUES (?,?)";
              PreparedStatement ps = conn.prepareStatement(sql); 
             
-             ps.setString(1, stopsInfo.getStopNameEn());
-             ps.setString(2, stopsInfo.getStopNameAr());
+            ps.setInt(1, stopID);
+            ps.setInt(2, routeID);
            
         
              
@@ -159,7 +169,7 @@ public class RouteStopsDao extends ConnectionDao{
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                stopsInfo = populateRouteStopsInfo(rs);
+                stopsInfo = populateStopsInfo(rs);
                 stopsInfo.setStopNameEn(rs.getString("STOP_NAME_EN"));
                 stopsInfo.setStopNameAr(rs.getString("STOP_NAME_AR"));
 

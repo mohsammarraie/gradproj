@@ -107,7 +107,7 @@ public class AddEditRouteStopBean implements Serializable{
             if (sessionBean.getSelectedItemId() > 0) {
                 routeStopsDao.updateRouteStop(routeStopID, stopID, sessionBean.getSelectedRouteID());
             } else {
-                routeStopsDao.insertRouteStop(stopsInfo);
+                routeStopsDao.insertRouteStop(routeStopID, sessionBean.getSelectedRouteID());
             }
         } catch (Exception ex) {
             sessionBean.navigate("route_stop_error");

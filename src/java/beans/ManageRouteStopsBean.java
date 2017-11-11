@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import models.StopsInfo;
 import daos.RouteStopsDao;
 import javax.inject.Named;
+import models.RouteStopsInfo;
 /**
  *
  * @author MOH
@@ -25,6 +26,7 @@ public class ManageRouteStopsBean implements Serializable {
     private StopsInfo selectedRouteStop;
     private final RouteStopsDao routeStopsDao = new RouteStopsDao();
     private ArrayList<StopsInfo> routeStopsInfo; 
+   
     
     @Inject 
     private SessionBean sessionBean;
@@ -34,12 +36,13 @@ public class ManageRouteStopsBean implements Serializable {
        @PostConstruct
         public void init(){
             try {            
-                routeStopsInfo = routeStopsDao.buildRouteStopsInfo(sessionBean.getSelectedItemId());            
+                routeStopsInfo = routeStopsDao.buildRouteStopsInfo(sessionBean.getSelectedItemId());
+//                routeStopsInfo = routeStopsDao.buildRouteStopsInfo(sessionBean.getSelectedItemId());
             } catch (Exception ex) {
                 Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        
     public StopsInfo getSelectedRouteStop() {
         return selectedRouteStop;
     }
@@ -48,6 +51,9 @@ public class ManageRouteStopsBean implements Serializable {
         this.selectedRouteStop = selectedRouteStop;
     }
 
+ 
+    
+    
     public ArrayList<StopsInfo> getRouteStopsInfo() {
         return routeStopsInfo;
     }
