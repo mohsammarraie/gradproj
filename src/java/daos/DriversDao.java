@@ -11,15 +11,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import models.DriversInfo;
+import models.Drivers;
 /**
  *
  * @author MOH
  */
 public class DriversDao extends ConnectionDao {
     
-        public ArrayList<DriversInfo> buildDriverInfo() throws Exception {
-        ArrayList<DriversInfo> list = new ArrayList<>();
+        public ArrayList<Drivers> buildDriverInfo() throws Exception {
+        ArrayList<Drivers> list = new ArrayList<>();
         Connection conn = getConnection();
         
         try {            
@@ -40,8 +40,8 @@ public class DriversDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-    public HashMap<Integer, DriversInfo> buildDriverInfoMap() throws Exception {
-        HashMap<Integer, DriversInfo> map = new HashMap<>();
+    public HashMap<Integer, Drivers> buildDriverInfoMap() throws Exception {
+        HashMap<Integer, Drivers> map = new HashMap<>();
         Connection conn = getConnection();
         
         try {            
@@ -51,7 +51,7 @@ public class DriversDao extends ConnectionDao {
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                DriversInfo driverInfo = populateDriverInfo(rs);
+                Drivers driverInfo = populateDriverInfo(rs);
                 map.put(driverInfo.getDriverID(), driverInfo);
             }
             
@@ -64,8 +64,8 @@ public class DriversDao extends ConnectionDao {
         }
     }
     
-      private DriversInfo populateDriverInfo(ResultSet rs) throws SQLException {
-        DriversInfo driverInfo = new DriversInfo();
+      private Drivers populateDriverInfo(ResultSet rs) throws SQLException {
+        Drivers driverInfo = new Drivers();
         
         driverInfo.setDriverID(rs.getInt("DRIVER_ID"));
         driverInfo.setFirstNameAr(rs.getString("FIRST_NAME_AR"));
@@ -75,7 +75,7 @@ public class DriversDao extends ConnectionDao {
         driverInfo.setPhoneNumber(rs.getString("PHONE_NUMBER")); 
         return driverInfo;
     } 
-    public void insertDriver(DriversInfo driverInfo) throws Exception {                
+    public void insertDriver(Drivers driverInfo) throws Exception {                
         try {
             Connection conn = getConnection();
 
@@ -101,7 +101,7 @@ public class DriversDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-        public void updateDriver(DriversInfo driverInfo) throws Exception {
+        public void updateDriver(Drivers driverInfo) throws Exception {
         try {
             Connection conn = getConnection();
 
@@ -144,9 +144,9 @@ public class DriversDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-        public DriversInfo getDriverInfo(int driverID) throws Exception {
+        public Drivers getDriverInfo(int driverID) throws Exception {
         try {   
-            DriversInfo driverInfo = null;
+            Drivers driverInfo = null;
             Connection conn = getConnection();
             
             String sql = "SELECT * FROM BUSES.DRIVERS"

@@ -12,7 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.DriversInfo;
+import models.Drivers;
 /**
  *
  * @author MOH
@@ -43,7 +43,7 @@ public class AddEditDriverBean implements Serializable{
          
             
             if(driverID > 0){
-                DriversInfo driverInfo = driverDao.getDriverInfo(driverID);
+                Drivers driverInfo = driverDao.getDriverInfo(driverID);
            
                 firstNameEn = driverInfo.getFirstNameEn();
                 firstNameAr = driverInfo.getFirstNameAr();
@@ -112,7 +112,7 @@ public class AddEditDriverBean implements Serializable{
         public void saveDriver() {
         try {
         
-            DriversInfo driverInfo = new DriversInfo();
+            Drivers driverInfo = new Drivers();
             driverInfo.setDriverID(driverID);
             driverInfo.setFirstNameEn(firstNameEn);
             driverInfo.setFirstNameAr(firstNameAr);

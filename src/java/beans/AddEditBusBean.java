@@ -14,8 +14,8 @@ import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.BusesInfo;
-import models.DriversInfo;
+import models.Buses;
+import models.Drivers;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -27,8 +27,6 @@ import java.util.Date;
 @Named(value = "addEditBusesBean")
 @ViewScoped
 public class AddEditBusBean implements Serializable{
-    private ArrayList<DriversInfo> driverInfos;
-    private final DriversDao driverDao = new DriversDao();
     private final BusesDao busesDao = new BusesDao();
     private int busID;
     private String licenseNumber;
@@ -45,10 +43,10 @@ public class AddEditBusBean implements Serializable{
     public void init(){                
         try {
             busID = sessionBean.getSelectedItemId();
-            driverInfos = driverDao.buildDriverInfo();
+         
             
             if(busID > 0){
-                BusesInfo busesInfo = busesDao.getBusesInfo(busID);
+                Buses busesInfo = busesDao.getBusesInfo(busID);
                 chasisNumber= busesInfo.getChasisNumber();
                 licenseNumber = busesInfo.getLicenseNumber();
                 capacity = busesInfo.getCapacity();
@@ -59,9 +57,7 @@ public class AddEditBusBean implements Serializable{
         }
     }
     
-    public ArrayList<DriversInfo> getDriverInfos() {
-        return driverInfos;
-    }
+ 
 
     public String getLicenseNumber() {
         return licenseNumber;
@@ -90,7 +86,7 @@ public class AddEditBusBean implements Serializable{
         public void saveBus() {
         try {
             
-            BusesInfo busesInfo = new BusesInfo();
+            Buses busesInfo = new Buses();
             busesInfo.setBusID(busID);
             busesInfo.setLicenseNumber(licenseNumber);
             busesInfo.setCapacity(capacity);

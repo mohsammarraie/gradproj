@@ -9,13 +9,15 @@ package models;
  *
  * @author MOH
  */
-public class RoutesInfo {
+public class Routes {
     
     private int routeID;
     private String sourceAr;
     private String sourceEn;
     private String destinationAr;
     private String destinationEn;
+    private String routeCode;
+    private String active;
     
     public int getRouteID() {
         return routeID;
@@ -57,8 +59,22 @@ public class RoutesInfo {
     public void setDestinationEn(String destinationEn) {
         this.destinationEn = destinationEn;
     }
+
+    public String getRouteCode() {
+        return routeCode;
+    }
+
+    public void setRouteCode(String routeCode) {
+        this.routeCode = routeCode;
+    }
+
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
+    }
     
 
-    
-    
 }

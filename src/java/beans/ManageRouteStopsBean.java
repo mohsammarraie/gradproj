@@ -11,10 +11,10 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.StopsInfo;
+import models.Stops;
 import daos.RouteStopsDao;
 import javax.inject.Named;
-import models.RouteStopsInfo;
+import models.RouteStops;
 /**
  *
  * @author MOH
@@ -23,9 +23,9 @@ import models.RouteStopsInfo;
 @ViewScoped
 public class ManageRouteStopsBean implements Serializable {
  
-    private StopsInfo selectedRouteStop;
+    private RouteStops selectedRouteStop;
     private final RouteStopsDao routeStopsDao = new RouteStopsDao();
-    private ArrayList<StopsInfo> routeStopsInfo; 
+    private ArrayList<RouteStops> routeStopsInfo; 
    
     
     @Inject 
@@ -43,22 +43,22 @@ public class ManageRouteStopsBean implements Serializable {
             }
         }
         
-    public StopsInfo getSelectedRouteStop() {
+    public RouteStops getSelectedRouteStop() {
         return selectedRouteStop;
     }
 
-    public void setSelectedRouteStop(StopsInfo selectedRouteStop) {
+    public void setSelectedRouteStop(RouteStops selectedRouteStop) {
         this.selectedRouteStop = selectedRouteStop;
     }
 
  
     
     
-    public ArrayList<StopsInfo> getRouteStopsInfo() {
+    public ArrayList<RouteStops> getRouteStopsInfo() {
         return routeStopsInfo;
     }
 
-    public void setRouteStopsInfo(ArrayList<StopsInfo> routeStopsInfo) {
+    public void setRouteStopsInfo(ArrayList<RouteStops> routeStopsInfo) {
         this.routeStopsInfo = routeStopsInfo;
     }
         

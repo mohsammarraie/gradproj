@@ -10,14 +10,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import models.SchedulesInfo;
+import models.Schedules;
 /**
  *
  * @author MOH
  */
 public class SchedulesDao extends ConnectionDao  {
-       public ArrayList<SchedulesInfo> buildSchedulesInfo() throws Exception {
-        ArrayList<SchedulesInfo> list = new ArrayList<>();
+       public ArrayList<Schedules> buildSchedulesInfo() throws Exception {
+        ArrayList<Schedules> list = new ArrayList<>();
         Connection conn = getConnection();
         
         try {            
@@ -38,8 +38,8 @@ public class SchedulesDao extends ConnectionDao  {
             throw new SQLException(e.getMessage());
         }
     }
-    public HashMap<Integer, SchedulesInfo> buildSchedulesInfoMap() throws Exception {
-        HashMap<Integer, SchedulesInfo> map = new HashMap<>();
+    public HashMap<Integer, Schedules> buildSchedulesInfoMap() throws Exception {
+        HashMap<Integer, Schedules> map = new HashMap<>();
         Connection conn = getConnection();
         
         try {            
@@ -49,7 +49,7 @@ public class SchedulesDao extends ConnectionDao  {
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                SchedulesInfo schedulesInfo = populateSchedulesInfo(rs);
+                Schedules schedulesInfo = populateSchedulesInfo(rs);
                 map.put(schedulesInfo.getScheduleID(), schedulesInfo);
             }
             
@@ -62,8 +62,8 @@ public class SchedulesDao extends ConnectionDao  {
         }
     }
     
-      private SchedulesInfo populateSchedulesInfo(ResultSet rs) throws SQLException {
-        SchedulesInfo schedulesInfo = new SchedulesInfo();
+      private Schedules populateSchedulesInfo(ResultSet rs) throws SQLException {
+        Schedules schedulesInfo = new Schedules();
         
         schedulesInfo.setScheduleID(rs.getInt("SCHEDULE_ID"));
         schedulesInfo.setDepartureTime(rs.getTimestamp("DEPARTURE_TIME"));                    
@@ -71,7 +71,7 @@ public class SchedulesDao extends ConnectionDao  {
         
         return schedulesInfo;
     } 
-    public void insertSchedule(SchedulesInfo schedulesInfo) throws Exception {                
+    public void insertSchedule(Schedules schedulesInfo) throws Exception {                
         try {
             Connection conn = getConnection();
 
@@ -91,7 +91,7 @@ public class SchedulesDao extends ConnectionDao  {
             throw new SQLException(e.getMessage());
         }
     }
-        public void updateSchedule(SchedulesInfo schedulesInfo) throws Exception {
+        public void updateSchedule(Schedules schedulesInfo) throws Exception {
         try {
             Connection conn = getConnection();
 
@@ -128,9 +128,9 @@ public class SchedulesDao extends ConnectionDao  {
             throw new SQLException(e.getMessage());
         }
     }
-        public SchedulesInfo getSchedulesInfo(int scheduleID) throws Exception {
+        public Schedules getSchedulesInfo(int scheduleID) throws Exception {
         try {   
-            SchedulesInfo schedulesInfo = null;
+            Schedules schedulesInfo = null;
             Connection conn = getConnection();
             
             String sql = "SELECT * FROM SCHEDULES_INFO"

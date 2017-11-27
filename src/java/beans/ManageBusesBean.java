@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.BusesInfo;
+import models.Buses;
 import daos.DriversDao;
 import javax.inject.Named;
 /**
@@ -24,10 +24,9 @@ import javax.inject.Named;
 @ViewScoped
 public class ManageBusesBean implements Serializable {
 
-    private BusesInfo selectedBus;
-    private final DriversDao driverDao = new DriversDao();
+    private Buses selectedBus;
     private final BusesDao busesDao = new BusesDao();
-    private ArrayList<BusesInfo> busesInfo;
+    private ArrayList<Buses> busesInfo;
 
     @Inject
     private SessionBean sessionBean;
@@ -44,19 +43,19 @@ public class ManageBusesBean implements Serializable {
         }
     }
 
-    public BusesInfo getSelectedBus() {
+    public Buses getSelectedBus() {
         return selectedBus;
     }
 
-    public void setSelectedBus(BusesInfo selectedBus) {
+    public void setSelectedBus(Buses selectedBus) {
         this.selectedBus = selectedBus;
     }
 
-    public ArrayList<BusesInfo> getBusesInfo() {
+    public ArrayList<Buses> getBusesInfo() {
         return busesInfo;
     }
 
-    public void setBusesInfo(ArrayList<BusesInfo> busesInfo) {
+    public void setBusesInfo(ArrayList<Buses> busesInfo) {
         this.busesInfo = busesInfo;
     }
 

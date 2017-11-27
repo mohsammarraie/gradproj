@@ -26,8 +26,8 @@ and open the template in the editor.
                            rowKey="#{routeStopsInfo.stopID}"  
                            class = "dataTable"
                            var="routeStopsInfo"
-                           rows="2"
-                           rowsPerPageTemplate="1,5,10"
+                           rows="10"
+                           rowsPerPageTemplate="10,20,50"
                            dir="#{langBean.dir}"
                            emptyMessage="#{msgs.no_stops}"
                            paginator="true"
@@ -55,6 +55,12 @@ and open the template in the editor.
                                 filterMatchMode="contains"
                                 sortBy="#{langBean.isEnglish?routeStopsInfo.stopNameEn:routeStopsInfo.stopNameAr}">                    
                                 <h:outputText value="#{langBean.isEnglish?routeStopsInfo.stopNameEn:routeStopsInfo.stopNameAr}"/>  
+                            </p:column>
+                            
+                             <p:column headerText="#{msgs.stop_order}"
+                                      style="width:15%"
+                                      sortBy="#{routeStopsInfo.stopOrder}">                    
+                                <h:outputText value="#{routeStopsInfo.stopOrder}"/>  
                             </p:column>
                             
                             <f:facet name="footer">
@@ -88,6 +94,10 @@ and open the template in the editor.
                                  style="float:#{langBean.styleFloat}" 
                                  actionListener="#{sessionBean.setSelectedItemId(-1)}"
                                  action="add_edit_route_stop" /> 
+                       <p:commandButton  value="#{msgs.back}"
+                                 styleClass="commandButton"
+                                 style="float:#{langBean.styleFloat}"
+                                 action="manage_routes" />
                 </h:form>
                
             </ui:decorate>

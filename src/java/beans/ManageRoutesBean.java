@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.RoutesInfo;
+import models.Routes;
 import daos.RoutesDao;
 import javax.inject.Named;
 /**
@@ -23,10 +23,10 @@ import javax.inject.Named;
 @ViewScoped
 public class ManageRoutesBean implements Serializable {
     
-    private RoutesInfo selectedRoute;
+    private Routes selectedRoute;
     private final RoutesDao routesDao = new RoutesDao();
-    private ArrayList<RoutesInfo> routesInfo; 
-    
+    private ArrayList<Routes> routesInfo; 
+    private String onActive;
     @Inject 
     private SessionBean sessionBean;
      
@@ -35,25 +35,40 @@ public class ManageRoutesBean implements Serializable {
         @PostConstruct
       public void init(){
         try {            
-            routesInfo = routesDao.buildRoutesInfo();            
+            routesInfo = routesDao.buildRoutesInfo();
+            Routes ri = new Routes();
+            if ("1".equals(ri.getActive())){
+            onActive = "Yes";
+            }
+            else {
+                onActive="No";
+            }
         } catch (Exception ex) {
             Logger.getLogger(ManageRoutesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public RoutesInfo getSelectedRoute() {
+    public String getOnActive() {
+        return onActive;
+    }
+
+    public void setOnActive(String onActive) {
+        this.onActive = onActive;
+    }
+
+    public Routes getSelectedRoute() {
         return selectedRoute;
     }
 
-    public void setSelectedRoute(RoutesInfo selectedRoute) {
+    public void setSelectedRoute(Routes selectedRoute) {
         this.selectedRoute = selectedRoute;
     }
 
-    public ArrayList<RoutesInfo> getRoutesInfo() {
+    public ArrayList<Routes> getRoutesInfo() {
         return routesInfo;
     }
 
-    public void setRoutesInfo(ArrayList<RoutesInfo> routesInfo) {
+    public void setRoutesInfo(ArrayList<Routes> routesInfo) {
         this.routesInfo = routesInfo;
     }
 

@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.StopsInfo;
+import models.Stops;
 import daos.StopsDao;
 import javax.inject.Named;
 /**
@@ -22,9 +22,9 @@ import javax.inject.Named;
 @ViewScoped
 public class ManageStopsBean implements Serializable {
     
-    private StopsInfo selectedStop;
+    private Stops selectedStop;
     private final StopsDao stopsDao = new StopsDao();
-    private ArrayList<StopsInfo> stopsInfo; 
+    private ArrayList<Stops> stopsInfo; 
     
     @Inject 
     private SessionBean sessionBean;
@@ -40,19 +40,19 @@ public class ManageStopsBean implements Serializable {
             }
         }
 
-    public StopsInfo getSelectedStop() {
+    public Stops getSelectedStop() {
         return selectedStop;
     }
 
-    public void setSelectedStop(StopsInfo selectedStop) {
+    public void setSelectedStop(Stops selectedStop) {
         this.selectedStop = selectedStop;
     }
 
-    public ArrayList<StopsInfo> getStopsInfo() {
+    public ArrayList<Stops> getStopsInfo() {
         return stopsInfo;
     }
 
-    public void setStopsInfo(ArrayList<StopsInfo> stopsInfo) {
+    public void setStopsInfo(ArrayList<Stops> stopsInfo) {
         this.stopsInfo = stopsInfo;
     }
 

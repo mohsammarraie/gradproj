@@ -11,7 +11,7 @@ import java.sql.Timestamp;
  *
  * @author MOH
  */
-public class BusesInfo implements Serializable {
+public class Buses implements Serializable {
     
     private int busID;
     private int chasisNumber;

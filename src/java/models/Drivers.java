@@ -9,7 +9,7 @@ package models;
  *
  * @author MOH
  */
-public class DriversInfo {
+public class Drivers {
     
     private int driverID;
     private String firstNameEn;
@@ -18,7 +18,7 @@ public class DriversInfo {
     private String lastNameAr;
     private String phoneNumber;
 
-    public DriversInfo() {
+    public Drivers() {
     }
     
     

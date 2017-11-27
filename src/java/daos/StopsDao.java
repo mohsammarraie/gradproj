@@ -11,15 +11,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import models.StopsInfo;
+import models.Stops;
 /**
  *
  * @author MOH
  */
 public class StopsDao extends ConnectionDao {
     
-    public ArrayList<StopsInfo> buildStopsInfo() throws Exception {
-        ArrayList<StopsInfo> list = new ArrayList<>();
+    public ArrayList<Stops> buildStopsInfo() throws Exception {
+        ArrayList<Stops> list = new ArrayList<>();
         Connection conn = getConnection();
         
         try {            
@@ -40,8 +40,8 @@ public class StopsDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-    public HashMap<Integer, StopsInfo> buildStopsInfoMap() throws Exception {
-        HashMap<Integer, StopsInfo> map = new HashMap<>();
+    public HashMap<Integer, Stops> buildStopsInfoMap() throws Exception {
+        HashMap<Integer, Stops> map = new HashMap<>();
         Connection conn = getConnection();
         
         try {            
@@ -51,7 +51,7 @@ public class StopsDao extends ConnectionDao {
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                StopsInfo stopsInfo = populateStopsInfo(rs);
+                Stops stopsInfo = populateStopsInfo(rs);
                 map.put(stopsInfo.getStopID(), stopsInfo);
             }
             
@@ -64,8 +64,8 @@ public class StopsDao extends ConnectionDao {
         }
     }
     
-      private StopsInfo populateStopsInfo(ResultSet rs) throws SQLException {
-        StopsInfo stopsInfo = new StopsInfo();
+      private Stops populateStopsInfo(ResultSet rs) throws SQLException {
+        Stops stopsInfo = new Stops();
         
         stopsInfo.setStopID(rs.getInt("STOP_ID"));
         stopsInfo.setStopNameEn(rs.getString("STOP_NAME_EN"));
@@ -73,7 +73,7 @@ public class StopsDao extends ConnectionDao {
      
         return stopsInfo;
     } 
-    public void insertStop(StopsInfo stopsInfo) throws Exception {                
+    public void insertStop(Stops stopsInfo) throws Exception {                
         try {
             Connection conn = getConnection();
 
@@ -95,7 +95,7 @@ public class StopsDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-        public void updateStop(StopsInfo stopsInfo) throws Exception {
+        public void updateStop(Stops stopsInfo) throws Exception {
         try {
             Connection conn = getConnection();
 
@@ -132,9 +132,9 @@ public class StopsDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-        public StopsInfo getStopsInfo(int stopID) throws Exception {
+        public Stops getStopsInfo(int stopID) throws Exception {
         try {   
-            StopsInfo stopsInfo = null;
+            Stops stopsInfo = null;
             Connection conn = getConnection();
             
             String sql = "SELECT * FROM BUSES.STOPS"

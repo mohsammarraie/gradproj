@@ -15,7 +15,7 @@ import java.util.TimeZone;
  *
  * @author MOH
  */
-public class SchedulesInfo implements Serializable {
+public class Schedules implements Serializable {
     private int scheduleID;
     private Timestamp departureTime;
     private Timestamp arrivalTime;

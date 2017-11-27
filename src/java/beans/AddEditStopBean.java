@@ -12,7 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.StopsInfo;
+import models.Stops;
 import daos.StopsDao;
 /**
  *
@@ -41,7 +41,7 @@ public class AddEditStopBean implements Serializable {
          
             
             if(stopID > 0){
-                StopsInfo stopsInfo = stopsDao.getStopsInfo(stopID);
+                Stops stopsInfo = stopsDao.getStopsInfo(stopID);
            
                 stopNameAr = stopsInfo.getStopNameAr();
                 stopNameEn = stopsInfo.getStopNameEn();
@@ -80,7 +80,7 @@ public class AddEditStopBean implements Serializable {
         public void saveStop() {
         try {
         
-            StopsInfo stopsInfo = new StopsInfo();
+            Stops stopsInfo = new Stops();
             stopsInfo.setStopID(stopID);
             stopsInfo.setStopNameAr(stopNameAr);
             stopsInfo.setStopNameEn(stopNameEn);

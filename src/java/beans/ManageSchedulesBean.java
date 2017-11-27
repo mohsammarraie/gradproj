@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.SchedulesInfo;
+import models.Schedules;
 import daos.SchedulesDao;
 import javax.inject.Named;
 /**
@@ -22,9 +22,9 @@ import javax.inject.Named;
 @ViewScoped
 public class ManageSchedulesBean implements Serializable {
     
-    private SchedulesInfo selectedSchedule;
+    private Schedules selectedSchedule;
     private final SchedulesDao schedulesDao = new SchedulesDao();
-    private ArrayList<SchedulesInfo> schedulesInfo; 
+    private ArrayList<Schedules> schedulesInfo; 
     
     @Inject 
     private SessionBean sessionBean;
@@ -40,20 +40,20 @@ public class ManageSchedulesBean implements Serializable {
         }
     }
 
-    public SchedulesInfo getSelectedSchedule() {
+    public Schedules getSelectedSchedule() {
         return selectedSchedule;
     }
 
-    public void setSelectedSchedule(SchedulesInfo selectedSchedule) {
+    public void setSelectedSchedule(Schedules selectedSchedule) {
         this.selectedSchedule = selectedSchedule;
     }
 
-    public ArrayList<SchedulesInfo> getSchedulesInfo() {
+    public ArrayList<Schedules> getSchedulesInfo() {
         return schedulesInfo;
     }
 
 
-    public void setScheduleInfo(ArrayList<SchedulesInfo> schedulesInfo) {
+    public void setScheduleInfo(ArrayList<Schedules> schedulesInfo) {
         this.schedulesInfo = schedulesInfo;
     }
 

@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.DriversInfo;
+import models.Drivers;
 import daos.DriversDao;
 import javax.inject.Named;
 /**
@@ -22,9 +22,9 @@ import javax.inject.Named;
 @Named(value = "driversInfoBean")
 @ViewScoped
 public class ManageDriversBean implements Serializable {
-    private DriversInfo selectedDriver;
+    private Drivers selectedDriver;
     private final DriversDao driverDao = new DriversDao();
-    private ArrayList<DriversInfo> driverInfo; 
+    private ArrayList<Drivers> driverInfo; 
     
     @Inject 
     private SessionBean sessionBean;
@@ -40,20 +40,20 @@ public class ManageDriversBean implements Serializable {
         }
     }
 
-    public DriversInfo getSelectedDriver() {
+    public Drivers getSelectedDriver() {
         return selectedDriver;
     }
 
-    public void setSelectedDriver(DriversInfo selectedDriver) {
+    public void setSelectedDriver(Drivers selectedDriver) {
         this.selectedDriver = selectedDriver;
     }
 
-    public ArrayList<DriversInfo> getDriverInfo() {
+    public ArrayList<Drivers> getDriverInfo() {
         return driverInfo;
     }
 
 
-    public void setDriverInfo(ArrayList<DriversInfo> driverInfo) {
+    public void setDriverInfo(ArrayList<Drivers> driverInfo) {
         this.driverInfo = driverInfo;
     }
 

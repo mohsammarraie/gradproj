@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import models.BusesInfo;
-import models.DriversInfo;
+import models.Buses;
+import models.Drivers;
 
 /**
  *
@@ -16,9 +16,9 @@ import models.DriversInfo;
 
 public class BusesDao extends ConnectionDao {
 
-        public ArrayList<BusesInfo> buildBusesInfo() 
+        public ArrayList<Buses> buildBusesInfo() 
             throws Exception {
-        ArrayList<BusesInfo> list = new ArrayList<>();        
+        ArrayList<Buses> list = new ArrayList<>();        
         
         try {   
             Connection conn = getConnection();
@@ -41,8 +41,8 @@ public class BusesDao extends ConnectionDao {
         }
     }
 
-        private BusesInfo populateBusesInfo(ResultSet rs) throws SQLException {
-        BusesInfo busesInfo = new BusesInfo();
+        private Buses populateBusesInfo(ResultSet rs) throws SQLException {
+        Buses busesInfo = new Buses();
         
         busesInfo.setBusID(rs.getInt("BUS_ID")); 
         busesInfo.setChasisNumber(rs.getInt("CHASIS_NUMBER"));
@@ -52,9 +52,9 @@ public class BusesDao extends ConnectionDao {
         return busesInfo;
     }
         
-    public BusesInfo getBusesInfo(int BusID) throws Exception {
+    public Buses getBusesInfo(int BusID) throws Exception {
         try {   
-            BusesInfo busesInfo = null;
+            Buses busesInfo = null;
             Connection conn = getConnection();
             
                String sql = "SELECT * FROM BUSES.BUSES"
@@ -80,7 +80,7 @@ public class BusesDao extends ConnectionDao {
         }
     }
     
-        public void insertBus(BusesInfo busesInfo) throws Exception {                
+        public void insertBus(Buses busesInfo) throws Exception {                
         try {
             Connection conn = getConnection();
             
@@ -104,7 +104,7 @@ public class BusesDao extends ConnectionDao {
         }
     }
     
-    public void updateBus(BusesInfo busesInfo) throws Exception {
+    public void updateBus(Buses busesInfo) throws Exception {
         try {
             Connection conn = getConnection();
 

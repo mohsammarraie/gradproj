@@ -39,7 +39,18 @@ and open the template in the editor.
                                            itemValue="#{stopsInfo.stopID}"/>                             
                         </p:selectOneMenu>
                         <h:message for="stop_name" styleClass="errorMsg"/>   
-                    
+                        
+                        <p:outputLabel value="#{msgs.stop_order}:" for="stop_order"/>
+                        <p:inputText id="stop_order"
+                                     value="#{addEditRouteStopBean.stopOrder}"
+                                     required="true"
+                                     maxlength="3"  
+                                     converterMessage="#{msgs.capacity_msg}"
+                                     validatorMessage="#{msgs.capacity_msg}"
+                                     requiredMessage="#{msgs.required_msg}">
+                            <f:validateLongRange minimum="0" maximum="100"/>
+                        </p:inputText>
+                        <h:message for="stop_order" styleClass="errorMsg"/>    
                     </h:panelGrid>
                 </p:panel>
 

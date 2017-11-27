@@ -9,8 +9,9 @@ package models;
  *
  * @author MOH
  */
-public class StopsInfo {
+public class RouteStops {
     
+    private int stopOrder;
     private int stopID;
     private String stopNameEn;
     private String stopNameAr;
@@ -37,6 +38,15 @@ public class StopsInfo {
 
     public void setStopNameAr(String stopNameAr) {
         this.stopNameAr = stopNameAr;
+    }
+    
+    
+    public int getStopOrder() {
+        return stopOrder;
+    }
+
+    public void setStopOrder(int stopOrder) {
+        this.stopOrder = stopOrder;
     }
     
     

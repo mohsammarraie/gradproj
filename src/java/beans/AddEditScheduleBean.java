@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.SchedulesInfo;
+import models.Schedules;
 /**
  *
  * @author MOH
@@ -42,7 +42,7 @@ public class AddEditScheduleBean implements Serializable {
          
             
             if(scheduleID > 0){
-                SchedulesInfo schedulesInfo = schedulesDao.getSchedulesInfo(scheduleID);
+                Schedules schedulesInfo = schedulesDao.getSchedulesInfo(scheduleID);
            
                 departureTime = schedulesInfo.getDepartureTime();
                 arrivalTime = schedulesInfo.getArrivalTime();
@@ -79,7 +79,7 @@ public class AddEditScheduleBean implements Serializable {
             public void saveSchedule() {
         try {
         
-            SchedulesInfo schedulesInfo = new SchedulesInfo();
+            Schedules schedulesInfo = new Schedules();
             schedulesInfo.setScheduleID(scheduleID);
             schedulesInfo.setDepartureTime(new Timestamp(departureTime.getTime()));
             schedulesInfo.setArrivalTime(new Timestamp(arrivalTime.getTime()));
