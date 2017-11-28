@@ -10,14 +10,14 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>#{msgs.manage_schedules}</title>
+        <title>#{msgs.add_edit_schedule}</title>
     </h:head>
     <h:body>
         <ui:decorate template="/app_templates/app_template.xhtml">  
             <h:form id="add_schedule">            
                 <p:messages id="msgs" closable="true" globalOnly="true"/>
 
-                <p:panel header="#{msgs.schedules}"                            
+                <p:panel header="#{msgs.add_edit_schedule}"                            
                          style="min-height:400px; 
                                 direction:#{langBean.dir};margin-top:10px; font-size:10pt">
                     <h:panelGrid id="add"

@@ -39,20 +39,11 @@ and open the template in the editor.
                               update=":routes_info_form:routes_info_tbl"/>  
 
                             <f:facet name="header" id="header">
-                                #{msgs.route}
+                                #{msgs.manage_routes}
                             </f:facet> 
                             
                            <p:column selectionMode="single" style="width:5%"/>
                          
-                           <p:column headerText="#{msgs.active}"
-                                      style="width:5%">
-                          
-                                
-                                        <h:outputText value="#{routesInfo.active == '1'?'Yes':'No'}"/> 
-                                    
-                         
-                           </p:column>
-                            
                             <p:column headerText="#{msgs.route_id}"
                                       style="width:15%"
                                       sortBy="#{routesInfo.routeID}">                    
@@ -81,6 +72,12 @@ and open the template in the editor.
                                 filterMatchMode="contains"
                                 sortBy="#{routesInfo.routeCode}">                    
                                 <h:outputText value="#{routesInfo.routeCode}"/>  
+                            </p:column>
+                           
+                            <p:column headerText="#{msgs.active}"
+                                      style="width:5%">
+
+                                <h:outputText value="#{routesInfo.active == '1'?'Yes':'No'}"/> 
                             </p:column>
                          
                             <f:facet name="footer">
