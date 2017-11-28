@@ -15,6 +15,13 @@ public class RouteStops {
     private int stopID;
     private String stopNameEn;
     private String stopNameAr;
+    
+    private String sourceAr;
+    private String sourceEn;
+    private String destinationAr;
+    private String destinationEn;
+    private String routeCode;
+    private String active;
 
     public int getStopID() {
         return stopID;
@@ -48,6 +55,55 @@ public class RouteStops {
     public void setStopOrder(int stopOrder) {
         this.stopOrder = stopOrder;
     }
+
+    public String getSourceAr() {
+        return sourceAr;
+    }
+
+    public void setSourceAr(String sourceAr) {
+        this.sourceAr = sourceAr;
+    }
+
+    public String getSourceEn() {
+        return sourceEn;
+    }
+
+    public void setSourceEn(String sourceEn) {
+        this.sourceEn = sourceEn;
+    }
+
+    public String getDestinationAr() {
+        return destinationAr;
+    }
+
+    public void setDestinationAr(String destinationAr) {
+        this.destinationAr = destinationAr;
+    }
+
+    public String getDestinationEn() {
+        return destinationEn;
+    }
+
+    public void setDestinationEn(String destinationEn) {
+        this.destinationEn = destinationEn;
+    }
+
+    public String getRouteCode() {
+        return routeCode;
+    }
+
+    public void setRouteCode(String routeCode) {
+        this.routeCode = routeCode;
+    }
+
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
+    }
+    
     
     
 }

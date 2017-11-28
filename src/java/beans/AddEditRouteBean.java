@@ -29,23 +29,15 @@ public class AddEditRouteBean implements Serializable {
     private String destinationAr;
     private String destinationEn;
     private String routeCode;
-    private String active="0";
-    private boolean CheckBoxValue=false;
-
+    private String active;
+    private boolean checkBoxValue;
+    
     @Inject
     private SessionBean sessionBean;
     
     public AddEditRouteBean() {        
     }
-    public void addActive(){
-        if(CheckBoxValue==false){
-            active = "0";
-        }
-        else{
-         active = "1";
-        }
-        
-    }  
+
     @PostConstruct
     public void init(){                
         try {
@@ -60,6 +52,13 @@ public class AddEditRouteBean implements Serializable {
                 destinationAr = routesInfo.getDestinationAr();
                 destinationEn = routesInfo.getDestinationEn();
                 routeCode = routesInfo.getRouteCode();
+                active= routesInfo.getActive();
+                if("1".equals(active)){
+                checkBoxValue = true;
+                }
+                else{
+                    checkBoxValue = false;
+                }
             }
         } catch (Exception ex) {
             Logger.getLogger(AddEditRouteBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,12 +66,14 @@ public class AddEditRouteBean implements Serializable {
     }
 
     public boolean isCheckBoxValue() {
-        return CheckBoxValue;
+        return checkBoxValue;
     }
 
-    public void setCheckBoxValue(boolean CheckBoxValue) {
-        this.CheckBoxValue = CheckBoxValue;
+    public void setCheckBoxValue(boolean checkBoxValue) {
+        this.checkBoxValue = checkBoxValue;
     }
+    
+    
     
     public String getActive() {
         return active;
@@ -129,10 +130,18 @@ public class AddEditRouteBean implements Serializable {
         this.routeCode = routeCode;
     }
     
-    
-        public void saveRoute() {
+    public void addActive(){
+        if(checkBoxValue==false){
+            active = "0";
+        }
+        else{
+         active = "1";
+        }
+    }  
+
+    public void saveRoute() {
         try {
-        
+
             Routes routesInfo = new Routes();
             routesInfo.setRouteID(routeID);
             routesInfo.setSourceAr(sourceAr);

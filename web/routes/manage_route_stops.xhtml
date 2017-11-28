@@ -35,12 +35,16 @@ and open the template in the editor.
                            paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
                              >
                             <p:ajax event="rowSelectRadio"
-                              update=":route_stops_info_form:route_stops_info_tbl"/>  
+                              update="route_stops_info_form:route_stops_info_tbl"/>  
+
+<!--                            <f:facet name="header" id="header">
+                            #{msgs.stops_for } #{routeStopsInfo.routeCode}
+                            </f:facet> -->
 
                             <f:facet name="header" id="header">
                                 #{msgs.manage_route_stops}
                             </f:facet> 
-                            
+
                             <p:column selectionMode="single" style="width:5%"/>
                             
                             <p:column headerText="#{msgs.stop_id}"
@@ -87,17 +91,20 @@ and open the template in the editor.
                                 </p:toolbar>
                             </f:facet>
                         </p:dataTable>
-                      <p:commandButton value="#{msgs.add}"
+                        <p:commandButton  value="#{msgs.back}"
+                                 icon="ui-icon-back"                                  
+                                 iconPos="#{langBean.styleFloat}"
+                                 styleClass="commandButton"
+                                 style="float:#{langBean.styleFloat}"
+                                 action="manage_routes" />
+                        <p:commandButton value="#{msgs.add}"
                                  icon="ui-icon-plus"                                  
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
                                  actionListener="#{sessionBean.setSelectedItemId(-1)}"
                                  action="add_edit_route_stop" /> 
-                       <p:commandButton  value="#{msgs.back}"
-                                 styleClass="commandButton"
-                                 style="float:#{langBean.styleFloat}"
-                                 action="manage_routes" />
+                       
                 </h:form>
                
             </ui:decorate>

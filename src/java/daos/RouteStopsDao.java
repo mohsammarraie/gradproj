@@ -24,14 +24,14 @@ public class RouteStopsDao extends ConnectionDao{
         Connection conn = getConnection();
         
         try {            
-//            String sql = "SELECT * FROM BUSES.STOPS JOIN"
-//                    + " BUSES.ROUTE_STOPS ON BUSES.STOPS.STOP_ID = BUSES.ROUTE_STOPS.STOP_ID" 
-//                    + " JOIN BUSES.ROUTES ON "
-//                    + " BUSES.ROUTES.ROUTE_ID = BUSES.ROUTE_STOPS.ROUTE_ID"
-//                    + " WHERE BUSES.ROUTES.ROUTE_ID=?";
-                   String sql= "SELECT * FROM BUSES.ROUTE_STOPS,"
-                           + " BUSES.STOPS WHERE ROUTE_ID = ? AND"
-                           + " BUSES.STOPS.STOP_ID = BUSES.ROUTE_STOPS.STOP_ID ORDER BY STOP_ORDER";                        
+            String sql = "SELECT * FROM BUSES.STOPS JOIN"
+                    + " BUSES.ROUTE_STOPS ON BUSES.STOPS.STOP_ID = BUSES.ROUTE_STOPS.STOP_ID" 
+                    + " JOIN BUSES.ROUTES ON "
+                    + " BUSES.ROUTES.ROUTE_ID = BUSES.ROUTE_STOPS.ROUTE_ID"
+                    + " WHERE BUSES.ROUTES.ROUTE_ID=?";
+//                   String sql= "SELECT * FROM BUSES.ROUTE_STOPS,"
+//                           + " BUSES.STOPS WHERE ROUTE_ID = ? AND"
+//                           + " BUSES.STOPS.STOP_ID = BUSES.ROUTE_STOPS.STOP_ID ORDER BY STOP_ORDER";                        
             PreparedStatement ps = conn.prepareStatement(sql);            
             ps.setInt(1, routeID);
             ResultSet rs = ps.executeQuery();           
@@ -85,6 +85,12 @@ public class RouteStopsDao extends ConnectionDao{
         stopsInfo.setStopNameEn(rs.getString("STOP_NAME_EN"));
         stopsInfo.setStopNameAr(rs.getString("STOP_NAME_AR"));
         stopsInfo.setStopOrder(rs.getInt("STOP_ORDER"));
+        stopsInfo.setRouteCode(rs.getString("ROUTE_CODE"));
+        stopsInfo.setSourceEn(rs.getString("SOURCE_EN"));
+        stopsInfo.setSourceAr(rs.getString("SOURCE_AR"));
+        stopsInfo.setDestinationEn(rs.getString("DESTINATION_EN"));                  
+        stopsInfo.setDestinationAr(rs.getString("DESTINATION_AR"));                  
+        stopsInfo.setActive(rs.getString("ACTIVE")); 
         return stopsInfo;
     } 
 

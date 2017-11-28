@@ -36,13 +36,7 @@ public class ManageRoutesBean implements Serializable {
       public void init(){
         try {            
             routesInfo = routesDao.buildRoutesInfo();
-            Routes ri = new Routes();
-            if ("1".equals(ri.getActive())){
-            onActive = "Yes";
-            }
-            else {
-                onActive="No";
-            }
+         
         } catch (Exception ex) {
             Logger.getLogger(ManageRoutesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
