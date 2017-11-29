@@ -77,7 +77,7 @@ and open the template in the editor.
                             <p:column headerText="#{msgs.active}"
                                       style="width:5%">
 
-                                <h:outputText value="#{routesInfo.active == '1'? msgs.yes:msgs.no}"/> 
+                                <h:outputText value="#{routesInfo.active == 1? msgs.yes:msgs.no}"/> 
                             </p:column>
                          
                             <f:facet name="footer">
@@ -110,6 +110,14 @@ and open the template in the editor.
                                                  disabled="#{manageRoutesBean.selectedRoute==null}"                                                 
                                                  actionListener="#{manageRoutesBean.saveSelectedItemId()}"
                                                  action="manage_route_stops" />
+                                        <p:commandButton value="#{msgs.schedules}"
+                                                 icon="ui-icon-pencil"                                  
+                                                 iconPos="#{langBean.styleFloat}"
+                                                 styleClass="commandButton"
+                                                 style="float:#{langBean.styleFloat}"                                                                                                
+                                                 disabled="#{manageRoutesBean.selectedRoute==null}"                                                 
+                                                 actionListener="#{manageRoutesBean.saveSelectedItemId()}"
+                                                 action="manage_route_schedules" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
                             </f:facet>

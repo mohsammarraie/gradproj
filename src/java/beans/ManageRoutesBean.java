@@ -26,7 +26,6 @@ public class ManageRoutesBean implements Serializable {
     private Routes selectedRoute;
     private final RoutesDao routesDao = new RoutesDao();
     private ArrayList<Routes> routesInfo; 
-    private String onActive;
     @Inject 
     private SessionBean sessionBean;
      
@@ -40,14 +39,6 @@ public class ManageRoutesBean implements Serializable {
         } catch (Exception ex) {
             Logger.getLogger(ManageRoutesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    public String getOnActive() {
-        return onActive;
-    }
-
-    public void setOnActive(String onActive) {
-        this.onActive = onActive;
     }
 
     public Routes getSelectedRoute() {

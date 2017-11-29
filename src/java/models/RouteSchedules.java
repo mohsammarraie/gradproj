@@ -5,33 +5,96 @@
  */
 package models;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author MOH
  */
-public class Routes {
-    
+public class RouteSchedules {
+    private int stopID;
     private int routeID;
+    private int scheduleID;
+    private Timestamp time;
+    private int routeScheduleID;
+    private int stopOrder;
+    private String stopNameEn;
+    private String stopNameAr;
     private String sourceAr;
     private String sourceEn;
     private String destinationAr;
     private String destinationEn;
     private String routeCode;
     private int active;
-    
+
+    public int getStopID() {
+        return stopID;
+    }
+
+    public void setStopID(int stopID) {
+        this.stopID = stopID;
+    }
+
     public int getRouteID() {
         return routeID;
+    }
+
+    public void setRouteID(int routeID) {
+        this.routeID = routeID;
+    }
+
+    public int getScheduleID() {
+        return scheduleID;
+    }
+
+    public void setScheduleID(int scheduleID) {
+        this.scheduleID = scheduleID;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
+
+    public int getRouteScheduleID() {
+        return routeScheduleID;
+    }
+
+    public void setRouteScheduleID(int routeScheduleID) {
+        this.routeScheduleID = routeScheduleID;
+    }
+
+    public int getStopOrder() {
+        return stopOrder;
+    }
+
+    public void setStopOrder(int stopOrder) {
+        this.stopOrder = stopOrder;
+    }
+
+    public String getStopNameEn() {
+        return stopNameEn;
+    }
+
+    public void setStopNameEn(String stopNameEn) {
+        this.stopNameEn = stopNameEn;
+    }
+
+    public String getStopNameAr() {
+        return stopNameAr;
+    }
+
+    public void setStopNameAr(String stopNameAr) {
+        this.stopNameAr = stopNameAr;
     }
 
     public String getSourceAr() {
         return sourceAr;
     }
 
-    public void setRouteID(int routeID) {
-        this.routeID = routeID;
-    }
-    
-    
     public void setSourceAr(String sourceAr) {
         this.sourceAr = sourceAr;
     }
@@ -75,8 +138,6 @@ public class Routes {
     public void setActive(int active) {
         this.active = active;
     }
-
-    
     
 
 }

@@ -29,8 +29,8 @@ public class ConnectionDao implements Serializable {
             //oracleUrl = "jdbc:oracle:thin:@52.232.34.123:1521:CE471DB";
             //oracleUrl = "jdbc:oracle:thin:@192.168.120.213:1521:xe";
             oracleUrl = "jdbc:oracle:thin:@localhost:1521:xe";
-            databaseUsername = "system";
-            databasePassword = "2122232425mM";
+            databaseUsername = "buses";
+            databasePassword = "buses";
         }
 
         FacesContext context = FacesContext.getCurrentInstance();

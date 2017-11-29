@@ -37,7 +37,7 @@ public class RouteStopsDao extends ConnectionDao{
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                list.add(populateStopsInfo(rs));
+                list.add(populateRouteStopsInfo(rs));
              
             }
             
@@ -64,7 +64,7 @@ public class RouteStopsDao extends ConnectionDao{
 //            ResultSet rs = ps.executeQuery();           
 //
 //            while (rs.next()) {
-//                Stops stopsInfo = populateStopsInfo(rs);
+//                Stops stopsInfo = populateRouteStopsInfo(rs);
 //                
 //                map.put(stopsInfo.getStopID(), stopsInfo);
 //            }
@@ -78,7 +78,7 @@ public class RouteStopsDao extends ConnectionDao{
 //        }
 //    }
     
-      private RouteStops populateStopsInfo(ResultSet rs) throws SQLException {
+      private RouteStops populateRouteStopsInfo(ResultSet rs) throws SQLException {
         RouteStops stopsInfo = new RouteStops();
         
         stopsInfo.setStopID(rs.getInt("STOP_ID"));
@@ -90,7 +90,7 @@ public class RouteStopsDao extends ConnectionDao{
         stopsInfo.setSourceAr(rs.getString("SOURCE_AR"));
         stopsInfo.setDestinationEn(rs.getString("DESTINATION_EN"));                  
         stopsInfo.setDestinationAr(rs.getString("DESTINATION_AR"));                  
-        stopsInfo.setActive(rs.getString("ACTIVE")); 
+        stopsInfo.setActive(rs.getInt("ACTIVE")); 
         return stopsInfo;
     } 
 
@@ -176,7 +176,7 @@ public class RouteStopsDao extends ConnectionDao{
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                stopsInfo = populateStopsInfo(rs);
+                stopsInfo = populateRouteStopsInfo(rs);
                 stopsInfo.setStopNameEn(rs.getString("STOP_NAME_EN"));
                 stopsInfo.setStopNameAr(rs.getString("STOP_NAME_AR"));
                 stopsInfo.setStopOrder(rs.getInt("STOP_ORDER"));

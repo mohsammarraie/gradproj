@@ -72,7 +72,7 @@ public class RoutesDao extends ConnectionDao {
         routesInfo.setDestinationEn(rs.getString("DESTINATION_EN"));                  
         routesInfo.setDestinationAr(rs.getString("DESTINATION_AR"));                  
         routesInfo.setRouteCode(rs.getString("ROUTE_CODE")); 
-        routesInfo.setActive(rs.getString("ACTIVE")); 
+        routesInfo.setActive(rs.getInt("ACTIVE")); 
         return routesInfo;
     } 
     public void insertRoute(Routes routesInfo) throws Exception {                
@@ -94,7 +94,7 @@ public class RoutesDao extends ConnectionDao {
              ps.setString(3, routesInfo.getDestinationEn());
              ps.setString(4, routesInfo.getDestinationAr());
              ps.setString(5, routesInfo.getRouteCode());
-             ps.setString(6, routesInfo.getActive());
+             ps.setInt(6, routesInfo.getActive());
              ps.executeUpdate();
              ps.close();
             
@@ -121,7 +121,7 @@ public class RoutesDao extends ConnectionDao {
              ps.setString(3, routesInfo.getDestinationEn());
              ps.setString(4, routesInfo.getDestinationAr());
              ps.setString(5, routesInfo.getRouteCode());
-             ps.setString(6, routesInfo.getActive());
+             ps.setInt(6, routesInfo.getActive());
              ps.setInt(7, routesInfo.getRouteID());
 
             ps.executeUpdate();
@@ -167,7 +167,7 @@ public class RoutesDao extends ConnectionDao {
                 routesInfo.setDestinationEn(rs.getString("DESTINATION_EN"));
                 routesInfo.setDestinationAr(rs.getString("DESTINATION_AR"));
                 routesInfo.setRouteCode(rs.getString("ROUTE_CODE")); 
-                routesInfo.setActive(rs.getString("ACTIVE")); 
+                routesInfo.setActive(rs.getInt("ACTIVE")); 
             }
 
             rs.close();

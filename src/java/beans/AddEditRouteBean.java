@@ -29,7 +29,7 @@ public class AddEditRouteBean implements Serializable {
     private String destinationAr;
     private String destinationEn;
     private String routeCode;
-    private String active;
+    private int active;
     private boolean checkBoxValue;
     
     @Inject
@@ -53,7 +53,7 @@ public class AddEditRouteBean implements Serializable {
                 destinationEn = routesInfo.getDestinationEn();
                 routeCode = routesInfo.getRouteCode();
                 active= routesInfo.getActive();
-                if("1".equals(active)){
+                if(active==1){
                 checkBoxValue = true;
                 }
                 else{
@@ -72,16 +72,15 @@ public class AddEditRouteBean implements Serializable {
     public void setCheckBoxValue(boolean checkBoxValue) {
         this.checkBoxValue = checkBoxValue;
     }
-    
-    
-    
-    public String getActive() {
+
+    public int getActive() {
         return active;
     }
 
-    public void setActive(String active) {
+    public void setActive(int active) {
         this.active = active;
     }
+    
     public int getRouteID() {
         return routeID;
     }
@@ -132,10 +131,10 @@ public class AddEditRouteBean implements Serializable {
     
     public void addActive(){
         if(checkBoxValue==false){
-            active = "0";
+            active = 0;
         }
         else{
-         active = "1";
+         active = 1;
         }
     }  
 
