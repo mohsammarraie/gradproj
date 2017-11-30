@@ -40,7 +40,7 @@ public class ManageRouteSchedulesBean implements Serializable{
       @PostConstruct
         public void init(){
             try {            
-                routeSchedulesInfo = routeSchedulesDao.buildRouteSchedulesInfo(sessionBean.getSelectedItemId());
+                routeSchedulesInfo = routeSchedulesDao.buildRouteSchedulesInfo(sessionBean.getSelectedRouteID());
             } catch (Exception ex) {
                 Logger.getLogger(ManageRouteSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -62,13 +62,13 @@ public class ManageRouteSchedulesBean implements Serializable{
         this.routeSchedulesInfo = routeSchedulesInfo;
     }
         
-        public void saveSelectedItemId(){
-        sessionBean.setSelectedItemId(selectedRouteSchedule.getStopID());
+        public void saveSelectedScheduleID(){
+        sessionBean.setSelectedScheduleID(selectedRouteSchedule.getStopID());
     }
       
       public void deleteSelectedRouteSchedule(){
         try {
-            routeSchedulesDao.deleteRouteSchedule(selectedRouteSchedule.getScheduleID(), sessionBean.getSelectedItemId());
+            routeSchedulesDao.deleteRouteSchedule(selectedRouteSchedule.getScheduleID(), sessionBean.getSelectedRouteID());
             sessionBean.navigate("manage_route_schedules");
 
         } catch (Exception ex) {

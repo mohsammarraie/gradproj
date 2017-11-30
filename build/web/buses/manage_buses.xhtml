@@ -85,7 +85,7 @@ and open the template in the editor.
                                                  styleClass="commandButton"
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{busesInfoBean.selectedBus==null}"                                                 
-                                                 actionListener="#{busesInfoBean.saveSelectedItemId()}"
+                                                 actionListener="#{busesInfoBean.saveSelectedBusId()}"
                                                  action="add_edit_bus" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
@@ -96,7 +96,7 @@ and open the template in the editor.
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
-                                 actionListener="#{sessionBean.setSelectedItemId(-1)}"
+                                 actionListener="#{sessionBean.setSelectedBusID(-1)}"
                                  action="add_edit_bus" /> 
                 </h:form>
                

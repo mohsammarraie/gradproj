@@ -42,7 +42,7 @@ public class AddEditBusBean implements Serializable{
     @PostConstruct
     public void init(){                
         try {
-            busID = sessionBean.getSelectedItemId();
+            busID = sessionBean.getSelectedBusID();
          
             
             if(busID > 0){
@@ -91,7 +91,7 @@ public class AddEditBusBean implements Serializable{
             busesInfo.setLicenseNumber(licenseNumber);
             busesInfo.setCapacity(capacity);
             busesInfo.setChasisNumber(chasisNumber);
-            if (sessionBean.getSelectedItemId() > 0) {
+            if (sessionBean.getSelectedBusID() > 0) {
                 busesDao.updateBus(busesInfo);
             } else {
                 busesDao.insertBus(busesInfo);

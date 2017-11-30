@@ -58,8 +58,8 @@ public class ManageDriversBean implements Serializable {
     }
 
 
-    public void saveSelectedItemId(){
-        sessionBean.setSelectedItemId(selectedDriver.getDriverID());
+    public void saveSelectedDriverId(){
+        sessionBean.setSelectedDriverID(selectedDriver.getDriverID());
     }
     
     public void deleteSelectedDriver(){

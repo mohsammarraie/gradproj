@@ -22,21 +22,47 @@ public class SessionBean implements Serializable {
     // Session attributes
 
     private Connection connection; 
+    
     private int selectedItemId; 
-
     private int selectedBusID; 
     private int selectedStudentID;
     private int selectedDriverID;
     private int selectedRouteID;
+    private int selectedRouteStopID;
+    private int selectedStopID;
+    private int selectedScheduleID;
     
     
-
-
     private int menuIndex = 0;
 
     public SessionBean() {
     }
 
+    public int getSelectedRouteStopID() {
+        return selectedRouteStopID;
+    }
+
+    public void setSelectedRouteStopID(int selectedRouteStopID) {
+        this.selectedRouteStopID = selectedRouteStopID;
+    }
+
+    public int getSelectedStopID() {
+        return selectedStopID;
+    }
+
+    public void setSelectedStopID(int selectedStopID) {
+        this.selectedStopID = selectedStopID;
+    }
+
+    public int getSelectedScheduleID() {
+        return selectedScheduleID;
+    }
+
+    public void setSelectedScheduleID(int selectedScheduleID) {
+        this.selectedScheduleID = selectedScheduleID;
+    }
+    
+    
     public int getSelectedRouteID() {
         return selectedRouteID;
     }
@@ -97,7 +123,7 @@ public class SessionBean implements Serializable {
         this.selectedStudentID = selectedStudentID;
     }
     
-             public int getSelectedDriverID() {
+    public int getSelectedDriverID() {
         return selectedDriverID;
     }
 

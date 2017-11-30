@@ -45,7 +45,7 @@ public class AddEditRouteStopBean implements Serializable{
     @PostConstruct
     public void init(){                
         try {
-            routeStopID = sessionBean.getSelectedItemId();
+            routeStopID = sessionBean.getSelectedRouteStopID();
             routeStopsInfos = routeStopsDao.buildRouteStopsInfo(routeStopID);
             stopsInfos =  stopsDao.buildStopsInfo();
             if(routeStopID > 0){
@@ -125,7 +125,7 @@ public class AddEditRouteStopBean implements Serializable{
         
       
   
-            if (sessionBean.getSelectedItemId() > 0) {
+            if (sessionBean.getSelectedRouteStopID() > 0) {
                 routeStopsDao.updateRouteStop(routeStopID, stopID, sessionBean.getSelectedRouteID(), stopOrder);
             } else {
                 routeStopsDao.insertRouteStop(routeStopID, sessionBean.getSelectedRouteID(), stopOrder);
@@ -135,7 +135,7 @@ public class AddEditRouteStopBean implements Serializable{
             Logger.getLogger(AddEditStopBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        sessionBean.navigate("manage_routes");
+        sessionBean.navigate("manage_route_stops");
     }
     
 }

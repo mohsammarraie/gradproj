@@ -56,8 +56,8 @@ public class ManageStopsBean implements Serializable {
         this.stopsInfo = stopsInfo;
     }
 
-    public void saveSelectedItemId(){
-        sessionBean.setSelectedItemId(selectedStop.getStopID());
+    public void saveSelectedStopId(){
+        sessionBean.setSelectedStopID(selectedStop.getStopID());
     }
     
     public void deleteSelectedStop(){

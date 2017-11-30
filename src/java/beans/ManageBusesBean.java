@@ -59,8 +59,8 @@ public class ManageBusesBean implements Serializable {
         this.busesInfo = busesInfo;
     }
 
-    public void saveSelectedItemId() {
-        sessionBean.setSelectedItemId(selectedBus.getBusID());
+    public void saveSelectedBusId() {
+        sessionBean.setSelectedBusID(selectedBus.getBusID());
     }
 
     public void deleteSelectedBus() {

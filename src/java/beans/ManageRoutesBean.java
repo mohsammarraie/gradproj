@@ -58,9 +58,8 @@ public class ManageRoutesBean implements Serializable {
     }
 
 
-    public void saveSelectedItemId(){
-        sessionBean.setSelectedItemId(selectedRoute.getRouteID());
-        sessionBean.setSelectedRouteID(selectedRoute.getRouteID());
+    public void saveSelectedRouteId(){
+       sessionBean.setSelectedRouteID(selectedRoute.getRouteID());
     }
     
     public void deleteSelectedRoute(){

@@ -85,7 +85,7 @@ and open the template in the editor.
                                                  styleClass="commandButton"
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageRouteStopsBean.selectedRouteStop==null}"                                                 
-                                                 actionListener="#{manageRouteStopsBean.saveSelectedItemId()}"
+                                                 actionListener="#{manageRouteStopsBean.saveSelectedRouteStopId()}"
                                                  action="add_edit_route_stop" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
@@ -102,7 +102,7 @@ and open the template in the editor.
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
-                                 actionListener="#{sessionBean.setSelectedItemId(-1)}"
+                                 actionListener="#{sessionBean.setSelectedRouteStopID(-1)}"
                                  action="add_edit_route_stop" /> 
                        
                 </h:form>

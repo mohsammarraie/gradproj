@@ -28,7 +28,7 @@ public class RouteStopsDao extends ConnectionDao{
                     + " BUSES.ROUTE_STOPS ON BUSES.STOPS.STOP_ID = BUSES.ROUTE_STOPS.STOP_ID" 
                     + " JOIN BUSES.ROUTES ON "
                     + " BUSES.ROUTES.ROUTE_ID = BUSES.ROUTE_STOPS.ROUTE_ID"
-                    + " WHERE BUSES.ROUTES.ROUTE_ID=?";
+                    + " WHERE BUSES.ROUTES.ROUTE_ID=? ORDER BY STOP_ORDER";
 //                   String sql= "SELECT * FROM BUSES.ROUTE_STOPS,"
 //                           + " BUSES.STOPS WHERE ROUTE_ID = ? AND"
 //                           + " BUSES.STOPS.STOP_ID = BUSES.ROUTE_STOPS.STOP_ID ORDER BY STOP_ORDER";                        

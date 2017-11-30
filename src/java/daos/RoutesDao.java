@@ -86,7 +86,7 @@ public class RoutesDao extends ConnectionDao {
                     + " DESTINATION_AR,"
                     + " ROUTE_CODE,"
                     + " ACTIVE)"
-                    + " VALUES ((select max(ROUTE_ID) from ROUTES_INFO)+1,?,?,?,?,?,?)";
+                    + " VALUES ((select max(ROUTE_ID) from ROUTES)+1,?,?,?,?,?,?)";
              PreparedStatement ps = conn.prepareStatement(sql); 
             
              ps.setString(1, routesInfo.getSourceEn());

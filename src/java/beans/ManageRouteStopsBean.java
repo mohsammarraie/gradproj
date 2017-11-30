@@ -36,7 +36,7 @@ public class ManageRouteStopsBean implements Serializable {
        @PostConstruct
         public void init(){
             try {            
-                routeStopsInfo = routeStopsDao.buildRouteStopsInfo(sessionBean.getSelectedItemId());
+                routeStopsInfo = routeStopsDao.buildRouteStopsInfo(sessionBean.getSelectedRouteID());
 //                routeStopsInfo = routeStopsDao.buildRouteStopsInfo(sessionBean.getSelectedItemId());
             } catch (Exception ex) {
                 Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -63,13 +63,13 @@ public class ManageRouteStopsBean implements Serializable {
     }
         
 
-    public void saveSelectedItemId(){
-        sessionBean.setSelectedItemId(selectedRouteStop.getStopID());
+    public void saveSelectedRouteStopId(){
+        sessionBean.setSelectedRouteStopID(selectedRouteStop.getStopID());
     }
     
     public void deleteSelectedRouteStop(){
         try {
-            routeStopsDao.deleteRouteStop(selectedRouteStop.getStopID(), sessionBean.getSelectedItemId());
+            routeStopsDao.deleteRouteStop(selectedRouteStop.getStopID(), sessionBean.getSelectedRouteID());
             sessionBean.navigate("manage_route_stops");
 
         } catch (Exception ex) {

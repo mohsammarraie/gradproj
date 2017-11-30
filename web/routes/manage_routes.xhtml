@@ -99,7 +99,7 @@ and open the template in the editor.
                                                  styleClass="commandButton"
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageRoutesBean.selectedRoute==null}"                                                 
-                                                 actionListener="#{manageRoutesBean.saveSelectedItemId()}"
+                                                 actionListener="#{manageRoutesBean.saveSelectedRouteId()}"
                                                  action="add_edit_route" />
                                         
                                         <p:commandButton value="#{msgs.stops}"
@@ -108,7 +108,7 @@ and open the template in the editor.
                                                  styleClass="commandButton"
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageRoutesBean.selectedRoute==null}"                                                 
-                                                 actionListener="#{manageRoutesBean.saveSelectedItemId()}"
+                                                 actionListener="#{manageRoutesBean.saveSelectedRouteId()}"
                                                  action="manage_route_stops" />
                                         <p:commandButton value="#{msgs.schedules}"
                                                  icon="ui-icon-pencil"                                  
@@ -116,7 +116,7 @@ and open the template in the editor.
                                                  styleClass="commandButton"
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageRoutesBean.selectedRoute==null}"                                                 
-                                                 actionListener="#{manageRoutesBean.saveSelectedItemId()}"
+                                                 actionListener="#{manageRoutesBean.saveSelectedRouteId()}"
                                                  action="manage_route_schedules" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
@@ -127,7 +127,7 @@ and open the template in the editor.
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
-                                 actionListener="#{sessionBean.setSelectedItemId(-1)}"
+                                 actionListener="#{sessionBean.setSelectedRouteID(-1)}"
                                  action="add_edit_route" /> 
                 </h:form>
                

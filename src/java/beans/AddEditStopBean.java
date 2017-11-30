@@ -37,7 +37,7 @@ public class AddEditStopBean implements Serializable {
     @PostConstruct
     public void init(){                
         try {
-            stopID = sessionBean.getSelectedItemId();
+            stopID = sessionBean.getSelectedStopID();
          
             
             if(stopID > 0){
@@ -86,7 +86,7 @@ public class AddEditStopBean implements Serializable {
             stopsInfo.setStopNameEn(stopNameEn);
       
   
-            if (sessionBean.getSelectedItemId() > 0) {
+            if (sessionBean.getSelectedStopID() > 0) {
                 stopsDao.updateStop(stopsInfo);
             } else {
                 stopsDao.insertStop(stopsInfo);

@@ -39,7 +39,7 @@ public class AddEditDriverBean implements Serializable{
     @PostConstruct
     public void init(){                
         try {
-            driverID = sessionBean.getSelectedItemId();
+            driverID = sessionBean.getSelectedDriverID();
          
             
             if(driverID > 0){
@@ -121,7 +121,7 @@ public class AddEditDriverBean implements Serializable{
             driverInfo.setPhoneNumber(phoneNumber);
             
             
-            if (sessionBean.getSelectedItemId() > 0) {
+            if (sessionBean.getSelectedDriverID() > 0) {
                 driverDao.updateDriver(driverInfo);
             } else {
                 driverDao.insertDriver(driverInfo);

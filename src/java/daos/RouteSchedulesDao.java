@@ -33,9 +33,7 @@ public class RouteSchedulesDao extends ConnectionDao{
                         " BUSES.STOPS.STOP_ID = BUSES.ROUTES_SCHEDULES.STOP_ID" +
                         " AND" +
                         " BUSES.ROUTES.ROUTE_ID=?";
-//                   String sql= "SELECT * FROM BUSES.ROUTE_STOPS,"
-//                           + " BUSES.STOPS WHERE ROUTE_ID = ? AND"
-//                           + " BUSES.STOPS.STOP_ID = BUSES.ROUTE_STOPS.STOP_ID ORDER BY STOP_ORDER";                        
+                     
             PreparedStatement ps = conn.prepareStatement(sql);            
             ps.setInt(1, routeID);
             ResultSet rs = ps.executeQuery();           

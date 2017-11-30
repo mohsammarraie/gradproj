@@ -41,7 +41,7 @@ public class AddEditRouteBean implements Serializable {
     @PostConstruct
     public void init(){                
         try {
-            routeID = sessionBean.getSelectedItemId();
+            routeID = sessionBean.getSelectedRouteID();
 
             
             if(routeID > 0){
@@ -149,7 +149,7 @@ public class AddEditRouteBean implements Serializable {
             routesInfo.setDestinationEn(destinationEn);
             routesInfo.setRouteCode(routeCode);
             routesInfo.setActive(active);
-            if (sessionBean.getSelectedItemId() > 0) {
+            if (sessionBean.getSelectedRouteID() > 0) {
                 routesDao.updateRoute(routesInfo);
             } else {
                 routesDao.insertRoute(routesInfo);
