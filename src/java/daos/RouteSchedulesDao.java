@@ -18,7 +18,7 @@ import models.Stops;
  * @author MOH
  */
 public class RouteSchedulesDao extends ConnectionDao{
-      public ArrayList<RouteSchedules> buildRouteSchedulesInfo(int routeID) throws Exception {
+      public ArrayList<RouteSchedules> buildRouteSchedules(int routeId) throws Exception {
         ArrayList<RouteSchedules> list = new ArrayList<>();
         Connection conn = getConnection();
         
@@ -35,11 +35,11 @@ public class RouteSchedulesDao extends ConnectionDao{
                         " BUSES.ROUTES.ROUTE_ID=?";
                      
             PreparedStatement ps = conn.prepareStatement(sql);            
-            ps.setInt(1, routeID);
+            ps.setInt(1, routeId);
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                list.add(populateRouteSchedulesInfo(rs));
+                list.add(populateRouteSchedules(rs));
              
             }
             
@@ -52,15 +52,15 @@ public class RouteSchedulesDao extends ConnectionDao{
         }       
     }
       
-        private RouteSchedules populateRouteSchedulesInfo(ResultSet rs) throws SQLException {
-            RouteSchedules stopsInfo = new RouteSchedules();
-            stopsInfo.setTime(rs.getTimestamp("TIME"));
-            stopsInfo.setScheduleID(rs.getInt("SCHEDULE_ID"));
-            stopsInfo.setRouteScheduleID(rs.getInt("ROUTE_SCHEDULE_ID"));
-            stopsInfo.setRouteID(rs.getInt("ROUTE_ID"));
-            stopsInfo.setStopID(rs.getInt("STOP_ID"));
-            stopsInfo.setStopNameEn(rs.getString("STOP_NAME_EN"));
-            stopsInfo.setStopNameAr(rs.getString("STOP_NAME_AR"));
+        private RouteSchedules populateRouteSchedules(ResultSet rs) throws SQLException {
+            RouteSchedules routeSchedules = new RouteSchedules();
+            routeSchedules.setTime(rs.getTimestamp("TIME"));
+            routeSchedules.setScheduleId(rs.getInt("SCHEDULE_ID"));
+            routeSchedules.setRouteScheduleId(rs.getInt("ROUTE_SCHEDULE_ID"));
+            routeSchedules.setRouteId(rs.getInt("ROUTE_ID"));
+            routeSchedules.setStopId(rs.getInt("STOP_ID"));
+            routeSchedules.setStopNameEn(rs.getString("STOP_NAME_EN"));
+            routeSchedules.setStopNameAr(rs.getString("STOP_NAME_AR"));
 //            stopsInfo.setStopOrder(rs.getInt("STOP_ORDER"));
 //            stopsInfo.setRouteCode(rs.getString("ROUTE_CODE"));
 //            stopsInfo.setSourceEn(rs.getString("SOURCE_EN"));
@@ -68,18 +68,18 @@ public class RouteSchedulesDao extends ConnectionDao{
 //            stopsInfo.setDestinationEn(rs.getString("DESTINATION_EN"));                  
 //            stopsInfo.setDestinationAr(rs.getString("DESTINATION_AR"));                  
 //            stopsInfo.setActive(rs.getInt("ACTIVE")); 
-            return stopsInfo;
+            return routeSchedules;
         } 
     
-        public void deleteRouteSchedule(int scheduleID, int routeID) throws Exception {
+        public void deleteRouteSchedule(int scheduleId, int routeId) throws Exception {
         Connection conn = getConnection();
         
         try {
             String sql = "DELETE FROM BUSES.ROUTES_SCHEDULES WHERE SCHEDULE_ID=? AND ROUTE_ID=?"; 
             PreparedStatement ps = conn.prepareStatement(sql);
             
-            ps.setInt(1, scheduleID);
-            ps.setInt(2, routeID);
+            ps.setInt(1, scheduleId);
+            ps.setInt(2, routeId);
             ps.executeUpdate();
 
             ps.close();

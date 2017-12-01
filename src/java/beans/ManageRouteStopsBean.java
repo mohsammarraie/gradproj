@@ -25,7 +25,7 @@ public class ManageRouteStopsBean implements Serializable {
  
     private RouteStops selectedRouteStop;
     private final RouteStopsDao routeStopsDao = new RouteStopsDao();
-    private ArrayList<RouteStops> routeStopsInfo; 
+    private ArrayList<RouteStops> routeStopsArray; 
    
     
     @Inject 
@@ -36,8 +36,8 @@ public class ManageRouteStopsBean implements Serializable {
        @PostConstruct
         public void init(){
             try {            
-                routeStopsInfo = routeStopsDao.buildRouteStopsInfo(sessionBean.getSelectedRouteID());
-//                routeStopsInfo = routeStopsDao.buildRouteStopsInfo(sessionBean.getSelectedItemId());
+                routeStopsArray = routeStopsDao.buildRouteStops(sessionBean.getSelectedRouteId());
+//                routeStopsArray = routeStopsDao.buildRouteStops(sessionBean.getSelectedItemId());
             } catch (Exception ex) {
                 Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -54,22 +54,22 @@ public class ManageRouteStopsBean implements Serializable {
  
     
     
-    public ArrayList<RouteStops> getRouteStopsInfo() {
-        return routeStopsInfo;
+    public ArrayList<RouteStops> getRouteStopsArray() {
+        return routeStopsArray;
     }
 
-    public void setRouteStopsInfo(ArrayList<RouteStops> routeStopsInfo) {
-        this.routeStopsInfo = routeStopsInfo;
+    public void setRouteStopsArray(ArrayList<RouteStops> routeStopsArray) {
+        this.routeStopsArray = routeStopsArray;
     }
         
 
     public void saveSelectedRouteStopId(){
-        sessionBean.setSelectedRouteStopID(selectedRouteStop.getStopID());
+        sessionBean.setSelectedRouteStopId(selectedRouteStop.getStopId());
     }
     
     public void deleteSelectedRouteStop(){
         try {
-            routeStopsDao.deleteRouteStop(selectedRouteStop.getStopID(), sessionBean.getSelectedRouteID());
+            routeStopsDao.deleteRouteStop(selectedRouteStop.getStopId(), sessionBean.getSelectedRouteId());
             sessionBean.navigate("manage_route_stops");
 
         } catch (Exception ex) {

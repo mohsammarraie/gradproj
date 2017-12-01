@@ -17,13 +17,13 @@ import models.Drivers;
  *
  * @author MOH
  */
-@Named(value = "addEditDriversBean")
+@Named(value = "addEditDriverBean")
 @ViewScoped
 public class AddEditDriverBean implements Serializable{
 
     private final DriversDao driverDao = new DriversDao();
 
-    private int driverID;
+    private int driverId;
     private String firstNameEn;
     private String firstNameAr;
     private String lastNameEn;
@@ -39,29 +39,29 @@ public class AddEditDriverBean implements Serializable{
     @PostConstruct
     public void init(){                
         try {
-            driverID = sessionBean.getSelectedDriverID();
+            driverId = sessionBean.getSelectedDriverId();
          
             
-            if(driverID > 0){
-                Drivers driverInfo = driverDao.getDriverInfo(driverID);
+            if(driverId > 0){
+                Drivers driversArray = driverDao.getDrivers(driverId);
            
-                firstNameEn = driverInfo.getFirstNameEn();
-                firstNameAr = driverInfo.getFirstNameAr();
-                lastNameEn =  driverInfo.getLastNameEn();
-                lastNameAr =  driverInfo.getLastNameAr();
-                phoneNumber = driverInfo.getPhoneNumber();
+                firstNameEn = driversArray.getFirstNameEn();
+                firstNameAr = driversArray.getFirstNameAr();
+                lastNameEn =  driversArray.getLastNameEn();
+                lastNameAr =  driversArray.getLastNameAr();
+                phoneNumber = driversArray.getPhoneNumber();
             }
         } catch (Exception ex) {
             Logger.getLogger(AddEditDriverBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public int getDriverID() {
-        return driverID;
+    public int getDriverId() {
+        return driverId;
     }
 
-    public void setDriverID(int driverID) {
-        this.driverID = driverID;
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
     }
 
     public String getFirstNameEn() {
@@ -112,19 +112,19 @@ public class AddEditDriverBean implements Serializable{
         public void saveDriver() {
         try {
         
-            Drivers driverInfo = new Drivers();
-            driverInfo.setDriverID(driverID);
-            driverInfo.setFirstNameEn(firstNameEn);
-            driverInfo.setFirstNameAr(firstNameAr);
-            driverInfo.setLastNameEn(lastNameEn);
-            driverInfo.setLastNameAr(lastNameAr);
-            driverInfo.setPhoneNumber(phoneNumber);
+            Drivers drivers = new Drivers();
+            drivers.setDriverId(driverId);
+            drivers.setFirstNameEn(firstNameEn);
+            drivers.setFirstNameAr(firstNameAr);
+            drivers.setLastNameEn(lastNameEn);
+            drivers.setLastNameAr(lastNameAr);
+            drivers.setPhoneNumber(phoneNumber);
             
             
-            if (sessionBean.getSelectedDriverID() > 0) {
-                driverDao.updateDriver(driverInfo);
+            if (sessionBean.getSelectedDriverId() > 0) {
+                driverDao.updateDriver(drivers);
             } else {
-                driverDao.insertDriver(driverInfo);
+                driverDao.insertDriver(drivers);
             }
         } catch (Exception ex) {
             Logger.getLogger(AddEditDriverBean.class.getName()).log(Level.SEVERE, null, ex);

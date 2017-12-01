@@ -27,7 +27,7 @@ and open the template in the editor.
                    
                         
                         <p:outputLabel value="#{msgs.stop_name}:" for="stop_name"/>
-                        <p:selectOneMenu value="#{addEditRouteStopBean.routeStopID}"
+                        <p:selectOneMenu value="#{addEditRouteStopBean.routeStopId}"
                                          id="stop_name"
                                          filter="true"
                                          filterMatchMode="contains"
@@ -36,9 +36,9 @@ and open the template in the editor.
                             <f:selectItem itemLabel="#{msgs.select_one}"
                                           itemValue=""/>
                             <f:selectItems var="stopsInfo"
-                                           value="#{addEditRouteStopBean.stopsInfos}" 
+                                           value="#{addEditRouteStopBean.stopsArray}" 
                                            itemLabel="#{langBean.isEnglish?stopsInfo.stopNameEn:stopsInfo.stopNameAr}"
-                                           itemValue="#{stopsInfo.stopID}"/>                             
+                                           itemValue="#{stopsInfo.stopId}"/>                             
                         </p:selectOneMenu>
                         <h:message for="stop_name" styleClass="errorMsg"/>   
                         

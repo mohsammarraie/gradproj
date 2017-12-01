@@ -11,7 +11,7 @@ package models;
  */
 public class Drivers {
     
-    private int driverID;
+    private int driverId;
     private String firstNameEn;
     private String firstNameAr;
     private String lastNameEn;
@@ -23,12 +23,12 @@ public class Drivers {
     
     
 
-    public int getDriverID() {
-        return driverID;
+    public int getDriverId() {
+        return driverId;
     }
 
-    public void setDriverID(int driverID) {
-        this.driverID = driverID;
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
     }
 
     public String getFirstNameEn() {

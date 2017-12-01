@@ -21,11 +21,11 @@ and open the template in the editor.
                 <h:form id="driver_info_form">
                     <p:dataTable 
                            id="driver_info_tbl"
-                           value = "#{driversInfoBean.driverInfo}"
-                           selection="#{driversInfoBean.selectedDriver}"
-                           rowKey="#{driverInfo.driverID}"  
+                           value = "#{manageDriversBean.driversArray}"
+                           selection="#{manageDriversBean.selectedDriver}"
+                           rowKey="#{driversArray.driverId}"  
                            class = "dataTable"
-                           var="driverInfo"
+                           var="driversArray"
                            rows="5"
                            rowsPerPageTemplate="5,10,20"
                            dir="#{langBean.dir}"
@@ -44,31 +44,31 @@ and open the template in the editor.
                             
                             <p:column headerText="#{msgs.driver_id}"
                                       style="width:15%"
-                                      sortBy="#{driverInfo.driverID}">                    
-                                <h:outputText value="#{driverInfo.driverID}"/>  
+                                      sortBy="#{driversArray.driverId}">                    
+                                <h:outputText value="#{driversArray.driverId}"/>  
                             </p:column>
 
                             
                             <p:column headerText="#{msgs.first_name}"
                                 style="width:20%"
-                                filterBy="#{langBean.isEnglish?driverInfo.firstNameEn:driverInfo.firstNameAr}"
+                                filterBy="#{langBean.isEnglish?driversArray.firstNameEn:driversArray.firstNameAr}"
                                 filterMatchMode="contains"
-                                sortBy="#{langBean.isEnglish?driverInfo.firstNameEn:driverInfo.firstNameAr}">                    
-                                <h:outputText value="#{langBean.isEnglish?driverInfo.firstNameEn:driverInfo.firstNameAr}"/>  
+                                sortBy="#{langBean.isEnglish?driversArray.firstNameEn:driversArray.firstNameAr}">                    
+                                <h:outputText value="#{langBean.isEnglish?driversArray.firstNameEn:driversArray.firstNameAr}"/>  
                             </p:column>
                             
                             <p:column headerText="#{msgs.last_name}"
                                 style="width:20%"
-                                filterBy="#{langBean.isEnglish?driverInfo.lastNameEn:driverInfo.lastNameAr}"
+                                filterBy="#{langBean.isEnglish?driversArray.lastNameEn:driversArray.lastNameAr}"
                                 filterMatchMode="contains"
-                                sortBy="#{langBean.isEnglish?driverInfo.lastNameEn:driverInfo.lastNameAr}">                    
-                                <h:outputText value="#{langBean.isEnglish?driverInfo.lastNameEn:driverInfo.lastNameAr}"/>  
+                                sortBy="#{langBean.isEnglish?driversArray.lastNameEn:driversArray.lastNameAr}">                    
+                                <h:outputText value="#{langBean.isEnglish?driversArray.lastNameEn:driversArray.lastNameAr}"/>  
                             </p:column>
                             
                              <p:column headerText="#{msgs.phone_number}"
                                     style="width:20%"
-                                    sortBy="#{driverInfo.phoneNumber}">                    
-                                <h:outputText value="#{driverInfo.phoneNumber}"/>  
+                                    sortBy="#{driversArray.phoneNumber}">                    
+                                <h:outputText value="#{driversArray.phoneNumber}"/>  
                             </p:column>
                             
                             <f:facet name="footer">
@@ -79,17 +79,17 @@ and open the template in the editor.
                                                  iconPos="#{langBean.styleFloat}"
                                                  styleClass="commandButton"
                                                  style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{driversInfoBean.selectedDriver==null}"
+                                                 disabled="#{manageDriversBean.selectedDriver==null}"
                                                  onclick="return confirm('#{msgs.confirm_delete_driver}?');"
-                                                 actionListener="#{driversInfoBean.deleteSelectedDriver()}"
+                                                 actionListener="#{manageDriversBean.deleteSelectedDriver()}"
                                                  action="manage_drivers" />
                                         <p:commandButton value="#{msgs.edit}"
                                                  icon="ui-icon-pencil"                                  
                                                  iconPos="#{langBean.styleFloat}"
                                                  styleClass="commandButton"
                                                  style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{driversInfoBean.selectedDriver==null}"                                                 
-                                                 actionListener="#{driversInfoBean.saveSelectedDriverId()}"
+                                                 disabled="#{manageDriversBean.selectedDriver==null}"                                                 
+                                                 actionListener="#{manageDriversBean.saveSelectedDriverId()}"
                                                  action="add_edit_driver" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
@@ -100,7 +100,7 @@ and open the template in the editor.
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
-                                 actionListener="#{sessionBean.setSelectedDriverID(-1)}"
+                                 actionListener="#{sessionBean.setSelectedDriverId(-1)}"
                                  action="add_edit_driver" /> 
                 </h:form>
                

@@ -24,7 +24,7 @@ public class ManageStopsBean implements Serializable {
     
     private Stops selectedStop;
     private final StopsDao stopsDao = new StopsDao();
-    private ArrayList<Stops> stopsInfo; 
+    private ArrayList<Stops> stopsArray; 
     
     @Inject 
     private SessionBean sessionBean;
@@ -34,7 +34,7 @@ public class ManageStopsBean implements Serializable {
        @PostConstruct
         public void init(){
             try {            
-                stopsInfo = stopsDao.buildStopsInfo();            
+                stopsArray = stopsDao.buildStops();            
             } catch (Exception ex) {
                 Logger.getLogger(ManageStopsBean.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -48,21 +48,21 @@ public class ManageStopsBean implements Serializable {
         this.selectedStop = selectedStop;
     }
 
-    public ArrayList<Stops> getStopsInfo() {
-        return stopsInfo;
+    public ArrayList<Stops> getStopsArray() {
+        return stopsArray;
     }
 
-    public void setStopsInfo(ArrayList<Stops> stopsInfo) {
-        this.stopsInfo = stopsInfo;
+    public void setStopsArray(ArrayList<Stops> stopsArray) {
+        this.stopsArray = stopsArray;
     }
 
     public void saveSelectedStopId(){
-        sessionBean.setSelectedStopID(selectedStop.getStopID());
+        sessionBean.setSelectedStopId(selectedStop.getStopId());
     }
     
     public void deleteSelectedStop(){
         try {
-            stopsDao.deleteStop(selectedStop.getStopID());
+            stopsDao.deleteStop(selectedStop.getStopId());
             sessionBean.navigate("manage_stops");
 
         } catch (Exception ex) {

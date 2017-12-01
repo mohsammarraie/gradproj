@@ -19,12 +19,12 @@ import javax.inject.Named;
  *
  * @author MOH
  */
-@Named(value = "driversInfoBean")
+@Named(value = "manageDriversBean")
 @ViewScoped
 public class ManageDriversBean implements Serializable {
     private Drivers selectedDriver;
     private final DriversDao driverDao = new DriversDao();
-    private ArrayList<Drivers> driverInfo; 
+    private ArrayList<Drivers> driversArray; 
     
     @Inject 
     private SessionBean sessionBean;
@@ -34,7 +34,7 @@ public class ManageDriversBean implements Serializable {
         @PostConstruct
       public void init(){
         try {            
-            driverInfo = driverDao.buildDriverInfo();            
+            driversArray = driverDao.buildDriver();            
         } catch (Exception ex) {
             Logger.getLogger(ManageDriversBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -48,23 +48,23 @@ public class ManageDriversBean implements Serializable {
         this.selectedDriver = selectedDriver;
     }
 
-    public ArrayList<Drivers> getDriverInfo() {
-        return driverInfo;
+    public ArrayList<Drivers> getDriversArray() {
+        return driversArray;
     }
 
 
-    public void setDriverInfo(ArrayList<Drivers> driverInfo) {
-        this.driverInfo = driverInfo;
+    public void setDriversArray(ArrayList<Drivers> driversArray) {
+        this.driversArray = driversArray;
     }
 
 
     public void saveSelectedDriverId(){
-        sessionBean.setSelectedDriverID(selectedDriver.getDriverID());
+        sessionBean.setSelectedDriverId(selectedDriver.getDriverId());
     }
     
     public void deleteSelectedDriver(){
         try {
-            driverDao.deleteDriver(selectedDriver.getDriverID());
+            driverDao.deleteDriver(selectedDriver.getDriverId());
             sessionBean.navigate("manage_drivers");
 
         } catch (Exception ex) {

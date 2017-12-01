@@ -13,7 +13,7 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>#{msgs.manage_routes_schedules}</title>
+        <title>#{msgs.manage_route_schedules}</title>
     </h:head>
     <h:body>
         <div>
@@ -21,15 +21,15 @@ and open the template in the editor.
                 <h:form id="route_stops_info_form">
                     <p:dataTable 
                            id="route_stops_info_tbl"
-                           value = "#{manageRouteSchedulesBean.routeSchedulesInfo}"
+                           value = "#{manageRouteSchedulesBean.routeSchedulesArray}"
                            selection="#{manageRouteSchedulesBean.selectedRouteSchedule}"
-                           rowKey="#{routeSchedulesInfo.scheduleID}"  
+                           rowKey="#{routeSchedulesArray.scheduleId}"  
                            class = "dataTable"
-                           var="routeSchedulesInfo"
+                           var="routeSchedulesArray"
                            rows="10"
                            rowsPerPageTemplate="10,20,50"
                            dir="#{langBean.dir}"
-                           emptyMessage="#{msgs.no_stops}"
+                           emptyMessage="#{msgs.no_schedules}"
                            paginator="true"
                            paginatorPosition="top" 
                            paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
@@ -38,29 +38,29 @@ and open the template in the editor.
                               update="route_stops_info_form:route_stops_info_tbl"/>  
 
                             <f:facet name="header" id="header">
-                                #{msgs.manage_routes_schedules}
+                                #{msgs.manage_route_schedules}
                             </f:facet> 
 
                             <p:column selectionMode="single" style="width:5%"/>
                             
                             <p:column headerText="#{msgs.schedule_id}"
                                       style="width:15%"
-                                      sortBy="#{routeSchedulesInfo.scheduleID}">                    
-                                <h:outputText value="#{routeSchedulesInfo.scheduleID}"/>  
+                                      sortBy="#{routeSchedulesArray.scheduleId}">                    
+                                <h:outputText value="#{routeSchedulesArray.scheduleId}"/>  
                             </p:column>
                             
                             <p:column headerText="#{msgs.stop_name}"
                                 style="width:20%"
-                                filterBy="#{langBean.isEnglish?routeStopsInfo.stopNameEn:routeStopsInfo.stopNameAr}"
+                                filterBy="#{langBean.isEnglish?routeSchedulesArray.stopNameEn:routeSchedulesArray.stopNameAr}"
                                 filterMatchMode="contains"
-                                sortBy="#{langBean.isEnglish?routeSchedulesInfo.stopNameEn:routeSchedulesInfo.stopNameAr}">                    
-                                <h:outputText value="#{langBean.isEnglish?routeSchedulesInfo.stopNameEn:routeSchedulesInfo.stopNameAr}"/>  
+                                sortBy="#{langBean.isEnglish?routeSchedulesArray.stopNameEn:routeSchedulesArray.stopNameAr}">                    
+                                <h:outputText value="#{langBean.isEnglish?routeSchedulesArray.stopNameEn:routeSchedulesArray.stopNameAr}"/>  
                             </p:column>
                             
-                             <p:column headerText="#{msgs.stop_order}"
+                             <p:column headerText="#{msgs.time}"
                                       style="width:15%"
-                                      sortBy="#{routeSchedulesInfo.time}">                    
-                                <h:outputText value="#{routeSchedulesInfo.time}"/>  
+                                      sortBy="#{routeSchedulesArray.time}">                    
+                                <h:outputText value="#{routeSchedulesArray.time}"/>  
                             </p:column>
                             
                             <f:facet name="footer">
@@ -98,7 +98,7 @@ and open the template in the editor.
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
-                                 actionListener="#{sessionBean.setSelectedScheduleID(-1)}"
+                                 actionListener="#{sessionBean.setSelectedScheduleId(-1)}"
                                  action="add_edit_route_schedule" /> 
                        
                 </h:form>

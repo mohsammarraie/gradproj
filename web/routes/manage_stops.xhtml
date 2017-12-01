@@ -21,11 +21,11 @@ and open the template in the editor.
                 <h:form id="stops_info_form">
                     <p:dataTable 
                            id="stops_info_tbl"
-                           value = "#{manageStopsBean.stopsInfo}"
+                           value = "#{manageStopsBean.stopsArray}"
                            selection="#{manageStopsBean.selectedStop}"
-                           rowKey="#{stopsInfo.stopID}"  
+                           rowKey="#{stopsArray.stopId}"  
                            class = "dataTable"
-                           var="stopsInfo"
+                           var="stopsArray"
                            rows="10"
                            rowsPerPageTemplate="10,20,50"
                            dir="#{langBean.dir}"
@@ -45,17 +45,17 @@ and open the template in the editor.
                     
                             <p:column headerText="#{msgs.stop_id}"
                                       style="width:15%"
-                                      sortBy="#{stopsInfo.stopID}">                    
-                                <h:outputText value="#{stopsInfo.stopID}"/>  
+                                      sortBy="#{stopsArray.stopId}">                    
+                                <h:outputText value="#{stopsArray.stopId}"/>  
                             </p:column>
 
                             
                             <p:column headerText="#{msgs.stop_name}"
                                 style="width:20%"
-                                filterBy="#{langBean.isEnglish?stopsInfo.stopNameEn:stopsInfo.stopNameAr}"
+                                filterBy="#{langBean.isEnglish?stopsArray.stopNameEn:stopsArray.stopNameAr}"
                                 filterMatchMode="contains"
-                                sortBy="#{langBean.isEnglish?stopsInfo.stopNameEn:stopsInfo.stopNameAr}">                    
-                                <h:outputText value="#{langBean.isEnglish?stopsInfo.stopNameEn:stopsInfo.stopNameAr}"/>  
+                                sortBy="#{langBean.isEnglish?stopsArray.stopNameEn:stopsArray.stopNameAr}">                    
+                                <h:outputText value="#{langBean.isEnglish?stopsArray.stopNameEn:stopsArray.stopNameAr}"/>  
                             </p:column>
                             
                             <f:facet name="footer">
@@ -87,7 +87,7 @@ and open the template in the editor.
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
-                                 actionListener="#{sessionBean.setSelectedStopID(-1)}"
+                                 actionListener="#{sessionBean.setSelectedStopId(-1)}"
                                  action="add_edit_stop" /> 
                 </h:form>
                

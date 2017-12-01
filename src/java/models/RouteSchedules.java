@@ -12,11 +12,11 @@ import java.sql.Timestamp;
  * @author MOH
  */
 public class RouteSchedules {
-    private int stopID;
-    private int routeID;
-    private int scheduleID;
+    private int stopId;
+    private int routeId;
+    private int scheduleId;
     private Timestamp time;
-    private int routeScheduleID;
+    private int routeScheduleId;
     private int stopOrder;
     private String stopNameEn;
     private String stopNameAr;
@@ -27,28 +27,28 @@ public class RouteSchedules {
     private String routeCode;
     private int active;
 
-    public int getStopID() {
-        return stopID;
+    public int getStopId() {
+        return stopId;
     }
 
-    public void setStopID(int stopID) {
-        this.stopID = stopID;
+    public void setStopId(int stopId) {
+        this.stopId = stopId;
     }
 
-    public int getRouteID() {
-        return routeID;
+    public int getRouteId() {
+        return routeId;
     }
 
-    public void setRouteID(int routeID) {
-        this.routeID = routeID;
+    public void setRouteId(int routeId) {
+        this.routeId = routeId;
     }
 
-    public int getScheduleID() {
-        return scheduleID;
+    public int getScheduleId() {
+        return scheduleId;
     }
 
-    public void setScheduleID(int scheduleID) {
-        this.scheduleID = scheduleID;
+    public void setScheduleId(int scheduleId) {
+        this.scheduleId = scheduleId;
     }
 
     public Timestamp getTime() {
@@ -59,12 +59,12 @@ public class RouteSchedules {
         this.time = time;
     }
 
-    public int getRouteScheduleID() {
-        return routeScheduleID;
+    public int getRouteScheduleId() {
+        return routeScheduleId;
     }
 
-    public void setRouteScheduleID(int routeScheduleID) {
-        this.routeScheduleID = routeScheduleID;
+    public void setRouteScheduleId(int routeScheduleId) {
+        this.routeScheduleId = routeScheduleId;
     }
 
     public int getStopOrder() {

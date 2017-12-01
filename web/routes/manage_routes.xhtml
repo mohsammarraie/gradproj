@@ -22,11 +22,11 @@ and open the template in the editor.
                 <h:form id="routes_info_form">
                     <p:dataTable 
                            id="routes_info_tbl"
-                           value = "#{manageRoutesBean.routesInfo}"
+                           value = "#{manageRoutesBean.routesArray}"
                            selection="#{manageRoutesBean.selectedRoute}"
-                           rowKey="#{routesInfo.routeID}"  
+                           rowKey="#{routesArray.routeId}"  
                            class = "dataTable"
-                           var="routesInfo"
+                           var="routesArray"
                            rows="10"
                            rowsPerPageTemplate="10,20,50"
                            dir="#{langBean.dir}"
@@ -46,38 +46,38 @@ and open the template in the editor.
                          
                             <p:column headerText="#{msgs.route_id}"
                                       style="width:15%"
-                                      sortBy="#{routesInfo.routeID}">                    
-                                <h:outputText value="#{routesInfo.routeID}"/>  
+                                      sortBy="#{routesArray.routeId}">                    
+                                <h:outputText value="#{routesArray.routeId}"/>  
                             </p:column>
 
                             
                             <p:column headerText="#{msgs.source}"
                                 style="width:20%"
-                                filterBy="#{langBean.isEnglish?routesInfo.sourceEn:routesInfo.sourceAr}"
+                                filterBy="#{langBean.isEnglish?routesArray.sourceEn:routesArray.sourceAr}"
                                 filterMatchMode="contains"
-                                sortBy="#{langBean.isEnglish?routesInfo.sourceEn:routesInfo.sourceAr}">                    
-                                <h:outputText value="#{langBean.isEnglish?routesInfo.sourceEn:routesInfo.sourceAr}"/>  
+                                sortBy="#{langBean.isEnglish?routesArray.sourceEn:routesArray.sourceAr}">                    
+                                <h:outputText value="#{langBean.isEnglish?routesArray.sourceEn:routesArray.sourceAr}"/>  
                             </p:column>
                             
                             <p:column headerText="#{msgs.destination}"
                                 style="width:20%"
-                                filterBy="#{langBean.isEnglish?routesInfo.destinationEn:routesInfo.destinationAr}"
+                                filterBy="#{langBean.isEnglish?routesArray.destinationEn:routesArray.destinationAr}"
                                 filterMatchMode="contains"
-                                sortBy="#{langBean.isEnglish?routesInfo.destinationEn:routesInfo.destinationAr}">                    
-                                <h:outputText value="#{langBean.isEnglish?routesInfo.destinationEn:routesInfo.destinationAr}"/>  
+                                sortBy="#{langBean.isEnglish?routesArray.destinationEn:routesArray.destinationAr}">                    
+                                <h:outputText value="#{langBean.isEnglish?routesArray.destinationEn:routesArray.destinationAr}"/>  
                             </p:column>
                             <p:column headerText="#{msgs.route_code}"
                                 style="width:20%"
-                                filterBy="#{routesInfo.routeCode}"
+                                filterBy="#{routesArray.routeCode}"
                                 filterMatchMode="contains"
-                                sortBy="#{routesInfo.routeCode}">                    
-                                <h:outputText value="#{routesInfo.routeCode}"/>  
+                                sortBy="#{routesArray.routeCode}">                    
+                                <h:outputText value="#{routesArray.routeCode}"/>  
                             </p:column>
                            
                             <p:column headerText="#{msgs.active}"
                                       style="width:5%">
 
-                                <h:outputText value="#{routesInfo.active == 1? msgs.yes:msgs.no}"/> 
+                                <h:outputText value="#{routesArray.active == 1? msgs.yes:msgs.no}"/> 
                             </p:column>
                          
                             <f:facet name="footer">
@@ -127,7 +127,7 @@ and open the template in the editor.
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
-                                 actionListener="#{sessionBean.setSelectedRouteID(-1)}"
+                                 actionListener="#{sessionBean.setSelectedRouteId(-1)}"
                                  action="add_edit_route" /> 
                 </h:form>
                

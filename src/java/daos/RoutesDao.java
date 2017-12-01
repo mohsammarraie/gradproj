@@ -17,7 +17,7 @@ import models.Routes;
  */
 public class RoutesDao extends ConnectionDao {
     
-      public ArrayList<Routes> buildRoutesInfo() throws Exception {
+      public ArrayList<Routes> buildRoutes() throws Exception {
         ArrayList<Routes> list = new ArrayList<>();
         Connection conn = getConnection();
         
@@ -28,7 +28,7 @@ public class RoutesDao extends ConnectionDao {
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                list.add(populateRoutesInfo(rs));
+                list.add(populateRoutes(rs));
             }
             
             rs.close();
@@ -39,7 +39,7 @@ public class RoutesDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-    public HashMap<Integer, Routes> buildRoutesInfoMap() throws Exception {
+    public HashMap<Integer, Routes> buildRoutesMap() throws Exception {
         HashMap<Integer, Routes> map = new HashMap<>();
         Connection conn = getConnection();
         
@@ -50,8 +50,8 @@ public class RoutesDao extends ConnectionDao {
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                Routes routesInfo = populateRoutesInfo(rs);
-                map.put(routesInfo.getRouteID(), routesInfo);
+                Routes routesInfo = populateRoutes(rs);
+                map.put(routesInfo.getRouteId(), routesInfo);
             }
             
             rs.close();
@@ -63,19 +63,19 @@ public class RoutesDao extends ConnectionDao {
         }
     }
     
-      private Routes populateRoutesInfo(ResultSet rs) throws SQLException {
-        Routes routesInfo = new Routes();
+      private Routes populateRoutes(ResultSet rs) throws SQLException {
+        Routes routes = new Routes();
         
-        routesInfo.setRouteID(rs.getInt("ROUTE_ID"));
-        routesInfo.setSourceEn(rs.getString("SOURCE_EN"));
-        routesInfo.setSourceAr(rs.getString("SOURCE_AR"));
-        routesInfo.setDestinationEn(rs.getString("DESTINATION_EN"));                  
-        routesInfo.setDestinationAr(rs.getString("DESTINATION_AR"));                  
-        routesInfo.setRouteCode(rs.getString("ROUTE_CODE")); 
-        routesInfo.setActive(rs.getInt("ACTIVE")); 
-        return routesInfo;
+        routes.setRouteId(rs.getInt("ROUTE_ID"));
+        routes.setSourceEn(rs.getString("SOURCE_EN"));
+        routes.setSourceAr(rs.getString("SOURCE_AR"));
+        routes.setDestinationEn(rs.getString("DESTINATION_EN"));                  
+        routes.setDestinationAr(rs.getString("DESTINATION_AR"));                  
+        routes.setRouteCode(rs.getString("ROUTE_CODE")); 
+        routes.setActive(rs.getInt("ACTIVE")); 
+        return routes;
     } 
-    public void insertRoute(Routes routesInfo) throws Exception {                
+    public void insertRoute(Routes routes) throws Exception {                
         try {
             Connection conn = getConnection();
 
@@ -89,12 +89,12 @@ public class RoutesDao extends ConnectionDao {
                     + " VALUES ((select max(ROUTE_ID) from ROUTES)+1,?,?,?,?,?,?)";
              PreparedStatement ps = conn.prepareStatement(sql); 
             
-             ps.setString(1, routesInfo.getSourceEn());
-             ps.setString(2, routesInfo.getSourceAr());
-             ps.setString(3, routesInfo.getDestinationEn());
-             ps.setString(4, routesInfo.getDestinationAr());
-             ps.setString(5, routesInfo.getRouteCode());
-             ps.setInt(6, routesInfo.getActive());
+             ps.setString(1, routes.getSourceEn());
+             ps.setString(2, routes.getSourceAr());
+             ps.setString(3, routes.getDestinationEn());
+             ps.setString(4, routes.getDestinationAr());
+             ps.setString(5, routes.getRouteCode());
+             ps.setInt(6, routes.getActive());
              ps.executeUpdate();
              ps.close();
             
@@ -102,7 +102,7 @@ public class RoutesDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-        public void updateRoute(Routes routesInfo) throws Exception {
+        public void updateRoute(Routes routes) throws Exception {
         try {
             Connection conn = getConnection();
 
@@ -116,13 +116,13 @@ public class RoutesDao extends ConnectionDao {
                     + " WHERE ROUTE_ID=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             
-             ps.setString(1, routesInfo.getSourceEn());
-             ps.setString(2, routesInfo.getSourceAr());
-             ps.setString(3, routesInfo.getDestinationEn());
-             ps.setString(4, routesInfo.getDestinationAr());
-             ps.setString(5, routesInfo.getRouteCode());
-             ps.setInt(6, routesInfo.getActive());
-             ps.setInt(7, routesInfo.getRouteID());
+             ps.setString(1, routes.getSourceEn());
+             ps.setString(2, routes.getSourceAr());
+             ps.setString(3, routes.getDestinationEn());
+             ps.setString(4, routes.getDestinationAr());
+             ps.setString(5, routes.getRouteCode());
+             ps.setInt(6, routes.getActive());
+             ps.setInt(7, routes.getRouteId());
 
             ps.executeUpdate();
             ps.close();
@@ -132,13 +132,13 @@ public class RoutesDao extends ConnectionDao {
         }
     }
     
-    public void deleteRoute(int routeID) throws Exception {
+    public void deleteRoute(int routeId) throws Exception {
         Connection conn = getConnection();
         
         try {
             String sql = "DELETE FROM BUSES.ROUTES WHERE ROUTE_ID=?";                               
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, routeID);
+            ps.setInt(1, routeId);
             
             ps.executeUpdate();
 
@@ -147,33 +147,33 @@ public class RoutesDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-        public Routes getRoutesInfo(int routeID) throws Exception {
+        public Routes getRoutes(int routeId) throws Exception {
         try {   
-            Routes routesInfo = null;
+            Routes routes = null;
             Connection conn = getConnection();
             
             String sql = "SELECT * FROM BUSES.ROUTES"
                     + " WHERE ROUTE_ID=?";   
             
             PreparedStatement ps = conn.prepareStatement(sql);            
-            ps.setInt(1, routeID);
+            ps.setInt(1, routeId);
             
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                routesInfo = populateRoutesInfo(rs);
-                routesInfo.setSourceEn(rs.getString("SOURCE_EN"));
-                routesInfo.setSourceAr(rs.getString("SOURCE_AR"));
-                routesInfo.setDestinationEn(rs.getString("DESTINATION_EN"));
-                routesInfo.setDestinationAr(rs.getString("DESTINATION_AR"));
-                routesInfo.setRouteCode(rs.getString("ROUTE_CODE")); 
-                routesInfo.setActive(rs.getInt("ACTIVE")); 
+                routes = populateRoutes(rs);
+                routes.setSourceEn(rs.getString("SOURCE_EN"));
+                routes.setSourceAr(rs.getString("SOURCE_AR"));
+                routes.setDestinationEn(rs.getString("DESTINATION_EN"));
+                routes.setDestinationAr(rs.getString("DESTINATION_AR"));
+                routes.setRouteCode(rs.getString("ROUTE_CODE")); 
+                routes.setActive(rs.getInt("ACTIVE")); 
             }
 
             rs.close();
             ps.close();
             
-            return routesInfo;            
+            return routes;            
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
         }

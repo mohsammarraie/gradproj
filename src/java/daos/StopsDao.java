@@ -18,7 +18,7 @@ import models.Stops;
  */
 public class StopsDao extends ConnectionDao {
     
-    public ArrayList<Stops> buildStopsInfo() throws Exception {
+    public ArrayList<Stops> buildStops() throws Exception {
         ArrayList<Stops> list = new ArrayList<>();
         Connection conn = getConnection();
         
@@ -29,7 +29,7 @@ public class StopsDao extends ConnectionDao {
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                list.add(populateStopsInfo(rs));
+                list.add(populateStops(rs));
             }
             
             rs.close();
@@ -40,7 +40,7 @@ public class StopsDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-    public HashMap<Integer, Stops> buildStopsInfoMap() throws Exception {
+    public HashMap<Integer, Stops> buildStopsMap() throws Exception {
         HashMap<Integer, Stops> map = new HashMap<>();
         Connection conn = getConnection();
         
@@ -51,8 +51,8 @@ public class StopsDao extends ConnectionDao {
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                Stops stopsInfo = populateStopsInfo(rs);
-                map.put(stopsInfo.getStopID(), stopsInfo);
+                Stops stopsInfo = populateStops(rs);
+                map.put(stopsInfo.getStopId(), stopsInfo);
             }
             
             rs.close();
@@ -64,16 +64,16 @@ public class StopsDao extends ConnectionDao {
         }
     }
     
-      private Stops populateStopsInfo(ResultSet rs) throws SQLException {
-        Stops stopsInfo = new Stops();
+      private Stops populateStops(ResultSet rs) throws SQLException {
+        Stops stops = new Stops();
         
-        stopsInfo.setStopID(rs.getInt("STOP_ID"));
-        stopsInfo.setStopNameEn(rs.getString("STOP_NAME_EN"));
-        stopsInfo.setStopNameAr(rs.getString("STOP_NAME_AR"));
+        stops.setStopId(rs.getInt("STOP_ID"));
+        stops.setStopNameEn(rs.getString("STOP_NAME_EN"));
+        stops.setStopNameAr(rs.getString("STOP_NAME_AR"));
      
-        return stopsInfo;
+        return stops;
     } 
-    public void insertStop(Stops stopsInfo) throws Exception {                
+    public void insertStop(Stops stops) throws Exception {                
         try {
             Connection conn = getConnection();
 
@@ -83,8 +83,8 @@ public class StopsDao extends ConnectionDao {
                     + " VALUES ((select max(STOP_ID) from BUSES.STOPS)+1,?,?)";
              PreparedStatement ps = conn.prepareStatement(sql); 
             
-             ps.setString(1, stopsInfo.getStopNameEn());
-             ps.setString(2, stopsInfo.getStopNameAr());
+             ps.setString(1, stops.getStopNameEn());
+             ps.setString(2, stops.getStopNameAr());
            
         
              
@@ -95,7 +95,7 @@ public class StopsDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-        public void updateStop(Stops stopsInfo) throws Exception {
+        public void updateStop(Stops stops) throws Exception {
         try {
             Connection conn = getConnection();
 
@@ -105,9 +105,9 @@ public class StopsDao extends ConnectionDao {
                     + " WHERE STOP_ID=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             
-             ps.setString(1, stopsInfo.getStopNameEn());
-             ps.setString(2, stopsInfo.getStopNameAr());       
-             ps.setInt(3, stopsInfo.getStopID());
+             ps.setString(1, stops.getStopNameEn());
+             ps.setString(2, stops.getStopNameAr());       
+             ps.setInt(3, stops.getStopId());
 
             ps.executeUpdate();
             ps.close();
@@ -117,13 +117,13 @@ public class StopsDao extends ConnectionDao {
         }
     }
     
-    public void deleteStop(int stopID) throws Exception {
+    public void deleteStop(int stopId) throws Exception {
         Connection conn = getConnection();
         
         try {
             String sql = "DELETE FROM BUSES.STOPS WHERE STOP_ID=?";                               
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, stopID);
+            ps.setInt(1, stopId);
             
             ps.executeUpdate();
 
@@ -132,30 +132,30 @@ public class StopsDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-        public Stops getStopsInfo(int stopID) throws Exception {
+        public Stops getStops(int stopId) throws Exception {
         try {   
-            Stops stopsInfo = null;
+            Stops stops = null;
             Connection conn = getConnection();
             
             String sql = "SELECT * FROM BUSES.STOPS"
                     + " WHERE STOP_ID=?";   
             
             PreparedStatement ps = conn.prepareStatement(sql);            
-            ps.setInt(1, stopID);
+            ps.setInt(1, stopId);
             
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                stopsInfo = populateStopsInfo(rs);
-                stopsInfo.setStopNameEn(rs.getString("STOP_NAME_EN"));
-                stopsInfo.setStopNameAr(rs.getString("STOP_NAME_AR"));
+                stops = populateStops(rs);
+                stops.setStopNameEn(rs.getString("STOP_NAME_EN"));
+                stops.setStopNameAr(rs.getString("STOP_NAME_AR"));
 
             }
 
             rs.close();
             ps.close();
             
-            return stopsInfo;            
+            return stops;            
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
         }

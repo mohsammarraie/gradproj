@@ -29,7 +29,7 @@ public class ManageRouteSchedulesBean implements Serializable{
     
     private RouteSchedules selectedRouteSchedule;
     private final RouteSchedulesDao routeSchedulesDao = new RouteSchedulesDao();
-    private ArrayList<RouteSchedules> routeSchedulesInfo; 
+    private ArrayList<RouteSchedules> routeSchedulesArray; 
     
      @Inject 
     private SessionBean sessionBean;
@@ -40,7 +40,7 @@ public class ManageRouteSchedulesBean implements Serializable{
       @PostConstruct
         public void init(){
             try {            
-                routeSchedulesInfo = routeSchedulesDao.buildRouteSchedulesInfo(sessionBean.getSelectedRouteID());
+                routeSchedulesArray = routeSchedulesDao.buildRouteSchedules(sessionBean.getSelectedRouteId());
             } catch (Exception ex) {
                 Logger.getLogger(ManageRouteSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -54,21 +54,21 @@ public class ManageRouteSchedulesBean implements Serializable{
         this.selectedRouteSchedule = selectedRouteSchedule;
     }
 
-    public ArrayList<RouteSchedules> getRouteSchedulesInfo() {
-        return routeSchedulesInfo;
+    public ArrayList<RouteSchedules> getRouteSchedulesArray() {
+        return routeSchedulesArray;
     }
 
-    public void setRouteSchedulesInfo(ArrayList<RouteSchedules> routeSchedulesInfo) {
-        this.routeSchedulesInfo = routeSchedulesInfo;
+    public void setRouteSchedulesArray(ArrayList<RouteSchedules> routeSchedulesArray) {
+        this.routeSchedulesArray = routeSchedulesArray;
     }
         
         public void saveSelectedScheduleID(){
-        sessionBean.setSelectedScheduleID(selectedRouteSchedule.getStopID());
+        sessionBean.setSelectedScheduleId(selectedRouteSchedule.getStopId());
     }
       
       public void deleteSelectedRouteSchedule(){
         try {
-            routeSchedulesDao.deleteRouteSchedule(selectedRouteSchedule.getScheduleID(), sessionBean.getSelectedRouteID());
+            routeSchedulesDao.deleteRouteSchedule(selectedRouteSchedule.getScheduleId(), sessionBean.getSelectedRouteId());
             sessionBean.navigate("manage_route_schedules");
 
         } catch (Exception ex) {

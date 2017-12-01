@@ -13,17 +13,17 @@ import java.sql.Timestamp;
  */
 public class Buses implements Serializable {
     
-    private int busID;
+    private int busId;
     private int chasisNumber;
     private String licenseNumber;
     private int capacity;
 
-    public int getBusID() {
-        return busID;
+    public int getBusId() {
+        return busId;
     }
 
-    public void setBusID(int busID) {
-        this.busID = busID;
+    public void setBusId(int busId) {
+        this.busId = busId;
     }
 
     public int getChasisNumber() {

@@ -24,16 +24,16 @@ import models.RouteStops;
 @ViewScoped
 public class AddEditRouteStopBean implements Serializable{
     
-    private ArrayList<RouteStops> routeStopsInfos;
-    private ArrayList<Stops> stopsInfos;
+    private ArrayList<RouteStops> routeStopsArray;
+    private ArrayList<Stops> stopsArray;
     private final RouteStopsDao routeStopsDao = new RouteStopsDao();
     private final StopsDao stopsDao = new StopsDao();
-    private int routeStopID;
-    private int stopID;
+    private int routeStopId;
+    private int stopId;
     private String stopNameAr;
     private String stopNameEn;
     private int stopOrder;
-    RouteStops routeStopsInfo = new RouteStops();
+    RouteStops routeStops = new RouteStops();
    
 
     @Inject
@@ -45,15 +45,15 @@ public class AddEditRouteStopBean implements Serializable{
     @PostConstruct
     public void init(){                
         try {
-            routeStopID = sessionBean.getSelectedRouteStopID();
-            routeStopsInfos = routeStopsDao.buildRouteStopsInfo(routeStopID);
-            stopsInfos =  stopsDao.buildStopsInfo();
-            if(routeStopID > 0){
-                 routeStopsInfo = routeStopsDao.getRouteStopsInfo(routeStopID);
-                 stopID = routeStopsInfo.getStopID();
-                stopNameAr = routeStopsInfo.getStopNameAr();
-                stopNameEn = routeStopsInfo.getStopNameEn();
-                stopOrder = routeStopsInfo.getStopOrder();
+            routeStopId = sessionBean.getSelectedRouteStopId();
+            routeStopsArray = routeStopsDao.buildRouteStops(routeStopId);
+            stopsArray =  stopsDao.buildStops();
+            if(routeStopId > 0){
+                routeStops = routeStopsDao.getRouteStops(routeStopId);
+                stopId = routeStops.getStopId();
+                stopNameAr = routeStops.getStopNameAr();
+                stopNameEn = routeStops.getStopNameEn();
+                stopOrder = routeStops.getStopOrder();
                 
             }
         } catch (Exception ex) {
@@ -61,12 +61,12 @@ public class AddEditRouteStopBean implements Serializable{
         }
     }
 
-    public ArrayList<Stops> getStopsInfos() {
-        return stopsInfos;
+    public ArrayList<Stops> getStopsArray() {
+        return stopsArray;
     }
 
-    public void setStopsInfos(ArrayList<Stops> stopsInfos) {
-        this.stopsInfos = stopsInfos;
+    public void setStopsArray(ArrayList<Stops> stopsArray) {
+        this.stopsArray = stopsArray;
     }
 
     
@@ -78,26 +78,26 @@ public class AddEditRouteStopBean implements Serializable{
         this.stopOrder = stopOrder;
     }
     
-    public ArrayList<RouteStops> getRouteStopsInfos() {
-        return routeStopsInfos;
+    public ArrayList<RouteStops> getRouteStopsArray() {
+        return routeStopsArray;
     }
 
-    public int getRouteStopID() {
-        return routeStopID;
+    public int getRouteStopId() {
+        return routeStopId;
     }
 
-    public void setRouteStopID(int routeStopID) {
-        this.routeStopID = routeStopID;
+    public void setRouteStopId(int routeStopId) {
+        this.routeStopId = routeStopId;
     }
     
     
     
-    public int getStopID() {
-        return stopID;
+    public int getStopId() {
+        return stopId;
     }
 
-    public void setStopID(int stopID) {
-        this.stopID = stopID;
+    public void setStopId(int stopId) {
+        this.stopId = stopId;
     }
 
     public String getStopNameAr() {
@@ -121,14 +121,14 @@ public class AddEditRouteStopBean implements Serializable{
         try {
         
         
-            routeStopsInfo.setStopID(routeStopID);
+            routeStops.setStopId(routeStopId);
         
       
   
-            if (sessionBean.getSelectedRouteStopID() > 0) {
-                routeStopsDao.updateRouteStop(routeStopID, stopID, sessionBean.getSelectedRouteID(), stopOrder);
+            if (sessionBean.getSelectedRouteStopId() > 0) {
+                routeStopsDao.updateRouteStop(routeStopId, stopId, sessionBean.getSelectedRouteId(), stopOrder);
             } else {
-                routeStopsDao.insertRouteStop(routeStopID, sessionBean.getSelectedRouteID(), stopOrder);
+                routeStopsDao.insertRouteStop(routeStopId, sessionBean.getSelectedRouteId(), stopOrder);
             }
         } catch (Exception ex) {
             sessionBean.navigate("route_stop_error");

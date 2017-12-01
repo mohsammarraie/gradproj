@@ -23,7 +23,7 @@ import daos.StopsDao;
 public class AddEditStopBean implements Serializable {
     
      private final StopsDao stopsDao = new StopsDao();
-    private int stopID;
+    private int stopId;
     private String stopNameAr;
     private String stopNameEn;
 
@@ -37,14 +37,14 @@ public class AddEditStopBean implements Serializable {
     @PostConstruct
     public void init(){                
         try {
-            stopID = sessionBean.getSelectedStopID();
+            stopId = sessionBean.getSelectedStopId();
          
             
-            if(stopID > 0){
-                Stops stopsInfo = stopsDao.getStopsInfo(stopID);
+            if(stopId > 0){
+                Stops stopsArray = stopsDao.getStops(stopId);
            
-                stopNameAr = stopsInfo.getStopNameAr();
-                stopNameEn = stopsInfo.getStopNameEn();
+                stopNameAr = stopsArray.getStopNameAr();
+                stopNameEn = stopsArray.getStopNameEn();
                 
             }
         } catch (Exception ex) {
@@ -52,12 +52,12 @@ public class AddEditStopBean implements Serializable {
         }
     }
 
-    public int getStopID() {
-        return stopID;
+    public int getStopId() {
+        return stopId;
     }
 
-    public void setStopID(int stopID) {
-        this.stopID = stopID;
+    public void setStopId(int stopId) {
+        this.stopId = stopId;
     }
 
     public String getStopNameAr() {
@@ -80,16 +80,16 @@ public class AddEditStopBean implements Serializable {
         public void saveStop() {
         try {
         
-            Stops stopsInfo = new Stops();
-            stopsInfo.setStopID(stopID);
-            stopsInfo.setStopNameAr(stopNameAr);
-            stopsInfo.setStopNameEn(stopNameEn);
+            Stops stops = new Stops();
+            stops.setStopId(stopId);
+            stops.setStopNameAr(stopNameAr);
+            stops.setStopNameEn(stopNameEn);
       
   
-            if (sessionBean.getSelectedStopID() > 0) {
-                stopsDao.updateStop(stopsInfo);
+            if (sessionBean.getSelectedStopId() > 0) {
+                stopsDao.updateStop(stops);
             } else {
-                stopsDao.insertStop(stopsInfo);
+                stopsDao.insertStop(stops);
             }
         } catch (Exception ex) {
             Logger.getLogger(AddEditStopBean.class.getName()).log(Level.SEVERE, null, ex);

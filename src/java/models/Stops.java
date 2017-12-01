@@ -11,16 +11,16 @@ package models;
  */
 public class Stops {
     
-    private int stopID;
+    private int stopId;
     private String stopNameEn;
     private String stopNameAr;
 
-    public int getStopID() {
-        return stopID;
+    public int getStopId() {
+        return stopId;
     }
 
-    public void setStopID(int stopID) {
-        this.stopID = stopID;
+    public void setStopId(int stopId) {
+        this.stopId = stopId;
     }
 
     public String getStopNameEn() {

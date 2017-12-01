@@ -18,7 +18,7 @@ import models.Drivers;
  */
 public class DriversDao extends ConnectionDao {
     
-        public ArrayList<Drivers> buildDriverInfo() throws Exception {
+        public ArrayList<Drivers> buildDriver() throws Exception {
         ArrayList<Drivers> list = new ArrayList<>();
         Connection conn = getConnection();
         
@@ -29,7 +29,7 @@ public class DriversDao extends ConnectionDao {
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                list.add(populateDriverInfo(rs));
+                list.add(populateDrivers(rs));
             }
             
             rs.close();
@@ -40,7 +40,7 @@ public class DriversDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-    public HashMap<Integer, Drivers> buildDriverInfoMap() throws Exception {
+    public HashMap<Integer, Drivers> buildDriverMap() throws Exception {
         HashMap<Integer, Drivers> map = new HashMap<>();
         Connection conn = getConnection();
         
@@ -51,8 +51,8 @@ public class DriversDao extends ConnectionDao {
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                Drivers driverInfo = populateDriverInfo(rs);
-                map.put(driverInfo.getDriverID(), driverInfo);
+                Drivers driverInfo = populateDrivers(rs);
+                map.put(driverInfo.getDriverId(), driverInfo);
             }
             
             rs.close();
@@ -64,10 +64,10 @@ public class DriversDao extends ConnectionDao {
         }
     }
     
-      private Drivers populateDriverInfo(ResultSet rs) throws SQLException {
+      private Drivers populateDrivers(ResultSet rs) throws SQLException {
         Drivers driverInfo = new Drivers();
         
-        driverInfo.setDriverID(rs.getInt("DRIVER_ID"));
+        driverInfo.setDriverId(rs.getInt("DRIVER_ID"));
         driverInfo.setFirstNameAr(rs.getString("FIRST_NAME_AR"));
         driverInfo.setFirstNameEn(rs.getString("FIRST_NAME_EN"));                    
         driverInfo.setLastNameEn(rs.getString("LAST_NAME_EN")); 
@@ -75,7 +75,7 @@ public class DriversDao extends ConnectionDao {
         driverInfo.setPhoneNumber(rs.getString("PHONE_NUMBER")); 
         return driverInfo;
     } 
-    public void insertDriver(Drivers driverInfo) throws Exception {                
+    public void insertDriver(Drivers drivers) throws Exception {                
         try {
             Connection conn = getConnection();
 
@@ -88,11 +88,11 @@ public class DriversDao extends ConnectionDao {
                     + " VALUES ((select max(DRIVER_ID) from BUSES.DRIVERS)+1,?,?,?,?,?)";
              PreparedStatement ps = conn.prepareStatement(sql); 
             
-             ps.setString(1, driverInfo.getFirstNameEn());
-             ps.setString(2, driverInfo.getFirstNameAr());
-             ps.setString(3, driverInfo.getLastNameEn());
-             ps.setString(4, driverInfo.getLastNameAr());
-             ps.setString(5, driverInfo.getPhoneNumber());
+             ps.setString(1, drivers.getFirstNameEn());
+             ps.setString(2, drivers.getFirstNameAr());
+             ps.setString(3, drivers.getLastNameEn());
+             ps.setString(4, drivers.getLastNameAr());
+             ps.setString(5, drivers.getPhoneNumber());
              
              ps.executeUpdate();
              ps.close();
@@ -101,7 +101,7 @@ public class DriversDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-        public void updateDriver(Drivers driverInfo) throws Exception {
+        public void updateDriver(Drivers drivers) throws Exception {
         try {
             Connection conn = getConnection();
 
@@ -114,12 +114,12 @@ public class DriversDao extends ConnectionDao {
                     + " WHERE DRIVER_ID=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             
-             ps.setString(1, driverInfo.getFirstNameEn());
-             ps.setString(2, driverInfo.getFirstNameAr());
-             ps.setString(3, driverInfo.getLastNameEn());
-             ps.setString(4, driverInfo.getLastNameAr());
-             ps.setString(5, driverInfo.getPhoneNumber());      
-             ps.setInt(6, driverInfo.getDriverID());
+             ps.setString(1, drivers.getFirstNameEn());
+             ps.setString(2, drivers.getFirstNameAr());
+             ps.setString(3, drivers.getLastNameEn());
+             ps.setString(4, drivers.getLastNameAr());
+             ps.setString(5, drivers.getPhoneNumber());      
+             ps.setInt(6, drivers.getDriverId());
 
             ps.executeUpdate();
             ps.close();
@@ -129,13 +129,13 @@ public class DriversDao extends ConnectionDao {
         }
     }
     
-    public void deleteDriver(int driverID) throws Exception {
+    public void deleteDriver(int driverId) throws Exception {
         Connection conn = getConnection();
         
         try {
             String sql = "DELETE FROM BUSES.DRIVERS WHERE DRIVER_ID=?";                               
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, driverID);
+            ps.setInt(1, driverId);
             
             ps.executeUpdate();
 
@@ -144,32 +144,32 @@ public class DriversDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-        public Drivers getDriverInfo(int driverID) throws Exception {
+        public Drivers getDrivers(int driverId) throws Exception {
         try {   
-            Drivers driverInfo = null;
+            Drivers drivers = null;
             Connection conn = getConnection();
             
             String sql = "SELECT * FROM BUSES.DRIVERS"
                     + " WHERE DRIVER_ID=?";   
             
             PreparedStatement ps = conn.prepareStatement(sql);            
-            ps.setInt(1, driverID);
+            ps.setInt(1, driverId);
             
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
-                driverInfo = populateDriverInfo(rs);
-                driverInfo.setFirstNameEn(rs.getString("FIRST_NAME_EN"));
-                driverInfo.setFirstNameAr(rs.getString("FIRST_NAME_AR"));
-                driverInfo.setLastNameEn(rs.getString("LAST_NAME_EN"));
-                driverInfo.setLastNameAr(rs.getString("LAST_NAME_AR"));
-                driverInfo.setPhoneNumber(rs.getString("PHONE_NUMBER"));
+                drivers = populateDrivers(rs);
+                drivers.setFirstNameEn(rs.getString("FIRST_NAME_EN"));
+                drivers.setFirstNameAr(rs.getString("FIRST_NAME_AR"));
+                drivers.setLastNameEn(rs.getString("LAST_NAME_EN"));
+                drivers.setLastNameAr(rs.getString("LAST_NAME_AR"));
+                drivers.setPhoneNumber(rs.getString("PHONE_NUMBER"));
             }
 
             rs.close();
             ps.close();
             
-            return driverInfo;            
+            return drivers;            
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
         }

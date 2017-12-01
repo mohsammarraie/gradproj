@@ -20,13 +20,13 @@ import javax.inject.Named;
  *
  * @author MOH
  */
-@Named(value = "busesInfoBean")
+@Named(value = "manageBusesBean")
 @ViewScoped
 public class ManageBusesBean implements Serializable {
 
     private Buses selectedBus;
     private final BusesDao busesDao = new BusesDao();
-    private ArrayList<Buses> busesInfo;
+    private ArrayList<Buses> busesArray;
 
     @Inject
     private SessionBean sessionBean;
@@ -37,7 +37,7 @@ public class ManageBusesBean implements Serializable {
     @PostConstruct
     public void init() {
         try {
-            busesInfo = busesDao.buildBusesInfo();
+            busesArray = busesDao.buildBuses();
         } catch (Exception ex) {
             Logger.getLogger(ManageBusesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -51,21 +51,21 @@ public class ManageBusesBean implements Serializable {
         this.selectedBus = selectedBus;
     }
 
-    public ArrayList<Buses> getBusesInfo() {
-        return busesInfo;
+    public ArrayList<Buses> getBusesArray() {
+        return busesArray;
     }
 
-    public void setBusesInfo(ArrayList<Buses> busesInfo) {
-        this.busesInfo = busesInfo;
+    public void setBusesArray(ArrayList<Buses> busesArray) {
+        this.busesArray = busesArray;
     }
 
     public void saveSelectedBusId() {
-        sessionBean.setSelectedBusID(selectedBus.getBusID());
+        sessionBean.setSelectedBusId(selectedBus.getBusId());
     }
 
     public void deleteSelectedBus() {
         try {
-            busesDao.deleteBus(selectedBus.getBusID());
+            busesDao.deleteBus(selectedBus.getBusId());
             sessionBean.navigate("manage_buses");
         } catch (Exception ex) {
             Logger.getLogger(ManageBusesBean.class.getName()).log(Level.SEVERE, null, ex);

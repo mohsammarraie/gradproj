@@ -27,7 +27,7 @@ and open the template in the editor.
           
                         <p:outputLabel value="#{msgs.license_plate}:" for="license_plate"/>
                         <p:inputText id="license_plate"
-                                     value="#{addEditBusesBean.licenseNumber}"
+                                     value="#{addEditBusBean.licenseNumber}"
                                      style="width:600px"
                                      required="true"
                                      maxlength="512"
@@ -38,7 +38,7 @@ and open the template in the editor.
                                                         
                         <p:outputLabel value="#{msgs.chasis_number}:" for="chasis_number"/>
                         <p:inputText id="chasis_number"
-                                     value="#{addEditBusesBean.chasisNumber}"
+                                     value="#{addEditBusBean.chasisNumber}"
                                      required="true"
                                      maxlength="20"  
                                      converterMessage="#{msgs.chasis_number_msg}"
@@ -51,7 +51,7 @@ and open the template in the editor.
 
                         <p:outputLabel value="#{msgs.capacity}:" for="capacity"/>
                         <p:inputText id="capacity"
-                                     value="#{addEditBusesBean.capacity}"
+                                     value="#{addEditBusBean.capacity}"
                                      required="true"
                                      maxlength="3"  
                                      converterMessage="#{msgs.capacity_msg}"
@@ -69,7 +69,7 @@ and open the template in the editor.
                                  iconPos="#{langBean.styleFloat}"
                                  style="float:#{langBean.styleFloat}" 
                                  ajax="false"
-                                 action="#{addEditBusesBean.saveBus()}" />
+                                 action="#{addEditBusBean.saveBus()}" />
                 <p:commandButton value="#{msgs.cancel}"
                                  icon="ui-icon-cancel"  
                                  iconPos="#{langBean.styleFloat}"

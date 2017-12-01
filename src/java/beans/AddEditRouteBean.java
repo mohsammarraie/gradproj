@@ -23,7 +23,7 @@ import javax.faces.bean.ManagedBean;
 public class AddEditRouteBean implements Serializable {
     
     private final RoutesDao routesDao = new RoutesDao();
-    private int routeID;
+    private int routeId;
     private String sourceAr;
     private String sourceEn;
     private String destinationAr;
@@ -41,18 +41,18 @@ public class AddEditRouteBean implements Serializable {
     @PostConstruct
     public void init(){                
         try {
-            routeID = sessionBean.getSelectedRouteID();
+            routeId = sessionBean.getSelectedRouteId();
 
             
-            if(routeID > 0){
-                Routes routesInfo = routesDao.getRoutesInfo(routeID);
+            if(routeId > 0){
+                Routes routesArray = routesDao.getRoutes(routeId);
            
-                sourceAr = routesInfo.getSourceAr();
-                sourceEn = routesInfo.getSourceEn();
-                destinationAr = routesInfo.getDestinationAr();
-                destinationEn = routesInfo.getDestinationEn();
-                routeCode = routesInfo.getRouteCode();
-                active= routesInfo.getActive();
+                sourceAr = routesArray.getSourceAr();
+                sourceEn = routesArray.getSourceEn();
+                destinationAr = routesArray.getDestinationAr();
+                destinationEn = routesArray.getDestinationEn();
+                routeCode = routesArray.getRouteCode();
+                active= routesArray.getActive();
                 if(active==1){
                 checkBoxValue = true;
                 }
@@ -81,12 +81,12 @@ public class AddEditRouteBean implements Serializable {
         this.active = active;
     }
     
-    public int getRouteID() {
-        return routeID;
+    public int getRouteId() {
+        return routeId;
     }
 
-    public void setRouteID(int routeID) {
-        this.routeID = routeID;
+    public void setRouteId(int routeId) {
+        this.routeId = routeId;
     }
 
     public String getSourceAr() {
@@ -141,18 +141,18 @@ public class AddEditRouteBean implements Serializable {
     public void saveRoute() {
         try {
 
-            Routes routesInfo = new Routes();
-            routesInfo.setRouteID(routeID);
-            routesInfo.setSourceAr(sourceAr);
-            routesInfo.setSourceEn(sourceEn);
-            routesInfo.setDestinationAr(destinationAr);
-            routesInfo.setDestinationEn(destinationEn);
-            routesInfo.setRouteCode(routeCode);
-            routesInfo.setActive(active);
-            if (sessionBean.getSelectedRouteID() > 0) {
-                routesDao.updateRoute(routesInfo);
+            Routes routes = new Routes();
+            routes.setRouteId(routeId);
+            routes.setSourceAr(sourceAr);
+            routes.setSourceEn(sourceEn);
+            routes.setDestinationAr(destinationAr);
+            routes.setDestinationEn(destinationEn);
+            routes.setRouteCode(routeCode);
+            routes.setActive(active);
+            if (sessionBean.getSelectedRouteId() > 0) {
+                routesDao.updateRoute(routes);
             } else {
-                routesDao.insertRoute(routesInfo);
+                routesDao.insertRoute(routes);
             }
         } catch (Exception ex) {
             Logger.getLogger(AddEditRouteBean.class.getName()).log(Level.SEVERE, null, ex);

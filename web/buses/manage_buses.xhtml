@@ -21,11 +21,11 @@ and open the template in the editor.
                 <h:form id="bus_info_form">
                     <p:dataTable 
                            id="bus_info_tbl"
-                           value = "#{busesInfoBean.busesInfo}"
-                           selection="#{busesInfoBean.selectedBus}"
-                           rowKey="#{busesInfo.busID}"  
+                           value = "#{manageBusesBean.busesArray}"
+                           selection="#{manageBusesBean.selectedBus}"
+                           rowKey="#{busesArray.busId}"  
                            class = "dataTable"
-                           var="busesInfo"
+                           var="busesArray"
                            rows="5"
                            rowsPerPageTemplate="5,15,20"
                            dir="#{langBean.dir}"
@@ -44,27 +44,27 @@ and open the template in the editor.
                             
                             <p:column headerText="#{msgs.bus_id}"
                                       style="width:15%"
-                                      sortBy="#{busesInfo.busID}">                    
-                                <h:outputText value="#{busesInfo.busID}"/>  
+                                      sortBy="#{busesArray.busId}">                    
+                                <h:outputText value="#{busesArray.busId}"/>  
                             </p:column>
                             
                             <p:column headerText="#{msgs.chasis_number}"
                                       style="width:15%"
-                                      sortBy="#{busesInfo.chasisNumber}">                    
-                                <h:outputText value="#{busesInfo.chasisNumber}"/>  
+                                      sortBy="#{busesArray.chasisNumber}">                    
+                                <h:outputText value="#{busesArray.chasisNumber}"/>  
                             </p:column>
            
                             
                             <p:column headerText="#{msgs.license_plate}"
                                       style="width:15%"
-                                      sortBy="#{busesInfo.licenseNumber}">                    
-                                <h:outputText value="#{busesInfo.licenseNumber}"/>  
+                                      sortBy="#{busesArray.licenseNumber}">                    
+                                <h:outputText value="#{busesArray.licenseNumber}"/>  
                             </p:column>
                             
                             <p:column headerText="#{msgs.capacity}"
                                       style="width:15%"
-                                      sortBy="#{busesInfo.capacity}">                    
-                                <h:outputText value="#{busesInfo.capacity}"/>  
+                                      sortBy="#{busesArray.capacity}">                    
+                                <h:outputText value="#{busesArray.capacity}"/>  
                             </p:column>
                             
                             <f:facet name="footer">
@@ -75,17 +75,17 @@ and open the template in the editor.
                                                  iconPos="#{langBean.styleFloat}"
                                                  styleClass="commandButton"
                                                  style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{busesInfoBean.selectedBus==null}"
+                                                 disabled="#{manageBusesBean.selectedBus==null}"
                                                  onclick="return confirm('#{msgs.confirm_delete_bus}?');"
-                                                 actionListener="#{busesInfoBean.deleteSelectedBus()}"
+                                                 actionListener="#{manageBusesBean.deleteSelectedBus()}"
                                                  action="manage_buses" />
                                         <p:commandButton value="#{msgs.edit}"
                                                  icon="ui-icon-pencil"                                  
                                                  iconPos="#{langBean.styleFloat}"
                                                  styleClass="commandButton"
                                                  style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{busesInfoBean.selectedBus==null}"                                                 
-                                                 actionListener="#{busesInfoBean.saveSelectedBusId()}"
+                                                 disabled="#{manageBusesBean.selectedBus==null}"                                                 
+                                                 actionListener="#{manageBusesBean.saveSelectedBusId()}"
                                                  action="add_edit_bus" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
@@ -96,7 +96,7 @@ and open the template in the editor.
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
-                                 actionListener="#{sessionBean.setSelectedBusID(-1)}"
+                                 actionListener="#{sessionBean.setSelectedBusId(-1)}"
                                  action="add_edit_bus" /> 
                 </h:form>
                

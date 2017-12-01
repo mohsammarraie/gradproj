@@ -11,7 +11,7 @@ package models;
  */
 public class Routes {
     
-    private int routeID;
+    private int routeId;
     private String sourceAr;
     private String sourceEn;
     private String destinationAr;
@@ -19,16 +19,16 @@ public class Routes {
     private String routeCode;
     private int active;
     
-    public int getRouteID() {
-        return routeID;
+    public int getRouteId() {
+        return routeId;
     }
 
     public String getSourceAr() {
         return sourceAr;
     }
 
-    public void setRouteID(int routeID) {
-        this.routeID = routeID;
+    public void setRouteId(int routeId) {
+        this.routeId = routeId;
     }
     
     

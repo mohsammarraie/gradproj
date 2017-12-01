@@ -24,11 +24,11 @@ import java.util.Date;
  * @author MOH
  */
 
-@Named(value = "addEditBusesBean")
+@Named(value = "addEditBusBean")
 @ViewScoped
 public class AddEditBusBean implements Serializable{
     private final BusesDao busesDao = new BusesDao();
-    private int busID;
+    private int busId;
     private String licenseNumber;
     private int chasisNumber;
     private int capacity;
@@ -42,14 +42,14 @@ public class AddEditBusBean implements Serializable{
     @PostConstruct
     public void init(){                
         try {
-            busID = sessionBean.getSelectedBusID();
+            busId = sessionBean.getSelectedBusId();
          
             
-            if(busID > 0){
-                Buses busesInfo = busesDao.getBusesInfo(busID);
-                chasisNumber= busesInfo.getChasisNumber();
-                licenseNumber = busesInfo.getLicenseNumber();
-                capacity = busesInfo.getCapacity();
+            if(busId > 0){
+                Buses busesArray = busesDao.getBuses(busId);
+                chasisNumber= busesArray.getChasisNumber();
+                licenseNumber = busesArray.getLicenseNumber();
+                capacity = busesArray.getCapacity();
                 
             }
         } catch (Exception ex) {
@@ -86,15 +86,15 @@ public class AddEditBusBean implements Serializable{
         public void saveBus() {
         try {
             
-            Buses busesInfo = new Buses();
-            busesInfo.setBusID(busID);
-            busesInfo.setLicenseNumber(licenseNumber);
-            busesInfo.setCapacity(capacity);
-            busesInfo.setChasisNumber(chasisNumber);
-            if (sessionBean.getSelectedBusID() > 0) {
-                busesDao.updateBus(busesInfo);
+            Buses buses = new Buses();
+            buses.setBusId(busId);
+            buses.setLicenseNumber(licenseNumber);
+            buses.setCapacity(capacity);
+            buses.setChasisNumber(chasisNumber);
+            if (sessionBean.getSelectedBusId() > 0) {
+                busesDao.updateBus(buses);
             } else {
-                busesDao.insertBus(busesInfo);
+                busesDao.insertBus(buses);
             }
         } catch (Exception ex) {
             Logger.getLogger(AddEditBusBean.class.getName()).log(Level.SEVERE, null, ex);

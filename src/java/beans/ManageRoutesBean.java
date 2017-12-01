@@ -25,7 +25,7 @@ public class ManageRoutesBean implements Serializable {
     
     private Routes selectedRoute;
     private final RoutesDao routesDao = new RoutesDao();
-    private ArrayList<Routes> routesInfo; 
+    private ArrayList<Routes> routesArray; 
     @Inject 
     private SessionBean sessionBean;
      
@@ -34,7 +34,7 @@ public class ManageRoutesBean implements Serializable {
         @PostConstruct
       public void init(){
         try {            
-            routesInfo = routesDao.buildRoutesInfo();
+            routesArray = routesDao.buildRoutes();
          
         } catch (Exception ex) {
             Logger.getLogger(ManageRoutesBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -49,22 +49,22 @@ public class ManageRoutesBean implements Serializable {
         this.selectedRoute = selectedRoute;
     }
 
-    public ArrayList<Routes> getRoutesInfo() {
-        return routesInfo;
+    public ArrayList<Routes> getRoutesArray() {
+        return routesArray;
     }
 
-    public void setRoutesInfo(ArrayList<Routes> routesInfo) {
-        this.routesInfo = routesInfo;
+    public void setRoutesArray(ArrayList<Routes> routesArray) {
+        this.routesArray = routesArray;
     }
 
 
     public void saveSelectedRouteId(){
-       sessionBean.setSelectedRouteID(selectedRoute.getRouteID());
+       sessionBean.setSelectedRouteId(selectedRoute.getRouteId());
     }
     
     public void deleteSelectedRoute(){
         try {
-            routesDao.deleteRoute(selectedRoute.getRouteID());
+            routesDao.deleteRoute(selectedRoute.getRouteId());
             sessionBean.navigate("manage_routes");
 
         } catch (Exception ex) {

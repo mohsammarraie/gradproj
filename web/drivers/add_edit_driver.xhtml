@@ -27,7 +27,7 @@ and open the template in the editor.
                         
                         <p:outputLabel value="#{msgs.first_name_en}:" for="first_name_en"/>
                         <p:inputText id="first_name_en"
-                                     value="#{addEditDriversBean.firstNameEn}"
+                                     value="#{addEditDriverBean.firstNameEn}"
                                      style="width:600px"
                                      required="true"
                                      maxlength="512"
@@ -39,7 +39,7 @@ and open the template in the editor.
 
                         <p:outputLabel value="#{msgs.first_name_ar}:" for="first_name_ar"/>
                         <p:inputText id="first_name_ar"
-                                     value="#{addEditDriversBean.firstNameAr}"
+                                     value="#{addEditDriverBean.firstNameAr}"
                                      style="width:600px"
                                      required="true"
                                      dir="rtl"
@@ -52,7 +52,7 @@ and open the template in the editor.
                         
                         <p:outputLabel value="#{msgs.last_name_en}:" for="last_name_en"/>
                         <p:inputText id="last_name_en"
-                                     value="#{addEditDriversBean.lastNameEn}"
+                                     value="#{addEditDriverBean.lastNameEn}"
                                      style="width:600px"
                                      required="true"
                                      maxlength="512"
@@ -64,7 +64,7 @@ and open the template in the editor.
                         
                             <p:outputLabel value="#{msgs.last_name_ar}:" for="last_name_ar"/>
                         <p:inputText id="last_name_ar"
-                                     value="#{addEditDriversBean.lastNameAr}"
+                                     value="#{addEditDriverBean.lastNameAr}"
                                      style="width:600px"
                                      required="true"
                                      dir="rtl"
@@ -76,7 +76,7 @@ and open the template in the editor.
                         
                         <p:outputLabel value="#{msgs.phone_number}:" for="phone"/>
                         <p:inputText id="phone"
-                                     value="#{addEditDriversBean.phoneNumber}"
+                                     value="#{addEditDriverBean.phoneNumber}"
                                      style="width:600px"
                                      required="true"
                                      maxlength="13"
@@ -95,7 +95,7 @@ and open the template in the editor.
                                  ajax="false"
                                  iconPos="#{langBean.styleFloat}"
                                  style="float:#{langBean.styleFloat}"                                                                   
-                                 actionListener="#{addEditDriversBean.saveDriver()}" />
+                                 actionListener="#{addEditDriverBean.saveDriver()}" />
                 <p:commandButton value="#{msgs.cancel}"
                                  icon="ui-icon-cancel"  
                                  iconPos="#{langBean.styleFloat}"

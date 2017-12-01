@@ -24,13 +24,13 @@ public class SessionBean implements Serializable {
     private Connection connection; 
     
     private int selectedItemId; 
-    private int selectedBusID; 
-    private int selectedStudentID;
-    private int selectedDriverID;
-    private int selectedRouteID;
-    private int selectedRouteStopID;
-    private int selectedStopID;
-    private int selectedScheduleID;
+    private int selectedBusId; 
+    private int selectedStudentId;
+    private int selectedDriverId;
+    private int selectedRouteId;
+    private int selectedRouteStopId;
+    private int selectedStopId;
+    private int selectedScheduleId;
     
     
     private int menuIndex = 0;
@@ -38,37 +38,37 @@ public class SessionBean implements Serializable {
     public SessionBean() {
     }
 
-    public int getSelectedRouteStopID() {
-        return selectedRouteStopID;
+    public int getSelectedRouteStopId() {
+        return selectedRouteStopId;
     }
 
-    public void setSelectedRouteStopID(int selectedRouteStopID) {
-        this.selectedRouteStopID = selectedRouteStopID;
+    public void setSelectedRouteStopId(int selectedRouteStopId) {
+        this.selectedRouteStopId = selectedRouteStopId;
     }
 
-    public int getSelectedStopID() {
-        return selectedStopID;
+    public int getSelectedStopId() {
+        return selectedStopId;
     }
 
-    public void setSelectedStopID(int selectedStopID) {
-        this.selectedStopID = selectedStopID;
+    public void setSelectedStopId(int selectedStopId) {
+        this.selectedStopId = selectedStopId;
     }
 
-    public int getSelectedScheduleID() {
-        return selectedScheduleID;
+    public int getSelectedScheduleId() {
+        return selectedScheduleId;
     }
 
-    public void setSelectedScheduleID(int selectedScheduleID) {
-        this.selectedScheduleID = selectedScheduleID;
+    public void setSelectedScheduleId(int selectedScheduleId) {
+        this.selectedScheduleId = selectedScheduleId;
     }
     
     
-    public int getSelectedRouteID() {
-        return selectedRouteID;
+    public int getSelectedRouteId() {
+        return selectedRouteId;
     }
 
-    public void setSelectedRouteID(int selectedRouteID) {
-        this.selectedRouteID = selectedRouteID;
+    public void setSelectedRouteId(int selectedRouteId) {
+        this.selectedRouteId = selectedRouteId;
     }
     
     
@@ -105,30 +105,30 @@ public class SessionBean implements Serializable {
         this.selectedItemId = selectedItemId;
     }
 
-    public int getSelectedBusID() {
-        return selectedBusID;
+    public int getSelectedBusId() {
+        return selectedBusId;
     }
 
-    public void setSelectedBusID(int selectedBusID) {
-        this.selectedBusID = selectedBusID;
+    public void setSelectedBusId(int selectedBusId) {
+        this.selectedBusId = selectedBusId;
     } 
     
 
-    public int getSelectedStudentID() {
+    public int getSelectedStudentId() {
 
-        return selectedStudentID;
+        return selectedStudentId;
     }
 
-    public void setSelectedStudentID(int selectedStudentID) {
-        this.selectedStudentID = selectedStudentID;
+    public void setSelectedStudentId(int selectedStudentId) {
+        this.selectedStudentId = selectedStudentId;
     }
     
-    public int getSelectedDriverID() {
-        return selectedDriverID;
+    public int getSelectedDriverId() {
+        return selectedDriverId;
     }
 
-    public void setSelectedDriverID(int selectedDriverID) {
-        this.selectedDriverID = selectedDriverID;
+    public void setSelectedDriverId(int selectedDriverId) {
+        this.selectedDriverId = selectedDriverId;
     }
 
 

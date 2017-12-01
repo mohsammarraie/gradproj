@@ -12,7 +12,7 @@ package models;
 public class RouteStops {
     
     private int stopOrder;
-    private int stopID;
+    private int stopId;
     private String stopNameEn;
     private String stopNameAr;
     
@@ -23,12 +23,12 @@ public class RouteStops {
     private String routeCode;
     private int active;
 
-    public int getStopID() {
-        return stopID;
+    public int getStopId() {
+        return stopId;
     }
 
-    public void setStopID(int stopID) {
-        this.stopID = stopID;
+    public void setStopId(int stopId) {
+        this.stopId = stopId;
     }
 
     public String getStopNameEn() {
