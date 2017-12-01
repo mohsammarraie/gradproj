@@ -15,7 +15,9 @@ import models.Stops;
 import daos.RouteStopsDao;
 import daos.StopsDao;
 import java.util.ArrayList;
+import javax.faces.application.FacesMessage;
 import models.RouteStops;
+import org.primefaces.context.RequestContext;
 /**
  *
  * @author MOH
@@ -34,7 +36,8 @@ public class AddEditRouteStopBean implements Serializable{
     private String stopNameEn;
     private int stopOrder;
     RouteStops routeStops = new RouteStops();
-   
+    String error_message_header = "";
+    String error_message_content = "";
 
     @Inject
     private SessionBean sessionBean;
@@ -130,12 +133,21 @@ public class AddEditRouteStopBean implements Serializable{
             } else {
                 routeStopsDao.insertRouteStop(routeStopId, sessionBean.getSelectedRouteId(), stopOrder);
             }
+            sessionBean.navigate("manage_route_stops");
         } catch (Exception ex) {
-            sessionBean.navigate("route_stop_error");
+            
+//            sessionBean.navigate("route_stop_error");
+//                error_message_header= "خطأ";
+//                error_message_content= "لايمكنك تعيين نفس نقطة الوقوف لنفس الطريق مرتين"; 
+
+            error_message_header = "Error!";
+            error_message_content = "You can't assign the same stop to the same route twice";
+            
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(AddEditStopBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        sessionBean.navigate("manage_route_stops");
+        
     }
     
 }
