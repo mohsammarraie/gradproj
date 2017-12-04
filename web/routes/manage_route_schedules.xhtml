@@ -48,6 +48,11 @@ and open the template in the editor.
                                       sortBy="#{routeSchedulesArray.scheduleId}">                    
                                 <h:outputText value="#{routeSchedulesArray.scheduleId}"/>  
                             </p:column>
+                            <p:column headerText="#{msgs.stop_id}"
+                                      style="width:15%"
+                                      sortBy="#{routeSchedulesArray.stopId}">                    
+                                <h:outputText value="#{routeSchedulesArray.stopId}"/>  
+                            </p:column>
                             
                             <p:column headerText="#{msgs.stop_name}"
                                 style="width:20%"
@@ -55,6 +60,11 @@ and open the template in the editor.
                                 filterMatchMode="contains"
                                 sortBy="#{langBean.isEnglish?routeSchedulesArray.stopNameEn:routeSchedulesArray.stopNameAr}">                    
                                 <h:outputText value="#{langBean.isEnglish?routeSchedulesArray.stopNameEn:routeSchedulesArray.stopNameAr}"/>  
+                            </p:column>
+                            <p:column headerText="#{msgs.stop_order}"
+                                   style="width:15%"
+                                   sortBy="#{routeSchedulesArray.stopOrder}">                    
+                             <h:outputText value="#{routeSchedulesArray.stopOrder}"/>  
                             </p:column>
                             
                              <p:column headerText="#{msgs.time}"
@@ -82,7 +92,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageRouteSchedulesBean.selectedRouteSchedule==null}"                                                 
                                                  actionListener="#{manageRouteSchedulesBean.saveSelectedScheduleID()}"
-                                                 action="add_edit_route_schedule" />
+                                                 action="add_edit_route_schedules" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
                             </f:facet>
@@ -99,7 +109,7 @@ and open the template in the editor.
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
                                  actionListener="#{sessionBean.setSelectedScheduleId(-1)}"
-                                 action="add_edit_route_schedule" /> 
+                                 action="add_edit_route_schedules" /> 
                        
                 </h:form>
                

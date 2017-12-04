@@ -72,7 +72,7 @@ public class RouteStopsDao extends ConnectionDao{
         try {
             Connection conn = getConnection();
 
-            String sql = "INSERT INTO BUSES.ROUTE_STOPS  (STOP_ID,"
+            String sql = "INSERT INTO BUSES.ROUTE_STOPS(STOP_ID,"
                     + " ROUTE_ID,"
                     + " STOP_ORDER)"
                     + " VALUES (?,?,?)";
@@ -81,6 +81,30 @@ public class RouteStopsDao extends ConnectionDao{
             ps.setInt(1, stopId);
             ps.setInt(2, routeId);
             ps.setInt(3, stopOrder);
+        
+             
+             ps.executeUpdate();
+             ps.close();
+            
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+    //to insert same stopID and same routeID in ROUTE_SCHEDULES table.
+      public void insertRouteScheduleNewRow(int stopId, int routeId) throws Exception {                
+        try {
+            Connection conn = getConnection();
+
+            String sql = "INSERT INTO BUSES.ROUTES_SCHEDULES(SCHEDULE_ID,"
+                    + " ROUTE_SCHEDULE_ID,"
+                    + " STOP_ID,"
+                    + " ROUTE_ID)"
+                    + " VALUES ((select max(SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES)+1,(select max(ROUTE_SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES)+1,?,?)";
+             PreparedStatement ps = conn.prepareStatement(sql); 
+            
+            ps.setInt(1, stopId);
+            ps.setInt(2, routeId);
+          
         
              
              ps.executeUpdate();
@@ -104,6 +128,27 @@ public class RouteStopsDao extends ConnectionDao{
             ps.setInt(2, stopOrder);
             ps.setInt(3, stopId);
             ps.setInt(4, routeId);
+            
+            ps.executeUpdate();
+            ps.close();
+            
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+        //to update same stopID and same routeID in ROUTE_SCHEDULES table.
+    public void updateRouteScheduleStop(int routeStopId,int stopId, int routeId) throws Exception {
+        try {
+            Connection conn = getConnection();
+
+            String sql = "UPDATE BUSES.ROUTES_SCHEDULES SET"
+                    + " STOP_ID=?"
+                    + " WHERE STOP_ID=? AND ROUTE_ID=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            ps.setInt(1, routeStopId);
+            ps.setInt(2, stopId);
+            ps.setInt(3, routeId);
             
             ps.executeUpdate();
             ps.close();

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package beans;
+import daos.RouteSchedulesDao;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,49 +15,53 @@ import javax.inject.Inject;
 import models.Stops;
 import daos.RouteStopsDao;
 import daos.StopsDao;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import javax.faces.application.FacesMessage;
+import models.RouteSchedules;
 import models.RouteStops;
 import org.primefaces.context.RequestContext;
 /**
  *
  * @author MOH
  */
-@Named(value = "addEditRouteStopBean")
+@Named(value = "addEditRouteScheduleBean")
 @ViewScoped
-public class AddEditRouteStopBean implements Serializable{
+public class AddEditRouteScheduleBean implements Serializable{
+     
+    private ArrayList<RouteSchedules> routeSchedulesArray;
     
-    private ArrayList<RouteStops> routeStopsArray;
-    private ArrayList<Stops> stopsArray;
-    private final RouteStopsDao routeStopsDao = new RouteStopsDao();
-    private final StopsDao stopsDao = new StopsDao();
-    private int routeStopId;
+    private int scheduleId;
     private int stopId;
+    private int routeId;
     private String stopNameAr;
     private String stopNameEn;
     private int stopOrder;
-    RouteStops routeStops = new RouteStops();
+    private Timestamp time;
+    private final RouteSchedulesDao routeSchedulesDao = new RouteSchedulesDao();
+    RouteSchedules routeSchedules = new RouteSchedules();
     String error_message_header = "";
     String error_message_content = "";
 
     @Inject
     private SessionBean sessionBean;
     
-    public AddEditRouteStopBean() {        
+    public AddEditRouteScheduleBean() {        
     }
         
     @PostConstruct
     public void init(){                
         try {
-            routeStopId = sessionBean.getSelectedRouteStopId();
-            routeStopsArray = routeStopsDao.buildRouteStops(routeStopId);
-            stopsArray =  stopsDao.buildStops();
-            if(routeStopId > 0){
-                routeStops = routeStopsDao.getRouteStops(routeStopId);
-                stopId = routeStops.getStopId();
-                stopNameAr = routeStops.getStopNameAr();
-                stopNameEn = routeStops.getStopNameEn();
-                stopOrder = routeStops.getStopOrder();
+            scheduleId = sessionBean.getSelectedScheduleId();
+            routeSchedulesArray = routeSchedulesDao.buildRouteSchedules(scheduleId); 
+            if(scheduleId > 0){
+                routeSchedules = routeSchedulesDao.getRouteSchedules(routeId);
+                stopId = routeSchedules.getStopId();
+                stopNameAr = routeSchedules.getStopNameAr();
+                stopNameEn = routeSchedules.getStopNameEn();
+                stopOrder = routeSchedules.getStopOrder();
+                routeId = routeSchedules.getRouteId();
+                time =routeSchedules.getTime();
                 
             }
         } catch (Exception ex) {
@@ -64,15 +69,30 @@ public class AddEditRouteStopBean implements Serializable{
         }
     }
 
-    public ArrayList<Stops> getStopsArray() {
-        return stopsArray;
+    public ArrayList<RouteSchedules> getRouteSchedulesArray() {
+        return routeSchedulesArray;
     }
 
-    public void setStopsArray(ArrayList<Stops> stopsArray) {
-        this.stopsArray = stopsArray;
+    public void setRouteSchedulesArray(ArrayList<RouteSchedules> routeSchedulesArray) {
+        this.routeSchedulesArray = routeSchedulesArray;
     }
 
-    
+    public int getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(int routeId) {
+        this.routeId = routeId;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
+
     public int getStopOrder() {
         return stopOrder;
     }
@@ -80,21 +100,15 @@ public class AddEditRouteStopBean implements Serializable{
     public void setStopOrder(int stopOrder) {
         this.stopOrder = stopOrder;
     }
-    
-    public ArrayList<RouteStops> getRouteStopsArray() {
-        return routeStopsArray;
+
+    public int getScheduleId() {
+        return scheduleId;
     }
 
-    public int getRouteStopId() {
-        return routeStopId;
+    public void setScheduleId(int scheduleId) {
+        this.scheduleId = scheduleId;
     }
 
-    public void setRouteStopId(int routeStopId) {
-        this.routeStopId = routeStopId;
-    }
-    
-    
-    
     public int getStopId() {
         return stopId;
     }
@@ -120,22 +134,21 @@ public class AddEditRouteStopBean implements Serializable{
     }
     
 
-        public void saveRouteStop() {
+        public void saveRouteSchedule() {
         try {
         
         
-            routeStops.setStopId(routeStopId);
+            routeSchedules.setScheduleId(scheduleId);
         
       
   
             if (sessionBean.getSelectedRouteStopId() > 0) {
-                routeStopsDao.updateRouteStop(routeStopId, stopId, sessionBean.getSelectedRouteId(), stopOrder); 
-                routeStopsDao.updateRouteScheduleStop(routeStopId, stopId, sessionBean.getSelectedRouteId());
+                routeSchedulesDao.updateRouteSchedule(time, stopId, sessionBean.getSelectedRouteId()); 
+                
             } else {
-                routeStopsDao.insertRouteStop(routeStopId, sessionBean.getSelectedRouteId(), stopOrder);
-                routeStopsDao.insertRouteScheduleNewRow(routeStopId, sessionBean.getSelectedRouteId());
+                routeSchedulesDao.insertRouteSchedule(stopId, sessionBean.getSelectedRouteId(),scheduleId,time);
             }
-            sessionBean.navigate("manage_route_stops");
+            sessionBean.navigate("manage_route_schedules");
         } catch (Exception ex) {
             
 //            sessionBean.navigate("route_stop_error");

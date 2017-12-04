@@ -68,7 +68,7 @@ public class ManageRouteSchedulesBean implements Serializable{
       
       public void deleteSelectedRouteSchedule(){
         try {
-            routeSchedulesDao.deleteRouteSchedule(selectedRouteSchedule.getScheduleId(), sessionBean.getSelectedRouteId());
+            routeSchedulesDao.deleteRouteScheduleTime(selectedRouteSchedule.getScheduleId(), sessionBean.getSelectedRouteId());
             sessionBean.navigate("manage_route_schedules");
 
         } catch (Exception ex) {
