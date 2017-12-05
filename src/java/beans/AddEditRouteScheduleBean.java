@@ -17,6 +17,7 @@ import daos.RouteStopsDao;
 import daos.StopsDao;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.faces.application.FacesMessage;
 import models.RouteSchedules;
 import models.RouteStops;
@@ -37,7 +38,7 @@ public class AddEditRouteScheduleBean implements Serializable{
     private String stopNameAr;
     private String stopNameEn;
     private int stopOrder;
-    private Timestamp time;
+    private Date addTime;
     private final RouteSchedulesDao routeSchedulesDao = new RouteSchedulesDao();
     RouteSchedules routeSchedules = new RouteSchedules();
     String error_message_header = "";
@@ -53,15 +54,15 @@ public class AddEditRouteScheduleBean implements Serializable{
     public void init(){                
         try {
             scheduleId = sessionBean.getSelectedScheduleId();
-            routeSchedulesArray = routeSchedulesDao.buildRouteSchedules(scheduleId); 
+            routeId = sessionBean.getSelectedRouteId();
+            routeSchedulesArray = routeSchedulesDao.buildRouteSchedules(routeId); 
             if(scheduleId > 0){
                 routeSchedules = routeSchedulesDao.getRouteSchedules(routeId);
                 stopId = routeSchedules.getStopId();
                 stopNameAr = routeSchedules.getStopNameAr();
                 stopNameEn = routeSchedules.getStopNameEn();
                 stopOrder = routeSchedules.getStopOrder();
-                routeId = routeSchedules.getRouteId();
-                time =routeSchedules.getTime();
+                addTime =routeSchedules.getScheduleTime();
                 
             }
         } catch (Exception ex) {
@@ -85,13 +86,14 @@ public class AddEditRouteScheduleBean implements Serializable{
         this.routeId = routeId;
     }
 
-    public Timestamp getTime() {
-        return time;
+    public Date getAddTime() {
+        return addTime;
     }
 
-    public void setTime(Timestamp time) {
-        this.time = time;
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
     }
+
 
     public int getStopOrder() {
         return stopOrder;
@@ -139,14 +141,15 @@ public class AddEditRouteScheduleBean implements Serializable{
         
         
             routeSchedules.setScheduleId(scheduleId);
-        
+            routeSchedules.setStopId(stopId);
+            routeSchedules.setScheduleTime(new Timestamp(routeSchedulesArray.get(scheduleId).getScheduleTime().getTime()));
       
   
-            if (sessionBean.getSelectedRouteStopId() > 0) {
-                routeSchedulesDao.updateRouteSchedule(time, stopId, sessionBean.getSelectedRouteId()); 
+            if (sessionBean.getSelectedScheduleId() > 0) {
+                routeSchedulesDao.updateRouteSchedule(routeSchedules, stopId, sessionBean.getSelectedRouteId(),sessionBean.getSelectedScheduleId()); 
                 
             } else {
-                routeSchedulesDao.insertRouteSchedule(stopId, sessionBean.getSelectedRouteId(),scheduleId,time);
+                routeSchedulesDao.insertRouteSchedule(stopId, sessionBean.getSelectedRouteId(),scheduleId,routeSchedules);
             }
             sessionBean.navigate("manage_route_schedules");
         } catch (Exception ex) {

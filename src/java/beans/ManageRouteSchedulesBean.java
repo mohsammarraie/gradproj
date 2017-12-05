@@ -63,7 +63,7 @@ public class ManageRouteSchedulesBean implements Serializable{
     }
         
         public void saveSelectedScheduleID(){
-        sessionBean.setSelectedScheduleId(selectedRouteSchedule.getStopId());
+        sessionBean.setSelectedScheduleId(selectedRouteSchedule.getScheduleId());
     }
       
       public void deleteSelectedRouteSchedule(){

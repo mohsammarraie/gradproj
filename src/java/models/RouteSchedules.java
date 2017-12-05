@@ -15,7 +15,7 @@ public class RouteSchedules {
     private int stopId;
     private int routeId;
     private int scheduleId;
-    private Timestamp time;
+    private Timestamp scheduleTime;
     private int routeScheduleId;
     private int stopOrder;
     private String stopNameEn;
@@ -51,12 +51,12 @@ public class RouteSchedules {
         this.scheduleId = scheduleId;
     }
 
-    public Timestamp getTime() {
-        return time;
+    public Timestamp getScheduleTime() {
+        return scheduleTime;
     }
 
-    public void setTime(Timestamp time) {
-        this.time = time;
+    public void setScheduleTime(Timestamp scheduleTime) {
+        this.scheduleTime = scheduleTime;
     }
 
     public int getRouteScheduleId() {

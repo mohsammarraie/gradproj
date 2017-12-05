@@ -18,9 +18,9 @@ and open the template in the editor.
     <h:body>
         <div>
             <ui:decorate template="/app_templates/app_template.xhtml">
-                <h:form id="route_stops_info_form">
+                <h:form id="route_schedules_info_form">
                     <p:dataTable 
-                           id="route_stops_info_tbl"
+                           id="route_schedules_info_tbl"
                            value = "#{manageRouteSchedulesBean.routeSchedulesArray}"
                            selection="#{manageRouteSchedulesBean.selectedRouteSchedule}"
                            rowKey="#{routeSchedulesArray.scheduleId}"  
@@ -35,7 +35,7 @@ and open the template in the editor.
                            paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
                              >
                             <p:ajax event="rowSelectRadio"
-                              update="route_stops_info_form:route_stops_info_tbl"/>  
+                              update="route_schedules_info_form:route_schedules_info_tbl"/>  
 
                             <f:facet name="header" id="header">
                                 #{msgs.manage_route_schedules}
@@ -69,8 +69,8 @@ and open the template in the editor.
                             
                              <p:column headerText="#{msgs.time}"
                                       style="width:15%"
-                                      sortBy="#{routeSchedulesArray.time}">                    
-                                <h:outputText value="#{routeSchedulesArray.time}"/>  
+                                      sortBy="#{routeSchedulesArray.scheduleTime}">                    
+                                <h:outputText value="#{routeSchedulesArray.scheduleTime}"/>  
                             </p:column>
                             
                             <f:facet name="footer">

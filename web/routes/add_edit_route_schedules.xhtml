@@ -24,18 +24,55 @@ and open the template in the editor.
                                  style="float: #{langBean.styleFloat};" 
                                  columns="3"                              
                                  dir="#{langBean.dir}">
-                   
-                        
-                        
-                        <p:outputLabel value="#{langBean.isEnglish?addEditRouteScheduleBean.stopNameEn:addEditRouteScheduleBean.stopNameAr}:" for="time"/>
-                        <p:inputText id="time"
-                                     value="#{addEditRouteScheduleBean.time}"
-                                     required="true"
-                                     requiredMessage="#{msgs.required_msg}">
-                       
-                        </p:inputText>
-                        <h:message for="time" styleClass="errorMsg"/>    
-                        
+
+                        <h:form id="add_route_stops_info_form">
+                            <p:dataTable 
+                                   id="add_route_stops_info_tbl"
+                                   value = "#{addEditRouteScheduleBean.routeSchedulesArray}"
+
+                                   class = "dataTable"
+                                   var="routeSchedulesArray"
+                                   rows="10"
+                                   rowsPerPageTemplate="10,20,50"
+                                   dir="#{langBean.dir}"
+                                   emptyMessage="#{msgs.no_schedules}"
+                                   paginator="true"
+                                   paginatorPosition="top" 
+                                   paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
+                                     >
+
+
+                                    <f:facet name="header" id="header">
+                                        #{msgs.manage_route_schedules}
+                                    </f:facet> 
+
+                                    <p:column headerText="#{msgs.stop_name}"
+                                        style="width:20%"
+                                        filterBy="#{langBean.isEnglish?routeSchedulesArray.stopNameEn:routeSchedulesArray.stopNameAr}"
+                                        filterMatchMode="contains"
+                                        sortBy="#{langBean.isEnglish?routeSchedulesArray.stopNameEn:routeSchedulesArray.stopNameAr}">                    
+                                        <h:outputText value="#{langBean.isEnglish?routeSchedulesArray.stopNameEn:routeSchedulesArray.stopNameAr}"/>  
+                                    </p:column>
+
+
+                                     <p:column headerText="#{msgs.time}"
+                                              style="width:15%">
+                                                <p:calendar id="time"
+                                                value="#{routeSchedulesArray.scheduleTime}"
+                                                dir="ltr"
+                                                pattern="HH:mm"
+                                                timeOnly="true"
+                                                navigator="true"
+                                                required="true"
+                                                yearRange="c-10:c+1"
+                                                timeInput="true"
+                                                requiredMessage=" #{msgs.required_msg}"/> 
+                                        <h:message for="time" styleClass="errorMsg"/>   
+                                    </p:column>
+
+                                </p:dataTable>
+
+                        </h:form>
                         
                     </h:panelGrid>
                 </p:panel>

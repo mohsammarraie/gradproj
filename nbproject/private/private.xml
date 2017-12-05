@@ -5,6 +5,7 @@
         <group>
             <file>file:/D:/gradproj/src/java/beans/ManageRouteSchedulesBean.java</file>
             <file>file:/D:/gradproj/src/java/daos/RouteSchedulesDao.java</file>
+            <file>file:/D:/gradproj/web/routes/manage_route_schedules.xhtml</file>
             <file>file:/D:/gradproj/web/routes/add_edit_route_schedules.xhtml</file>
             <file>file:/D:/gradproj/src/java/beans/AddEditRouteScheduleBean.java</file>
         </group>

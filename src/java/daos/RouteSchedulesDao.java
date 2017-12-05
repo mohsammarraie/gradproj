@@ -59,7 +59,7 @@ public class RouteSchedulesDao extends ConnectionDao{
       
         private RouteSchedules populateRouteSchedules(ResultSet rs) throws SQLException {
             RouteSchedules routeSchedules = new RouteSchedules();
-            routeSchedules.setTime(rs.getTimestamp("TIME"));
+            routeSchedules.setScheduleTime(rs.getTimestamp("TIME"));
             routeSchedules.setScheduleId(rs.getInt("SCHEDULE_ID"));
             routeSchedules.setRouteScheduleId(rs.getInt("ROUTE_SCHEDULE_ID"));
             routeSchedules.setRouteId(rs.getInt("ROUTE_ID"));
@@ -95,14 +95,14 @@ public class RouteSchedulesDao extends ConnectionDao{
     }
     
           
-      public void insertRouteSchedule(int stopId, int routeId,int scheduleId, Timestamp time ) throws Exception {                
+      public void insertRouteSchedule(int stopId, int routeId,int scheduleId, RouteSchedules routeSchedules ) throws Exception {                
         try {
             Connection conn = getConnection();
 
             String sql = "INSERT INTO BUSES.ROUTES_SCHEDULES(TIME)"
-                    + " VALUES (?) WHERE SCHEDULE_ID =? AND STOP_ID=? AND ROUTE_ID=?";
+                    + " VALUES (?) WHERE SCHEDULE_ID =? AND STOP_ID=? AND ROUTE_ID=?;";
              PreparedStatement ps = conn.prepareStatement(sql); 
-            ps.setTimestamp(1, time);
+            ps.setTimestamp(1, routeSchedules.getScheduleTime());
             ps.setInt(2, scheduleId);
             ps.setInt(3, stopId);
             ps.setInt(4, routeId);
@@ -114,19 +114,23 @@ public class RouteSchedulesDao extends ConnectionDao{
             throw new SQLException(e.getMessage());
         }
     }
-        public void updateRouteSchedule(Timestamp time,int stopId, int routeId) throws Exception {
+        public void updateRouteSchedule(RouteSchedules routeSchedules, int stopId, int routeId, int scheduleId) throws Exception {
         try {
             Connection conn = getConnection();
 
             String sql = "UPDATE BUSES.ROUTES_SCHEDULES SET"
                     + " TIME=?"
-                    + " WHERE STOP_ID=? AND ROUTE_ID=?";
+                    + " WHERE STOP_ID=?"
+                    + " AND"
+                    + " ROUTE_ID=?"
+                    + " AND"
+                    + " SCHEDULE_ID=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             
-            ps.setTimestamp(1, time);
+            ps.setTimestamp(1, routeSchedules.getScheduleTime());
             ps.setInt(2, stopId);
             ps.setInt(3, routeId);
-            
+            ps.setInt(4, scheduleId);
             ps.executeUpdate();
             ps.close();
             
@@ -139,12 +143,7 @@ public class RouteSchedulesDao extends ConnectionDao{
         try {   
             RouteSchedules routeSchedules = null;
             Connection conn = getConnection();
-            
-//            String sql = "SELECT * FROM BUSES.STOPS JOIN"
-//                    + " BUSES.ROUTE_STOPS ON BUSES.STOPS.STOP_ID = BUSES.ROUTE_STOPS.STOP_ID" 
-//                    + " JOIN BUSES.ROUTES ON "
-//                    + " BUSES.ROUTES.ROUTE_ID = BUSES.ROUTE_STOPS.ROUTE_ID"
-//                    + " WHERE BUSES.ROUTE_STOPS.STOP_ID=?";  
+              
             String sql= "SELECT ROUTES_SCHEDULES.*,ROUTE_STOPS.*, STOP_NAME_EN,STOP_NAME_AR FROM" +
                         " BUSES.ROUTES," +
                         " BUSES.STOPS," +
@@ -157,8 +156,7 @@ public class RouteSchedulesDao extends ConnectionDao{
                         " AND" +
                         " BUSES.ROUTES_SCHEDULES.STOP_ID = BUSES.ROUTE_STOPS.STOP_ID" +
                         " AND" +
-                        " BUSES.ROUTES.ROUTE_ID=?" + 
-                        " ORDER BY STOP_ORDER";   
+                        " BUSES.ROUTES.ROUTE_ID=?";   
             PreparedStatement ps = conn.prepareStatement(sql);            
             ps.setInt(1, routeId);
             
