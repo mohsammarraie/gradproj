@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{msgs.add_edit_bus}</title>
+    </h:head>
+    <h:body>
+        <ui:decorate template="/app_templates/app_template.xhtml">  
+            <h:form id="add_bus">            
+                <p:messages id="msgs" closable="true" globalOnly="true"/>
+
+                <p:panel header="#{msgs.add_edit_bus}"                            
+                         style="min-height:400px; 
+                                direction:#{langBean.dir};margin-top:10px; font-size:10pt">
+                    <h:panelGrid id="add"
+                                 style="float: #{langBean.styleFloat};" 
+                                 columns="3"                              
+                                 dir="#{langBean.dir}">
+          
+                        <p:outputLabel value="#{msgs.license_plate}:" for="license_plate"/>
+                        <p:inputText id="license_plate"
+                                     value="#{addEditBusBean.licenseNumber}"
+                                     style="width:600px"
+                                     required="true"
+                                     maxlength="512"
+                                     requiredMessage=" #{msgs.required_msg}">
+                            <f:validateRegex pattern="^[0-9]{1,2}-[0-9]{1,5}$"/>
+                        </p:inputText>
+                        <h:message for="license_plate" styleClass="errorMsg"/>
+                                                        
+                        <p:outputLabel value="#{msgs.chasis_number}:" for="chasis_number"/>
+                        <p:inputText id="chasis_number"
+                                     value="#{addEditBusBean.chasisNumber}"
+                                     required="true"
+                                     maxlength="20"  
+                                     converterMessage="#{msgs.chasis_number_msg}"
+                                     validatorMessage="#{msgs.chasis_number_msg}"
+                                     requiredMessage="#{msgs.required_msg}">
+                           <f:validateLongRange minimum="1000"/>
+                        </p:inputText>
+                        <h:message for="chasis_number" styleClass="errorMsg"/>
+
+
+                        <p:outputLabel value="#{msgs.capacity}:" for="capacity"/>
+                        <p:inputText id="capacity"
+                                     value="#{addEditBusBean.capacity}"
+                                     required="true"
+                                     maxlength="3"  
+                                     converterMessage="#{msgs.capacity_msg}"
+                                     validatorMessage="#{msgs.capacity_msg}"
+                                     requiredMessage="#{msgs.required_msg}">
+                            <f:validateLongRange minimum="0" maximum="100"/>
+                        </p:inputText>
+                        <h:message for="capacity" styleClass="errorMsg"/>                          
+                    </h:panelGrid>
+                </p:panel>
+
+                <p:commandButton value="#{msgs.save}"
+                                 styleClass="commandButton"
+                                 icon="ui-icon-disk"
+                                 iconPos="#{langBean.styleFloat}"
+                                 style="float:#{langBean.styleFloat}" 
+                                 ajax="false"
+                                 action="#{addEditBusBean.saveBus()}" />
+                <p:commandButton value="#{msgs.cancel}"
+                                 icon="ui-icon-cancel"  
+                                 iconPos="#{langBean.styleFloat}"
+                                 styleClass="commandButton"
+                                 immediate="true" 
+                                 style="float:#{langBean.styleFloat}"                                 
+                                 action="manage_buses"  />                                   
+            </h:form>
+        </ui:decorate>
+    </h:body>
+</html>
