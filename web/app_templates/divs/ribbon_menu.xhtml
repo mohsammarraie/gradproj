@@ -24,6 +24,13 @@
                                       actionListener="#{sessionBean.setMenuIndex(0)}"
                                       action="/drivers/manage_drivers.xhtml">                       
                     </p:commandButton>
+                    
+                    <p:commandButton  value="#{msgs.manage_drivers}" 
+                                      styleClass="ribbonButton" 
+                                      style="float:#{langBean.styleFloat};"
+                                      actionListener="#{sessionBean.setMenuIndex(0)}"
+                                      action="/drivers/manage_drivers.xhtml">                       
+                    </p:commandButton>
                   
                     
                       <p:commandButton  value="#{msgs.manage_routes}" 
