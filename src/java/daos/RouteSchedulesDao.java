@@ -95,25 +95,25 @@ public class RouteSchedulesDao extends ConnectionDao{
     }
     
           
-      public void insertRouteSchedule(int stopId, int routeId,int scheduleId, RouteSchedules routeSchedules ) throws Exception {                
-        try {
-            Connection conn = getConnection();
-
-            String sql = "INSERT INTO BUSES.ROUTES_SCHEDULES(TIME)"
-                    + " VALUES (?) WHERE SCHEDULE_ID =? AND STOP_ID=? AND ROUTE_ID=?;";
-             PreparedStatement ps = conn.prepareStatement(sql); 
-            ps.setTimestamp(1, routeSchedules.getScheduleTime());
-            ps.setInt(2, scheduleId);
-            ps.setInt(3, stopId);
-            ps.setInt(4, routeId);
-
-             ps.executeUpdate();
-             ps.close();
-            
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
-    }
+//      public void insertRouteSchedule(int stopId, int routeId,int scheduleId, RouteSchedules routeSchedules ) throws Exception {                
+//        try {
+//            Connection conn = getConnection();
+//
+//            String sql = "INSERT INTO BUSES.ROUTES_SCHEDULES(TIME)"
+//                    + " VALUES (?) WHERE SCHEDULE_ID =? AND STOP_ID=? AND ROUTE_ID=?;";
+//             PreparedStatement ps = conn.prepareStatement(sql); 
+//            ps.setTimestamp(1, routeSchedules.getScheduleTime());
+//            ps.setInt(2, scheduleId);
+//            ps.setInt(3, stopId);
+//            ps.setInt(4, routeId);
+//
+//             ps.executeUpdate();
+//             ps.close();
+//            
+//        } catch (SQLException e) {
+//            throw new SQLException(e.getMessage());
+//        }
+//    }
         public void updateRouteSchedule(RouteSchedules routeSchedules, int stopId, int routeId, int scheduleId) throws Exception {
         try {
             Connection conn = getConnection();

@@ -69,8 +69,10 @@ and open the template in the editor.
                             
                              <p:column headerText="#{msgs.time}"
                                       style="width:15%"
-                                      sortBy="#{routeSchedulesArray.scheduleTime}">                    
-                                <h:outputText value="#{routeSchedulesArray.scheduleTime}"/>  
+                                      sortBy="#{routeSchedulesArray.scheduleTime}">         
+                                <h:outputText value="#{routeSchedulesArray.scheduleTime}">  
+                                     <f:convertDateTime pattern="hh:mm" />
+                                </h:outputText>   
                             </p:column>
                             
                             <f:facet name="footer">

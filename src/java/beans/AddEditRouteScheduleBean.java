@@ -142,24 +142,22 @@ public class AddEditRouteScheduleBean implements Serializable{
         
             routeSchedules.setScheduleId(scheduleId);
             routeSchedules.setStopId(stopId);
-            routeSchedules.setScheduleTime(new Timestamp(routeSchedulesArray.get(scheduleId).getScheduleTime().getTime()));
-      
-  
-            if (sessionBean.getSelectedScheduleId() > 0) {
-                routeSchedulesDao.updateRouteSchedule(routeSchedules, stopId, sessionBean.getSelectedRouteId(),sessionBean.getSelectedScheduleId()); 
-                
-            } else {
-                routeSchedulesDao.insertRouteSchedule(stopId, sessionBean.getSelectedRouteId(),scheduleId,routeSchedules);
-            }
+            routeSchedules.setScheduleTime(new Timestamp(addTime.getTime()));
+            
+            routeSchedulesDao.updateRouteSchedule(routeSchedules, stopId, sessionBean.getSelectedRouteId(),sessionBean.getSelectedScheduleId()); 
+
+//                new Timestamp(routeSchedulesArray.get(scheduleId).getScheduleTime().getTime())
+//            if (sessionBean.getSelectedScheduleId() > 0) {
+//                routeSchedulesDao.updateRouteSchedule(routeSchedules, stopId, sessionBean.getSelectedRouteId(),sessionBean.getSelectedScheduleId()); 
+//                
+//            } else {
+//                routeSchedulesDao.insertRouteSchedule(stopId, sessionBean.getSelectedRouteId(),scheduleId,routeSchedules);
+//            }
             sessionBean.navigate("manage_route_schedules");
         } catch (Exception ex) {
-            
-//            sessionBean.navigate("route_stop_error");
-//                error_message_header= "خطأ";
-//                error_message_content= "لايمكنك تعيين نفس نقطة الوقوف لنفس الطريق مرتين"; 
-
+           
             error_message_header = "Error!";
-            error_message_content = "You can't assign the same stop to the same route twice";
+            error_message_content = ex.getMessage();
             
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(AddEditStopBean.class.getName()).log(Level.SEVERE, null, ex);
