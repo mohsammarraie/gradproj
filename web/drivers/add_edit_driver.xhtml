@@ -32,7 +32,7 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}">
-                            <f:validateRegex pattern="[a-zA-Z]+"/>
+                            <f:validateRegex pattern="[a-zA-Z]+\s?[a-zA-Z]+"/>
 
                         </p:inputText>
                         <h:message for="first_name_en" styleClass="errorMsg"/>
@@ -45,7 +45,7 @@ and open the template in the editor.
                                      dir="rtl"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}">
-                             <f:validateRegex pattern="[ا-ي]+"/>
+                             <f:validateRegex pattern="[\أ\ئ\ؤ\ء\ا-ي]+\s?[\أ\ئ\ء\ؤ\ا-ي]+"/>
                         </p:inputText>
                         <h:message for="first_name_ar" styleClass="errorMsg"/>
                         
@@ -57,7 +57,7 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}">
-                            <f:validateRegex pattern="[a-zA-Z]+"/>
+                            <f:validateRegex pattern="[a-zA-Z]+\s?\-?[a-zA-Z]+"/>
 
                         </p:inputText>
                         <h:message for="last_name_en" styleClass="errorMsg"/>
@@ -70,7 +70,7 @@ and open the template in the editor.
                                      dir="rtl"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}">
-                             <f:validateRegex pattern="[ا-ي]+"/>
+                             <f:validateRegex pattern="[\أ\ئ\ؤ\ء\ا-ي]+\s?[\أ\ئ\ء\ؤ\ا-ي]+"/>
                         </p:inputText>
                         <h:message for="last_name_ar" styleClass="errorMsg"/>
                         

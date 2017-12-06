@@ -104,7 +104,7 @@ public class AddEditStudentBean implements Serializable{
             students.setLastNameEn(lastNameEn);
             students.setLastNameAr(lastNameAr);
  
-            if (sessionBean.getSelectedDriverId() > 0) {
+            if (sessionBean.getSelectedStudentId() !=null) {
                 studentsDao.updateStudent(students);
             } else {
                 studentsDao.insertStudent(students);

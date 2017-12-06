@@ -114,10 +114,9 @@ public class StudentsDao extends ConnectionDao {
             Connection conn = getConnection();
 
             String sql = "UPDATE BUSES.STUDENTS SET"
-             
                     + " FIRST_NAME_EN=?,"
                     + " LAST_NAME_EN=?,"
-                    + " FIRST_NAME_AR=?"
+                    + " FIRST_NAME_AR=?,"
                     + " LAST_NAME_AR=?"
                     + " WHERE STUDENT_ID=?";
             
@@ -130,7 +129,6 @@ public class StudentsDao extends ConnectionDao {
             ps.setString(5, students.getStudentId());
 
             ps.executeUpdate();
-            
             ps.close();
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());

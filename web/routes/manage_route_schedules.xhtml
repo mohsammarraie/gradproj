@@ -85,14 +85,6 @@ and open the template in the editor.
                                                  onclick="return confirm('#{msgs.confirm_delete_schedule}?');"
                                                  actionListener="#{manageRouteSchedulesBean.deleteSelectedRouteSchedule()}"
                                                  action="manage_route_schedules" />
-                                        <p:commandButton value="#{msgs.edit}"
-                                                 icon="ui-icon-pencil"                                  
-                                                 iconPos="#{langBean.styleFloat}"
-                                                 styleClass="commandButton"
-                                                 style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{manageRouteSchedulesBean.selectedRouteSchedule==null}"                                                 
-                                                 actionListener="#{manageRouteSchedulesBean.saveSelectedScheduleID()}"
-                                                 action="add_edit_route_schedules" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
                             </f:facet>
@@ -103,7 +95,7 @@ and open the template in the editor.
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}"
                                  action="manage_routes" />
-                        <p:commandButton value="#{msgs.add}"
+                        <p:commandButton value="#{msgs.add} / #{msgs.edit} "
                                  icon="ui-icon-plus"                                  
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
