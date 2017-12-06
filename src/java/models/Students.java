@@ -12,13 +12,13 @@ import java.io.Serializable;
  */
 public class Students implements Serializable {
     
-    private int studentId;
+    private String studentId;
     private String firstNameEn;
     private String lastNameEn;
     private String firstNameAr;
     private String lastNameAr;
 
-    public int getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
@@ -38,7 +38,7 @@ public class Students implements Serializable {
         return lastNameAr;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 

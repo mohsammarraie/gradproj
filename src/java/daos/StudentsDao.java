@@ -43,7 +43,7 @@ public class StudentsDao extends ConnectionDao {
         private Students populateStudents(ResultSet rs) throws SQLException {
         Students students = new Students();
         
-        students.setStudentId(rs.getInt("STUDENT_ID")); 
+        students.setStudentId(rs.getString("STUDENT_ID")); 
         students.setFirstNameEn(rs.getString("FIRST_NAME_EN")); 
         students.setLastNameEn(rs.getString("LAST_NAME_EN"));
         students.setFirstNameAr(rs.getString("FIRST_NAME_AR"));
@@ -52,7 +52,7 @@ public class StudentsDao extends ConnectionDao {
         return students;
     }
         
-    public Students getStudents(int StudentId) throws Exception {
+    public Students getStudents(String StudentId) throws Exception {
         try {   
             Students students = null;
             Connection conn = getConnection();
@@ -60,13 +60,13 @@ public class StudentsDao extends ConnectionDao {
                String sql = "SELECT * FROM BUSES.STUDENTS"
                     + " WHERE STUDENT_ID=?";                      
             PreparedStatement ps = conn.prepareStatement(sql);            
-            ps.setInt(1, StudentId);
+            ps.setString(1, StudentId);
             
             ResultSet rs = ps.executeQuery();           
 
             while (rs.next()) {
                 students = populateStudents(rs);
-                students.setStudentId(rs.getInt("STUDENT_ID")); 
+                students.setStudentId(rs.getString("STUDENT_ID")); 
                 students.setFirstNameEn(rs.getString("FIRST_NAME_EN")); 
                 students.setLastNameEn(rs.getString("LAST_NAME_EN"));
                 students.setFirstNameAr(rs.getString("FIRST_NAME_AR"));
@@ -94,7 +94,7 @@ public class StudentsDao extends ConnectionDao {
                     + " VALUES (?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql); 
             
-            ps.setInt(1, students.getStudentId());
+            ps.setString(1, students.getStudentId());
             ps.setString(2, students.getFirstNameEn());
             ps.setString(3, students.getLastNameEn());
             ps.setString(4, students.getFirstNameAr());
@@ -109,7 +109,7 @@ public class StudentsDao extends ConnectionDao {
         }
     }
     
-    public void updateBus(Students students) throws Exception {
+    public void updateStudent(Students students) throws Exception {
         try {
             Connection conn = getConnection();
 
@@ -127,7 +127,7 @@ public class StudentsDao extends ConnectionDao {
             ps.setString(2, students.getLastNameEn());
             ps.setString(3, students.getFirstNameAr());
             ps.setString(4, students.getLastNameAr());
-            ps.setInt(5, students.getStudentId());
+            ps.setString(5, students.getStudentId());
 
             ps.executeUpdate();
             
@@ -137,13 +137,13 @@ public class StudentsDao extends ConnectionDao {
         }
     }
     
-    public void deleteStudent(int studentId) throws Exception {
+    public void deleteStudent(String studentId) throws Exception {
         Connection conn = getConnection();
         
         try {
             String sql = "DELETE FROM BUSES.STUDENTS WHERE STUDENT_ID=?";                               
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, studentId);
+            ps.setString(1, studentId);
             
             ps.executeUpdate();
 

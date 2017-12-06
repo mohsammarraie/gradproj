@@ -10,73 +10,97 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>#{msgs.add_edit_bus}</title>
+        <title>#{msgs.add_edit_driver}</title>
     </h:head>
     <h:body>
         <ui:decorate template="/app_templates/app_template.xhtml">  
-            <h:form id="add_bus">            
+            <h:form id="add_driver">            
                 <p:messages id="msgs" closable="true" globalOnly="true"/>
 
-                <p:panel header="#{msgs.add_edit_bus}"                            
+                <p:panel header="#{msgs.add_edit_driver}"                            
                          style="min-height:400px; 
                                 direction:#{langBean.dir};margin-top:10px; font-size:10pt">
                     <h:panelGrid id="add"
                                  style="float: #{langBean.styleFloat};" 
                                  columns="3"                              
                                  dir="#{langBean.dir}">
-          
-                        <p:outputLabel value="#{msgs.license_plate}:" for="license_plate"/>
-                        <p:inputText id="license_plate"
-                                     value="#{addEditBusBean.licenseNumber}"
+                        
+                        <p:outputLabel value="#{msgs.student_id}:" for="student_id"/>
+                        <p:inputText id="student_id"
+                                     value="#{addEditStudentBean.studentId}"
+                                     required="true"
+                                     maxlength="512"  
+                                     requiredMessage="#{msgs.required_msg}">
+                           
+                        </p:inputText>
+                        <h:message for="student_id" styleClass="errorMsg"/>
+                        
+                        <p:outputLabel value="#{msgs.first_name_en}:" for="first_name_en"/>
+                        <p:inputText id="first_name_en"
+                                     value="#{addEditStudentBean.firstNameEn}"
                                      style="width:600px"
                                      required="true"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}">
-                            <f:validateRegex pattern="^[0-9]{1,2}-[0-9]{1,5}$"/>
-                        </p:inputText>
-                        <h:message for="license_plate" styleClass="errorMsg"/>
-                                                        
-                        <p:outputLabel value="#{msgs.chasis_number}:" for="chasis_number"/>
-                        <p:inputText id="chasis_number"
-                                     value="#{addEditBusBean.chasisNumber}"
-                                     required="true"
-                                     maxlength="20"  
-                                     converterMessage="#{msgs.chasis_number_msg}"
-                                     validatorMessage="#{msgs.chasis_number_msg}"
-                                     requiredMessage="#{msgs.required_msg}">
-                           <f:validateLongRange minimum="1000"/>
-                        </p:inputText>
-                        <h:message for="chasis_number" styleClass="errorMsg"/>
+                            <f:validateRegex pattern="[a-zA-Z]+"/>
 
-
-                        <p:outputLabel value="#{msgs.capacity}:" for="capacity"/>
-                        <p:inputText id="capacity"
-                                     value="#{addEditBusBean.capacity}"
-                                     required="true"
-                                     maxlength="3"  
-                                     converterMessage="#{msgs.capacity_msg}"
-                                     validatorMessage="#{msgs.capacity_msg}"
-                                     requiredMessage="#{msgs.required_msg}">
-                            <f:validateLongRange minimum="0" maximum="100"/>
                         </p:inputText>
-                        <h:message for="capacity" styleClass="errorMsg"/>                          
+                        <h:message for="first_name_en" styleClass="errorMsg"/>
+
+                        <p:outputLabel value="#{msgs.first_name_ar}:" for="first_name_ar"/>
+                        <p:inputText id="first_name_ar"
+                                     value="#{addEditStudentBean.firstNameAr}"
+                                     style="width:600px"
+                                     required="true"
+                                     dir="rtl"
+                                     maxlength="512"
+                                     requiredMessage=" #{msgs.required_msg}">
+                             <f:validateRegex pattern="[ا-ي]+"/>
+                        </p:inputText>
+                        <h:message for="first_name_ar" styleClass="errorMsg"/>
+                        
+                        
+                        <p:outputLabel value="#{msgs.last_name_en}:" for="last_name_en"/>
+                        <p:inputText id="last_name_en"
+                                     value="#{addEditStudentBean.lastNameEn}"
+                                     style="width:600px"
+                                     required="true"
+                                     maxlength="512"
+                                     requiredMessage=" #{msgs.required_msg}">
+                            <f:validateRegex pattern="[a-zA-Z]+"/>
+
+                        </p:inputText>
+                        <h:message for="last_name_en" styleClass="errorMsg"/>
+                        
+                            <p:outputLabel value="#{msgs.last_name_ar}:" for="last_name_ar"/>
+                        <p:inputText id="last_name_ar"
+                                     value="#{addEditStudentBean.lastNameAr}"
+                                     style="width:600px"
+                                     required="true"
+                                     dir="rtl"
+                                     maxlength="512"
+                                     requiredMessage=" #{msgs.required_msg}">
+                             <f:validateRegex pattern="[ا-ي]+"/>
+                        </p:inputText>
+                        <h:message for="last_name_ar" styleClass="errorMsg"/>
+   
                     </h:panelGrid>
                 </p:panel>
 
                 <p:commandButton value="#{msgs.save}"
                                  styleClass="commandButton"
                                  icon="ui-icon-disk"
-                                 iconPos="#{langBean.styleFloat}"
-                                 style="float:#{langBean.styleFloat}" 
                                  ajax="false"
-                                 action="#{addEditBusBean.saveBus()}" />
+                                 iconPos="#{langBean.styleFloat}"
+                                 style="float:#{langBean.styleFloat}"                                                                   
+                                 actionListener="#{addEditStudentBean.saveStudent()}" />
                 <p:commandButton value="#{msgs.cancel}"
                                  icon="ui-icon-cancel"  
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  immediate="true" 
                                  style="float:#{langBean.styleFloat}"                                 
-                                 action="manage_buses"  />                                   
+                                 action="manage_students" />                                   
             </h:form>
         </ui:decorate>
     </h:body>

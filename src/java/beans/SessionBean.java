@@ -25,7 +25,7 @@ public class SessionBean implements Serializable {
     
     private int selectedItemId; 
     private int selectedBusId; 
-    private int selectedStudentId;
+    private String selectedStudentId;
     private int selectedDriverId;
     private int selectedRouteId;
     private int selectedRouteStopId;
@@ -114,12 +114,12 @@ public class SessionBean implements Serializable {
     } 
     
 
-    public int getSelectedStudentId() {
+    public String getSelectedStudentId() {
 
         return selectedStudentId;
     }
 
-    public void setSelectedStudentId(int selectedStudentId) {
+    public void setSelectedStudentId(String selectedStudentId) {
         this.selectedStudentId = selectedStudentId;
     }
     

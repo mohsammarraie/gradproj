@@ -13,60 +13,58 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>#{msgs.manage_buses}</title>
+        <title>#{msgs.manage_students}</title>
     </h:head>
     <h:body>
         <div>
             <ui:decorate template="/app_templates/app_template.xhtml">
-                <h:form id="student_info_form">
+                <h:form id="students_info_form">
                     <p:dataTable 
-                           id="student_info_tbl"
+                           id="students_info_tbl"
                            value = "#{manageStudentsBean.studentsArray}"
                            selection="#{manageStudentsBean.selectedStudent}"
                            rowKey="#{studentsArray.studentId}"  
                            class = "dataTable"
                            var="studentsArray"
                            rows="5"
-                           rowsPerPageTemplate="5,15,20"
+                           rowsPerPageTemplate="5,10,20"
                            dir="#{langBean.dir}"
-                           emptyMessage="#{msgs.no_buses}"
+                           emptyMessage="#{msgs.no_students}"
                            paginator="true"
                            paginatorPosition="top" 
                            paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
                              >
                             <p:ajax event="rowSelectRadio"
-                              update=":bus_info_form:bus_info_tbl"/>  
+                              update=":students_info_form:students_info_tbl"/>  
 
                             <f:facet name="header" id="header">
-                                #{msgs.manage_buses}
+                                #{msgs.manage_students}
                             </f:facet> 
                             <p:column selectionMode="single" style="width:5%"/>
                             
-                            <p:column headerText="#{msgs.bus_id}"
+                            <p:column headerText="#{msgs.student_id}"
                                       style="width:15%"
-                                      sortBy="#{busesArray.busId}">                    
-                                <h:outputText value="#{busesArray.busId}"/>  
+                                      sortBy="#{studentsArray.studentId}">                    
+                                <h:outputText value="#{studentsArray.studentId}"/>  
+                            </p:column>
+
+                            
+                            <p:column headerText="#{msgs.first_name}"
+                                style="width:20%"
+                                filterBy="#{langBean.isEnglish?studentsArray.firstNameEn:studentsArray.firstNameAr}"
+                                filterMatchMode="contains"
+                                sortBy="#{langBean.isEnglish?studentsArray.firstNameEn:studentsArray.firstNameAr}">                    
+                                <h:outputText value="#{langBean.isEnglish?studentsArray.firstNameEn:studentsArray.firstNameAr}"/>  
                             </p:column>
                             
-                            <p:column headerText="#{msgs.chasis_number}"
-                                      style="width:15%"
-                                      sortBy="#{busesArray.chasisNumber}">                    
-                                <h:outputText value="#{busesArray.chasisNumber}"/>  
+                            <p:column headerText="#{msgs.last_name}"
+                                style="width:20%"
+                                filterBy="#{langBean.isEnglish?studentsArray.lastNameEn:studentsArray.lastNameAr}"
+                                filterMatchMode="contains"
+                                sortBy="#{langBean.isEnglish?studentsArray.lastNameEn:studentsArray.lastNameAr}">                    
+                                <h:outputText value="#{langBean.isEnglish?studentsArray.lastNameEn:studentsArray.lastNameAr}"/>  
                             </p:column>
-           
-                            
-                            <p:column headerText="#{msgs.license_plate}"
-                                      style="width:15%"
-                                      sortBy="#{busesArray.licenseNumber}">                    
-                                <h:outputText value="#{busesArray.licenseNumber}"/>  
-                            </p:column>
-                            
-                            <p:column headerText="#{msgs.capacity}"
-                                      style="width:15%"
-                                      sortBy="#{busesArray.capacity}">                    
-                                <h:outputText value="#{busesArray.capacity}"/>  
-                            </p:column>
-                            
+
                             <f:facet name="footer">
                                 <p:toolbar style="border: none">
                                     <p:toolbarGroup align="#{languageBean.screenLeft}">
@@ -75,18 +73,18 @@ and open the template in the editor.
                                                  iconPos="#{langBean.styleFloat}"
                                                  styleClass="commandButton"
                                                  style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{manageBusesBean.selectedBus==null}"
-                                                 onclick="return confirm('#{msgs.confirm_delete_bus}?');"
-                                                 actionListener="#{manageBusesBean.deleteSelectedBus()}"
-                                                 action="manage_buses" />
+                                                 disabled="#{manageStudentsBean.selectedStudent==null}"
+                                                 onclick="return confirm('#{msgs.confirm_delete_student}?');"
+                                                 actionListener="#{manageStudentsBean.deleteSelectedStudent()}"
+                                                 action="manage_students" />
                                         <p:commandButton value="#{msgs.edit}"
                                                  icon="ui-icon-pencil"                                  
                                                  iconPos="#{langBean.styleFloat}"
                                                  styleClass="commandButton"
                                                  style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{manageBusesBean.selectedBus==null}"                                                 
-                                                 actionListener="#{manageBusesBean.saveSelectedBusId()}"
-                                                 action="add_edit_bus" />
+                                                 disabled="#{manageStudentsBean.selectedStudent==null}"                                                 
+                                                 actionListener="#{manageStudentsBean.saveSelectedStudentId()}"
+                                                 action="add_edit_student" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
                             </f:facet>
@@ -96,8 +94,8 @@ and open the template in the editor.
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
-                                 actionListener="#{sessionBean.setSelectedBusId(-1)}"
-                                 action="add_edit_bus" /> 
+                                 actionListener="#{sessionBean.setSelectedStudentId(null)}"
+                                 action="add_edit_student" /> 
                 </h:form>
                
             </ui:decorate>

@@ -103,12 +103,7 @@ public class AddEditDriverBean implements Serializable{
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    
-    
 
-
-
-    
         public void saveDriver() {
         try {
         

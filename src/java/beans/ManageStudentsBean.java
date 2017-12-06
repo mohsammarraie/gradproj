@@ -54,7 +54,7 @@ public class ManageStudentsBean implements Serializable {
         return studentsArray;
     }
 
-    public void setStudentsArray(ArrayList<Students> studentArray) {
+    public void setStudentsArray(ArrayList<Students> studentsArray) {
         this.studentsArray = studentsArray;
     }
 
@@ -62,10 +62,10 @@ public class ManageStudentsBean implements Serializable {
         sessionBean.setSelectedStudentId(selectedStudent.getStudentId());
     }
 
-    public void deleteSelectedBus() {
+    public void deleteSelectedStudent() {
         try {
             studentsDao.deleteStudent(selectedStudent.getStudentId());
-            sessionBean.navigate("manage_Students");
+            sessionBean.navigate("manage_students");
         } catch (Exception ex) {
             Logger.getLogger(ManageStudentsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
