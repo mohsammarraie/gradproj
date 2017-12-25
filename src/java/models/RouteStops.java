@@ -21,7 +21,7 @@ public class RouteStops {
     private String destinationAr;
     private String destinationEn;
     private String routeCode;
-    private int active;
+    private int routeActive;
 
     public int getStopId() {
         return stopId;
@@ -96,12 +96,12 @@ public class RouteStops {
         this.routeCode = routeCode;
     }
 
-    public int getActive() {
-        return active;
+    public int getRouteActive() {
+        return routeActive;
     }
 
-    public void setActive(int active) {
-        this.active = active;
+    public void setRouteActive(int routeActive) {
+        this.routeActive = routeActive;
     }
 
     

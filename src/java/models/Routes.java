@@ -17,7 +17,7 @@ public class Routes {
     private String destinationAr;
     private String destinationEn;
     private String routeCode;
-    private int active;
+    private int routeActive;
     
     public int getRouteId() {
         return routeId;
@@ -68,12 +68,12 @@ public class Routes {
         this.routeCode = routeCode;
     }
 
-    public int getActive() {
-        return active;
+    public int getRouteActive() {
+        return routeActive;
     }
 
-    public void setActive(int active) {
-        this.active = active;
+    public void setRouteActive(int routeActive) {
+        this.routeActive = routeActive;
     }
 
     

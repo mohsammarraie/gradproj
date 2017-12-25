@@ -30,7 +30,7 @@ public class SessionBean implements Serializable {
     private int selectedRouteId;
     private int selectedRouteStopId;
     private int selectedStopId;
-    private int selectedScheduleId;
+    private int selectedRouteScheduleId;
     
     
     private int menuIndex = 0;
@@ -54,12 +54,12 @@ public class SessionBean implements Serializable {
         this.selectedStopId = selectedStopId;
     }
 
-    public int getSelectedScheduleId() {
-        return selectedScheduleId;
+    public int getSelectedRouteScheduleId() {
+        return selectedRouteScheduleId;
     }
 
-    public void setSelectedScheduleId(int selectedScheduleId) {
-        this.selectedScheduleId = selectedScheduleId;
+    public void setSelectedRouteScheduleId(int selectedRouteScheduleId) {
+        this.selectedRouteScheduleId = selectedRouteScheduleId;
     }
     
     

@@ -5,6 +5,8 @@
  */
 package models;
 
+import java.util.Date;
+
 /**
  *
  * @author MOH
@@ -14,7 +16,17 @@ public class Stops {
     private int stopId;
     private String stopNameEn;
     private String stopNameAr;
+    private Date time;
 
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+    
+    
     public int getStopId() {
         return stopId;
     }

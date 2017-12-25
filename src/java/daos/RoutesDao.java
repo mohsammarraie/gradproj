@@ -72,7 +72,7 @@ public class RoutesDao extends ConnectionDao {
         routes.setDestinationEn(rs.getString("DESTINATION_EN"));                  
         routes.setDestinationAr(rs.getString("DESTINATION_AR"));                  
         routes.setRouteCode(rs.getString("ROUTE_CODE")); 
-        routes.setActive(rs.getInt("ACTIVE")); 
+        routes.setRouteActive(rs.getInt("ROUTE_ACTIVE")); 
         return routes;
     } 
     public void insertRoute(Routes routes) throws Exception {                
@@ -85,7 +85,7 @@ public class RoutesDao extends ConnectionDao {
                     + " DESTINATION_EN,"
                     + " DESTINATION_AR,"
                     + " ROUTE_CODE,"
-                    + " ACTIVE)"
+                    + " ROUTE_ACTIVE)"
                     + " VALUES ((select max(ROUTE_ID) from ROUTES)+1,?,?,?,?,?,?)";
              PreparedStatement ps = conn.prepareStatement(sql); 
             
@@ -94,7 +94,7 @@ public class RoutesDao extends ConnectionDao {
              ps.setString(3, routes.getDestinationEn());
              ps.setString(4, routes.getDestinationAr());
              ps.setString(5, routes.getRouteCode());
-             ps.setInt(6, routes.getActive());
+             ps.setInt(6, routes.getRouteActive());
              ps.executeUpdate();
              ps.close();
             
@@ -112,7 +112,7 @@ public class RoutesDao extends ConnectionDao {
                     + " DESTINATION_EN=?,"
                     + " DESTINATION_AR=?,"
                     + " ROUTE_CODE=?,"
-                    + " ACTIVE=?"
+                    + " ROUTE_ACTIVE=?"
                     + " WHERE ROUTE_ID=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             
@@ -121,7 +121,7 @@ public class RoutesDao extends ConnectionDao {
              ps.setString(3, routes.getDestinationEn());
              ps.setString(4, routes.getDestinationAr());
              ps.setString(5, routes.getRouteCode());
-             ps.setInt(6, routes.getActive());
+             ps.setInt(6, routes.getRouteActive());
              ps.setInt(7, routes.getRouteId());
 
             ps.executeUpdate();
@@ -167,7 +167,7 @@ public class RoutesDao extends ConnectionDao {
                 routes.setDestinationEn(rs.getString("DESTINATION_EN"));
                 routes.setDestinationAr(rs.getString("DESTINATION_AR"));
                 routes.setRouteCode(rs.getString("ROUTE_CODE")); 
-                routes.setActive(rs.getInt("ACTIVE")); 
+                routes.setRouteActive(rs.getInt("ROUTE_ACTIVE")); 
             }
 
             rs.close();

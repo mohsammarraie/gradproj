@@ -25,9 +25,9 @@ public class RouteStopsDao extends ConnectionDao{
         
         try {            
             String sql = "SELECT * FROM BUSES.STOPS JOIN"
-                    + " BUSES.ROUTE_STOPS ON BUSES.STOPS.STOP_ID = BUSES.ROUTE_STOPS.STOP_ID" 
+                    + " BUSES.ROUTES_STOPS ON BUSES.STOPS.STOP_ID = BUSES.ROUTES_STOPS.STOP_ID" 
                     + " JOIN BUSES.ROUTES ON "
-                    + " BUSES.ROUTES.ROUTE_ID = BUSES.ROUTE_STOPS.ROUTE_ID"
+                    + " BUSES.ROUTES.ROUTE_ID = BUSES.ROUTES_STOPS.ROUTE_ID"
                     + " WHERE BUSES.ROUTES.ROUTE_ID=? ORDER BY STOP_ORDER";
 //                   String sql= "SELECT * FROM BUSES.ROUTE_STOPS,"
 //                           + " BUSES.STOPS WHERE ROUTE_ID = ? AND"
@@ -63,7 +63,7 @@ public class RouteStopsDao extends ConnectionDao{
         stops.setSourceAr(rs.getString("SOURCE_AR"));
         stops.setDestinationEn(rs.getString("DESTINATION_EN"));                  
         stops.setDestinationAr(rs.getString("DESTINATION_AR"));                  
-        stops.setActive(rs.getInt("ACTIVE")); 
+        stops.setRouteActive(rs.getInt("ROUTE_ACTIVE")); 
         return stops;
     } 
 
@@ -72,7 +72,7 @@ public class RouteStopsDao extends ConnectionDao{
         try {
             Connection conn = getConnection();
 
-            String sql = "INSERT INTO BUSES.ROUTE_STOPS(STOP_ID,"
+            String sql = "INSERT INTO BUSES.ROUTES_STOPS(STOP_ID,"
                     + " ROUTE_ID,"
                     + " STOP_ORDER)"
                     + " VALUES (?,?,?)";
@@ -95,21 +95,38 @@ public class RouteStopsDao extends ConnectionDao{
         try {
             Connection conn = getConnection();
 
-            String sql = "INSERT INTO BUSES.ROUTES_SCHEDULES(SCHEDULE_ID,"
+             String sql = "INSERT INTO BUSES.ROUTES_SCHEDULES("
                     + " ROUTE_SCHEDULE_ID,"
-                    + " STOP_ID,"
+                    + " SCHEDULE_ID,"
                     + " ROUTE_ID)"
-                    + " VALUES ((select max(SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES)+1,(select max(ROUTE_SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES)+1,?,?)";
+                    + " VALUES ((select max(ROUTE_SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES)+1,"
+                    + " (select max(SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES)+1,?)";
+            
+            PreparedStatement ps = conn.prepareStatement(sql); 
+            ps.setInt(1, routeId);
+            ps.executeUpdate();
+            ps.close();
+            
+ 
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+          public void insertRouteStopScheduleNewRow(int stopId, int routeId) throws Exception {                
+        try {
+            Connection conn = getConnection();
+
+   
+            String sql = "INSERT INTO BUSES.ROUTES_STOPS_SCHEDULES("
+                    + " ROUTE_SCHEDULE_ID,"
+                    + " STOP_ID)"
+                    + " VALUES ((select max(ROUTE_SCHEDULE_ID) from BUSES.ROUTES_STOPS_SCHEDULES)+1,?)";
              PreparedStatement ps = conn.prepareStatement(sql); 
-            
+           
             ps.setInt(1, stopId);
-            ps.setInt(2, routeId);
-          
-        
-             
-             ps.executeUpdate();
-             ps.close();
-            
+            ps.executeUpdate();
+            ps.close();
+ 
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
         }
@@ -118,7 +135,7 @@ public class RouteStopsDao extends ConnectionDao{
         try {
             Connection conn = getConnection();
 
-            String sql = "UPDATE BUSES.ROUTE_STOPS SET"
+            String sql = "UPDATE BUSES.ROUTES_STOPS SET"
                     + " STOP_ID=?,"
                     + " STOP_ORDER=?"
                     + " WHERE STOP_ID=? AND ROUTE_ID=?";
@@ -141,15 +158,14 @@ public class RouteStopsDao extends ConnectionDao{
         try {
             Connection conn = getConnection();
 
-            String sql = "UPDATE BUSES.ROUTES_SCHEDULES SET"
+            String sql = "UPDATE BUSES.ROUTES_STOPS_SCHEDULES SET"
                     + " STOP_ID=?"
-                    + " WHERE STOP_ID=? AND ROUTE_ID=?";
+                    + " WHERE BUSES.ROUTES_STOPS_SCHEDULES.ROUTE_SCHEDULE_ID IN (SELECT ROUTE_SCHEDULE_ID FROM ROUTES_SCHEDULES"
+                    + " WHERE ROUTES_SCHEDULES.ROUTE_ID=?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             
             ps.setInt(1, routeStopId);
-            ps.setInt(2, stopId);
-            ps.setInt(3, routeId);
-            
+            ps.setInt(2, routeId);
             ps.executeUpdate();
             ps.close();
             
@@ -162,7 +178,7 @@ public class RouteStopsDao extends ConnectionDao{
         Connection conn = getConnection();
         
         try {
-            String sql = "DELETE FROM BUSES.ROUTE_STOPS WHERE STOP_ID=? AND ROUTE_ID=?"; 
+            String sql = "DELETE FROM BUSES.ROUTES_STOPS WHERE STOP_ID=? AND ROUTE_ID=?"; 
             PreparedStatement ps = conn.prepareStatement(sql);
             
             ps.setInt(1, stopId);
@@ -185,9 +201,9 @@ public class RouteStopsDao extends ConnectionDao{
 //                    + " JOIN BUSES.ROUTES ON "
 //                    + " BUSES.ROUTES.ROUTE_ID = BUSES.ROUTE_STOPS.ROUTE_ID"
 //                    + " WHERE BUSES.ROUTE_STOPS.STOP_ID=?";  
-            String sql= "SELECT * FROM BUSES.ROUTE_STOPS,"
-                           + " BUSES.ROUTES, BUSES.STOPS WHERE ROUTE_STOPS.STOP_ID=? AND"
-                           + " ROUTES.ROUTE_ID = ROUTE_STOPS.ROUTE_ID";   
+            String sql= "SELECT * FROM BUSES.ROUTES_STOPS,"
+                           + " BUSES.ROUTES, BUSES.STOPS WHERE ROUTES_STOPS.STOP_ID=? AND"
+                           + " ROUTES.ROUTE_ID = ROUTES_STOPS.ROUTE_ID";   
             PreparedStatement ps = conn.prepareStatement(sql);            
             ps.setInt(1, stopId);
             
