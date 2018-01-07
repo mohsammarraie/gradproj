@@ -32,6 +32,7 @@ public class ManageRouteSchedulesBean implements Serializable{
     private ArrayList<RouteSchedules> routeSchedulesArray; 
     private ArrayList<Stops> routeScheduleStop = new ArrayList<>();
     RouteSchedules routeSchedules = new RouteSchedules();
+    Stops stop = new Stops();
      @Inject 
     private SessionBean sessionBean;
 
@@ -42,10 +43,16 @@ public class ManageRouteSchedulesBean implements Serializable{
         public void init(){
             try {            
                 routeSchedulesArray = routeSchedulesDao.buildRouteSchedules(sessionBean.getSelectedRouteId());
-                int i;
-                for(i=0; i<routeSchedulesArray.size();i++){
-                routeScheduleStop=routeSchedulesArray.get(i).getRouteScheduleStops();
-                }
+                routeScheduleStop = routeSchedulesDao.buildRouteScheduleStops(sessionBean.getSelectedRouteId());
+//                int i;
+//                for (i = 0; i < routeSchedulesArray.size(); i++) {
+//                    System.out.print(routeSchedulesArray.get(i).getRouteScheduleId());
+//                    for(int j = 0; j < routeSchedulesArray.get(i).getRouteScheduleStops().size(); j++){
+//                        stop = (routeSchedulesArray.get(i)).getRouteScheduleStops().get(j);
+//                        System.out.print(stop.getStopNameEn() + " " + stop.getTime().toString());
+//                    }
+//                    System.out.println("");
+//                }
 //            int i;
 //            for(i=0;i<routeSchedulesArray.size();i++){
 //            routeScheduleStops.add(routeSchedulesArray.get(i).getStopNameEn());

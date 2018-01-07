@@ -69,47 +69,15 @@ public class RouteSchedulesDao extends ConnectionDao{
         }       
     }
       
-        public ArrayList<Stops> buildRouteScheduleStops(int routeId) throws Exception {
-        ArrayList<Stops> list = new ArrayList<>();
-        Connection conn = getConnection();
-        
-        try {            
-            String sql= "SELECT ROUTES_SCHEDULES.*,ROUTES_STOPS_SCHEDULES.*,ROUTES_STOPS.*, STOP_NAME_EN,STOP_NAME_AR FROM" +
-                        " BUSES.ROUTES," +
-                        " BUSES.STOPS," +
-                        " BUSES.ROUTES_STOPS," +
-                        " BUSES.ROUTES_SCHEDULES," +
-                        " BUSES.ROUTES_STOPS_SCHEDULES" +
-                        " WHERE" +
-                        " BUSES.ROUTES.ROUTE_ID = BUSES.ROUTES_STOPS.ROUTE_ID" +
-                        " AND" +
-                        " BUSES.STOPS.STOP_ID = BUSES.ROUTES_STOPS.STOP_ID" +
-                        " AND" +
-                        " BUSES.ROUTES_STOPS_SCHEDULES.STOP_ID = BUSES.ROUTES_STOPS.STOP_ID" +
-                        " AND" +
-                        " BUSES.ROUTES_STOPS_SCHEDULES.ROUTE_SCHEDULE_ID =BUSES.ROUTES_SCHEDULES.ROUTE_SCHEDULE_ID"+
-                        " AND" +
-                        " BUSES.ROUTES.ROUTE_ID=?"+
-                        " ORDER BY STOP_ORDER"
-                       ;
-                     
-            PreparedStatement ps = conn.prepareStatement(sql);            
-            ps.setInt(1, routeId);
-            ResultSet rs = ps.executeQuery();           
-
-            while (rs.next()) {
-                list.add(populateRouteScheduleStops(rs));
-             
-            }
-            
-            rs.close();
-            ps.close();
-
-            return list;
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }       
-    }
+         private Stops populateRouteScheduleStop(ResultSet rs) throws SQLException {
+            Stops stops = new Stops();
+            stops.setTime(rs.getTimestamp("TIME"));
+            stops.setStopId(rs.getInt("STOP_ID"));
+            stops.setStopNameEn(rs.getString("STOP_NAME_EN"));
+            stops.setStopNameAr(rs.getString("STOP_NAME_AR"));
+            stops.setScheduleId(rs.getInt("SCHEDULE_ID"));
+            return stops;
+        } 
         
         private Stops populateRouteScheduleStops(ResultSet rs) throws SQLException {
             Stops stops = new Stops();
@@ -123,19 +91,19 @@ public class RouteSchedulesDao extends ConnectionDao{
         
         private RouteSchedules populateRouteSchedules(ResultSet rs) throws SQLException {
             
-            
             RouteSchedules routeSchedules = new RouteSchedules();
-            
-//            routeSchedules.setScheduleTime(rs.getTimestamp("TIME"));
-//            routeSchedules.setAddTime(rs.getTimestamp("TIME"));
-            routeSchedules.setScheduleId(rs.getInt("SCHEDULE_ID"));
-            routeSchedules.setRouteScheduleId(rs.getInt("ROUTE_SCHEDULE_ID"));
             routeSchedules.setRouteId(rs.getInt("ROUTE_ID"));
+            routeSchedules.setRouteScheduleActive(rs.getInt("ROUTE_SCHEDULE_ACTIVE"));
+            routeSchedules.setScheduleId(rs.getInt("SCHEDULE_ID"));
+
+              
+//            routeSchedules.setScheduleTime(rs.getTimestamp("TIME"));
+//            routeSchedules.setAddTime(rs.getTimestamp("TIME"));          
+//            routeSchedules.setRouteScheduleId(rs.getInt("ROUTE_SCHEDULE_ID"));
 //            routeSchedules.setStopId(rs.getInt("STOP_ID"));
 //            routeSchedules.setStopNameEn(rs.getString("STOP_NAME_EN"));
 //            routeSchedules.setStopNameAr(rs.getString("STOP_NAME_AR"));
-//            routeSchedules.setStopOrder(rs.getInt("STOP_ORDER"));
-            routeSchedules.setRouteScheduleActive(rs.getInt("ROUTE_SCHEDULE_ACTIVE")); 
+//            routeSchedules.setStopOrder(rs.getInt("STOP_ORDER"));            
 //            stopsInfo.setRouteCode(rs.getString("ROUTE_CODE"));
 //            stopsInfo.setSourceEn(rs.getString("SOURCE_EN"));
 //            stopsInfo.setSourceAr(rs.getString("SOURCE_AR"));
@@ -143,19 +111,20 @@ public class RouteSchedulesDao extends ConnectionDao{
 //            stopsInfo.setDestinationAr(rs.getString("DESTINATION_AR"));                  
 //            stopsInfo.setActive(rs.getInt("ROUTE_ACTIVE")); 
             
-        //  populating stops arrayList
+        //  populating stops arrayList (inner arraylist)
            try {
               Connection conn;
               conn = getConnection();
-       
-            int routeScheduleId = routeSchedules.getRouteScheduleId();
+            int routeId = routeSchedules.getRouteId();
+            int scheduleId = routeSchedules.getScheduleId();
             ArrayList<Stops> stopsArray= new ArrayList<>();
             String sql1 = "SELECT STOPS.STOP_ID, STOP_NAME_AR, STOP_NAME_EN, TIME"
                     + " FROM STOPS JOIN ROUTES_STOPS_SCHEDULES ON"
                     + " STOPS.STOP_ID = ROUTES_STOPS_SCHEDULES.STOP_ID"
-                    + " WHERE ROUTE_SCHEDULE_ID=?";
+                    + " WHERE SCHEDULE_ID=? AND ROUTE_ID=?";
             PreparedStatement ps1 = conn.prepareStatement(sql1);            
-            ps1.setInt(1, routeScheduleId);
+            ps1.setInt(1, scheduleId);
+            ps1.setInt(2, routeId);
             ResultSet rs1 = ps1.executeQuery();           
             
             while (rs1.next()) {
@@ -195,8 +164,80 @@ public class RouteSchedulesDao extends ConnectionDao{
             throw new SQLException(e.getMessage());
         }
     }
+     
     
-//          
+        public RouteSchedules getRouteSchedules(int routeId) throws Exception {
+        try {   
+            RouteSchedules routeSchedules = null;
+            Connection conn = getConnection();
+              
+            String sql= "SELECT ROUTES_SCHEDULES.*,ROUTES_STOPS_SCHEDULES.*,ROUTES_STOPS.*, STOP_NAME_EN,STOP_NAME_AR FROM" +
+                        " BUSES.ROUTES," +
+                        " BUSES.STOPS," +
+                        " BUSES.ROUTES_STOPS," +
+                        " BUSES.ROUTES_SCHEDULES," +
+                        " BUSES.ROUTES_STOPS_SCHEDULES" +
+                        " WHERE" +
+                        " BUSES.ROUTES.ROUTE_ID = BUSES.ROUTES_STOPS.ROUTE_ID" +
+                        " AND" +
+                        " BUSES.STOPS.STOP_ID = BUSES.ROUTES_STOPS.STOP_ID" +
+                        " AND" +
+                        " BUSES.ROUTES_STOPS_SCHEDULES.STOP_ID = BUSES.ROUTES_STOPS.STOP_ID" +
+                        " AND" +
+                        " BUSES.ROUTES_STOPS_SCHEDULES.ROUTE_SCHEDULE_ID =BUSES.ROUTES_SCHEDULES.ROUTE_SCHEDULE_ID"+
+                        " AND" +
+                        " BUSES.ROUTES.ROUTE_ID=?"+
+                        " ORDER BY STOP_ORDER";  
+            PreparedStatement ps = conn.prepareStatement(sql);            
+            ps.setInt(1, routeId);
+            
+            ResultSet rs = ps.executeQuery();           
+
+            while (rs.next()) {
+                routeSchedules = populateRouteSchedules(rs);
+
+            }
+
+            rs.close();
+            ps.close();
+            
+            return routeSchedules;            
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+        
+  
+        public ArrayList<Stops> buildRouteScheduleStops(int routeId) throws Exception {
+            ArrayList<Stops> list = new ArrayList<>();
+            Connection conn = getConnection();
+
+            try {            
+                String sql= "SELECT STOPS.STOP_ID, STOP_NAME_AR, STOP_NAME_EN, TIME, SCHEDULE_ID"
+                        + " FROM STOPS JOIN ROUTES_STOPS_SCHEDULES ON"
+                        + " STOPS.STOP_ID = ROUTES_STOPS_SCHEDULES.STOP_ID"
+                        + " WHERE ROUTE_ID=?"
+                           ;
+
+                PreparedStatement ps = conn.prepareStatement(sql);            
+                ps.setInt(1, routeId);
+                ResultSet rs = ps.executeQuery();           
+
+                while (rs.next()) {
+                    list.add(populateRouteScheduleStop(rs));
+
+                }
+
+                rs.close();
+                ps.close();
+
+                return list;
+            } catch (SQLException e) {
+                throw new SQLException(e.getMessage());
+            }       
+    }
+      
+        
 //      public void insertRouteSchedule(int stopId, int routeId,int routeScheduleId, RouteSchedules routeSchedules ) throws Exception {                
 //        try {
 //            Connection conn = getConnection();
@@ -249,45 +290,4 @@ public class RouteSchedulesDao extends ConnectionDao{
 //            throw new SQLException(e.getMessage());
 //        }
 //    }
-    
-        public RouteSchedules getRouteSchedules(int routeId) throws Exception {
-        try {   
-            RouteSchedules routeSchedules = null;
-            Connection conn = getConnection();
-              
-            String sql= "SELECT ROUTES_SCHEDULES.*,ROUTES_STOPS_SCHEDULES.*,ROUTES_STOPS.*, STOP_NAME_EN,STOP_NAME_AR FROM" +
-                        " BUSES.ROUTES," +
-                        " BUSES.STOPS," +
-                        " BUSES.ROUTES_STOPS," +
-                        " BUSES.ROUTES_SCHEDULES," +
-                        " BUSES.ROUTES_STOPS_SCHEDULES" +
-                        " WHERE" +
-                        " BUSES.ROUTES.ROUTE_ID = BUSES.ROUTES_STOPS.ROUTE_ID" +
-                        " AND" +
-                        " BUSES.STOPS.STOP_ID = BUSES.ROUTES_STOPS.STOP_ID" +
-                        " AND" +
-                        " BUSES.ROUTES_STOPS_SCHEDULES.STOP_ID = BUSES.ROUTES_STOPS.STOP_ID" +
-                        " AND" +
-                        " BUSES.ROUTES_STOPS_SCHEDULES.ROUTE_SCHEDULE_ID =BUSES.ROUTES_SCHEDULES.ROUTE_SCHEDULE_ID"+
-                        " AND" +
-                        " BUSES.ROUTES.ROUTE_ID=?"+
-                        " ORDER BY STOP_ORDER";  
-            PreparedStatement ps = conn.prepareStatement(sql);            
-            ps.setInt(1, routeId);
-            
-            ResultSet rs = ps.executeQuery();           
-
-            while (rs.next()) {
-                routeSchedules = populateRouteSchedules(rs);
-
-            }
-
-            rs.close();
-            ps.close();
-            
-            return routeSchedules;            
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
-    }
 }

@@ -5,19 +5,30 @@
  */
 package models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author MOH
  */
-public class Stops {
+public class Stops implements Serializable{
     
     private int stopId;
     private String stopNameEn;
     private String stopNameAr;
     private Date time;
+    private int scheduleId;
 
+    public int getScheduleId() {
+        return scheduleId;
+    }
+
+    public void setScheduleId(int scheduleId) {
+        this.scheduleId = scheduleId;
+    }
+    
+    
     public Date getTime() {
         return time;
     }

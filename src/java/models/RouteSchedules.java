@@ -5,6 +5,7 @@
  */
 package models;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,13 +14,16 @@ import java.util.Date;
  *
  * @author MOH
  */
-public class RouteSchedules {
+public class RouteSchedules implements Serializable {
+
     private ArrayList<Stops> routeScheduleStops;
-//    private int stopId;
+
     private int routeId;
     private int scheduleId;
+    private int routeScheduleActive;
+//    private int routeScheduleId;
 //    private Timestamp scheduleTime;
-    private int routeScheduleId;
+//    private int stopId;
 //    private int stopOrder;
 //    private String stopNameEn;
 //    private String stopNameAr;
@@ -29,7 +33,6 @@ public class RouteSchedules {
 //    private String destinationEn;
 //    private String routeCode;
 //    private int routeActive;
-    private int routeScheduleActive;
 //    private Date addTime;
 
     public ArrayList<Stops> getRouteScheduleStops() {
@@ -41,7 +44,39 @@ public class RouteSchedules {
     }
     
     
+    public int getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(int routeId) {
+        this.routeId = routeId;
+    }
+
+    public int getScheduleId() {
+        return scheduleId;
+    }
+
+    public void setScheduleId(int scheduleId) {
+        this.scheduleId = scheduleId;
+    }
     
+    public int getRouteScheduleActive() {
+    return routeScheduleActive;
+    }
+
+    public void setRouteScheduleActive(int routeScheduleActive) {
+        this.routeScheduleActive = routeScheduleActive;
+    }
+    
+    
+    
+//        public int getRouteScheduleId() {
+//        return routeScheduleId;
+//    }
+//
+//    public void setRouteScheduleId(int routeScheduleId) {
+//        this.routeScheduleId = routeScheduleId;
+//    }
 
 //    public Date getAddTime() {
 //        return addTime;
@@ -59,21 +94,6 @@ public class RouteSchedules {
 //    }
 
 
-    public int getRouteId() {
-        return routeId;
-    }
-
-    public void setRouteId(int routeId) {
-        this.routeId = routeId;
-    }
-
-    public int getScheduleId() {
-        return scheduleId;
-    }
-
-    public void setScheduleId(int scheduleId) {
-        this.scheduleId = scheduleId;
-    }
 
 //    public Timestamp getScheduleTime() {
 //        return scheduleTime;
@@ -83,13 +103,7 @@ public class RouteSchedules {
 //        this.scheduleTime = scheduleTime;
 //    }
 
-    public int getRouteScheduleId() {
-        return routeScheduleId;
-    }
 
-    public void setRouteScheduleId(int routeScheduleId) {
-        this.routeScheduleId = routeScheduleId;
-    }
 
 //    public int getStopOrder() {
 //        return stopOrder;
@@ -163,13 +177,7 @@ public class RouteSchedules {
 //        this.routeActive = routeActive;
 //    }
 
-    public int getRouteScheduleActive() {
-        return routeScheduleActive;
-    }
 
-    public void setRouteScheduleActive(int routeScheduleActive) {
-        this.routeScheduleActive = routeScheduleActive;
-    }
 
 
     

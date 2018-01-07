@@ -49,19 +49,26 @@ and open the template in the editor.
                                       sortBy="#{hii.scheduleId}">                    
                                 <h:outputText value="#{hii.scheduleId}"/>  
                             </p:column>
-                            <c:forEach var="routeSchedule" items="${hii.routeScheduleStops}">
-
-                                <p:column headerText="#{langBean.isEnglish?routeSchedule.stopNameEn:routeSchedule.stopNameAr}"
+                            
+                            <c:forEach var="routeStop" items="#{manageRouteStopsBean.routeStopsArray}">
+                                    
+                                <p:column headerText="#{langBean.isEnglish?routeStop.stopNameEn:routeStop.stopNameAr}"
                                     style="width:20%">   
-
-                                      <h:outputText value="#{routeSchedule.time}">  
-                                           <f:convertDateTime pattern="HH:mm" />
-                                      </h:outputText> 
-
+                                    <c:forEach var="routeSchedule" items="#{manageRouteSchedulesBean.routeScheduleStop}">        
+                                        <c:if test="#{routeStop.stopId == routeSchedule.stopId}">
+                                            <h:form rendered="#{routeSchedule.scheduleId==hii.scheduleId}">
+                                          
+                                                <h:outputText value="#{routeSchedule.time}">  
+                                                       <f:convertDateTime pattern="HH:mm" />
+                                                </h:outputText>
+                                            </h:form>
+                                        </c:if> 
+                                     </c:forEach>
                                 </p:column>
 
                             </c:forEach>
-<!--                                <p:dataTable value="#{routeSchedules.routeScheduleStops}" var="routeSchedule">
+<!--                            <ui:repeat var="routeSchedule" value="#{hii.routeScheduleStops}">
+
                                 <p:column headerText="#{langBean.isEnglish?routeSchedule.stopNameEn:routeSchedule.stopNameAr}"
                                     style="width:20%">   
 
@@ -70,8 +77,8 @@ and open the template in the editor.
                                       </h:outputText> 
 
                                 </p:column>
-                                </p:dataTable>-->
 
+                           </ui:repeat>-->
                             
                             <f:facet name="footer">
                                 <p:toolbar style="border: none">
