@@ -23,7 +23,7 @@ and open the template in the editor.
                     <p:dataTable 
                            id="route_schedules_info_tbl"
                            value = "#{manageRouteSchedulesBean.routeSchedulesArray}"
-                           selection="#{manageRouteSchedulesBean.selectedRouteSchedule}"
+                           selection="#{manageRouteSchedulesBean.selectedSchedule}"
                            rowKey="#{hii.scheduleId}"  
                            class = "dataTable"
                            var="hii"
@@ -67,18 +67,6 @@ and open the template in the editor.
                                 </p:column>
 
                             </c:forEach>
-<!--                            <ui:repeat var="routeSchedule" value="#{hii.routeScheduleStops}">
-
-                                <p:column headerText="#{langBean.isEnglish?routeSchedule.stopNameEn:routeSchedule.stopNameAr}"
-                                    style="width:20%">   
-
-                                      <h:outputText value="#{routeSchedule.time}">  
-                                           <f:convertDateTime pattern="HH:mm" />
-                                      </h:outputText> 
-
-                                </p:column>
-
-                           </ui:repeat>-->
                             
                             <f:facet name="footer">
                                 <p:toolbar style="border: none">
@@ -88,7 +76,7 @@ and open the template in the editor.
                                                  iconPos="#{langBean.styleFloat}"
                                                  styleClass="commandButton"
                                                  style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{manageRouteSchedulesBean.selectedRouteSchedule==null}"
+                                                 disabled="#{manageRouteSchedulesBean.selectedSchedule==null}"
                                                  onclick="return confirm('#{msgs.confirm_delete_schedule}?');"
                                                  actionListener="#{manageRouteSchedulesBean.deleteSelectedRouteSchedule()}"
                                                  action="manage_route_schedules" />
@@ -107,7 +95,7 @@ and open the template in the editor.
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
-                                 actionListener="#{sessionBean.setSelectedRouteScheduleId(-1)}"
+                                 actionListener="#{sessionBean.setSelectedScheduleId(-1)}"
                                  action="add_edit_route_schedules" /> 
                        
                 </h:form>

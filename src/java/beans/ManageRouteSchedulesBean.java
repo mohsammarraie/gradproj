@@ -27,7 +27,7 @@ import models.RouteStops;
 @ViewScoped
 public class ManageRouteSchedulesBean implements Serializable{
     
-    private RouteSchedules selectedRouteSchedule;
+    private RouteSchedules selectedSchedule;
     private final RouteSchedulesDao routeSchedulesDao = new RouteSchedulesDao();
     private ArrayList<RouteSchedules> routeSchedulesArray; 
     private ArrayList<Stops> routeScheduleStop = new ArrayList<>();
@@ -44,19 +44,6 @@ public class ManageRouteSchedulesBean implements Serializable{
             try {            
                 routeSchedulesArray = routeSchedulesDao.buildRouteSchedules(sessionBean.getSelectedRouteId());
                 routeScheduleStop = routeSchedulesDao.buildRouteScheduleStops(sessionBean.getSelectedRouteId());
-//                int i;
-//                for (i = 0; i < routeSchedulesArray.size(); i++) {
-//                    System.out.print(routeSchedulesArray.get(i).getRouteScheduleId());
-//                    for(int j = 0; j < routeSchedulesArray.get(i).getRouteScheduleStops().size(); j++){
-//                        stop = (routeSchedulesArray.get(i)).getRouteScheduleStops().get(j);
-//                        System.out.print(stop.getStopNameEn() + " " + stop.getTime().toString());
-//                    }
-//                    System.out.println("");
-//                }
-//            int i;
-//            for(i=0;i<routeSchedulesArray.size();i++){
-//            routeScheduleStops.add(routeSchedulesArray.get(i).getStopNameEn());
-//            }
             } catch (Exception ex) {
                 Logger.getLogger(ManageRouteSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -71,12 +58,12 @@ public class ManageRouteSchedulesBean implements Serializable{
     }
 
     
-    public RouteSchedules getSelectedRouteSchedule() {
-        return selectedRouteSchedule;
+    public RouteSchedules getSelectedSchedule() {
+        return selectedSchedule;
     }
 
-    public void setSelectedRouteSchedule(RouteSchedules selectedRouteSchedule) {
-        this.selectedRouteSchedule = selectedRouteSchedule;
+    public void setSelectedSchedule(RouteSchedules selectedSchedule) {
+        this.selectedSchedule = selectedSchedule;
     }
 
     public ArrayList<RouteSchedules> getRouteSchedulesArray() {
@@ -88,12 +75,13 @@ public class ManageRouteSchedulesBean implements Serializable{
     }
         
         public void saveSelectedScheduleID(){
-        sessionBean.setSelectedRouteScheduleId(selectedRouteSchedule.getScheduleId());
+        sessionBean.setSelectedScheduleId(selectedSchedule.getScheduleId());
     }
       
       public void deleteSelectedRouteSchedule(){
         try {
-            routeSchedulesDao.deleteRouteScheduleTime(selectedRouteSchedule.getScheduleId(), sessionBean.getSelectedRouteId());
+            routeSchedulesDao.deleteRouteScheduleStops(selectedSchedule.getScheduleId(), sessionBean.getSelectedRouteId());
+            routeSchedulesDao.deleteRouteSchedules(selectedSchedule.getScheduleId(), sessionBean.getSelectedRouteId());
             sessionBean.navigate("manage_route_schedules");
 
         } catch (Exception ex) {

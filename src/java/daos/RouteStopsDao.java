@@ -91,46 +91,51 @@ public class RouteStopsDao extends ConnectionDao{
         }
     }
     //to insert same stopID and same routeID in ROUTE_SCHEDULES table.
-      public void insertRouteScheduleNewRow(int stopId, int routeId) throws Exception {                
-        try {
-            Connection conn = getConnection();
-
-             String sql = "INSERT INTO BUSES.ROUTES_SCHEDULES("
-                    + " ROUTE_SCHEDULE_ID,"
-                    + " SCHEDULE_ID,"
-                    + " ROUTE_ID)"
-                    + " VALUES ((select max(ROUTE_SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES)+1,"
-                    + " (select max(SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES)+1,?)";
-            
-            PreparedStatement ps = conn.prepareStatement(sql); 
-            ps.setInt(1, routeId);
-            ps.executeUpdate();
-            ps.close();
-            
- 
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
-    }
-          public void insertRouteStopScheduleNewRow(int stopId, int routeId) throws Exception {                
-        try {
-            Connection conn = getConnection();
-
-   
-            String sql = "INSERT INTO BUSES.ROUTES_STOPS_SCHEDULES("
-                    + " ROUTE_SCHEDULE_ID,"
-                    + " STOP_ID)"
-                    + " VALUES ((select max(ROUTE_SCHEDULE_ID) from BUSES.ROUTES_STOPS_SCHEDULES)+1,?)";
-             PreparedStatement ps = conn.prepareStatement(sql); 
-           
-            ps.setInt(1, stopId);
-            ps.executeUpdate();
-            ps.close();
- 
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
-    }
+//      public void insertRouteScheduleNewRow(int stopId, int routeId) throws Exception {                
+//        try {
+//            Connection conn = getConnection();
+//
+//             String sql = "INSERT INTO BUSES.ROUTES_SCHEDULES("
+//                    + " ROUTE_SCHEDULE_ID,"
+//                    + " SCHEDULE_ID,"
+//                    + " ROUTE_ID)"
+//                    + " VALUES ((select max(ROUTE_SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES)+1,"
+//                    + " (select max(SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES)+1,?)";
+//            
+//            PreparedStatement ps = conn.prepareStatement(sql); 
+//            ps.setInt(1, routeId);
+//            ps.executeUpdate();
+//            ps.close();
+//            
+// 
+//        } catch (SQLException e) {
+//            throw new SQLException(e.getMessage());
+//        }
+//    }
+//      
+//      
+//      public void insertRouteStopScheduleNewRow(int stopId, int routeId) throws Exception {                
+//        try {
+//            Connection conn = getConnection();
+//
+//   
+//            String sql = "INSERT INTO BUSES.ROUTES_STOPS_SCHEDULES("
+//                    + " ROUTE_SCHEDULE_ID,"
+//                    + " STOP_ID)"
+//                    + " VALUES ((select max(ROUTE_SCHEDULE_ID) from BUSES.ROUTES_STOPS_SCHEDULES)+1,?)";
+//             PreparedStatement ps = conn.prepareStatement(sql); 
+//           
+//            ps.setInt(1, stopId);
+//            ps.executeUpdate();
+//            ps.close();
+// 
+//        } catch (SQLException e) {
+//            throw new SQLException(e.getMessage());
+//        }
+//    }
+      
+          //end of to insert same stopID and same routeID in ROUTE_SCHEDULES table. 
+      
         public void updateRouteStop(int routeStopId,int stopId, int routeId, int stopOrder) throws Exception {
         try {
             Connection conn = getConnection();
@@ -154,25 +159,25 @@ public class RouteStopsDao extends ConnectionDao{
         }
     }
         //to update same stopID and same routeID in ROUTE_SCHEDULES table.
-    public void updateRouteScheduleStop(int routeStopId,int stopId, int routeId) throws Exception {
-        try {
-            Connection conn = getConnection();
-
-            String sql = "UPDATE BUSES.ROUTES_STOPS_SCHEDULES SET"
-                    + " STOP_ID=?"
-                    + " WHERE BUSES.ROUTES_STOPS_SCHEDULES.ROUTE_SCHEDULE_ID IN (SELECT ROUTE_SCHEDULE_ID FROM ROUTES_SCHEDULES"
-                    + " WHERE ROUTES_SCHEDULES.ROUTE_ID=?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            
-            ps.setInt(1, routeStopId);
-            ps.setInt(2, routeId);
-            ps.executeUpdate();
-            ps.close();
-            
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
-    }
+//    public void updateRouteScheduleStop(int routeStopId,int stopId, int routeId) throws Exception {
+//        try {
+//            Connection conn = getConnection();
+//
+//            String sql = "UPDATE BUSES.ROUTES_STOPS_SCHEDULES SET"
+//                    + " STOP_ID=?"
+//                    + " WHERE BUSES.ROUTES_STOPS_SCHEDULES.ROUTE_SCHEDULE_ID IN (SELECT ROUTE_SCHEDULE_ID FROM ROUTES_SCHEDULES"
+//                    + " WHERE ROUTES_SCHEDULES.ROUTE_ID=?)";
+//            PreparedStatement ps = conn.prepareStatement(sql);
+//            
+//            ps.setInt(1, routeStopId);
+//            ps.setInt(2, routeId);
+//            ps.executeUpdate();
+//            ps.close();
+//            
+//        } catch (SQLException e) {
+//            throw new SQLException(e.getMessage());
+//        }
+//    }
     
     public void deleteRouteStop(int stopId, int routeId) throws Exception {
         Connection conn = getConnection();
