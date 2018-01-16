@@ -10,11 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.RouteSchedules;
 import models.RouteStops;
+import models.RouteStops2;
 import models.Stops;
 /**
  *
@@ -31,7 +33,7 @@ public class RouteSchedulesDao extends ConnectionDao {
             String sql = "SELECT * FROM"
                     + " BUSES.ROUTES_SCHEDULES"
                     + " WHERE"
-                    + " BUSES.ROUTES_SCHEDULES.ROUTE_ID=?";
+                    + " BUSES.ROUTES_SCHEDULES.ROUTE_ID=? ORDER BY SCHEDULE_ID";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, routeId);
             ResultSet rs = ps.executeQuery();
@@ -180,58 +182,95 @@ public class RouteSchedulesDao extends ConnectionDao {
                 throw new SQLException(e.getMessage());
             }       
     }
+    public void insertRouteSchedule(int routeId) throws Exception {                
+        try {
+            Connection conn = getConnection();
+           // RouteStops2 stops= new RouteStops2();
+            
+            String sql2 = "INSERT INTO BUSES.ROUTES_SCHEDULES(SCHEDULE_ID, ROUTE_ID, ROUTE_SCHEDULE_ACTIVE)"
+                    + " VALUES ("
+                    + "(select count(SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES WHERE ROUTE_ID = ?)+1,?,1)";
+            PreparedStatement ps2 = conn.prepareStatement(sql2);
+          
+            
+            ps2.setInt(1, routeId);
+            ps2.setInt(2, routeId);
+           // ps2.setInt(2, routeSchedules.getRouteScheduleActive()); //must set it just like routestops active check box
+           
+            ps2.executeUpdate();
+            ps2.close();
+ 
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+
+    public void insertRouteStopSchedule(int stopId, int routeId,Date time) throws Exception {                
+        try {
+            Connection conn = getConnection();
+           // RouteStops2 stops= new RouteStops2();
+            
+            String sql = "INSERT INTO BUSES.ROUTES_STOPS_SCHEDULES(SCHEDULE_ID, ROUTE_ID, TIME, STOP_ID)"
+                    + " VALUES ((select count(SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES WHERE ROUTE_ID = ?),?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            Timestamp timeStamp =new Timestamp(time.getTime()) ;
+            
+            ps.setInt(1, routeId);
+            ps.setInt(2, routeId);
+            ps.setTimestamp(3, timeStamp); // fix imcompatable types from old schedules. or adding new attribute.
+            ps.setInt(4, stopId);
+            
+
+            ps.executeUpdate();
+            ps.close();
+            
+ 
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
       
-        
-//      public void insertRouteSchedule(int stopId, int routeId,int routeScheduleId, RouteSchedules routeSchedules ) throws Exception {                
-//        try {
-//            Connection conn = getConnection();
-//
-//            String sql = "INSERT INTO BUSES.ROUTES_STOPS_SCHEDULES(ROUTE_SCHEDULE_ID, TIME, STOP_ID)"
-//                    + " VALUES ((select max(ROUTE_SCHEDULE_ID) from BUSES.ROUTES_STOPS_SCHEDULES)+1,?,?)";
-//            PreparedStatement ps = conn.prepareStatement(sql);
-//            
-//            ps.setTimestamp(1, routeSchedules.getScheduleTime());
-//            ps.setInt(2, stopId);
-//          
-//
-//            ps.executeUpdate();
-//            ps.close();
-//            
-//            String sql2 = "INSERT INTO BUSES.ROUTES_SCHEDULES(ROUTE_SCHEDULE_ID, SCHEDULE_ID, ROUTE_ID)"
-//                    + " VALUES ((select max(ROUTE_SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES)+1,"
-//                    + "(select max(SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES)+1,?)";
-//            PreparedStatement ps2 = conn.prepareStatement(sql2);
-//          
-//            
-//            ps2.setInt(1, routeId);
-//          
-//
-//            ps2.executeUpdate();
-//            ps2.close();
-//            
-//        } catch (SQLException e) {
-//            throw new SQLException(e.getMessage());
-//        }
-//    }
-//        public void updateRouteSchedule(RouteSchedules routeSchedules, int stopId, int routeId, int scheduleId) throws Exception {
-//        try {
-//            Connection conn = getConnection();
-//
-//            String sql = "UPDATE BUSES.ROUTES_STOPS_SCHEDULES SET"
-//                    + " TIME=?"
-//                    + " WHERE STOP_ID=?"
+        public void updateRouteSchedule(int stopId, int routeId, int scheduleId,Date time) throws Exception {
+        try {
+            
+            Connection conn = getConnection();
+            
+//               String sql1 = "UPDATE BUSES.ROUTES_SCHEDULES SET"
+//                    + " ROUTE_SCHEDULE_ACTIVE=?"
+//                    + " WHERE"
+//                    + " ROUTE_ID=?"
 //                    + " AND"
-//                    + " ROUTE_SCHEDULE_ID=?";
-//            PreparedStatement ps = conn.prepareStatement(sql);
+//                    + " SCHEDULE_ID=?";
 //            
-//            ps.setTimestamp(1, routeSchedules.getScheduleTime());
-//            ps.setInt(2, stopId);
-//            ps.setInt(3, scheduleId);
-//            ps.executeUpdate();
-//            ps.close();
+//            PreparedStatement ps1 = conn.prepareStatement(sql1);
 //            
-//        } catch (SQLException e) {
-//            throw new SQLException(e.getMessage());
-//        }
-//    }
+//            ps1.setInt(1,routeSchedules.getRouteScheduleActive());
+//            ps1.setInt(2, routeId);
+//            ps1.setInt(3, scheduleId);
+//            ps1.executeUpdate();
+//            ps1.close();
+//            
+            
+            String sql = "UPDATE BUSES.ROUTES_STOPS_SCHEDULES SET"
+                    + " TIME=?"
+                    + " WHERE"
+                    + " STOP_ID=?"
+                    + " AND"
+                    + " ROUTE_ID=?"
+                    + " AND"
+                    + " SCHEDULE_ID=?";
+            
+            PreparedStatement ps = conn.prepareStatement(sql);
+            Timestamp timeStamp =new Timestamp(time.getTime()) ;
+            ps.setTimestamp(1, timeStamp);
+            ps.setInt(2, stopId);
+            ps.setInt(3, routeId);
+            ps.setInt(4, scheduleId);
+            ps.executeUpdate();
+            ps.close();
+            
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
 }

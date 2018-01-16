@@ -24,9 +24,9 @@ and open the template in the editor.
                            id="route_schedules_info_tbl"
                            value = "#{manageRouteSchedulesBean.routeSchedulesArray}"
                            selection="#{manageRouteSchedulesBean.selectedSchedule}"
-                           rowKey="#{hii.scheduleId}"  
+                           rowKey="#{routeSchedules.scheduleId}"  
                            class = "dataTable"
-                           var="hii"
+                           var="routeSchedules"
                            rows="10"
                            rowsPerPageTemplate="10,20,50"
                            dir="#{langBean.dir}"
@@ -46,8 +46,8 @@ and open the template in the editor.
                             
                             <p:column headerText="#{msgs.schedule_id}"
                                       style="width:15%"
-                                      sortBy="#{hii.scheduleId}">                    
-                                <h:outputText value="#{hii.scheduleId}"/>  
+                                      sortBy="#{routeSchedules.scheduleId}">                    
+                                <h:outputText value="#{routeSchedules.scheduleId}"/>  
                             </p:column>
                             
                             <c:forEach var="routeStop" items="#{manageRouteStopsBean.routeStopsArray}">
@@ -56,7 +56,7 @@ and open the template in the editor.
                                     style="width:20%">   
                                     <c:forEach var="routeSchedule" items="#{manageRouteSchedulesBean.routeScheduleStop}">        
                                         <c:if test="#{routeStop.stopId == routeSchedule.stopId}">
-                                            <h:form rendered="#{routeSchedule.scheduleId==hii.scheduleId}">
+                                            <h:form rendered="#{routeSchedule.scheduleId==routeSchedules.scheduleId}">
                                           
                                                 <h:outputText value="#{routeSchedule.time}">  
                                                        <f:convertDateTime pattern="HH:mm" />
@@ -80,6 +80,14 @@ and open the template in the editor.
                                                  onclick="return confirm('#{msgs.confirm_delete_schedule}?');"
                                                  actionListener="#{manageRouteSchedulesBean.deleteSelectedRouteSchedule()}"
                                                  action="manage_route_schedules" />
+                                         <p:commandButton value="#{msgs.edit}"
+                                                 icon="ui-icon-pencil"                                  
+                                                 iconPos="#{langBean.styleFloat}"
+                                                 styleClass="commandButton"
+                                                 style="float:#{langBean.styleFloat}"                                                                                                
+                                                 disabled="#{manageRouteSchedulesBean.selectedSchedule==null}"                                                 
+                                                 actionListener="#{manageRouteSchedulesBean.saveSelectedScheduleID()}"
+                                                 action="add_edit_route_schedules" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
                             </f:facet>

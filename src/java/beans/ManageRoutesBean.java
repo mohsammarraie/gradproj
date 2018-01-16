@@ -14,7 +14,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import models.Routes;
 import daos.RoutesDao;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 /**
  *
  * @author MOH
@@ -28,7 +30,8 @@ public class ManageRoutesBean implements Serializable {
     private ArrayList<Routes> routesArray; 
     @Inject 
     private SessionBean sessionBean;
-     
+    String error_message_header = "Error!";
+    String error_message_content = "Please delete all stops and schedules related to this route.";
     public ManageRoutesBean(){}
      
         @PostConstruct
@@ -68,6 +71,9 @@ public class ManageRoutesBean implements Serializable {
             sessionBean.navigate("manage_routes");
 
         } catch (Exception ex) {
+            
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+
             Logger.getLogger(ManageRoutesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
