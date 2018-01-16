@@ -145,7 +145,7 @@ public class AddEditRouteStopBean implements Serializable{
 //                error_message_content= "لايمكنك تعيين نفس نقطة الوقوف لنفس الطريق مرتين"; 
 
             error_message_header = "Error!";
-            error_message_content = "You can't assign the same stop to the same route twice";
+            error_message_content = ex.getMessage();
             
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(AddEditStopBean.class.getName()).log(Level.SEVERE, null, ex);

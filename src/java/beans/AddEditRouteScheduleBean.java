@@ -13,14 +13,14 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import models.Stops;
 
-import daos.RouteStopsDao2;
+import daos.RouteStopsDao;
 import daos.StopsDao;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.faces.application.FacesMessage;
 import models.RouteSchedules;
-import models.RouteStops2;
+import models.RouteStops;
 
 import org.primefaces.context.RequestContext;
 /**
@@ -37,10 +37,10 @@ public class AddEditRouteScheduleBean implements Serializable{
     private ArrayList<RouteSchedules> routeSchedulesArray;
     private ArrayList<Stops> routeScheduleStop = new ArrayList<>();
     private ArrayList<Stops> addedStops = new ArrayList<>();
-    private ArrayList<RouteStops2> routeStopsArray; 
+    private ArrayList<RouteStops> routeStopsArray; 
     
     private final RouteSchedulesDao routeSchedulesDao = new RouteSchedulesDao();
-    private final RouteStopsDao2 routeStopsDao = new RouteStopsDao2();
+    private final RouteStopsDao routeStopsDao = new RouteStopsDao();
     
     private int scheduleId;
     private int stopId;
@@ -53,7 +53,7 @@ public class AddEditRouteScheduleBean implements Serializable{
     String error_message_content = "";
     
     RouteSchedules routeSchedules = new RouteSchedules();
-    RouteStops2 stops = new RouteStops2();
+    RouteStops stops = new RouteStops();
     
     @Inject
     private SessionBean sessionBean;
@@ -87,11 +87,11 @@ public class AddEditRouteScheduleBean implements Serializable{
         }
     }
     
-    public ArrayList<RouteStops2> getRouteStopsArray() {
+    public ArrayList<RouteStops> getRouteStopsArray() {
         return routeStopsArray;
     }
 
-    public void setRouteStopsArray(ArrayList<RouteStops2> routeStopsArray) {
+    public void setRouteStopsArray(ArrayList<RouteStops> routeStopsArray) {
         this.routeStopsArray = routeStopsArray;
     }
     
@@ -147,37 +147,48 @@ public class AddEditRouteScheduleBean implements Serializable{
 
     
 
-        public void saveRouteSchedule() {
+    public void saveRouteSchedule() {
         try {
+            int flag = 0;
             int i;    
             for (i=0; i<routeStopsArray.size()-1;i++){
                 
-                if(routeStopsArray.get(i+1).getTime().after(routeStopsArray.get(i).getTime()) || (i == routeStopsArray.size() - 1) ){
-                    
-                     if (sessionBean.getSelectedScheduleId() > 0) {
-                        for (RouteStops2 r : routeStopsArray) {
+                if(routeStopsArray.get(i).getTime().after(routeStopsArray.get(i+1).getTime()) || routeStopsArray.get(i).getTime().equals(routeStopsArray.get(i+1).getTime()) ){
+                     flag = 1;
+                     break;
+                }
+                else if(i == routeStopsArray.size() - 1) {
+                    flag = 0;
+                
+                }
+              
+            }
+           if(flag == 0){ 
+                 if (sessionBean.getSelectedScheduleId() > 0) {
+                        for (RouteStops r : routeStopsArray) {
                             routeSchedulesDao.updateRouteSchedule(r.getStopId(), sessionBean.getSelectedRouteId(), sessionBean.getSelectedScheduleId(), r.getTime());
                         }
                     } else {
 
                         routeSchedulesDao.insertRouteSchedule(sessionBean.getSelectedRouteId());
 
-                        for (RouteStops2 r : routeStopsArray) {
+                        for (RouteStops r : routeStopsArray) {
                             routeSchedulesDao.insertRouteStopSchedule(r.getStopId(), sessionBean.getSelectedRouteId(), r.getTime());
                         }
+                         
                     }
-                    sessionBean.navigate("manage_route_schedules");
-                    
-                 
-                }
-                
-                else {
-                      error_message_header = "Error!";
-                    error_message_content = "you cannot";
-                    RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
-                    
-                }
-            }
+                 sessionBean.navigate("manage_route_schedules");
+           }
+            else {
+                 error_message_header = "Error!";
+                 error_message_content = "Please enter times in the right order (from top to bottom) ";
+                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+
+             }
+            
+            
+            
+            
 //            int i;
 //            for (i = 0; i < routeSchedulesArray.size(); i++) {
 //                routeSchedules.setScheduleId(scheduleId);

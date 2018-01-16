@@ -32,21 +32,24 @@ and open the template in the editor.
                             <c:forEach var="routeStop" items="#{addEditRouteScheduleBean.routeStopsArray}">
 
 
-
-                                <br>
+                            <br>
+                                <div style="width:100%">
                                     <p:outputLabel value="#{langBean.isEnglish?routeStop.stopNameEn:routeStop.stopNameAr}:" for="time"/>
-                                    <p:calendar id="time"
-                                    value="#{routeStop.time}"
-                                    dir="ltr"
-                                    pattern="HH:mm"
-                                    timeOnly="true"
-                                    navigator="true"
-                                    required="true"
-                                    yearRange="c-10:c+1"
-                                    timeInput="true"
-                                    requiredMessage=" #{msgs.required_msg}"/> 
-                                    <h:message for="time" styleClass="errorMsg"/>  
-                               </br>
+                                </div>
+                                <div style="width:100%">
+                                   <p:calendar id="time"
+                                   value="#{routeStop.time}"
+                                   dir="ltr"
+                                   pattern="HH:mm"
+                                   timeOnly="true"
+                                   navigator="true"
+                                   required="true"
+                                   yearRange="c-10:c+1"
+                                   timeInput="true"
+                                   requiredMessage=" #{msgs.required_msg}"/> 
+                                   <h:message for="time" styleClass="errorMsg"/>  
+                                 </div>
+                            </br>
 
 
                             </c:forEach>  

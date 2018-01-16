@@ -5,6 +5,8 @@
  */
 package models;
 
+import java.util.Date;
+
 /**
  *
  * @author MOH
@@ -15,7 +17,7 @@ public class RouteStops {
     private int stopId;
     private String stopNameEn;
     private String stopNameAr;
-    
+    private Date time;
     private String sourceAr;
     private String sourceEn;
     private String destinationAr;
@@ -23,6 +25,15 @@ public class RouteStops {
     private String routeCode;
     private int routeActive;
 
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+    
+    
     public int getStopId() {
         return stopId;
     }
