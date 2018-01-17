@@ -29,6 +29,7 @@ public class AddEditDriverBean implements Serializable{
     private String lastNameEn;
     private String lastNameAr;
     private String phoneNumber;
+    private String nationalId;
 
         @Inject
     private SessionBean sessionBean;
@@ -50,12 +51,21 @@ public class AddEditDriverBean implements Serializable{
                 lastNameEn =  driversArray.getLastNameEn();
                 lastNameAr =  driversArray.getLastNameAr();
                 phoneNumber = driversArray.getPhoneNumber();
+                nationalId = driversArray.getNationalId();
             }
         } catch (Exception ex) {
             Logger.getLogger(AddEditDriverBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    public String getNationalId() {
+        return nationalId;
+    }
+
+    public void setNationalId(String nationalId) {
+        this.nationalId = nationalId;
+    }
+    
     public int getDriverId() {
         return driverId;
     }
@@ -114,7 +124,7 @@ public class AddEditDriverBean implements Serializable{
             drivers.setLastNameEn(lastNameEn);
             drivers.setLastNameAr(lastNameAr);
             drivers.setPhoneNumber(phoneNumber);
-            
+            drivers.setNationalId(nationalId);
             
             if (sessionBean.getSelectedDriverId() > 0) {
                 driverDao.updateDriver(drivers);

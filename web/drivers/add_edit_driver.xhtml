@@ -25,6 +25,16 @@ and open the template in the editor.
                                  columns="3"                              
                                  dir="#{langBean.dir}">
                         
+                        <p:outputLabel value="#{msgs.national_id}:" for="national_id"/>
+                        <p:inputText id="national_id"
+                                     value="#{addEditDriverBean.nationalId}"
+                                     required="true"
+                                     maxlength="512"  
+                                     requiredMessage="#{msgs.required_msg}">
+                            <f:validateRegex pattern="[a-zA-Z]?[0-9]{6,15}$"/>
+                        </p:inputText>
+                        <h:message for="national_id" styleClass="errorMsg"/>
+                        
                         <p:outputLabel value="#{msgs.first_name_en}:" for="first_name_en"/>
                         <p:inputText id="first_name_en"
                                      value="#{addEditDriverBean.firstNameEn}"
@@ -33,7 +43,6 @@ and open the template in the editor.
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}">
                             <f:validateRegex pattern="[a-zA-Z]+\s?[a-zA-Z]+"/>
-
                         </p:inputText>
                         <h:message for="first_name_en" styleClass="errorMsg"/>
 

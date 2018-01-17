@@ -4,23 +4,27 @@
  * and open the template in the editor.
  */
 package models;
+
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 /**
  *
  * @author MOH
  */
-public class Buses implements Serializable {
+public class BusesDrivers implements Serializable{
     
     private int busId;
     private int chasisNumber;
     private String licenseNumber;
     private int capacity;
     private int model;
+    private String manufacturer;
+    
+    private int driverId;
     private String driverNameEn;
     private String driverNameAr;
-    private String manufacturer;
+    private String phoneNumber;
+    private String nationalId;
 
     public String getDriverNameEn() {
         return driverNameEn;
@@ -36,23 +40,6 @@ public class Buses implements Serializable {
 
     public void setDriverNameAr(String driverNameAr) {
         this.driverNameAr = driverNameAr;
-    }
-    
-    
-    public int getModel() {
-        return model;
-    }
-
-    public void setModel(int model) {
-        this.model = model;
-    }
-
-    public String getManufacturer() {
-        return manufacturer;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
     }
     
     
@@ -88,5 +75,47 @@ public class Buses implements Serializable {
         this.capacity = capacity;
     }
 
+    public int getModel() {
+        return model;
+    }
+
+    public void setModel(int model) {
+        this.model = model;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public int getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getNationalId() {
+        return nationalId;
+    }
+
+    public void setNationalId(String nationalId) {
+        this.nationalId = nationalId;
+    }
+    
+    
+    
     
 }

@@ -47,6 +47,29 @@ and open the template in the editor.
                            <f:validateLongRange minimum="1000"/>
                         </p:inputText>
                         <h:message for="chasis_number" styleClass="errorMsg"/>
+                        
+                        <p:outputLabel value="#{msgs.manufacturer}:" for="manufacturer"/>
+                        <p:inputText id="manufacturer"
+                                     value="#{addEditBusBean.manufacturer}"
+                                     style="width:600px"
+                                     required="true"
+                                     maxlength="512"
+                                     requiredMessage=" #{msgs.required_msg}">
+                            <f:validateRegex pattern="[a-zA-Z]+"/>
+                        </p:inputText>
+                        <h:message for="manufacturer" styleClass="errorMsg"/>
+                        
+                        <p:outputLabel value="#{msgs.model}:" for="model"/>
+                        <p:inputText id="model"
+                                     value="#{addEditBusBean.model}"
+                                     required="true"
+                                     maxlength="20"  
+                                     converterMessage="#{msgs.model_msg}"
+                                     validatorMessage="#{msgs.model_msg}"
+                                     requiredMessage="#{msgs.required_msg}">
+                           <f:validateLongRange minimum="1000" maximum="2050"/>
+                        </p:inputText>
+                        <h:message for="model" styleClass="errorMsg"/>
 
 
                         <p:outputLabel value="#{msgs.capacity}:" for="capacity"/>

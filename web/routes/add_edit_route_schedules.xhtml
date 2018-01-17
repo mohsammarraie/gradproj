@@ -28,33 +28,29 @@ and open the template in the editor.
 
                         <h:form id="add_route_stops_info_form">
                        
-                                    
-                            <c:forEach var="routeStop" items="#{addEditRouteScheduleBean.routeStopsArray}">
-
-
-                            <br>
-                                <div style="width:100%">
-                                    <p:outputLabel value="#{langBean.isEnglish?routeStop.stopNameEn:routeStop.stopNameAr}:" for="time"/>
-                                </div>
-                                <div style="width:100%">
-                                   <p:calendar id="time"
-                                   value="#{routeStop.time}"
-                                   dir="ltr"
-                                   pattern="HH:mm"
-                                   timeOnly="true"
-                                   navigator="true"
-                                   required="true"
-                                   yearRange="c-10:c+1"
-                                   timeInput="true"
-                                   requiredMessage=" #{msgs.required_msg}"/> 
-                                   <h:message for="time" styleClass="errorMsg"/>  
-                                 </div>
-                            </br>
-
-
-                            </c:forEach>  
+                            <p:scrollPanel mode="native" style="width:300px;height:300px">       
+                                <c:forEach var="routeStop" items="#{addEditRouteScheduleBean.routeStopsArray}">
+                                        <br>
+                                            <div style="width:100%">
+                                                <p:outputLabel value="#{langBean.isEnglish?routeStop.stopNameEn:routeStop.stopNameAr}:" for="time"/>
+                                            </div>
+                                            <div style="width:100%">
+                                               <p:calendar id="time"
+                                               value="#{routeStop.time}"
+                                               dir="ltr"
+                                               pattern="HH:mm"
+                                               timeOnly="true"
+                                               navigator="true"
+                                               required="true"
+                                               yearRange="c-10:c+1"
+                                               timeInput="true"
+                                               requiredMessage=" #{msgs.required_msg}"/> 
+                                               <h:message for="time" styleClass="errorMsg"/>  
+                                             </div>
+                                        </br>
+                                </c:forEach>  
        
-
+                           </p:scrollPanel>
                         </h:form>
                         
                     </h:panelGrid>

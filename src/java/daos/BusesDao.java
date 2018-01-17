@@ -25,15 +25,22 @@ public class BusesDao extends ConnectionDao {
             
             String sql = "SELECT * FROM BUSES.BUSES";                        
             PreparedStatement ps = conn.prepareStatement(sql);            
-
+//            String sql2 = "SELECT CONCAT(CONCAT(CONCAT(CONCAT(FIRST_NAME_EN,' '), LAST_NAME_EN),', '),NATIONAL_ID) AS DRIVER_NAME_EN,"
+//                    + "                    CONCAT(CONCAT(CONCAT(CONCAT(FIRST_NAME_AR,' '), LAST_NAME_AR),', '),NATIONAL_ID) AS DRIVER_NAME_AR"
+//                    + "                    FROM BUSES.DRIVERS JOIN BUSES.BUSES_DRIVERS ON BUSES.DRIVERS.DRIVER_ID = BUSES.BUSES_DRIVERS.DRIVER_ID";                       
+//            PreparedStatement ps2 = conn.prepareStatement(sql2); 
+            
             ResultSet rs = ps.executeQuery();           
-
+           // ResultSet rs2 = ps2.executeQuery();
             while (rs.next()) {
                 list.add(populateBuses(rs));
+               
             }
             
             rs.close();
             ps.close();
+//            rs2.close();
+//            ps2.close();
             
             return list;            
         } catch (SQLException e) {
@@ -45,10 +52,13 @@ public class BusesDao extends ConnectionDao {
         Buses buses = new Buses();
         
         buses.setBusId(rs.getInt("BUS_ID")); 
+        buses.setModel(rs.getInt("MODEL")); 
         buses.setChasisNumber(rs.getInt("CHASIS_NUMBER"));
         buses.setLicenseNumber(rs.getString("LICENSE_NUMBER")); 
+        buses.setManufacturer(rs.getString("MANUFACTURER")); 
         buses.setCapacity(rs.getInt("CAPACITY")); 
-             
+//        buses.setDriverNameEn(rs2.getString("DRIVER_NAME_EN"));   
+//        buses.setDriverNameAr(rs2.getString("DRIVER_NAME_AR"));
         return buses;
     }
         
@@ -63,12 +73,9 @@ public class BusesDao extends ConnectionDao {
             ps.setInt(1, BusId);
             
             ResultSet rs = ps.executeQuery();           
-
+              
             while (rs.next()) {
                 buses = populateBuses(rs);
-                buses.setChasisNumber(rs.getInt("CHASIS_NUMBER"));
-                buses.setCapacity(rs.getInt("CAPACITY"));
-                buses.setLicenseNumber(rs.getString("LICENSE_NUMBER"));
             }
 
             rs.close();
@@ -87,14 +94,17 @@ public class BusesDao extends ConnectionDao {
             String sql = "INSERT INTO BUSES.BUSES (BUS_ID,"
                     + " CHASIS_NUMBER,"
                     + " LICENSE_NUMBER,"
-                    + " CAPACITY)"
-                    + " VALUES ((select max(BUS_ID) from BUSES.BUSES)+1,?,?,?)";
+                    + " CAPACITY,"
+                    + " MODEL,"
+                    + " MANUFACTURER)"
+                    + " VALUES ((select max(BUS_ID) from BUSES.BUSES)+1,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql); 
             
             ps.setInt(1, buses.getChasisNumber());
             ps.setString(2, buses.getLicenseNumber());
             ps.setInt(3, buses.getCapacity());
-            
+            ps.setInt(4, buses.getModel());
+            ps.setString(5, buses.getManufacturer());
             ps.executeUpdate();
             
             ps.close();
@@ -112,16 +122,20 @@ public class BusesDao extends ConnectionDao {
              
                     + " LICENSE_NUMBER=?,"
                     + " CHASIS_NUMBER=?,"
-                    + " CAPACITY=?"
+                    + " CAPACITY=?,"
+                    + " MODEL=?,"
+                    + " MANUFACTURER=?"
                     + " WHERE BUS_ID=?";
             
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, buses.getLicenseNumber());
             ps.setInt(2, buses.getChasisNumber());
-            ps.setInt(3, buses.getCapacity());     
-            ps.setInt(4, buses.getBusId());
-
+            ps.setInt(3, buses.getCapacity());
+            ps.setInt(4, buses.getModel());
+            ps.setString(5, buses.getManufacturer());
+            ps.setInt(6, buses.getBusId());
+            
             ps.executeUpdate();
             
             ps.close();

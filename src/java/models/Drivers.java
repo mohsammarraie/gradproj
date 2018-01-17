@@ -17,12 +17,19 @@ public class Drivers {
     private String lastNameEn;
     private String lastNameAr;
     private String phoneNumber;
+    private String nationalId;
 
     public Drivers() {
     }
-    
-    
 
+    public String getNationalId() {
+        return nationalId;
+    }
+
+    public void setNationalId(String nationalId) {
+        this.nationalId = nationalId;
+    }
+    
     public int getDriverId() {
         return driverId;
     }
