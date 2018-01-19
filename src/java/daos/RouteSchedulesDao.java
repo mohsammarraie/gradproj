@@ -111,49 +111,8 @@ public class RouteSchedulesDao extends ConnectionDao {
         }
     }
      
-    
-        public RouteSchedules getRouteSchedules(int routeId) throws Exception {
-        try {   
-            RouteSchedules routeSchedules = null;
-            Connection conn = getConnection();
-              
-            String sql= "SELECT ROUTES_SCHEDULES.*,ROUTES_STOPS_SCHEDULES.*,ROUTES_STOPS.*, STOP_NAME_EN,STOP_NAME_AR FROM" +
-                        " BUSES.ROUTES," +
-                        " BUSES.STOPS," +
-                        " BUSES.ROUTES_STOPS," +
-                        " BUSES.ROUTES_SCHEDULES," +
-                        " BUSES.ROUTES_STOPS_SCHEDULES" +
-                        " WHERE" +
-                        " BUSES.ROUTES.ROUTE_ID = BUSES.ROUTES_STOPS.ROUTE_ID" +
-                        " AND" +
-                        " BUSES.STOPS.STOP_ID = BUSES.ROUTES_STOPS.STOP_ID" +
-                        " AND" +
-                        " BUSES.ROUTES_STOPS_SCHEDULES.STOP_ID = BUSES.ROUTES_STOPS.STOP_ID" +
-                        " AND" +
-                        " BUSES.ROUTES_STOPS_SCHEDULES.ROUTE_SCHEDULE_ID =BUSES.ROUTES_SCHEDULES.ROUTE_SCHEDULE_ID"+
-                        " AND" +
-                        " BUSES.ROUTES.ROUTE_ID=?"+
-                        " ORDER BY STOP_ORDER";  
-            PreparedStatement ps = conn.prepareStatement(sql);            
-            ps.setInt(1, routeId);
-            
-            ResultSet rs = ps.executeQuery();           
+   
 
-            while (rs.next()) {
-                routeSchedules = populateRouteSchedules(rs);
-
-            }
-
-            rs.close();
-            ps.close();
-            
-            return routeSchedules;            
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
-    }
-        
-  
         public ArrayList<Stops> buildRouteScheduleStops(int routeId) throws Exception {
             ArrayList<Stops> list = new ArrayList<>();
             Connection conn = getConnection();
@@ -189,7 +148,7 @@ public class RouteSchedulesDao extends ConnectionDao {
             
             String sql2 = "INSERT INTO BUSES.ROUTES_SCHEDULES(SCHEDULE_ID, ROUTE_ID, ROUTE_SCHEDULE_ACTIVE)"
                     + " VALUES ("
-                    + "(select count(SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES WHERE ROUTE_ID = ?)+1,?,1)";
+                    + "(select max(SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES WHERE ROUTE_ID = ?)+1,?,1)";
             PreparedStatement ps2 = conn.prepareStatement(sql2);
           
             
@@ -211,7 +170,7 @@ public class RouteSchedulesDao extends ConnectionDao {
            // RouteStops2 stops= new RouteStops2();
             
             String sql = "INSERT INTO BUSES.ROUTES_STOPS_SCHEDULES(SCHEDULE_ID, ROUTE_ID, TIME, STOP_ID)"
-                    + " VALUES ((select count(SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES WHERE ROUTE_ID = ?),?,?,?)";
+                    + " VALUES ((select max(SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES WHERE ROUTE_ID = ?),?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             Timestamp timeStamp =new Timestamp(time.getTime()) ;
             
@@ -269,6 +228,47 @@ public class RouteSchedulesDao extends ConnectionDao {
             ps.executeUpdate();
             ps.close();
             
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+        
+          public RouteSchedules getRouteSchedules(int routeId) throws Exception {
+        try {   
+            RouteSchedules routeSchedules = null;
+            Connection conn = getConnection();
+              
+            String sql= "SELECT ROUTES_SCHEDULES.*,ROUTES_STOPS_SCHEDULES.*,ROUTES_STOPS.*, STOP_NAME_EN,STOP_NAME_AR FROM" +
+                        " BUSES.ROUTES," +
+                        " BUSES.STOPS," +
+                        " BUSES.ROUTES_STOPS," +
+                        " BUSES.ROUTES_SCHEDULES," +
+                        " BUSES.ROUTES_STOPS_SCHEDULES" +
+                        " WHERE" +
+                        " BUSES.ROUTES.ROUTE_ID = BUSES.ROUTES_STOPS.ROUTE_ID" +
+                        " AND" +
+                        " BUSES.STOPS.STOP_ID = BUSES.ROUTES_STOPS.STOP_ID" +
+                        " AND" +
+                        " BUSES.ROUTES_STOPS_SCHEDULES.STOP_ID = BUSES.ROUTES_STOPS.STOP_ID" +
+                        " AND" +
+                        " BUSES.ROUTES_STOPS_SCHEDULES.ROUTE_SCHEDULE_ID =BUSES.ROUTES_SCHEDULES.ROUTE_SCHEDULE_ID"+
+                        " AND" +
+                        " BUSES.ROUTES.ROUTE_ID=?"+
+                        " ORDER BY STOP_ORDER";  
+            PreparedStatement ps = conn.prepareStatement(sql);            
+            ps.setInt(1, routeId);
+            
+            ResultSet rs = ps.executeQuery();           
+
+            while (rs.next()) {
+                routeSchedules = populateRouteSchedules(rs);
+
+            }
+
+            rs.close();
+            ps.close();
+            
+            return routeSchedules;            
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
         }

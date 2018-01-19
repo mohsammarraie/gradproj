@@ -22,7 +22,7 @@ import org.primefaces.context.RequestContext;
  *
  * @author MOH
  */
-@Named(value = "assignDriversToBusesBean")
+@Named(value = "assignDriverToBusBean")
 @ViewScoped
 public class AssignDriversToBusesBean  implements Serializable{
     
@@ -57,6 +57,7 @@ public class AssignDriversToBusesBean  implements Serializable{
             
             if(busId > 0){
               BusesDrivers busesDrivers = busesDriversDao.getBusesDrivers();
+              driverId = busesDrivers.getDriverId();
               driverNameEn = busesDrivers.getDriverNameEn();
               driverNameAr = busesDrivers.getDriverNameAr();
               //busesDriversArray =busesDriversDao.buildBusesDrivers();  
@@ -147,16 +148,86 @@ public class AssignDriversToBusesBean  implements Serializable{
         this.lastNameAr = lastNameAr;
     }
     
-        public void saveRouteStop() {
-        try {
+    //check if there is an assigned driver. if found then disable delete button on assign_driver_to_bus.xhtml
+    public boolean checkAssignedDriver() {
+        int i;
+        boolean flag = false;
+        for (i = 0; i < busesDriversArray.size(); i++) {
+            if (busId == busesDriversArray.get(i).getBusId()) {
+                flag = true;
+                break;
+            } else {
+                flag = false;
+            }
+        }
+        return flag;
+    }
 
-//            if (busId > 0) {
-//                busesDriversDao.updateDriverBus(); 
-//          
-//            } else {
-//                busesDriversDao.insertDriverBus();
+    // to display driver name and national id in manage buses table.
+    public String displayDriversOnBuses(int busesArrayBusId, int x) {
+        int i;
+        boolean flag = false;
+        for (i = 0; i < busesDriversArray.size(); i++) {
+            if (busesArrayBusId == busesDriversArray.get(i).getBusId()) {
+                flag = true;
+                break;
+            } else {
+                flag = false;
+            }
+        }
+        if (flag) {
+            if (x == 1) {
+                return busesDriversArray.get(i).getDriverNameEn();
+            } else {
+                return busesDriversArray.get(i).getDriverNameAr();
+            }
+
+        } else {
+            if (x == 1) {
+                return "Not Assigned";
+            } else {
+                return "غير معين";
+            }
+
+        }
+
+    }
+    
+     public void deleteBusDrivers() {
+        try {
+            busesDriversDao.deleteBusDriver(busId);
+            sessionBean.navigate("manage_buses");
+        } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            Logger.getLogger(ManageBusesBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+        public void saveBusDriver() {
+        try {
+            int i;
+            int flag=0;
+            for(i=0;i<busesDriversArray.size();i++){
+                if (busId == busesDriversArray.get(i).getBusId()){
+                    flag=1;
+                    break;
+                }
+                else{
+                flag=0;
+                }
+            }
+            if (flag==1) {
+                busesDriversDao.updateBusDriver(busId, driverId);
+            } else {
+                busesDriversDao.insertBusDriver(busId, driverId);
+            }
+
+              
 //             
-//            }
+
             sessionBean.navigate("manage_buses");
         } catch (Exception ex) {
             

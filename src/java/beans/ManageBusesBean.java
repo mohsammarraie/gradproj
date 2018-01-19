@@ -15,7 +15,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import models.Buses;
 import daos.DriversDao;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 /**
  *
  * @author MOH
@@ -27,6 +29,8 @@ public class ManageBusesBean implements Serializable {
     private Buses selectedBus;
     private final BusesDao busesDao = new BusesDao();
     private ArrayList<Buses> busesArray;
+    String error_message_header;
+    String error_message_content;
 
     @Inject
     private SessionBean sessionBean;
@@ -68,6 +72,10 @@ public class ManageBusesBean implements Serializable {
             busesDao.deleteBus(selectedBus.getBusId());
             sessionBean.navigate("manage_buses");
         } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageBusesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

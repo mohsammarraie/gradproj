@@ -17,7 +17,8 @@ and open the template in the editor.
             <h:form id="add_driver">            
                 <p:messages id="msgs" closable="true" globalOnly="true"/>
 
-                <p:panel header="#{msgs.add_edit_driver}"                            
+                <p:panel id="add_edit_student_panel"
+                        header="#{msgs.add_edit_driver}"                            
                          style="min-height:400px; 
                                 direction:#{langBean.dir};margin-top:10px; font-size:10pt">
                     <h:panelGrid id="add"
@@ -38,7 +39,6 @@ and open the template in the editor.
                         <p:outputLabel value="#{msgs.first_name_en}:" for="first_name_en"/>
                         <p:inputText id="first_name_en"
                                      value="#{addEditStudentBean.firstNameEn}"
-                                     style="width:600px"
                                      required="true"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}">
@@ -50,7 +50,6 @@ and open the template in the editor.
                         <p:outputLabel value="#{msgs.first_name_ar}:" for="first_name_ar"/>
                         <p:inputText id="first_name_ar"
                                      value="#{addEditStudentBean.firstNameAr}"
-                                     style="width:600px"
                                      required="true"
                                      dir="rtl"
                                      maxlength="512"
@@ -63,7 +62,6 @@ and open the template in the editor.
                         <p:outputLabel value="#{msgs.last_name_en}:" for="last_name_en"/>
                         <p:inputText id="last_name_en"
                                      value="#{addEditStudentBean.lastNameEn}"
-                                     style="width:600px"
                                      required="true"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}">
@@ -75,7 +73,6 @@ and open the template in the editor.
                             <p:outputLabel value="#{msgs.last_name_ar}:" for="last_name_ar"/>
                         <p:inputText id="last_name_ar"
                                      value="#{addEditStudentBean.lastNameAr}"
-                                     style="width:600px"
                                      required="true"
                                      dir="rtl"
                                      maxlength="512"
@@ -86,6 +83,7 @@ and open the template in the editor.
    
                     </h:panelGrid>
                 </p:panel>
+                
 
                 <p:commandButton value="#{msgs.save}"
                                  styleClass="commandButton"

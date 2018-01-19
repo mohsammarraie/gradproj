@@ -49,12 +49,6 @@ and open the template in the editor.
                                 <h:outputText value="#{busesArray.licenseNumber}"/>  
                             </p:column>
                             
-                            <p:column headerText="#{msgs.license_plate}"
-                                style="width:15%"
-                                sortBy="#{busesArray.licenseNumber}">                    
-                                <h:outputText value="#{busesArray.licenseNumber}"/>  
-                            </p:column>
-                            
                             <p:column headerText="#{msgs.chasis_number}"
                                       style="width:15%"
                                       sortBy="#{busesArray.chasisNumber}">                    
@@ -80,16 +74,11 @@ and open the template in the editor.
                                 <h:outputText value="#{busesArray.capacity}"/>  
                             </p:column>
                             
-                             <p:column headerText="#{msgs.first_name}"
+                             <p:column headerText="#{msgs.assigned_driver}"
                                          style="width:20%"> 
-                                <c:forEach var="busDriver" items="#{assignDriversToBusesBean.busesDriversArray}">
-                                    <h:form rendered="#{busDriver.busId == busesArray.busId}">
-                                        <h:outputText value="#{langBean.isEnglish?busDriver.driverNameEn:busDriver.driverNameAr}"/>
-                                    </h:form>
-                                    <h:form rendered="#{busDriver.busId != busesArray.busId}">
-                                        <h:outputText value="#{msgs.not_assigned}"/>
-                                    </h:form>
-                                </c:forEach>
+
+                                        <h:outputText value="#{assignDriverToBusBean.displayDriversOnBuses(busesArray.busId,langBean.isEnglish?1:0)}"/>
+             
                              </p:column>
                             
                             <f:facet name="footer">

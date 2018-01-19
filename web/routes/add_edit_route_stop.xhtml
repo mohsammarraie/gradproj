@@ -28,12 +28,13 @@ and open the template in the editor.
                         
                         <p:outputLabel value="#{msgs.stop_name}:" for="stop_name"/>
                         <p:selectOneMenu value="#{addEditRouteStopBean.routeStopId}"
+                                         style="width: 320px;"
                                          id="stop_name"
                                          filter="true"
                                          filterMatchMode="contains"
                                          required="true"                                                                                  
                                          requiredMessage=" #{msgs.required_msg}">
-                            <f:selectItem itemLabel="#{msgs.select_one}"
+                            <f:selectItem itemLabel="#{msgs.choose_stop}"
                                           itemValue=""/>
                             <f:selectItems var="stopsInfo"
                                            value="#{addEditRouteStopBean.stopsArray}" 
@@ -45,6 +46,7 @@ and open the template in the editor.
                         <p:outputLabel value="#{msgs.stop_order}:" for="stop_order"/>
                         <p:inputText id="stop_order"
                                      value="#{addEditRouteStopBean.stopOrder}"
+                                     style="width: 320px;"
                                      required="true"
                                      maxlength="3"  
                                      converterMessage="#{msgs.capacity_msg}"

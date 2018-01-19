@@ -8,7 +8,8 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>#{msgs.assign_driver_to_bus}</title>
     </h:head>
@@ -24,28 +25,45 @@ and open the template in the editor.
                                  style="float: #{langBean.styleFloat};" 
                                  columns="3"                              
                                  dir="#{langBean.dir}">
-                   
                         
-                        <p:outputLabel value="#{msgs.first_name}:" for="driver_name"/>
-                        <p:selectOneMenu value="#{langBean.isEnglish?assignDriversToBusesBean.driverNameEn:assignDriversToBusesBean.driverNameAr}"
+                        
+                        
+                        <p:outputLabel value="#{msgs.assign_driver}:" for="driver_name"/>
+                        <p:selectOneMenu value="#{assignDriverToBusBean.driverId}"
                                          id="driver_name"
                                          filter="true"
-                                         filterMatchMode="contains"
-                                         required="true"                                                                                  
-                                         requiredMessage=" #{msgs.required_msg}">
-                            <f:selectItem itemLabel="#{msgs.select_one}"
+                                         filterMatchMode="contains"                                                                             
+                                        >
+                            <f:selectItem itemLabel="#{msgs.choose_driver}"
                                           itemValue=""/>
                             <f:selectItems var="driver"
-                                           value="#{assignDriversToBusesBean.availableDriversArray}" 
+                                           value="#{assignDriverToBusBean.availableDriversArray}" 
                                            itemLabel="#{langBean.isEnglish?driver.driverNameEn:driver.driverNameAr}"
                                            itemValue="#{driver.driverId}"/>                             
                         </p:selectOneMenu>
-                        <h:message for="driver_name" styleClass="errorMsg"/>   
+                        <h:message for="driver_name" styleClass="errorMsg"/> 
+                     
                         
-                          
+                         <p:commandButton value="#{msgs.remove_driver}"
+                                                 icon="ui-icon-minus"  
+                                                 ajax="false"
+                                                 iconPos="#{langBean.styleFloat}"
+                                                 styleClass="commandButton"
+                                                 style="float:#{langBean.styleFloat}"   
+                                                 disabled="#{assignDriverToBusBean.checkAssignedDriver()==false}"
+                                                 onclick="return confirm('#{msgs.confirm_remove_assigned_driver}?');"
+                                                 actionListener="#{assignDriverToBusBean.deleteBusDrivers()}"
+                                                 action="manage_buses" />
+                       
+                        
+                            <p:outputLabel for="displayed_driver_name" value="#{msgs.assigned_driver}:"/>
+                       
+                             <h:outputText id="displayed_driver_name"  value="#{assignDriverToBusBean.displayDriversOnBuses(sessionBean.getSelectedBusId(),langBean.isEnglish?1:0)}"/>   
+                            
+                   
                     </h:panelGrid>
                 </p:panel>
-
+                
                 <p:commandButton value="#{msgs.save}"
                                  styleClass="commandButton"
                                  icon="ui-icon-disk"

@@ -17,7 +17,8 @@ and open the template in the editor.
             <h:form id="add_bus">            
                 <p:messages id="msgs" closable="true" globalOnly="true"/>
 
-                <p:panel header="#{msgs.add_edit_bus}"                            
+                <p:panel id="add_edit_bus_panel"
+                        header="#{msgs.add_edit_bus}"                            
                          style="min-height:400px; 
                                 direction:#{langBean.dir};margin-top:10px; font-size:10pt">
                     <h:panelGrid id="add"
@@ -28,7 +29,6 @@ and open the template in the editor.
                         <p:outputLabel value="#{msgs.license_plate}:" for="license_plate"/>
                         <p:inputText id="license_plate"
                                      value="#{addEditBusBean.licenseNumber}"
-                                     style="width:600px"
                                      required="true"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}">
@@ -51,7 +51,6 @@ and open the template in the editor.
                         <p:outputLabel value="#{msgs.manufacturer}:" for="manufacturer"/>
                         <p:inputText id="manufacturer"
                                      value="#{addEditBusBean.manufacturer}"
-                                     style="width:600px"
                                      required="true"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}">

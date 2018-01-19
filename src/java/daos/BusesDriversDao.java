@@ -97,26 +97,18 @@ public class BusesDriversDao  extends ConnectionDao{
         return driverInfo;
     }  
     
-    public void insertDriver(Drivers drivers) throws Exception {                
+    public void insertBusDriver(int busId, int driverId) throws Exception {                
         try {
             Connection conn = getConnection();
 
-            String sql = "INSERT INTO BUSES.DRIVERS (DRIVER_ID,"
-                    + " FIRST_NAME_EN,"
-                    + " FIRST_NAME_AR,"
-                    + " LAST_NAME_EN,"
-                    + " LAST_NAME_AR,"
-                    + " PHONE_NUMBER,"
-                    + " NATIONAL_ID)"
-                    + " VALUES ((select max(DRIVER_ID) from BUSES.DRIVERS)+1,?,?,?,?,?,?)";
+            String sql = "INSERT INTO BUSES.BUSES_DRIVERS (DRIVER_ID,"
+                    + " BUS_ID)"
+                    + " VALUES (?,?)";
              PreparedStatement ps = conn.prepareStatement(sql); 
             
-             ps.setString(1, drivers.getFirstNameEn());
-             ps.setString(2, drivers.getFirstNameAr());
-             ps.setString(3, drivers.getLastNameEn());
-             ps.setString(4, drivers.getLastNameAr());
-             ps.setString(5, drivers.getPhoneNumber());
-             ps.setString(6, drivers.getNationalId());
+             ps.setInt(1, driverId);
+             ps.setInt(2, busId);
+    
              
              ps.executeUpdate();
              ps.close();
@@ -126,28 +118,19 @@ public class BusesDriversDao  extends ConnectionDao{
         }
     }
     
-    public void updateDriver(Drivers drivers) throws Exception {
+    public void updateBusDriver(int busId, int driverId) throws Exception {
         try {
             Connection conn = getConnection();
 
-            String sql = "UPDATE BUSES.DRIVERS SET"
-                    + " FIRST_NAME_EN=?,"
-                    + " FIRST_NAME_AR=?,"
-                    + " LAST_NAME_EN=?,"
-                    + " LAST_NAME_AR=?,"
-                    + " PHONE_NUMBER=?,"
-                    + " NATIONAL_ID=?"
-                    + " WHERE DRIVER_ID=?";
+            String sql = "UPDATE BUSES.BUSES_DRIVERS SET"
+                    + " DRIVER_ID=?"
+                    + " WHERE BUS_ID=?";
+            
             PreparedStatement ps = conn.prepareStatement(sql);
             
-             ps.setString(1, drivers.getFirstNameEn());
-             ps.setString(2, drivers.getFirstNameAr());
-             ps.setString(3, drivers.getLastNameEn());
-             ps.setString(4, drivers.getLastNameAr());
-             ps.setString(5, drivers.getPhoneNumber());
-             ps.setString(6, drivers.getNationalId()); 
-             ps.setInt(7, drivers.getDriverId());
-
+             ps.setInt(1, driverId);
+             ps.setInt(2, busId);
+             
             ps.executeUpdate();
             ps.close();
             
@@ -156,17 +139,27 @@ public class BusesDriversDao  extends ConnectionDao{
         }
     }
     
-    public void deleteDriver(int driverId) throws Exception {
+    public void deleteBusDriver(int busId) throws Exception {
         Connection conn = getConnection();
         
         try {
-            String sql = "DELETE FROM BUSES.DRIVERS WHERE DRIVER_ID=?";                               
+            String sql = "DELETE FROM BUSES.BUSES_DRIVERS WHERE BUS_ID=?";                               
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, driverId);
+            ps.setInt(1, busId);
             
             ps.executeUpdate();
 
             ps.close();
+            
+            
+            String sql1 = "COMMIT";                               
+            PreparedStatement ps1 = conn.prepareStatement(sql1);
+           
+            
+            ps1.executeUpdate();
+
+            ps1.close();
+            
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
         }
@@ -182,9 +175,10 @@ public class BusesDriversDao  extends ConnectionDao{
                     + "                                 BUSES.BUSES_DRIVERS.DRIVER_ID,NATIONAL_ID,BUSES.BUSES_DRIVERS.BUS_ID"
                     + "                                   FROM BUSES.DRIVERS,BUSES.BUSES_DRIVERS "
                     + "                                  WHERE BUSES.BUSES_DRIVERS.DRIVER_ID = BUSES.DRIVERS.DRIVER_ID"
+                        + "                               "
                     + "                                 ORDER BY DRIVER_ID";                      
             PreparedStatement ps = conn.prepareStatement(sql);            
-         
+           // ps.setInt(1, busId);
             
             ResultSet rs = ps.executeQuery();           
     
