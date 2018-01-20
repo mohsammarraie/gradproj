@@ -46,6 +46,8 @@ and open the template in the editor.
                          
                             <p:column headerText="#{msgs.route_id}"
                                       style="width:15%"
+                                      filterBy="#{routesArray.routeId}"
+                                      filterMatchMode="contains"
                                       sortBy="#{routesArray.routeId}">                    
                                 <h:outputText value="#{routesArray.routeId}"/>  
                             </p:column>
@@ -76,7 +78,6 @@ and open the template in the editor.
                            
                             <p:column headerText="#{msgs.active}"
                                       style="width:5%">
-
                                 <h:outputText value="#{routesArray.routeActive == 1? msgs.yes:msgs.no}"/> 
                             </p:column>
                          

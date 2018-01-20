@@ -44,6 +44,8 @@ and open the template in the editor.
                             
                             <p:column headerText="#{msgs.national_id}"
                                       style="width:20%"
+                                       filterBy="#{driversArray.nationalId}"
+                                       filterMatchMode="contains"
                                       sortBy="#{driversArray.nationalId}">                    
                                 <h:outputText value="#{driversArray.nationalId}"/>  
                             </p:column>
@@ -67,6 +69,8 @@ and open the template in the editor.
                             
                              <p:column headerText="#{msgs.phone_number}"
                                     style="width:20%"
+                                    filterBy="#{driversArray.phoneNumber}"
+                                     filterMatchMode="contains"
                                     sortBy="#{driversArray.phoneNumber}">                    
                                 <h:outputText value="#{driversArray.phoneNumber}"/>  
                             </p:column>

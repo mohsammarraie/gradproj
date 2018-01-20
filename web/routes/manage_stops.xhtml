@@ -45,6 +45,8 @@ and open the template in the editor.
                     
                             <p:column headerText="#{msgs.stop_id}"
                                       style="width:15%"
+                                      filterBy="#{stopsArray.stopId}}"
+                                      filterMatchMode="contains"
                                       sortBy="#{stopsArray.stopId}">                    
                                 <h:outputText value="#{stopsArray.stopId}"/>  
                             </p:column>

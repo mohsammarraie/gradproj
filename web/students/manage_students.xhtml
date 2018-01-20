@@ -44,6 +44,8 @@ and open the template in the editor.
                             
                             <p:column headerText="#{msgs.student_id}"
                                       style="width:15%"
+                                      filterBy="#{studentsArray.studentId}"
+                                      filterMatchMode="contains"
                                       sortBy="#{studentsArray.studentId}">                    
                                 <h:outputText value="#{studentsArray.studentId}"/>  
                             </p:column>
