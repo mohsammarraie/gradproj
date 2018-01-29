@@ -11,14 +11,14 @@ and open the template in the editor.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <title>#{msgs.assign_driver_to_bus}</title>
+        <title>#{msgs.assign_bus_to_schedule}</title>
     </h:head>
     <h:body>
         <ui:decorate template="/app_templates/app_template.xhtml">  
-            <h:form id="assign_driver_to_bus">            
+            <h:form id="assign_bus_to_schedule">            
                 <p:messages id="msgs" closable="true" globalOnly="true"/>
 
-                <p:panel header="#{msgs.assign_driver_to_bus}"                            
+                <p:panel header="#{msgs.assign_bus_to_schedule}"                            
                          style="min-height:400px; 
                                 direction:#{langBean.dir};margin-top:10px; font-size:10pt">
                     <h:panelGrid id="add"
@@ -28,37 +28,38 @@ and open the template in the editor.
                         
                         
                         
-                        <p:outputLabel value="#{msgs.assign_driver}:" for="driver_name"/>
-                        <p:selectOneMenu value="#{assignDriverToBusBean.driverId}"
-                                         id="driver_name"
+                        <p:outputLabel value="#{msgs.assign_bus}:" for="assign_bus"/>
+                        <p:selectOneMenu value="#{assignBusToScheduleBean.busId}"
+                                         id="assign_bus"
                                          filter="true"
                                          filterMatchMode="contains"                                                                             
                                         >
-                            <f:selectItem itemLabel="#{msgs.choose_driver}"
+                            <f:selectItem itemLabel="#{msgs.choose_bus}"
                                           itemValue=""/>
-                            <f:selectItems var="driver"
-                                           value="#{assignDriverToBusBean.availableDriversArray}" 
-                                           itemLabel="#{langBean.isEnglish?driver.driverNameEn:driver.driverNameAr}"
-                                           itemValue="#{driver.driverId}"/>                             
+                            <f:selectItems var="bus"
+                                           value="#{assignBusToScheduleBean.availableBusesArray}" 
+                                           itemLabel="#{bus.assignedBus}"
+                                           itemValue="#{bus.busId}"/>                             
                         </p:selectOneMenu>
-                        <h:message for="driver_name" styleClass="errorMsg"/> 
+                        <h:message for="assign_bus" styleClass="errorMsg"/> 
                      
                         
-                         <p:commandButton value="#{msgs.remove_driver}"
+                         <p:commandButton value="#{msgs.remove_bus}"
                                                  icon="ui-icon-minus"  
                                                  ajax="false"
                                                  iconPos="#{langBean.styleFloat}"
                                                  styleClass="commandButton"
                                                  style="float:#{langBean.styleFloat}"   
-                                                 disabled="#{assignDriverToBusBean.checkRemoveDriverButton()==false}"
-                                                 onclick="return confirm('#{msgs.confirm_remove_assigned_driver}?');"
-                                                 actionListener="#{assignDriverToBusBean.deleteBusDrivers()}"
-                                                 action="manage_buses" />
+                                                 disabled="#{assignBusToScheduleBean.checkRemoveBusButton()==false}"
+                                                 onclick="return confirm('#{msgs.confirm_remove_assigned_bus}?');"
+                                                 actionListener="#{assignBusToScheduleBean.deleteBusSchdedule()}"
+                                                 action="manage_route_schedules" />
                        
                         
-                            <p:outputLabel for="displayed_driver_name" value="#{msgs.assigned_driver}:"/>
-                       
-                             <h:outputText id="displayed_driver_name"  value="#{assignDriverToBusBean.displayDriversOnBuses(sessionBean.getSelectedBusId(),langBean.isEnglish?1:0)}"/>   
+                            <p:outputLabel for="displayed_bus" value="#{msgs.assigned_bus}:"/>
+                            <h:outputText id="displayed_bus"  value="#{assignBusToScheduleBean.displayBusesSchedules(sessionBean.getSelectedRouteId(),sessionBean.getSelectedScheduleId(),langBean.isEnglish?1:0)}"/>   
+
+                            
                             
                    
                     </h:panelGrid>
@@ -69,14 +70,14 @@ and open the template in the editor.
                                  icon="ui-icon-disk"
                                  iconPos="#{langBean.styleFloat}"
                                  style="float:#{langBean.styleFloat}"                                                                   
-                                 actionListener="#{assignDriverToBusBean.saveBusDriver()}" />
+                                 actionListener="#{assignBusToScheduleBean.saveBusSchedule()}" />
                 <p:commandButton value="#{msgs.cancel}"
                                  icon="ui-icon-cancel"  
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  immediate="true" 
                                  style="float:#{langBean.styleFloat}"                                 
-                                 action="manage_buses"  />                                   
+                                 action="manage_route_schedules"  />                                   
             </h:form>
         </ui:decorate>
     </h:body>

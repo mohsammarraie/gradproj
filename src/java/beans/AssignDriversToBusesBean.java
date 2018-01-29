@@ -57,13 +57,13 @@ public class AssignDriversToBusesBean  implements Serializable{
             
             if(busId > 0){
               BusesDrivers busesDrivers = busesDriversDao.getBusesDrivers();
-              driverId = busesDrivers.getDriverId();
+              //driverId = busesDrivers.getDriverId();
               driverNameEn = busesDrivers.getDriverNameEn();
               driverNameAr = busesDrivers.getDriverNameAr();
               //busesDriversArray =busesDriversDao.buildBusesDrivers();  
             }
         } catch (Exception ex) {
-            Logger.getLogger(AddEditStopBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AssignDriversToBusesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -149,7 +149,7 @@ public class AssignDriversToBusesBean  implements Serializable{
     }
     
     //check if there is an assigned driver. if found then disable delete button on assign_driver_to_bus.xhtml
-    public boolean checkAssignedDriver() {
+    public boolean checkRemoveDriverButton() {
         int i;
         boolean flag = false;
         for (i = 0; i < busesDriversArray.size(); i++) {
@@ -236,7 +236,7 @@ public class AssignDriversToBusesBean  implements Serializable{
             error_message_content = ex.getMessage();
             
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
-            Logger.getLogger(AddEditStopBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AssignDriversToBusesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     } 
