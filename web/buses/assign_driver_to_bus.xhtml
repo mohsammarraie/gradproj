@@ -32,7 +32,9 @@ and open the template in the editor.
                         <p:selectOneMenu value="#{assignDriverToBusBean.driverId}"
                                          id="driver_name"
                                          filter="true"
-                                         filterMatchMode="contains"                                                                             
+                                         filterMatchMode="contains"
+                                         required="true"                                                                                  
+                                         requiredMessage=" #{msgs.required_msg}"
                                         >
                             <f:selectItem itemLabel="#{msgs.choose_driver}"
                                           itemValue=""/>
@@ -68,7 +70,8 @@ and open the template in the editor.
                                  styleClass="commandButton"
                                  icon="ui-icon-disk"
                                  iconPos="#{langBean.styleFloat}"
-                                 style="float:#{langBean.styleFloat}"                                                                   
+                                 style="float:#{langBean.styleFloat}"
+                                 ajax="false"
                                  actionListener="#{assignDriverToBusBean.saveBusDriver()}" />
                 <p:commandButton value="#{msgs.cancel}"
                                  icon="ui-icon-cancel"  

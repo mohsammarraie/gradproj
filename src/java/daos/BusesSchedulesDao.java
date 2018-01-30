@@ -171,20 +171,24 @@ public class BusesSchedulesDao extends ConnectionDao {
         }
     }
     
-     public BusesSchedules getBusesSchedules() throws Exception {
+     public BusesSchedules getBusesSchedules(int routeId, int scheduleId) throws Exception {
         try {   
             BusesSchedules busesSchedules = null;
             Connection conn = getConnection();
             
-              String sql = "SELECT ROUTE_ID,SCHEDULE_ID,BUSES.BUSES.BUS_ID,FROM_DATE,TO_DATE, CONCAT(CONCAT(CONCAT(CONCAT(MANUFACTURER,', '), LICENSE_NUMBER),', '),CAPACITY) AS ASSIGNED_BUS"
-                        + "                    FROM BUSES.BUSES,"
-                        + "                    BUSES.BUSES_SCHEDULES"
-                        + "                     WHERE"
-                        + "                      BUSES.BUSES.BUS_ID= BUSES.BUSES_SCHEDULES.BUS_ID"
-                        + "                    ORDER BY BUSES.BUSES_SCHEDULES.BUS_ID";                     
-            PreparedStatement ps = conn.prepareStatement(sql);            
-           // ps.setInt(1, busId);
-            
+            String sql = "SELECT BUSES.BUSES.BUS_ID,FROM_DATE,TO_DATE, CONCAT(CONCAT(CONCAT(CONCAT(MANUFACTURER,', '), LICENSE_NUMBER),', '),CAPACITY) AS ASSIGNED_BUS"
+                    + "                    FROM BUSES.BUSES,"
+                    + "                    BUSES.BUSES_SCHEDULES"
+                    + "                     WHERE"
+                    + "                      BUSES.BUSES.BUS_ID= BUSES.BUSES_SCHEDULES.BUS_ID"
+                    + "                        AND"
+                    + "                        ROUTE_ID=?"
+                    + "                        AND"
+                    + "                       SCHEDULE_ID=?"
+                    + "                    ORDER BY BUSES.BUSES_SCHEDULES.BUS_ID";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, routeId);
+            ps.setInt(2, scheduleId);
             ResultSet rs = ps.executeQuery();           
     
             while (rs.next()) {

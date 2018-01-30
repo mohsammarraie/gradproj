@@ -45,7 +45,20 @@ and open the template in the editor.
                                                yearRange="c-10:c+1"
                                                timeInput="true"
                                                requiredMessage=" #{msgs.required_msg}"/> 
-                                               <h:message for="time" styleClass="errorMsg"/>  
+                                               <h:message for="time" styleClass="errorMsg"/>
+                                               
+                                                    <c:forEach var="routeSchedule" items="#{manageRouteSchedulesBean.routeScheduleStop}">
+                                                        <c:if test="#{routeSchedule.scheduleId==sessionBean.getSelectedScheduleId()}">
+                                                             <h:form rendered="#{routeStop.stopId==routeSchedule.stopId}">
+            <!--                                                <p:outputLabel for="displayed_driver_name" value="#{msgs.assigned_driver}:"/>-->
+                                                               
+                                                                <h:outputText id="displayed_driver_name" value="#{routeSchedule.time}">  
+                                                                    <f:convertDateTime pattern="HH:mm" />
+                                                                </h:outputText>
+                                                             </h:form>
+                                                        </c:if>
+                                                    </c:forEach>
+                                             
                                              </div>
                                         </br>
                                 </c:forEach>  
@@ -59,6 +72,7 @@ and open the template in the editor.
                 <p:commandButton value="#{msgs.save}"
                                  styleClass="commandButton"
                                  icon="ui-icon-disk"
+                                 ajax="false"
                                  iconPos="#{langBean.styleFloat}"
                                  style="float:#{langBean.styleFloat}"                                                                   
                                  actionListener="#{addEditRouteScheduleBean.saveRouteSchedule()}" />

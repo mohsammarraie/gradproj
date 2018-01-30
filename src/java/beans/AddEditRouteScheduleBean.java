@@ -66,8 +66,10 @@ public class AddEditRouteScheduleBean implements Serializable{
         try {
           
             routeId = sessionBean.getSelectedRouteId();
-            routeSchedulesArray = routeSchedulesDao.buildRouteSchedules(routeId);
-            routeStopsArray = routeStopsDao.buildRouteStops(sessionBean.getSelectedRouteId());
+            routeSchedulesArray = routeSchedulesDao.buildRouteSchedules(routeId); //mother array (used here to set a flag)
+            routeStopsArray = routeStopsDao.buildRouteStops(sessionBean.getSelectedRouteId()); // to display/iterate stops
+            
+            
             stopId = stops.getStopId();
             //to do here, stop id problem.
             if(scheduleId > 0){

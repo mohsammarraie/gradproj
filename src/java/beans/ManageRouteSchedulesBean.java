@@ -42,8 +42,8 @@ public class ManageRouteSchedulesBean implements Serializable{
       @PostConstruct
         public void init(){
             try {            
-                routeSchedulesArray = routeSchedulesDao.buildRouteSchedules(sessionBean.getSelectedRouteId());
-                routeScheduleStop = routeSchedulesDao.buildRouteScheduleStops(sessionBean.getSelectedRouteId());
+                routeSchedulesArray = routeSchedulesDao.buildRouteSchedules(sessionBean.getSelectedRouteId()); // table array (mother array)
+                routeScheduleStop = routeSchedulesDao.buildRouteScheduleStops(sessionBean.getSelectedRouteId()); // array contains time
             } catch (Exception ex) {
                 Logger.getLogger(ManageRouteSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
             }

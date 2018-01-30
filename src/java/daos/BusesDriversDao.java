@@ -165,7 +165,7 @@ public class BusesDriversDao  extends ConnectionDao{
         }
     }
     
-     public BusesDrivers getBusesDrivers() throws Exception {
+     public BusesDrivers getBusesDrivers(int busId) throws Exception {
         try {   
             BusesDrivers busesDrivers = null;
             Connection conn = getConnection();
@@ -175,10 +175,12 @@ public class BusesDriversDao  extends ConnectionDao{
                     + "                                 BUSES.BUSES_DRIVERS.DRIVER_ID,NATIONAL_ID,BUSES.BUSES_DRIVERS.BUS_ID"
                     + "                                   FROM BUSES.DRIVERS,BUSES.BUSES_DRIVERS "
                     + "                                  WHERE BUSES.BUSES_DRIVERS.DRIVER_ID = BUSES.DRIVERS.DRIVER_ID"
+                        + "                                AND"
+                        + "                                BUS_ID=?"
                         + "                               "
                     + "                                 ORDER BY DRIVER_ID";                      
             PreparedStatement ps = conn.prepareStatement(sql);            
-           // ps.setInt(1, busId);
+            ps.setInt(1, busId);
             
             ResultSet rs = ps.executeQuery();           
     

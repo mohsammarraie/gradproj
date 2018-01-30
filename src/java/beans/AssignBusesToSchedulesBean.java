@@ -32,6 +32,7 @@ public class AssignBusesToSchedulesBean implements Serializable{
     private int busId;
     private int routeId;
     private int scheduleId;
+    private String assignedBus;
     BusesSchedules busesSchedules= new BusesSchedules();
     private final BusesSchedulesDao busesSchedulesDao = new BusesSchedulesDao();
     
@@ -51,10 +52,13 @@ public class AssignBusesToSchedulesBean implements Serializable{
             availableBusesArray = busesSchedulesDao.buildAvailableBuses();
             routeId = sessionBean.getSelectedRouteId();
             scheduleId= sessionBean.getSelectedScheduleId();
-            busesSchedules =busesSchedulesDao.getBusesSchedules();
-//            if(scheduleId>0){
-//                busId=busesSchedules.getBusId();
-//            }
+           
+            
+            if(scheduleId>0){
+                busesSchedules =busesSchedulesDao.getBusesSchedules(routeId, scheduleId);
+                busId=busesSchedules.getBusId();
+                assignedBus = busesSchedules.getAssignedBus();
+            }
             
         } catch (Exception ex) {
             Logger.getLogger(AssignBusesToSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -101,6 +105,14 @@ public class AssignBusesToSchedulesBean implements Serializable{
 
     public void setBusId(int busId) {
         this.busId = busId;
+    }
+
+    public String getAssignedBus() {
+        return assignedBus;
+    }
+
+    public void setAssignedBus(String assignedBus) {
+        this.assignedBus = assignedBus;
     }
     
     

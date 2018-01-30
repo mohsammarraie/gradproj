@@ -56,8 +56,8 @@ public class AssignDriversToBusesBean  implements Serializable{
             availableDriversArray = busesDriversDao.buildAvailableBusesDrivers();
             
             if(busId > 0){
-              BusesDrivers busesDrivers = busesDriversDao.getBusesDrivers();
-              //driverId = busesDrivers.getDriverId();
+              BusesDrivers busesDrivers = busesDriversDao.getBusesDrivers(busId);
+              driverId = busesDrivers.getDriverId();
               driverNameEn = busesDrivers.getDriverNameEn();
               driverNameAr = busesDrivers.getDriverNameAr();
               //busesDriversArray =busesDriversDao.buildBusesDrivers();  

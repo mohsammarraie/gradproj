@@ -31,9 +31,12 @@ and open the template in the editor.
                         <p:outputLabel value="#{msgs.assign_bus}:" for="assign_bus"/>
                         <p:selectOneMenu value="#{assignBusToScheduleBean.busId}"
                                          id="assign_bus"
+                                         style="width: 320px;"
                                          filter="true"
-                                         filterMatchMode="contains"                                                                             
-                                        >
+                                         filterMatchMode="contains"   
+                                         required="true"                                                                                  
+                                         requiredMessage=" #{msgs.required_msg}">
+                                        
                             <f:selectItem itemLabel="#{msgs.choose_bus}"
                                           itemValue=""/>
                             <f:selectItems var="bus"
@@ -69,7 +72,8 @@ and open the template in the editor.
                                  styleClass="commandButton"
                                  icon="ui-icon-disk"
                                  iconPos="#{langBean.styleFloat}"
-                                 style="float:#{langBean.styleFloat}"                                                                   
+                                 style="float:#{langBean.styleFloat}"
+                                 ajax="false"
                                  actionListener="#{assignBusToScheduleBean.saveBusSchedule()}" />
                 <p:commandButton value="#{msgs.cancel}"
                                  icon="ui-icon-cancel"  
