@@ -115,10 +115,8 @@ public class AssignBusesToSchedulesBean implements Serializable{
         this.assignedBus = assignedBus;
     }
     
-    
-    
-     //check if there is an assigned driver. if found then disable delete button on assign_bus_to_bus.xhtml
-    public boolean checkRemoveBusButton() {
+ 
+    public boolean setFlag() {
         int i;
         boolean flag = false;
         for (i = 0; i < busesSchedulesArray.size(); i++) {
@@ -158,32 +156,15 @@ public class AssignBusesToSchedulesBean implements Serializable{
         }
 
     }
-    
-     
-     public void deleteBusSchdedule() {
-        try {
-            busesSchedulesDao.deleteBusSchedule(routeId, scheduleId);
-            sessionBean.navigate("manage_route_schedules");
-        } catch (Exception ex) {
-            error_message_header = "Error!";
-            error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
-            Logger.getLogger(AssignBusesToSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
         public void saveBusSchedule() {
         try {
     
-            if (checkRemoveBusButton()) {
+            if (setFlag()) {
                 busesSchedulesDao.updateBusSchedule(busId, routeId, scheduleId);
             } else {
                 busesSchedulesDao.insertBusSchedule(busId, routeId, scheduleId);
-            }
-
-              
-//             
+            }    
 
             sessionBean.navigate("manage_route_schedules");
         } catch (Exception ex) {

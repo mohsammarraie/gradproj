@@ -97,7 +97,7 @@ and open the template in the editor.
                                                  disabled="#{manageRouteSchedulesBean.selectedSchedule==null}"                                                 
                                                  actionListener="#{manageRouteSchedulesBean.saveSelectedScheduleID()}"
                                                  action="add_edit_route_schedules" />
-                                              <p:commandButton value="#{msgs.assign_bus_schedule}"
+                                              <p:commandButton value="#{msgs.assign_bus}"
                                                 icon="ui-icon-plus"                                  
                                                 iconPos="#{langBean.styleFloat}"
                                                 styleClass="commandButton"
@@ -105,6 +105,16 @@ and open the template in the editor.
                                                 disabled="#{manageRouteSchedulesBean.selectedSchedule==null}"   
                                                 actionListener="#{manageRouteSchedulesBean.saveSelectedScheduleID()}"
                                                 action="assign_bus_to_schedule" /> 
+                                              <p:commandButton value="#{msgs.remove_bus}"
+                                                 icon="ui-icon-minus"  
+                                                 ajax="false"
+                                                 iconPos="#{langBean.styleFloat}"
+                                                 styleClass="commandButton"
+                                                 style="float:#{langBean.styleFloat}"   
+                                                 disabled="#{manageRouteSchedulesBean.selectedSchedule==null || manageRouteSchedulesBean.checkRemoveBusButton()==false}"
+                                                 onclick="return confirm('#{msgs.confirm_remove_assigned_bus}?');"
+                                                 actionListener="#{manageRouteSchedulesBean.deleteBusSchdedule()}"
+                                                 action="manage_route_schedules" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
                             </f:facet>

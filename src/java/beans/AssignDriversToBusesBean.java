@@ -148,8 +148,8 @@ public class AssignDriversToBusesBean  implements Serializable{
         this.lastNameAr = lastNameAr;
     }
     
-    //check if there is an assigned driver. if found then disable delete button on assign_driver_to_bus.xhtml
-    public boolean checkRemoveDriverButton() {
+    //cuurently not used
+    public boolean setFlag() {
         int i;
         boolean flag = false;
         for (i = 0; i < busesDriversArray.size(); i++) {
@@ -193,18 +193,7 @@ public class AssignDriversToBusesBean  implements Serializable{
 
     }
     
-     public void deleteBusDrivers() {
-        try {
-            busesDriversDao.deleteBusDriver(busId);
-            sessionBean.navigate("manage_buses");
-        } catch (Exception ex) {
-            error_message_header = "Error!";
-            error_message_content = ex.getMessage();
-
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
-            Logger.getLogger(ManageBusesBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+ 
     
         public void saveBusDriver() {
         try {

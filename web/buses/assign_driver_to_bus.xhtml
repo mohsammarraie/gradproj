@@ -33,8 +33,7 @@ and open the template in the editor.
                                          id="driver_name"
                                          filter="true"
                                          filterMatchMode="contains"
-                                         required="true"                                                                                  
-                                         requiredMessage=" #{msgs.required_msg}"
+                                       
                                         >
                             <f:selectItem itemLabel="#{msgs.choose_driver}"
                                           itemValue=""/>
@@ -46,16 +45,7 @@ and open the template in the editor.
                         <h:message for="driver_name" styleClass="errorMsg"/> 
                      
                         
-                         <p:commandButton value="#{msgs.remove_driver}"
-                                                 icon="ui-icon-minus"  
-                                                 ajax="false"
-                                                 iconPos="#{langBean.styleFloat}"
-                                                 styleClass="commandButton"
-                                                 style="float:#{langBean.styleFloat}"   
-                                                 disabled="#{assignDriverToBusBean.checkRemoveDriverButton()==false}"
-                                                 onclick="return confirm('#{msgs.confirm_remove_assigned_driver}?');"
-                                                 actionListener="#{assignDriverToBusBean.deleteBusDrivers()}"
-                                                 action="manage_buses" />
+                         
                        
                         
                             <p:outputLabel for="displayed_driver_name" value="#{msgs.assigned_driver}:"/>

@@ -113,7 +113,7 @@ and open the template in the editor.
                                                  disabled="#{manageBusesBean.selectedBus==null}"                                                 
                                                  actionListener="#{manageBusesBean.saveSelectedBusId()}"
                                                  action="add_edit_bus" />
-                                        <p:commandButton value="#{msgs.assign_remove_driver}"
+                                        <p:commandButton value="#{msgs.assign_driver}"
                                                  icon="ui-icon-pencil"                                  
                                                  iconPos="#{langBean.styleFloat}"
                                                  styleClass="commandButton"
@@ -121,6 +121,16 @@ and open the template in the editor.
                                                  disabled="#{manageBusesBean.selectedBus==null}"                                                 
                                                  actionListener="#{manageBusesBean.saveSelectedBusId()}"
                                                  action="assign_driver_to_bus" />
+                                        <p:commandButton value="#{msgs.remove_driver}"
+                                                 icon="ui-icon-minus"  
+                                                 ajax="false"
+                                                 iconPos="#{langBean.styleFloat}"
+                                                 styleClass="commandButton"
+                                                 style="float:#{langBean.styleFloat}"   
+                                                 disabled="#{ manageBusesBean.selectedBus==null ||manageBusesBean.checkRemoveDriverButton()==false }"
+                                                 onclick="return confirm('#{msgs.confirm_remove_assigned_driver}?');"
+                                                 actionListener="#{manageBusesBean.deleteBusDrivers()}"
+                                                 action="manage_buses" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
                             </f:facet>

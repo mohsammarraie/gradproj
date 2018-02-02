@@ -34,8 +34,7 @@ and open the template in the editor.
                                          style="width: 320px;"
                                          filter="true"
                                          filterMatchMode="contains"   
-                                         required="true"                                                                                  
-                                         requiredMessage=" #{msgs.required_msg}">
+                                         >
                                         
                             <f:selectItem itemLabel="#{msgs.choose_bus}"
                                           itemValue=""/>
@@ -47,16 +46,7 @@ and open the template in the editor.
                         <h:message for="assign_bus" styleClass="errorMsg"/> 
                      
                         
-                         <p:commandButton value="#{msgs.remove_bus}"
-                                                 icon="ui-icon-minus"  
-                                                 ajax="false"
-                                                 iconPos="#{langBean.styleFloat}"
-                                                 styleClass="commandButton"
-                                                 style="float:#{langBean.styleFloat}"   
-                                                 disabled="#{assignBusToScheduleBean.checkRemoveBusButton()==false}"
-                                                 onclick="return confirm('#{msgs.confirm_remove_assigned_bus}?');"
-                                                 actionListener="#{assignBusToScheduleBean.deleteBusSchdedule()}"
-                                                 action="manage_route_schedules" />
+                         
                        
                         
                             <p:outputLabel for="displayed_bus" value="#{msgs.assigned_bus}:"/>
