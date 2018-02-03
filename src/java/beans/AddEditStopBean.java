@@ -95,7 +95,7 @@ public class AddEditStopBean implements Serializable {
             Logger.getLogger(AddEditStopBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        sessionBean.navigate("manage_stops");
+        sessionBean.navigateManageStops();
     }
     
 }

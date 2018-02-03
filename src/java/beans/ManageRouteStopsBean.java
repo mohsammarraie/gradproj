@@ -73,7 +73,7 @@ public class ManageRouteStopsBean implements Serializable {
     public void deleteSelectedRouteStop(){
         try {
             routeStopsDao.deleteRouteStop(selectedRouteStop.getStopId(), sessionBean.getSelectedRouteId());
-            sessionBean.navigate("manage_route_stops");
+            sessionBean.navigateManageRouteStops();
 
         } catch (Exception ex) {
             

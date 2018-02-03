@@ -114,7 +114,7 @@ public class ManageRouteSchedulesBean implements Serializable{
         try {
             routeSchedulesDao.deleteRouteScheduleStops(selectedSchedule.getScheduleId(), routeId);
             routeSchedulesDao.deleteRouteSchedules(selectedSchedule.getScheduleId(), routeId);
-            sessionBean.navigate("manage_route_schedules");
+            sessionBean.navigateManageRouteSchedules();
 
         } catch (Exception ex) {
          
@@ -125,7 +125,7 @@ public class ManageRouteSchedulesBean implements Serializable{
        public void deleteBusSchdedule() {
         try {
             busesSchedulesDao.deleteBusSchedule(routeId, selectedSchedule.getScheduleId());
-            sessionBean.navigate("manage_route_schedules");
+             sessionBean.navigateManageRouteSchedules();
         } catch (Exception ex) {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();

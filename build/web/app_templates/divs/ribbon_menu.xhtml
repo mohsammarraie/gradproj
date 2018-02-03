@@ -15,21 +15,21 @@
                                       styleClass="ribbonButton" 
                                       style="float:#{langBean.styleFloat};"
                                       actionListener="#{sessionBean.setMenuIndex(0)}"
-                                      action="/buses/manage_buses.xhtml">                       
+                                      action="#{sessionBean.navigateManageBuses()}">                       
                     </p:commandButton>
                     
                      <p:commandButton  value="#{msgs.manage_drivers}" 
                                       styleClass="ribbonButton" 
                                       style="float:#{langBean.styleFloat};"
                                       actionListener="#{sessionBean.setMenuIndex(0)}"
-                                      action="/drivers/manage_drivers.xhtml">                       
+                                      action="#{sessionBean.navigateManageDrivers()}">                       
                     </p:commandButton>
                     
                     <p:commandButton  value="#{msgs.manage_students}" 
                                       styleClass="ribbonButton" 
                                       style="float:#{langBean.styleFloat};"
                                       actionListener="#{sessionBean.setMenuIndex(0)}"
-                                      action="/students/manage_students.xhtml">                       
+                                      action="#{sessionBean.navigateManageStudents()}">                       
                     </p:commandButton>
                   
                     
@@ -37,21 +37,21 @@
                                       styleClass="ribbonButton" 
                                       style="float:#{langBean.styleFloat};"
                                       actionListener="#{sessionBean.setMenuIndex(0)}"
-                                      action="/routes/manage_routes.xhtml">                       
+                                      action="#{sessionBean.navigateManageRoutes()}">                       
                     </p:commandButton>
                     
                     <p:commandButton  value="#{msgs.manage_stops}" 
                                       styleClass="ribbonButton" 
                                       style="float:#{langBean.styleFloat};"
                                       actionListener="#{sessionBean.setMenuIndex(0)}"
-                                      action="/routes/manage_stops.xhtml">                       
+                                      action="#{sessionBean.navigateManageStops()}">                       
                     </p:commandButton>
                     
                     <p:commandButton  value="#{msgs.bus_position}" 
                                       styleClass="ribbonButton" 
                                       style="float:#{langBean.styleFloat};" 
                                       actionListener="#{sessionBean.setMenuIndex(0)}"
-                                      action="#{sessionBean.bus_position()}">                        
+                                      action="#{sessionBean.navigateBusPosition()}">                        
                     </p:commandButton>  
                     
                 </p:ribbonGroup>               
@@ -63,7 +63,7 @@
                     <p:commandButton  value="#{msgs.manage_buses}" 
                                       styleClass="ribbonButton" 
                                       style="float:#{langBean.styleFloat};"
-                                      actionListener="#{sessionBean.setMenuIndex(0)}"
+                                      actionListener="#{sessionBean.setMenuIndex(1)}"
                                       action="/buses/manage_buses.xhtml">                       
                     </p:commandButton>
                     

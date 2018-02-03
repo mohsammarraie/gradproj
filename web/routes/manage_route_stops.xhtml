@@ -77,8 +77,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageRouteStopsBean.selectedRouteStop==null}"
                                                  onclick="return confirm('#{msgs.confirm_delete_stop}?');"
-                                                 actionListener="#{manageRouteStopsBean.deleteSelectedRouteStop()}"
-                                                 action="manage_route_stops" />
+                                                 actionListener="#{manageRouteStopsBean.deleteSelectedRouteStop()}" />
                                         <p:commandButton value="#{msgs.edit}"
                                                  icon="ui-icon-pencil"                                  
                                                  iconPos="#{langBean.styleFloat}"
@@ -86,7 +85,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageRouteStopsBean.selectedRouteStop==null}"                                                 
                                                  actionListener="#{manageRouteStopsBean.saveSelectedRouteStopId()}"
-                                                 action="add_edit_route_stop" />
+                                                 action="#{sessionBean.navigateAddEditRouteStop()}" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
                             </f:facet>
@@ -96,14 +95,14 @@ and open the template in the editor.
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}"
-                                 action="manage_routes" />
+                                 action="#{sessionBean.navigateManageRoutes()}" />
                         <p:commandButton value="#{msgs.add}"
                                  icon="ui-icon-plus"                                  
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
                                  actionListener="#{sessionBean.setSelectedRouteStopId(-1)}"
-                                 action="add_edit_route_stop" /> 
+                                 action="#{sessionBean.navigateAddEditRouteStop()}" /> 
                        
                 </h:form>
                

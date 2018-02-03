@@ -66,11 +66,6 @@ public class StudentsDao extends ConnectionDao {
 
             while (rs.next()) {
                 students = populateStudents(rs);
-                students.setStudentId(rs.getString("STUDENT_ID")); 
-                students.setFirstNameEn(rs.getString("FIRST_NAME_EN")); 
-                students.setLastNameEn(rs.getString("LAST_NAME_EN"));
-                students.setFirstNameAr(rs.getString("FIRST_NAME_AR"));
-                students.setLastNameAr(rs.getString("LAST_NAME_AR"));
             }
 
             rs.close();
@@ -109,7 +104,7 @@ public class StudentsDao extends ConnectionDao {
         }
     }
     
-    public void updateStudent(Students students) throws Exception {
+    public void updateStudent(Students students, String currentStudentId) throws Exception {
         try {
             Connection conn = getConnection();
 
@@ -117,7 +112,8 @@ public class StudentsDao extends ConnectionDao {
                     + " FIRST_NAME_EN=?,"
                     + " LAST_NAME_EN=?,"
                     + " FIRST_NAME_AR=?,"
-                    + " LAST_NAME_AR=?"
+                    + " LAST_NAME_AR=?,"
+                    + " STUDENT_ID=?"
                     + " WHERE STUDENT_ID=?";
             
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -127,7 +123,8 @@ public class StudentsDao extends ConnectionDao {
             ps.setString(3, students.getFirstNameAr());
             ps.setString(4, students.getLastNameAr());
             ps.setString(5, students.getStudentId());
-
+            ps.setString(6, currentStudentId);
+            
             ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {

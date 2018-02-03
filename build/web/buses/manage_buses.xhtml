@@ -103,8 +103,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageBusesBean.selectedBus==null}"
                                                  onclick="return confirm('#{msgs.confirm_delete_bus}?');"
-                                                 actionListener="#{manageBusesBean.deleteSelectedBus()}"
-                                                 action="manage_buses" />
+                                                 actionListener="#{manageBusesBean.deleteSelectedBus()}" />
                                         <p:commandButton value="#{msgs.edit}"
                                                  icon="ui-icon-pencil"                                  
                                                  iconPos="#{langBean.styleFloat}"
@@ -112,7 +111,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageBusesBean.selectedBus==null}"                                                 
                                                  actionListener="#{manageBusesBean.saveSelectedBusId()}"
-                                                 action="add_edit_bus" />
+                                                 action="#{sessionBean.navigateAddEditBus()}" />
                                         <p:commandButton value="#{msgs.assign_driver}"
                                                  icon="ui-icon-pencil"                                  
                                                  iconPos="#{langBean.styleFloat}"
@@ -120,7 +119,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageBusesBean.selectedBus==null}"                                                 
                                                  actionListener="#{manageBusesBean.saveSelectedBusId()}"
-                                                 action="assign_driver_to_bus" />
+                                                 action="#{sessionBean.navigateAssignDriverToBus()}" />
                                         <p:commandButton value="#{msgs.remove_driver}"
                                                  icon="ui-icon-minus"  
                                                  ajax="false"
@@ -129,8 +128,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"   
                                                  disabled="#{ manageBusesBean.selectedBus==null ||manageBusesBean.checkRemoveDriverButton()==false }"
                                                  onclick="return confirm('#{msgs.confirm_remove_assigned_driver}?');"
-                                                 actionListener="#{manageBusesBean.deleteBusDrivers()}"
-                                                 action="manage_buses" />
+                                                 action="#{manageBusesBean.deleteBusDrivers()}" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
                             </f:facet>
@@ -141,7 +139,7 @@ and open the template in the editor.
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
                                  actionListener="#{sessionBean.setSelectedBusId(-1)}"
-                                 action="add_edit_bus" /> 
+                                 action="#{sessionBean.navigateAddEditBus()}" /> 
                 </h:form>
                
             </ui:decorate>

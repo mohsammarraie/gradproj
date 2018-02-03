@@ -166,7 +166,7 @@ public class AssignBusesToSchedulesBean implements Serializable{
                 busesSchedulesDao.insertBusSchedule(busId, routeId, scheduleId);
             }    
 
-            sessionBean.navigate("manage_route_schedules");
+            sessionBean.navigateManageRouteSchedules();
         } catch (Exception ex) {
             
 

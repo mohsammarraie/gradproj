@@ -158,7 +158,7 @@ public class AddEditRouteBean implements Serializable {
             Logger.getLogger(AddEditRouteBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        sessionBean.navigate("manage_routes");
+        sessionBean.navigateManageRoutes();
     }
     
 }

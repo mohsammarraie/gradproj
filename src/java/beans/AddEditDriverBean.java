@@ -135,7 +135,7 @@ public class AddEditDriverBean implements Serializable{
             Logger.getLogger(AddEditDriverBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        sessionBean.navigate("manage_drivers");
+       sessionBean.navigateManageDrivers();
     }
     
 }

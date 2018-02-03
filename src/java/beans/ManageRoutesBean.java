@@ -68,7 +68,7 @@ public class ManageRoutesBean implements Serializable {
     public void deleteSelectedRoute(){
         try {
             routesDao.deleteRoute(selectedRoute.getRouteId());
-            sessionBean.navigate("manage_routes");
+            sessionBean.navigateManageRoutes();
 
         } catch (Exception ex) {
             

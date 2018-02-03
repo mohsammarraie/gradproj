@@ -77,8 +77,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageStudentsBean.selectedStudent==null}"
                                                  onclick="return confirm('#{msgs.confirm_delete_student}?');"
-                                                 actionListener="#{manageStudentsBean.deleteSelectedStudent()}"
-                                                 action="manage_students" />
+                                                 actionListener="#{manageStudentsBean.deleteSelectedStudent()}"/>
                                         <p:commandButton value="#{msgs.edit}"
                                                  icon="ui-icon-pencil"                                  
                                                  iconPos="#{langBean.styleFloat}"
@@ -86,7 +85,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageStudentsBean.selectedStudent==null}"                                                 
                                                  actionListener="#{manageStudentsBean.saveSelectedStudentId()}"
-                                                 action="add_edit_student" />
+                                                 action="#{sessionBean.navigateAddEditStudent()}" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
                             </f:facet>
@@ -97,7 +96,7 @@ and open the template in the editor.
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
                                  actionListener="#{sessionBean.setSelectedStudentId(null)}"
-                                 action="add_edit_student" /> 
+                                 action="#{sessionBean.navigateAddEditStudent()}" /> 
                 </h:form>
                
             </ui:decorate>

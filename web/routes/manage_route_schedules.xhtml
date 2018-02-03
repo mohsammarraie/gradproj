@@ -87,8 +87,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageRouteSchedulesBean.selectedSchedule==null}"
                                                  onclick="return confirm('#{msgs.confirm_delete_schedule}?');"
-                                                 actionListener="#{manageRouteSchedulesBean.deleteSelectedRouteSchedule()}"
-                                                 action="manage_route_schedules" />
+                                                 actionListener="#{manageRouteSchedulesBean.deleteSelectedRouteSchedule()}"/>
                                          <p:commandButton value="#{msgs.edit}"
                                                  icon="ui-icon-pencil"                                  
                                                  iconPos="#{langBean.styleFloat}"
@@ -96,7 +95,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageRouteSchedulesBean.selectedSchedule==null}"                                                 
                                                  actionListener="#{manageRouteSchedulesBean.saveSelectedScheduleID()}"
-                                                 action="add_edit_route_schedules" />
+                                                 action="#{sessionBean.navigateAddEditRouteSchedules()}" />
                                               <p:commandButton value="#{msgs.assign_bus}"
                                                 icon="ui-icon-plus"                                  
                                                 iconPos="#{langBean.styleFloat}"
@@ -104,7 +103,7 @@ and open the template in the editor.
                                                 style="float:#{langBean.styleFloat}"
                                                 disabled="#{manageRouteSchedulesBean.selectedSchedule==null}"   
                                                 actionListener="#{manageRouteSchedulesBean.saveSelectedScheduleID()}"
-                                                action="assign_bus_to_schedule" /> 
+                                                action="#{sessionBean.navigateAssignBusToSchedule()}" /> 
                                               <p:commandButton value="#{msgs.remove_bus}"
                                                  icon="ui-icon-minus"  
                                                  ajax="false"
@@ -113,8 +112,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"   
                                                  disabled="#{manageRouteSchedulesBean.selectedSchedule==null || manageRouteSchedulesBean.checkRemoveBusButton()==false}"
                                                  onclick="return confirm('#{msgs.confirm_remove_assigned_bus}?');"
-                                                 actionListener="#{manageRouteSchedulesBean.deleteBusSchdedule()}"
-                                                 action="manage_route_schedules" />
+                                                 actionListener="#{manageRouteSchedulesBean.deleteBusSchdedule()}" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
                             </f:facet>
@@ -124,14 +122,14 @@ and open the template in the editor.
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}"
-                                 action="manage_routes" />
+                                 action="#{sessionBean.navigateManageRoutes()}" />
                         <p:commandButton value="#{msgs.add}"
                                  icon="ui-icon-plus"                                  
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
                                  actionListener="#{sessionBean.setSelectedScheduleId(-1)}"
-                                 action="add_edit_route_schedules" /> 
+                                 action="#{sessionBean.navigateAddEditRouteSchedules()}" /> 
                    
                        
                 </h:form>

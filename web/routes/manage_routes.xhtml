@@ -91,8 +91,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageRoutesBean.selectedRoute==null}"
                                                  onclick="return confirm('#{msgs.confirm_delete_route}?');"
-                                                 actionListener="#{manageRoutesBean.deleteSelectedRoute()}"
-                                                 action="manage_routes" />
+                                                 actionListener="#{manageRoutesBean.deleteSelectedRoute()}" />
                                         
                                         <p:commandButton value="#{msgs.edit}"
                                                  icon="ui-icon-pencil"                                  
@@ -101,7 +100,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageRoutesBean.selectedRoute==null}"                                                 
                                                  actionListener="#{manageRoutesBean.saveSelectedRouteId()}"
-                                                 action="add_edit_route" />
+                                                 action="#{sessionBean.navigateAddEditRoutes()}" />
                                         
                                         <p:commandButton value="#{msgs.stops}"
                                                  icon="ui-icon-pencil"                                  
@@ -110,7 +109,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageRoutesBean.selectedRoute==null}"                                                 
                                                  actionListener="#{manageRoutesBean.saveSelectedRouteId()}"
-                                                 action="manage_route_stops" />
+                                                 action="#{sessionBean.navigateManageRouteStops()}" />
                                         <p:commandButton value="#{msgs.schedules}"
                                                  icon="ui-icon-pencil"                                  
                                                  iconPos="#{langBean.styleFloat}"
@@ -118,7 +117,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageRoutesBean.selectedRoute==null}"                                                 
                                                  actionListener="#{manageRoutesBean.saveSelectedRouteId()}"
-                                                 action="manage_route_schedules" />
+                                                 action="#{sessionBean.navigateManageRouteSchedules()}" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
                             </f:facet>
@@ -129,7 +128,7 @@ and open the template in the editor.
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
                                  actionListener="#{sessionBean.setSelectedRouteId(-1)}"
-                                 action="add_edit_route" /> 
+                                 action="#{sessionBean.navigateAddEditRoutes()}" /> 
                 </h:form>
                
             </ui:decorate>

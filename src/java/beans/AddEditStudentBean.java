@@ -46,8 +46,7 @@ public class AddEditStudentBean implements Serializable{
                 firstNameEn = students.getFirstNameEn();
                 firstNameAr = students.getFirstNameAr();
                 lastNameEn =  students.getLastNameEn();
-                lastNameAr =  students.getLastNameAr();
-               
+                lastNameAr =  students.getLastNameAr();  
             }
         } catch (Exception ex) {
             Logger.getLogger(AddEditStudentBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -105,7 +104,7 @@ public class AddEditStudentBean implements Serializable{
             students.setLastNameAr(lastNameAr);
  
             if (sessionBean.getSelectedStudentId() !=null) {
-                studentsDao.updateStudent(students);
+                studentsDao.updateStudent(students,sessionBean.getSelectedStudentId());
             } else {
                 studentsDao.insertStudent(students);
             }
@@ -113,6 +112,6 @@ public class AddEditStudentBean implements Serializable{
             Logger.getLogger(AddEditStudentBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        sessionBean.navigate("manage_students");
+        sessionBean.navigateManageStudents();
     }
 }

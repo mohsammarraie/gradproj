@@ -213,11 +213,9 @@ public class AssignDriversToBusesBean  implements Serializable{
             } else {
                 busesDriversDao.insertBusDriver(busId, driverId);
             }
+             
 
-              
-//             
-
-            sessionBean.navigate("manage_buses");
+             sessionBean.navigateManageBuses();
         } catch (Exception ex) {
             
 

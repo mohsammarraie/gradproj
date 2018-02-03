@@ -37,7 +37,8 @@ public class SessionBean implements Serializable {
 
     public SessionBean() {
     }
-
+    
+    
     public int getSelectedRouteStopId() {
         return selectedRouteStopId;
     }
@@ -113,7 +114,6 @@ public class SessionBean implements Serializable {
         this.selectedBusId = selectedBusId;
     } 
     
-
     public String getSelectedStudentId() {
 
         return selectedStudentId;
@@ -122,7 +122,7 @@ public class SessionBean implements Serializable {
     public void setSelectedStudentId(String selectedStudentId) {
         this.selectedStudentId = selectedStudentId;
     }
-    
+
     public int getSelectedDriverId() {
         return selectedDriverId;
     }
@@ -130,7 +130,6 @@ public class SessionBean implements Serializable {
     public void setSelectedDriverId(int selectedDriverId) {
         this.selectedDriverId = selectedDriverId;
     }
-
 
     public int getMenuIndex() {
         return menuIndex;
@@ -180,11 +179,76 @@ public class SessionBean implements Serializable {
         }
     }
 
+    //pages navigations
+    public void navigateManageBuses() {
+        navigate("/buses/manage_buses.xhtml");
+    }
 
-    public void bus_position() {
+    public void navigateAddEditBus() {
+        navigate("/buses/add_edit_bus.xhtml");
+    }
+
+    public void navigateAssignDriverToBus() {
+        navigate("/buses/assign_driver_to_bus.xhtml");
+    }
+
+    public void navigateManageDrivers() {
+        navigate("/drivers/manage_drivers.xhtml");
+    }
+
+    public void navigateAddEditDriver() {
+        navigate("/drivers/add_edit_driver.xhtml");
+    }
+
+    public void navigateManageStudents() {
+        navigate("/students/manage_students.xhtml");
+    }
+
+    public void navigateAddEditStudent() {
+        navigate("/students/add_edit_student.xhtml");
+    }
+
+    public void navigateManageRoutes() {
+        navigate("/routes/manage_routes.xhtml");
+    }
+
+    public void navigateAddEditRoutes() {
+        navigate("/routes/add_edit_route.xhtml");
+    }
+
+    public void navigateManageStops() {
+        navigate("/routes/manage_stops.xhtml");
+    }
+
+    public void navigateAddEditStop() {
+        navigate("/routes/add_edit_stop.xhtml");
+    }
+
+    public void navigateManageRouteStops() {
+        navigate("/routes/manage_route_stops.xhtml");
+    }
+
+    public void navigateAddEditRouteStop() {
+        navigate("/routes/add_edit_route_stop.xhtml");
+    }
+
+    public void navigateManageRouteSchedules() {
+        navigate("/routes/manage_route_schedules.xhtml");
+    }
+
+    public void navigateAddEditRouteSchedules() {
+        navigate("/routes/add_edit_route_schedules.xhtml");
+    }
+
+    public void navigateAssignBusToSchedule() {
+        navigate("/routes/assign_bus_to_schedule.xhtml");
+    }
+
+    public void navigateBusPosition() {
         navigate("/bus_position.xhtml");
     }
 
+    
     public void navigate(String url) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
@@ -193,4 +257,5 @@ public class SessionBean implements Serializable {
             navigationHandler.handleNavigation(facesContext, null, url + "?faces-redirect=true");
         }
     }
+     //end of pages navigations
 }

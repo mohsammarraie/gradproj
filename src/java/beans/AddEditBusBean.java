@@ -121,7 +121,7 @@ public class AddEditBusBean implements Serializable{
             Logger.getLogger(AddEditBusBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        sessionBean.navigate("manage_buses");
+        sessionBean.navigateManageBuses();
     }
     
 }

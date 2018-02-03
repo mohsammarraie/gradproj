@@ -70,8 +70,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageStopsBean.selectedStop==null}"
                                                  onclick="return confirm('#{msgs.confirm_delete_stop}?');"
-                                                 actionListener="#{manageStopsBean.deleteSelectedStop()}"
-                                                 action="manage_stops" />
+                                                 actionListener="#{manageStopsBean.deleteSelectedStop()}" />
                                         <p:commandButton value="#{msgs.edit}"
                                                  icon="ui-icon-pencil"                                  
                                                  iconPos="#{langBean.styleFloat}"
@@ -79,7 +78,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageStopsBean.selectedStop==null}"                                                 
                                                  actionListener="#{manageStopsBean.saveSelectedStopId()}"
-                                                 action="add_edit_stop" />
+                                                 action="#{sessionBean.navigateAddEditStop()}" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
                             </f:facet>
@@ -90,7 +89,7 @@ and open the template in the editor.
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
                                  actionListener="#{sessionBean.setSelectedStopId(-1)}"
-                                 action="add_edit_stop" /> 
+                                 action="#{sessionBean.navigateAddEditStop()}" /> 
                 </h:form>
                
             </ui:decorate>

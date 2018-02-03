@@ -85,7 +85,8 @@ public class ManageBusesBean implements Serializable {
     public void deleteSelectedBus() {
         try {
             busesDao.deleteBus(selectedBus.getBusId());
-            sessionBean.navigate("manage_buses");
+            sessionBean.navigateManageBuses();
+   
         } catch (Exception ex) {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
@@ -93,11 +94,13 @@ public class ManageBusesBean implements Serializable {
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageBusesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
         public void deleteBusDrivers() {
         try {
             busesDriversDao.deleteBusDriver(selectedBus.getBusId());
-            sessionBean.navigate("manage_buses");
+            sessionBean.navigateManageBuses();
+           
         } catch (Exception ex) {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
@@ -105,6 +108,7 @@ public class ManageBusesBean implements Serializable {
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageBusesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
         
     //check if there is an assigned driver. if found then disable delete button on assign_driver_to_bus.xhtml

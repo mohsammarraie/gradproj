@@ -137,7 +137,7 @@ public class AddEditRouteStopBean implements Serializable{
                 //routeStopsDao.insertRouteStopScheduleNewRow(routeStopId,sessionBean.getSelectedRouteId());
                 
             }
-            sessionBean.navigate("manage_route_stops");
+            sessionBean.navigateManageRouteStops();
         } catch (Exception ex) {
             
 //            sessionBean.navigate("route_stop_error");

@@ -179,7 +179,7 @@ public class AddEditRouteScheduleBean implements Serializable{
                         }
                          
                     }
-                 sessionBean.navigate("manage_route_schedules");
+                 sessionBean.navigateManageRouteSchedules();
            }
             else {
                  error_message_header = "Error!";

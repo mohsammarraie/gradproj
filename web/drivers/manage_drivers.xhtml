@@ -85,8 +85,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageDriversBean.selectedDriver==null}"
                                                  onclick="return confirm('#{msgs.confirm_delete_driver}?');"
-                                                 actionListener="#{manageDriversBean.deleteSelectedDriver()}"
-                                                 action="manage_drivers" />
+                                                 actionListener="#{manageDriversBean.deleteSelectedDriver()}" />
                                         <p:commandButton value="#{msgs.edit}"
                                                  icon="ui-icon-pencil"                                  
                                                  iconPos="#{langBean.styleFloat}"
@@ -94,7 +93,7 @@ and open the template in the editor.
                                                  style="float:#{langBean.styleFloat}"                                                                                                
                                                  disabled="#{manageDriversBean.selectedDriver==null}"                                                 
                                                  actionListener="#{manageDriversBean.saveSelectedDriverId()}"
-                                                 action="add_edit_driver" />
+                                                 action="#{sessionBean.navigateAddEditDriver()}" />
                                     </p:toolbarGroup>
                                 </p:toolbar>
                             </f:facet>
@@ -105,7 +104,7 @@ and open the template in the editor.
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}" 
                                  actionListener="#{sessionBean.setSelectedDriverId(-1)}"
-                                 action="add_edit_driver" /> 
+                                 action="#{sessionBean.navigateAddEditDriver()}" /> 
                 </h:form>
                
             </ui:decorate>

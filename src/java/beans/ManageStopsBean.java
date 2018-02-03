@@ -63,7 +63,7 @@ public class ManageStopsBean implements Serializable {
     public void deleteSelectedStop(){
         try {
             stopsDao.deleteStop(selectedStop.getStopId());
-            sessionBean.navigate("manage_stops");
+            sessionBean.navigateManageStops();
 
         } catch (Exception ex) {
          

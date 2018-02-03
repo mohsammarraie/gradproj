@@ -14,7 +14,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import models.Students;
 import daos.StudentsDao;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 /**
  *
  * @author Taha Al-khaffaf
@@ -26,7 +28,8 @@ public class ManageStudentsBean implements Serializable {
     private Students selectedStudent;
     private final StudentsDao studentsDao = new StudentsDao();
     private ArrayList<Students> studentsArray;
-
+    String error_message_header;
+    String error_message_content;
     @Inject
     private SessionBean sessionBean;
 
@@ -65,8 +68,12 @@ public class ManageStudentsBean implements Serializable {
     public void deleteSelectedStudent() {
         try {
             studentsDao.deleteStudent(selectedStudent.getStudentId());
-            sessionBean.navigate("manage_students");
+            sessionBean.navigateManageStudents();
         } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageStudentsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

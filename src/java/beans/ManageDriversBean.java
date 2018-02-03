@@ -68,7 +68,7 @@ public class ManageDriversBean implements Serializable {
     public void deleteSelectedDriver(){
         try {
             driverDao.deleteDriver(selectedDriver.getDriverId());
-            sessionBean.navigate("manage_drivers");
+            sessionBean.navigateManageDrivers();
 
         } catch (Exception ex) {
             error_message_header = "Error!";
