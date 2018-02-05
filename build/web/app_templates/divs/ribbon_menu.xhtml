@@ -60,12 +60,46 @@
                 <p:ribbonGroup styleClass="ribbonGroup"
                                style="float:#{langBean.styleFloat};">
                 
-                    <p:commandButton  value="#{msgs.manage_buses}" 
+                    <p:commandButton  value="#{msgs.home}" 
                                       styleClass="ribbonButton" 
                                       style="float:#{langBean.styleFloat};"
                                       actionListener="#{sessionBean.setMenuIndex(1)}"
-                                      action="/buses/manage_buses.xhtml">                       
+                                      action="#{sessionBean.navigateDriverHome()}">                       
                     </p:commandButton>
+                    <p:commandButton  value="#{msgs.my_schedules}" 
+                                      styleClass="ribbonButton" 
+                                      style="float:#{langBean.styleFloat};"
+                                      actionListener="#{sessionBean.setMenuIndex(1)}"
+                                      action="#{sessionBean.navigateDriverSchedules()}">                       
+                    </p:commandButton>
+                    <p:commandButton  value="#{msgs.past_trips}" 
+                                      styleClass="ribbonButton" 
+                                      style="float:#{langBean.styleFloat};"
+                                      actionListener="#{sessionBean.setMenuIndex(1)}"
+                                      action="#{sessionBean.navigateDriverPastTrips()}">                       
+                    </p:commandButton>
+                    
+                    
+                </p:ribbonGroup>
+            </p:tab>
+            
+             <p:tab title="#{msgs.student}">  
+                <p:ribbonGroup styleClass="ribbonGroup"
+                               style="float:#{langBean.styleFloat};">
+                
+                    <p:commandButton  value="#{msgs.home}" 
+                                      styleClass="ribbonButton" 
+                                      style="float:#{langBean.styleFloat};"
+                                      actionListener="#{sessionBean.setMenuIndex(2)}"
+                                      action="#{sessionBean.navigateStudentHome()}">                       
+                    </p:commandButton>
+                    <p:commandButton  value="current trips" 
+                                      styleClass="ribbonButton" 
+                                      style="float:#{langBean.styleFloat};"
+                                      actionListener="#{sessionBean.setMenuIndex(2)}"
+                                      action="#{sessionBean.navigateStudentCurrentTrips()}">                       
+                    </p:commandButton>
+                    
                     
                 </p:ribbonGroup>
             </p:tab>

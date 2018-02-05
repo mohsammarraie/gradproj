@@ -31,11 +31,29 @@ public class SessionBean implements Serializable {
     private int selectedRouteStopId;
     private int selectedStopId;
     private int selectedScheduleId;
-    
+    private int selectedDriverSchedule;
+    private int selectedTripId;
     
     private int menuIndex = 0;
 
     public SessionBean() {
+    }
+
+    public int getSelectedTripId() {
+        return selectedTripId;
+    }
+
+    public void setSelectedTripId(int selectedTripId) {
+        this.selectedTripId = selectedTripId;
+    }
+
+    
+    public int getSelectedDriverSchedule() {
+        return selectedDriverSchedule;
+    }
+
+    public void setSelectedDriverSchedule(int selectedDriverSchedule) {
+        this.selectedDriverSchedule = selectedDriverSchedule;
     }
     
     
@@ -247,8 +265,24 @@ public class SessionBean implements Serializable {
     public void navigateBusPosition() {
         navigate("/bus_position.xhtml");
     }
-
-    
+    public void navigateDriverSchedules() {
+        navigate("/driver_pages/driver_schedules.xhtml");
+    }
+    public void navigateDriverHome() {
+        navigate("/driver_pages/driver_home.xhtml");
+    }
+    public void navigateDriverPastTrips() {
+        navigate("/driver_pages/driver_past_trips.xhtml");
+    }
+     public void navigateStudentCurrentTrips() {
+        navigate("/student_pages/student_current_trips.xhtml");
+    }
+     public void navigateStudentHome() {
+        navigate("/student_pages/student_home.xhtml");
+    }
+     public void navigateStudentTripTrackMap() {
+        navigate("/student_pages/student_trip_track_map.xhtml");
+    }
     public void navigate(String url) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
 

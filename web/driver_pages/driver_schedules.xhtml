@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">-->
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{msgs.my_schedules}</title>
+    </h:head>
+    <h:body>
+        <div>
+            <ui:decorate template="/app_templates/app_template.xhtml">
+                <h:form id="driver_schedule_info_form">
+                    <p:dataTable 
+                           id="driver_schedule_info_tbl"
+                           value = "#{driverSchedulesBean.driverSchedulesArray}"
+                           selection="#{driverSchedulesBean.selectedSchedule}"
+                           rowKey="#{driverSchedule.driverRouteScheduleId}"  
+                           class = "dataTable"
+                           var="driverSchedule"
+                           rows="5"
+                           rowsPerPageTemplate="5,10,20"
+                           dir="#{langBean.dir}"
+                           emptyMessage="#{msgs.no_schedules}"
+                           paginator="true"
+                           paginatorPosition="top" 
+                           paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
+                           >
+                        <p:ajax event="rowSelectRadio"
+                                update=":driver_schedule_info_form:driver_schedule_info_tbl"/>  
+
+                        <f:facet name="header" id="header">
+                            #{msgs.my_schedules}
+                        </f:facet> 
+                        <p:column selectionMode="single" style="width:5%"/>
+
+                        <p:column headerText="#{msgs.route_code}"
+                                  style="width:20%"
+                                  filterBy="#{driverSchedule.routeCode}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{driverSchedule.routeCode}">                    
+                            <h:outputText value="#{driverSchedule.routeCode}"/>  
+                        </p:column>
+                        <p:column headerText="#{msgs.source}"
+                                  style="width:20%"
+                                  filterBy="#{langBean.isEnglish?driverSchedule.sourceEn:driverSchedule.sourceAr}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{langBean.isEnglish?driverSchedule.sourceEn:driverSchedule.sourceAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?driverSchedule.sourceEn:driverSchedule.sourceAr}"/>  
+                        </p:column>
+
+                        <p:column headerText="#{msgs.destination}"
+                                  style="width:20%"
+                                  filterBy="#{langBean.isEnglish?driverSchedule.destinationEn:driverSchedule.destinationAr}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{langBean.isEnglish?driverSchedule.destinationEn:driverSchedule.destinationAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?driverSchedule.destinationEn:driverSchedule.destinationAr}"/>  
+                        </p:column>
+
+                        <p:column headerText="#{msgs.departure_time}"
+                                  style="width:20%"
+                                  filterBy="#{driverSchedule.departureTime}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{driverSchedule.departureTime}">
+                            <h:outputText value="#{driverSchedule.departureTime}">  
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>
+
+                        </p:column>
+
+                        <p:column headerText="#{msgs.arrival_time}"
+                                  style="width:20%"
+                                  filterBy="#{driverSchedule.arrivalTime}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{driverSchedule.arrivalTime}">                    
+                            <h:outputText value="#{driverSchedule.arrivalTime}">  
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>  
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:toolbar style="border: none">
+                                <p:toolbarGroup align="#{languageBean.screenLeft}">
+                                    <p:commandButton value="#{msgs.start_trip}"
+                                                     ajax="false"
+                                                     iconPos="#{langBean.styleFloat}"
+                                                     styleClass="commandButton"
+                                                     style="float:#{langBean.styleFloat}"
+                                                     disabled="#{driverSchedulesBean.selectedSchedule==null}"
+                                                     onclick="return confirm('#{msgs.confirm_start_trip}');"
+                                                     actionListener="#{driverSchedulesBean.startTrip()}" />
+                                </p:toolbarGroup>
+                            </p:toolbar>
+                        </f:facet>
+                    </p:dataTable>
+
+                </h:form>
+               
+            </ui:decorate>
+            
+        </div>
+    </h:body>
+</html>

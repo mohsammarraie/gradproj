@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">-->
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{msgs.my_schedules}</title>
+    </h:head>
+    <h:body>
+        <div>
+            <ui:decorate template="/app_templates/app_template.xhtml">
+                <h:form id="driver_schedule_info_form">
+                    <p:dataTable 
+                           id="driver_schedule_info_tbl"
+                           value = "#{driverPastTripsBean.driverPastTripsArray}"
+                           class = "dataTable"
+                           var="pastTrip"
+                           rows="5"
+                           rowsPerPageTemplate="5,10,20"
+                           dir="#{langBean.dir}"
+                           emptyMessage="#{msgs.no_schedules}"
+                           paginator="true"
+                           paginatorPosition="top" 
+                           paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
+                           >
+      
+
+                        <f:facet name="header" id="header">
+                            #{msgs.my_past_trips}
+                        </f:facet> 
+    
+
+                        <p:column headerText="#{msgs.route_code}"
+                                  style="width:20%"
+                                  filterBy="#{pastTrip.routeCode}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{pastTrip.routeCode}">                    
+                            <h:outputText value="#{pastTrip.routeCode}"/>  
+                        </p:column>
+                        <p:column headerText="#{msgs.source}"
+                                  style="width:20%"
+                                  filterBy="#{langBean.isEnglish?pastTrip.sourceEn:pastTrip.sourceAr}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{langBean.isEnglish?pastTrip.sourceEn:pastTrip.sourceAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?pastTrip.sourceEn:pastTrip.sourceAr}"/>  
+                        </p:column>
+
+                        <p:column headerText="#{msgs.destination}"
+                                  style="width:20%"
+                                  filterBy="#{langBean.isEnglish?pastTrip.destinationEn:pastTrip.destinationAr}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{langBean.isEnglish?pastTrip.destinationEn:pastTrip.destinationAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?pastTrip.destinationEn:pastTrip.destinationAr}"/>  
+                        </p:column>
+
+                        <p:column headerText="#{msgs.departure_time}"
+                                  style="width:20%"
+                                  filterBy="#{pastTrip.departureTime}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{pastTrip.departureTime}">
+                            <h:outputText value="#{pastTrip.departureTime}">  
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>
+
+                        </p:column>
+
+                        <p:column headerText="#{msgs.arrival_time}"
+                                  style="width:20%"
+                                  filterBy="#{pastTrip.arrivalTime}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{pastTrip.arrivalTime}">                    
+                            <h:outputText value="#{pastTrip.arrivalTime}">  
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>  
+                        </p:column>
+                         <p:column headerText="#{msgs.actual_departure_time}"
+                                  style="width:20%"
+                                  filterBy="#{pastTrip.actualDepartureTime}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{pastTrip.actualDepartureTime}">                    
+                            <h:outputText value="#{pastTrip.actualDepartureTime}">  
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>  
+                        </p:column>
+                          <p:column headerText="#{msgs.actual_arrival_time}"
+                                  style="width:20%"
+                                  filterBy="#{pastTrip.actualArrivalTime}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{pastTrip.actualArrivalTime}">                    
+                            <h:outputText value="#{pastTrip.actualArrivalTime}">  
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>  
+                        </p:column>
+                        <p:column headerText="#{msgs.status}"
+                                  style="width:20%"
+                                  filterBy="#{langBean.isEnglish?pastTrip.statusEn:pastTrip.statusAr}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{langBean.isEnglish?pastTrip.statusEn:pastTrip.statusAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?pastTrip.statusEn:pastTrip.statusAr}"/>  
+                        </p:column>
+                    </p:dataTable>
+
+                </h:form>
+               
+            </ui:decorate>
+            
+        </div>
+    </h:body>
+</html>

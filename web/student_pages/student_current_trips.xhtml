@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">-->
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>student current trips</title>
+    </h:head>
+    <h:body>
+        <div>
+            <ui:decorate template="/app_templates/app_template.xhtml">
+                <h:form id="student_trips_info_form">
+                    <p:dataTable 
+                           id="student_trips_info_tbl"
+                           value = "#{studentTripsBean.studentTripsArray}"
+                           selection="#{studentTripsBean.selectedTrip}"
+                           rowKey="#{studentTrip.tripId}"  
+                           class = "dataTable"
+                           var="studentTrip"
+                           rows="5"
+                           rowsPerPageTemplate="5,10,20"
+                           dir="#{langBean.dir}"
+                           emptyMessage="#{msgs.no_trips}"
+                           paginator="true"
+                           paginatorPosition="top" 
+                           paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
+                           >
+                        <p:ajax event="rowSelectRadio"
+                                update=":student_trips_info_form:student_trips_info_tbl"/>  
+
+                        <f:facet name="header" id="header">
+                           student current trips
+                        </f:facet> 
+                        <p:column selectionMode="single" style="width:5%"/>
+
+                        <p:column headerText="#{msgs.route_code}"
+                                  style="width:20%"
+                                  filterBy="#{studentTrip.routeCode}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{studentTrip.routeCode}">                    
+                            <h:outputText value="#{studentTrip.routeCode}"/>  
+                        </p:column>
+                       
+                         <p:column headerText="#{msgs.bus_license_number}"
+                                  style="width:20%"
+                                  filterBy="#{studentTrip.licenseNumber}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{studentTrip.licenseNumber}">                    
+                            <h:outputText value="#{studentTrip.licenseNumber}"/>  
+                        </p:column>
+                          <p:column headerText="#{msgs.driver_name}"
+                                  style="width:20%"
+                                  filterBy="#{langBean.isEnglish?studentTrip.driverNameEn:studentTrip.driverNameAr}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{langBean.isEnglish?studentTrip.driverNameEn:studentTrip.driverNameAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?studentTrip.driverNameEn:studentTrip.driverNameAr}"/>  
+                        </p:column>
+                        <p:column headerText="#{msgs.source}"
+                                  style="width:20%"
+                                  filterBy="#{langBean.isEnglish?studentTrip.sourceEn:studentTrip.sourceAr}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{langBean.isEnglish?studentTrip.sourceEn:studentTrip.sourceAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?studentTrip.sourceEn:studentTrip.sourceAr}"/>  
+                        </p:column>
+
+                        <p:column headerText="#{msgs.destination}"
+                                  style="width:20%"
+                                  filterBy="#{langBean.isEnglish?studentTrip.destinationEn:studentTrip.destinationAr}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{langBean.isEnglish?studentTrip.destinationEn:studentTrip.destinationAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?studentTrip.destinationEn:studentTrip.destinationAr}"/>  
+                        </p:column>
+
+                        <p:column headerText="#{msgs.departure_time}"
+                                  style="width:20%"
+                                  filterBy="#{studentTrip.departureTime}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{studentTrip.departureTime}">
+                            <h:outputText value="#{studentTrip.departureTime}">  
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>
+
+                        </p:column>
+
+                        <p:column headerText="#{msgs.arrival_time}"
+                                  style="width:20%"
+                                  filterBy="#{studentTrip.arrivalTime}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{studentTrip.arrivalTime}">                    
+                            <h:outputText value="#{studentTrip.arrivalTime}">  
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>  
+                        </p:column>
+                        <p:column headerText="#{msgs.actual_departure_time}"
+                                  style="width:20%"
+                                  filterBy="#{studentTrip.actualDepartureTime}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{studentTrip.actualDepartureTime}">
+                            <h:outputText value="#{studentTrip.actualDepartureTime}">  
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>
+
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:toolbar style="border: none">
+                                <p:toolbarGroup align="#{languageBean.screenLeft}">
+                                    <p:commandButton value="Track Trip"
+                                                     ajax="false"
+                                                     iconPos="#{langBean.styleFloat}"
+                                                     styleClass="commandButton"
+                                                     style="float:#{langBean.styleFloat}"
+                                                     disabled="#{studentTripsBean.selectedTrip==null}"
+                                                     onclick="return confirm('#{msgs.confirm_start_trip}');"
+                                                     actionListener="#{studentTripsBean.saveSelectedTripId()}"
+                                                     action="#{sessionBean.navigateStudentTripTrackMap()}"/>
+                                </p:toolbarGroup>
+                            </p:toolbar>
+                        </f:facet>
+                    </p:dataTable>
+
+                </h:form>
+               
+            </ui:decorate>
+            
+        </div>
+    </h:body>
+</html>
