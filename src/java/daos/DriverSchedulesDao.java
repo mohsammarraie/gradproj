@@ -4,25 +4,22 @@
  * and open the template in the editor.
  */
 package daos;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import models.DriverSchedules;
+import models.DriverSchedule;
+
 /**
  *
  * @author MOH
  */
 public class DriverSchedulesDao extends ConnectionDao {
-    
-    public ArrayList<DriverSchedules> buildDriverSchedules(int driverId) throws Exception {
-        ArrayList<DriverSchedules> list = new ArrayList<>();
+
+    public ArrayList<DriverSchedule> buildDriverSchedules(int driverId) throws Exception {
+        ArrayList<DriverSchedule> list = new ArrayList<>();
         Connection conn = getConnection();
 
         try {
@@ -48,11 +45,11 @@ public class DriverSchedulesDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-      
-    private DriverSchedules populateDriverSchedules(ResultSet rs) throws SQLException {
-        
-        DriverSchedules driverSchedule = new DriverSchedules();
-        
+
+    private DriverSchedule populateDriverSchedules(ResultSet rs) throws SQLException {
+
+        DriverSchedule driverSchedule = new DriverSchedule();
+
         driverSchedule.setDepartureTime(rs.getTimestamp("DEPARTURE_TIME"));
         driverSchedule.setArrivalTime(rs.getTimestamp("ARRIVAL_TIME"));
         driverSchedule.setBusId(rs.getInt("BUS_ID"));
@@ -64,13 +61,12 @@ public class DriverSchedulesDao extends ConnectionDao {
         driverSchedule.setRouteCode(rs.getString("ROUTE_CODE"));
         driverSchedule.setDriverId(rs.getInt("DRIVER_ID"));
         driverSchedule.setRouteId(rs.getInt("ROUTE_ID"));
-        
+
         //implemented from concat routeId, scheduleId, busId to be used as a unique value (to make a unique row)
-        String aa= ""+ driverSchedule.getRouteId() + driverSchedule.getScheduleId() + driverSchedule.getBusId();
+        String aa = "" + driverSchedule.getRouteId() + driverSchedule.getScheduleId() + driverSchedule.getBusId();
         driverSchedule.setDriverRouteScheduleId(Integer.parseInt(aa));
-        
-        
+
         return driverSchedule;
-        }  
-    
+    }
+
 }

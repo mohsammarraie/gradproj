@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package beans;
+
 import daos.DriversDao;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -12,14 +13,15 @@ import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.Drivers;
+import models.Driver;
+
 /**
  *
  * @author MOH
  */
 @Named(value = "addEditDriverBean")
 @ViewScoped
-public class AddEditDriverBean implements Serializable{
+public class AddEditDriverBean implements Serializable {
 
     private final DriversDao driverDao = new DriversDao();
 
@@ -31,25 +33,24 @@ public class AddEditDriverBean implements Serializable{
     private String phoneNumber;
     private String nationalId;
 
-        @Inject
+    @Inject
     private SessionBean sessionBean;
-    
-    public AddEditDriverBean() {        
+
+    public AddEditDriverBean() {
     }
-        
+
     @PostConstruct
-    public void init(){                
+    public void init() {
         try {
             driverId = sessionBean.getSelectedDriverId();
-         
-            
-            if(driverId > 0){
-                Drivers driversArray = driverDao.getDrivers(driverId);
-           
+
+            if (driverId > 0) {
+                Driver driversArray = driverDao.getDrivers(driverId);
+
                 firstNameEn = driversArray.getFirstNameEn();
                 firstNameAr = driversArray.getFirstNameAr();
-                lastNameEn =  driversArray.getLastNameEn();
-                lastNameAr =  driversArray.getLastNameAr();
+                lastNameEn = driversArray.getLastNameEn();
+                lastNameAr = driversArray.getLastNameAr();
                 phoneNumber = driversArray.getPhoneNumber();
                 nationalId = driversArray.getNationalId();
             }
@@ -65,7 +66,7 @@ public class AddEditDriverBean implements Serializable{
     public void setNationalId(String nationalId) {
         this.nationalId = nationalId;
     }
-    
+
     public int getDriverId() {
         return driverId;
     }
@@ -114,10 +115,10 @@ public class AddEditDriverBean implements Serializable{
         this.phoneNumber = phoneNumber;
     }
 
-        public void saveDriver() {
+    public void saveDriver() {
         try {
-        
-            Drivers drivers = new Drivers();
+
+            Driver drivers = new Driver();
             drivers.setDriverId(driverId);
             drivers.setFirstNameEn(firstNameEn);
             drivers.setFirstNameAr(firstNameAr);
@@ -125,7 +126,7 @@ public class AddEditDriverBean implements Serializable{
             drivers.setLastNameAr(lastNameAr);
             drivers.setPhoneNumber(phoneNumber);
             drivers.setNationalId(nationalId);
-            
+
             if (sessionBean.getSelectedDriverId() > 0) {
                 driverDao.updateDriver(drivers);
             } else {
@@ -135,7 +136,7 @@ public class AddEditDriverBean implements Serializable{
             Logger.getLogger(AddEditDriverBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-       sessionBean.navigateManageDrivers();
+        sessionBean.navigateManageDrivers();
     }
-    
+
 }

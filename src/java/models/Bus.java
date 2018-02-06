@@ -4,15 +4,15 @@
  * and open the template in the editor.
  */
 package models;
+
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 /**
  *
  * @author MOH
  */
-public class Buses implements Serializable {
-    
+public class Bus implements Serializable {
+
     private int busId;
     private int chasisNumber;
     private String licenseNumber;
@@ -37,8 +37,7 @@ public class Buses implements Serializable {
     public void setDriverNameAr(String driverNameAr) {
         this.driverNameAr = driverNameAr;
     }
-    
-    
+
     public int getModel() {
         return model;
     }
@@ -54,8 +53,7 @@ public class Buses implements Serializable {
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
     }
-    
-    
+
     public int getBusId() {
         return busId;
     }
@@ -88,5 +86,4 @@ public class Buses implements Serializable {
         this.capacity = capacity;
     }
 
-    
 }

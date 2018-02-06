@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package beans;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -11,58 +12,55 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.DriverSchedules;
-import javax.faces.application.FacesMessage;
 import javax.inject.Named;
-import org.primefaces.context.RequestContext;
 import daos.StudentTripsDao;
-import models.StudentTrips;
+import models.StudentTrip;
+
 /**
  *
  * @author MOH
  */
 @Named(value = "studentTripsBean")
 @ViewScoped
-public class StudentTripsBean implements Serializable{
-    
+public class StudentTripsBean implements Serializable {
+
     private final StudentTripsDao studentTripsDao = new StudentTripsDao();
-    private ArrayList<StudentTrips> studentTripsArray; 
-    private StudentTrips selectedTrip;
-    
-     @Inject 
+    private ArrayList<StudentTrip> studentTripsArray;
+    private StudentTrip selectedTrip;
+
+    @Inject
     private SessionBean sessionBean;
-     
-        @PostConstruct
-        public void init(){
-            try {  
-              
-                
-                studentTripsArray = studentTripsDao.buildStudentTrips();
-        
-            } catch (Exception ex) {
-                Logger.getLogger(StudentTripsBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+    @PostConstruct
+    public void init() {
+        try {
+
+            studentTripsArray = studentTripsDao.buildStudentTrips();
+
+        } catch (Exception ex) {
+            Logger.getLogger(StudentTripsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    public ArrayList<StudentTrips> getStudentTripsArray() {
+    }
+
+    public ArrayList<StudentTrip> getStudentTripsArray() {
         return studentTripsArray;
     }
 
-    public void setStudentTripsArray(ArrayList<StudentTrips> studentTripsArray) {
+    public void setStudentTripsArray(ArrayList<StudentTrip> studentTripsArray) {
         this.studentTripsArray = studentTripsArray;
     }
 
-    public StudentTrips getSelectedTrip() {
+    public StudentTrip getSelectedTrip() {
         return selectedTrip;
     }
 
-    public void setSelectedTrip(StudentTrips selectedTrip) {
+    public void setSelectedTrip(StudentTrip selectedTrip) {
         this.selectedTrip = selectedTrip;
     }
-    public void saveSelectedTripId(){
+
+    public void saveSelectedTripId() {
         sessionBean.setSelectedTripId(selectedTrip.getTripId());
 
     }
-   
-    
+
 }

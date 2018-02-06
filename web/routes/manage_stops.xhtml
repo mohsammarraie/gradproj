@@ -20,80 +20,80 @@ and open the template in the editor.
             <ui:decorate template="/app_templates/app_template.xhtml">
                 <h:form id="stops_info_form">
                     <p:dataTable 
-                           id="stops_info_tbl"
-                           value = "#{manageStopsBean.stopsArray}"
-                           selection="#{manageStopsBean.selectedStop}"
-                           rowKey="#{stopsArray.stopId}"  
-                           class = "dataTable"
-                           var="stopsArray"
-                           rows="10"
-                           rowsPerPageTemplate="10,20,50"
-                           dir="#{langBean.dir}"
-                           emptyMessage="#{msgs.no_stops}"
-                           paginator="true"
-                           paginatorPosition="top" 
-                           paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
-                             >
-                            <p:ajax event="rowSelectRadio"
-                              update=":stops_info_form:stops_info_tbl"/>  
+                        id="stops_info_tbl"
+                        value = "#{manageStopsBean.stopsArray}"
+                        selection="#{manageStopsBean.selectedStop}"
+                        rowKey="#{stopsArray.stopId}"  
+                        class = "dataTable"
+                        var="stopsArray"
+                        rows="10"
+                        rowsPerPageTemplate="10,20,50"
+                        dir="#{langBean.dir}"
+                        emptyMessage="#{msgs.no_stops}"
+                        paginator="true"
+                        paginatorPosition="top" 
+                        paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
+                        >
+                        <p:ajax event="rowSelectRadio"
+                                update=":stops_info_form:stops_info_tbl"/>  
 
-                            <f:facet name="header" id="header">
-                                #{msgs.manage_stops}
-                            </f:facet> 
-                            
-                            <p:column selectionMode="single" style="width:5%"/>
-                    
-                            <p:column headerText="#{msgs.stop_id}"
-                                      style="width:15%"
-                                      filterBy="#{stopsArray.stopId}}"
-                                      filterMatchMode="contains"
-                                      sortBy="#{stopsArray.stopId}">                    
-                                <h:outputText value="#{stopsArray.stopId}"/>  
-                            </p:column>
+                        <f:facet name="header" id="header">
+                            #{msgs.manage_stops}
+                        </f:facet> 
 
-                            
-                            <p:column headerText="#{msgs.stop_name}"
-                                style="width:20%"
-                                filterBy="#{langBean.isEnglish?stopsArray.stopNameEn:stopsArray.stopNameAr}"
-                                filterMatchMode="contains"
-                                sortBy="#{langBean.isEnglish?stopsArray.stopNameEn:stopsArray.stopNameAr}">                    
-                                <h:outputText value="#{langBean.isEnglish?stopsArray.stopNameEn:stopsArray.stopNameAr}"/>  
-                            </p:column>
-                            
-                            <f:facet name="footer">
-                                <p:toolbar style="border: none">
-                                    <p:toolbarGroup align="#{languageBean.screenLeft}">
-                                        <p:commandButton value="#{msgs.delete}"
-                                                 icon="ui-icon-minus"                                  
-                                                 iconPos="#{langBean.styleFloat}"
-                                                 styleClass="commandButton"
-                                                 style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{manageStopsBean.selectedStop==null}"
-                                                 onclick="return confirm('#{msgs.confirm_delete_stop}?');"
-                                                 actionListener="#{manageStopsBean.deleteSelectedStop()}" />
-                                        <p:commandButton value="#{msgs.edit}"
-                                                 icon="ui-icon-pencil"                                  
-                                                 iconPos="#{langBean.styleFloat}"
-                                                 styleClass="commandButton"
-                                                 style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{manageStopsBean.selectedStop==null}"                                                 
-                                                 actionListener="#{manageStopsBean.saveSelectedStopId()}"
-                                                 action="#{sessionBean.navigateAddEditStop()}" />
-                                    </p:toolbarGroup>
-                                </p:toolbar>
-                            </f:facet>
-                        </p:dataTable>
-                      <p:commandButton value="#{msgs.add}"
-                                 icon="ui-icon-plus"                                  
-                                 iconPos="#{langBean.styleFloat}"
-                                 styleClass="commandButton"
-                                 style="float:#{langBean.styleFloat}" 
-                                 actionListener="#{sessionBean.setSelectedStopId(-1)}"
-                                 action="#{sessionBean.navigateAddEditStop()}" /> 
+                        <p:column selectionMode="single" style="width:5%"/>
+
+                        <p:column headerText="#{msgs.stop_id}"
+                                  style="width:15%"
+                                  filterBy="#{stopsArray.stopId}}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{stopsArray.stopId}">                    
+                            <h:outputText value="#{stopsArray.stopId}"/>  
+                        </p:column>
+
+
+                        <p:column headerText="#{msgs.stop_name}"
+                                  style="width:20%"
+                                  filterBy="#{langBean.isEnglish?stopsArray.stopNameEn:stopsArray.stopNameAr}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{langBean.isEnglish?stopsArray.stopNameEn:stopsArray.stopNameAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?stopsArray.stopNameEn:stopsArray.stopNameAr}"/>  
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:toolbar style="border: none">
+                                <p:toolbarGroup align="#{languageBean.screenLeft}">
+                                    <p:commandButton value="#{msgs.delete}"
+                                                     icon="ui-icon-minus"                                  
+                                                     iconPos="#{langBean.styleFloat}"
+                                                     styleClass="commandButton"
+                                                     style="float:#{langBean.styleFloat}"                                                                                                
+                                                     disabled="#{manageStopsBean.selectedStop==null}"
+                                                     onclick="return confirm('#{msgs.confirm_delete_stop}?');"
+                                                     actionListener="#{manageStopsBean.deleteSelectedStop()}" />
+                                    <p:commandButton value="#{msgs.edit}"
+                                                     icon="ui-icon-pencil"                                  
+                                                     iconPos="#{langBean.styleFloat}"
+                                                     styleClass="commandButton"
+                                                     style="float:#{langBean.styleFloat}"                                                                                                
+                                                     disabled="#{manageStopsBean.selectedStop==null}"                                                 
+                                                     actionListener="#{manageStopsBean.saveSelectedStopId()}"
+                                                     action="#{sessionBean.navigateAddEditStop()}" />
+                                </p:toolbarGroup>
+                            </p:toolbar>
+                        </f:facet>
+                    </p:dataTable>
+                    <p:commandButton value="#{msgs.add}"
+                                     icon="ui-icon-plus"                                  
+                                     iconPos="#{langBean.styleFloat}"
+                                     styleClass="commandButton"
+                                     style="float:#{langBean.styleFloat}" 
+                                     actionListener="#{sessionBean.setSelectedStopId(-1)}"
+                                     action="#{sessionBean.navigateAddEditStop()}" /> 
                 </h:form>
-               
+
             </ui:decorate>
-            
+
         </div>
     </h:body>
 </html>

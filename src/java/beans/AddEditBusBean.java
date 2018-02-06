@@ -4,29 +4,25 @@
  * and open the template in the editor.
  */
 package beans;
-import daos.DriversDao;
+
 import daos.BusesDao;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.Buses;
-import models.Drivers;
-import java.sql.Timestamp;
-import java.util.Date;
+import models.Bus;
 
 /**
  *
  * @author MOH
  */
-
 @Named(value = "addEditBusBean")
 @ViewScoped
-public class AddEditBusBean implements Serializable{
+public class AddEditBusBean implements Serializable {
+
     private final BusesDao busesDao = new BusesDao();
     private int busId;
     private String licenseNumber;
@@ -34,22 +30,21 @@ public class AddEditBusBean implements Serializable{
     private int capacity;
     private int model;
     private String manufacturer;
-    
-        @Inject
+
+    @Inject
     private SessionBean sessionBean;
-    
-    public AddEditBusBean() {        
+
+    public AddEditBusBean() {
     }
-        
+
     @PostConstruct
-    public void init(){                
+    public void init() {
         try {
             busId = sessionBean.getSelectedBusId();
-         
-            
-            if(busId > 0){
-                Buses busesArray = busesDao.getBuses(busId);
-                chasisNumber= busesArray.getChasisNumber();
+
+            if (busId > 0) {
+                Bus busesArray = busesDao.getBuses(busId);
+                chasisNumber = busesArray.getChasisNumber();
                 licenseNumber = busesArray.getLicenseNumber();
                 capacity = busesArray.getCapacity();
                 manufacturer = busesArray.getManufacturer();
@@ -75,9 +70,7 @@ public class AddEditBusBean implements Serializable{
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
     }
-    
- 
-    
+
     public String getLicenseNumber() {
         return licenseNumber;
     }
@@ -101,11 +94,11 @@ public class AddEditBusBean implements Serializable{
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
-    
-        public void saveBus() {
+
+    public void saveBus() {
         try {
-            
-            Buses buses = new Buses();
+
+            Bus buses = new Bus();
             buses.setBusId(busId);
             buses.setLicenseNumber(licenseNumber);
             buses.setCapacity(capacity);
@@ -123,5 +116,5 @@ public class AddEditBusBean implements Serializable{
 
         sessionBean.navigateManageBuses();
     }
-    
+
 }

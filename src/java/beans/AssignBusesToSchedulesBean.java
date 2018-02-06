@@ -4,9 +4,8 @@
  * and open the template in the editor.
  */
 package beans;
-import daos.BusesDao;
+
 import daos.BusesSchedulesDao;
-import daos.RouteSchedulesDao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -16,69 +15,67 @@ import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.BusesSchedules;
-import models.Buses;
+import models.BusSchedule;
 import org.primefaces.context.RequestContext;
+
 /**
  *
  * @author MOH
  */
 @Named(value = "assignBusToScheduleBean")
 @ViewScoped
-public class AssignBusesToSchedulesBean implements Serializable{
-    
-    private ArrayList<BusesSchedules> busesSchedulesArray;
-    private ArrayList<BusesSchedules> availableBusesArray;
+public class AssignBusesToSchedulesBean implements Serializable {
+
+    private ArrayList<BusSchedule> busesSchedulesArray;
+    private ArrayList<BusSchedule> availableBusesArray;
     private int busId;
     private int routeId;
     private int scheduleId;
     private String assignedBus;
-    BusesSchedules busesSchedules= new BusesSchedules();
+    BusSchedule busesSchedules = new BusSchedule();
     private final BusesSchedulesDao busesSchedulesDao = new BusesSchedulesDao();
-    
+
     String error_message_header = "";
     String error_message_content = "";
-    
-     @Inject
+
+    @Inject
     private SessionBean sessionBean;
 
     public AssignBusesToSchedulesBean() {
     }
-     
-       @PostConstruct
+
+    @PostConstruct
     public void init() {
         try {
             busesSchedulesArray = busesSchedulesDao.buildBusesSchedules();
             availableBusesArray = busesSchedulesDao.buildAvailableBuses();
             routeId = sessionBean.getSelectedRouteId();
-            scheduleId= sessionBean.getSelectedScheduleId();
-           
-            
-            if(scheduleId>0){
-                busesSchedules =busesSchedulesDao.getBusesSchedules(routeId, scheduleId);
-                busId=busesSchedules.getBusId();
+            scheduleId = sessionBean.getSelectedScheduleId();
+
+            if (scheduleId > 0) {
+                busesSchedules = busesSchedulesDao.getBusesSchedules(routeId, scheduleId);
+                busId = busesSchedules.getBusId();
                 assignedBus = busesSchedules.getAssignedBus();
             }
-            
+
         } catch (Exception ex) {
             Logger.getLogger(AssignBusesToSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public ArrayList<BusesSchedules> getAvailableBusesArray() {
+    public ArrayList<BusSchedule> getAvailableBusesArray() {
         return availableBusesArray;
     }
 
-    public void setAvailableBusesArray(ArrayList<BusesSchedules> availableBusesArray) {
+    public void setAvailableBusesArray(ArrayList<BusSchedule> availableBusesArray) {
         this.availableBusesArray = availableBusesArray;
     }
-    
 
-    public ArrayList<BusesSchedules> getBusesSchedulesArray() {
+    public ArrayList<BusSchedule> getBusesSchedulesArray() {
         return busesSchedulesArray;
     }
 
-    public void setBusesSchedulesArray(ArrayList<BusesSchedules> busesSchedulesArray) {
+    public void setBusesSchedulesArray(ArrayList<BusSchedule> busesSchedulesArray) {
         this.busesSchedulesArray = busesSchedulesArray;
     }
 
@@ -89,7 +86,6 @@ public class AssignBusesToSchedulesBean implements Serializable{
     public void setScheduleId(int scheduleId) {
         this.scheduleId = scheduleId;
     }
-    
 
     public int getRouteId() {
         return routeId;
@@ -114,13 +110,12 @@ public class AssignBusesToSchedulesBean implements Serializable{
     public void setAssignedBus(String assignedBus) {
         this.assignedBus = assignedBus;
     }
-    
- 
+
     public boolean setFlag() {
         int i;
         boolean flag = false;
         for (i = 0; i < busesSchedulesArray.size(); i++) {
-            if (scheduleId == busesSchedulesArray.get(i).getScheduleId() && routeId ==busesSchedulesArray.get(i).getRouteId()) {
+            if (scheduleId == busesSchedulesArray.get(i).getScheduleId() && routeId == busesSchedulesArray.get(i).getRouteId()) {
                 flag = true;
                 break;
             } else {
@@ -131,11 +126,11 @@ public class AssignBusesToSchedulesBean implements Serializable{
     }
 
     // to display driver name and national id in manage buses table.
-    public String displayBusesSchedules (int busesArrayrouteId, int busesArrayscheduleId, int x) {
+    public String displayBusesSchedules(int busesArrayrouteId, int busesArrayscheduleId, int x) {
         int i;
         boolean flag = false;
         for (i = 0; i < busesSchedulesArray.size(); i++) {
-            if (busesArrayscheduleId == busesSchedulesArray.get(i).getScheduleId() && busesArrayrouteId==busesSchedulesArray.get(i).getRouteId()) {
+            if (busesArrayscheduleId == busesSchedulesArray.get(i).getScheduleId() && busesArrayrouteId == busesSchedulesArray.get(i).getRouteId()) {
                 flag = true;
                 break;
             } else {
@@ -143,9 +138,9 @@ public class AssignBusesToSchedulesBean implements Serializable{
             }
         }
         if (flag) {
-            
-                return busesSchedulesArray.get(i).getAssignedBus();
-           
+
+            return busesSchedulesArray.get(i).getAssignedBus();
+
         } else {
             if (x == 1) {
                 return "Not Assigned";
@@ -157,27 +152,25 @@ public class AssignBusesToSchedulesBean implements Serializable{
 
     }
 
-        public void saveBusSchedule() {
+    public void saveBusSchedule() {
         try {
-    
+
             if (setFlag()) {
                 busesSchedulesDao.updateBusSchedule(busId, routeId, scheduleId);
             } else {
                 busesSchedulesDao.insertBusSchedule(busId, routeId, scheduleId);
-            }    
+            }
 
             sessionBean.navigateManageRouteSchedules();
         } catch (Exception ex) {
-            
 
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
-            
+
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(AssignBusesToSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    } 
-    
-    
+
+    }
+
 }

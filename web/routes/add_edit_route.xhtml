@@ -19,12 +19,12 @@ and open the template in the editor.
 
                 <p:panel header="#{msgs.add_edit_route}"                            
                          style="min-height:400px; 
-                                direction:#{langBean.dir};margin-top:10px; font-size:10pt">
+                         direction:#{langBean.dir};margin-top:10px; font-size:10pt">
                     <h:panelGrid id="add"
                                  style="float: #{langBean.styleFloat};" 
                                  columns="3"                              
                                  dir="#{langBean.dir}">
-                        
+
                         <p:outputLabel value="#{msgs.source_en}:" for="source_en"/>
                         <p:inputText id="source_en"
                                      value="#{addEditRouteBean.sourceEn}"
@@ -35,7 +35,7 @@ and open the template in the editor.
                             <f:validateRegex pattern="[\(\)]*[0-9]?[a-zA-Z]+[\-\'\s\a-zA-Z]+[\(\)]*[a-zA-Z]$"/>
                         </p:inputText>
                         <h:message for="source_en" styleClass="errorMsg"/>
-                           
+
                         <p:outputLabel value="#{msgs.source_ar}:" for="source_ar"/>
                         <p:inputText id="source_ar"
                                      value="#{addEditRouteBean.sourceAr}"
@@ -47,7 +47,7 @@ and open the template in the editor.
                             <f:validateRegex pattern="[\(\)]*[\s\أ\ئ\ؤ\ء\ا-ي]+[\(\)]*[\s\أ\ئ\ؤ\ء\ا-ي]+[\أ\ئ\ؤ\ء\ا-ي]$"/>
                         </p:inputText>
                         <h:message for="source_ar" styleClass="errorMsg"/>
-                        
+
                         <p:outputLabel value="#{msgs.destination_en}:" for="destination_en"/>
                         <p:inputText id="destination_en"
                                      value="#{addEditRouteBean.destinationEn}"
@@ -58,7 +58,7 @@ and open the template in the editor.
                             <f:validateRegex pattern="[\(\)]*[0-9]?[a-zA-Z]+[\-\'\s\a-zA-Z]+[\(\)]*[a-zA-Z]$"/>
                         </p:inputText>
                         <h:message for="destination_en" styleClass="errorMsg"/>
-                        
+
                         <p:outputLabel value="#{msgs.destination_ar}:" for="destination_ar"/>
                         <p:inputText id="destination_ar"
                                      value="#{addEditRouteBean.destinationAr}"
@@ -70,7 +70,7 @@ and open the template in the editor.
                             <f:validateRegex pattern="[\(\)]*[\s\أ\ئ\ؤ\ء\ا-ي]+[\(\)]*[\s\أ\ئ\ؤ\ء\ا-ي]+[\أ\ئ\ؤ\ء\ا-ي]$"/>
                         </p:inputText>
                         <h:message for="destination_ar" styleClass="errorMsg"/>
-                        
+
                         <p:outputLabel value="#{msgs.route_code}:" for="route_code"/>
                         <p:inputText id="route_code"
                                      value="#{addEditRouteBean.routeCode}"
@@ -80,16 +80,16 @@ and open the template in the editor.
                                      requiredMessage=" #{msgs.required_msg}">                          
                         </p:inputText>
                         <h:message for="destination_ar" styleClass="errorMsg"/>
-                        
+
                         <p:outputLabel value="#{msgs.active}:" for="msg_checked"/>
                         <p:column  style="width:5%">
-                                <p:growl id="msg_checked" />
-                                <p:selectBooleanCheckbox value="#{addEditRouteBean.checkBoxValue}">
-                                    <p:ajax update="msg_checked" listener="#{addEditRouteBean.addActive}" />
-                                </p:selectBooleanCheckbox>
+                            <p:growl id="msg_checked" />
+                            <p:selectBooleanCheckbox value="#{addEditRouteBean.checkBoxValue}">
+                                <p:ajax update="msg_checked" listener="#{addEditRouteBean.addActive}" />
+                            </p:selectBooleanCheckbox>
                         </p:column>
-                            
-                                    
+
+
                     </h:panelGrid>
                 </p:panel>
 

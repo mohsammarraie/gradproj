@@ -11,7 +11,8 @@ import java.util.Date;
  *
  * @author MOH
  */
-public class StudentTrips {
+public class StudentTrip {
+
     private int tripId;
     private int scheduleId;
     private int busId;
@@ -31,7 +32,7 @@ public class StudentTrips {
     private String driverNameAr;
     private String statusEn;
     private String statusAr;
-    
+
     private int tripCoordinatesId;
     private String longtitude;
     private String latitude;
@@ -53,8 +54,6 @@ public class StudentTrips {
         this.statusAr = statusAr;
     }
 
-    
-    
     public Date getActualDepartureTime() {
         return actualDepartureTime;
     }
@@ -71,7 +70,6 @@ public class StudentTrips {
         this.actualArrivalTime = actualArrivalTime;
     }
 
-    
     public int getScheduleId() {
         return scheduleId;
     }
@@ -160,8 +158,6 @@ public class StudentTrips {
         this.arrivalTime = arrivalTime;
     }
 
- 
-
     public String getLicenseNumber() {
         return licenseNumber;
     }
@@ -225,6 +221,5 @@ public class StudentTrips {
     public void setTimeTag(Date timeTag) {
         this.timeTag = timeTag;
     }
-    
-    
+
 }

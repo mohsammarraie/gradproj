@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package beans;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -11,48 +12,44 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.DriverSchedules;
-import javax.faces.application.FacesMessage;
 import javax.inject.Named;
-import org.primefaces.context.RequestContext;
 import daos.StudentTripsDao;
-import models.Stops;
-import models.StudentTrips;
+import models.Stop;
+import models.StudentTrip;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
-import org.primefaces.model.map.Polygon;
+
 /**
  *
  * @author MOH
  */
 @Named(value = "studentMapBean")
 @ViewScoped
-public class StudentMapBean implements Serializable{
-    
+public class StudentMapBean implements Serializable {
+
     private final StudentTripsDao studentTripsDao = new StudentTripsDao();
-    private ArrayList<Stops>studentRouteSchedulesStopsArray;
-    private ArrayList<StudentTrips>studentTrackMapArray;
+    private ArrayList<Stop> studentRouteSchedulesStopsArray;
+    private ArrayList<StudentTrip> studentTrackMapArray;
     private MapModel model = new DefaultMapModel();
     private double lat;
     private double lng;
 
-    
-    @Inject 
+    @Inject
     private SessionBean sessionBean;
-    
-         @PostConstruct
-        public void init(){
-            try {  
-                
-                studentRouteSchedulesStopsArray = studentTripsDao.buildStudentRouteStopsSchedules(sessionBean.getSelectedTripId());
-                displayLongLatOnMap();
-        
-            } catch (Exception ex) {
-                Logger.getLogger(StudentMapBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+    @PostConstruct
+    public void init() {
+        try {
+
+            studentRouteSchedulesStopsArray = studentTripsDao.buildStudentRouteStopsSchedules(sessionBean.getSelectedTripId());
+            displayLongLatOnMap();
+
+        } catch (Exception ex) {
+            Logger.getLogger(StudentMapBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
     public double getLat() {
         return lat;
@@ -69,48 +66,44 @@ public class StudentMapBean implements Serializable{
     public void setLng(double lng) {
         this.lng = lng;
     }
-        
-        
-    
-    public ArrayList<Stops> getStudentRouteSchedulesStopsArray() {
+
+    public ArrayList<Stop> getStudentRouteSchedulesStopsArray() {
         return studentRouteSchedulesStopsArray;
     }
 
-    public void setStudentRouteSchedulesStopsArray(ArrayList<Stops> studentRouteSchedulesStopsArray) {
+    public void setStudentRouteSchedulesStopsArray(ArrayList<Stop> studentRouteSchedulesStopsArray) {
         this.studentRouteSchedulesStopsArray = studentRouteSchedulesStopsArray;
     }
 
-    public ArrayList<StudentTrips> getStudentTrackMapArray() {
+    public ArrayList<StudentTrip> getStudentTrackMapArray() {
         return studentTrackMapArray;
     }
 
-    public void setStudentTrackMapArray(ArrayList<StudentTrips> studentTrackMapArray) {
+    public void setStudentTrackMapArray(ArrayList<StudentTrip> studentTrackMapArray) {
         this.studentTrackMapArray = studentTrackMapArray;
     }
-        public MapModel getModel() {
+
+    public MapModel getModel() {
         return this.model;
     }
 
-    
-    public void displayLongLatOnMap(){
+    public void displayLongLatOnMap() {
         try {
             int i;
-             lat = 0;
-             lng = 0;
-            studentTrackMapArray=studentTripsDao.buildStudentTrackMap(sessionBean.getSelectedTripId());
-            for(i=0;i<studentTrackMapArray.size();i++){
+            lat = 0;
+            lng = 0;
+            studentTrackMapArray = studentTripsDao.buildStudentTrackMap(sessionBean.getSelectedTripId());
+            for (i = 0; i < studentTrackMapArray.size(); i++) {
                 lat = Double.parseDouble(studentTrackMapArray.get(i).getLatitude());
                 lng = Double.parseDouble(studentTrackMapArray.get(i).getLongtitude());
             }
-            
+
             model.addOverlay(new Marker(new LatLng(lat, lng), ""));
- 
+
         } catch (Exception ex) {
             Logger.getLogger(StudentMapBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
+
     }
-    
-    
-    
+
 }

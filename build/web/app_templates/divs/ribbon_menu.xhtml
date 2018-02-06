@@ -8,7 +8,7 @@
         <p:ribbon activeIndex="#{sessionBean.menuIndex}">                        
 
 
-             <p:tab title="#{msgs.admin}">  
+            <p:tab title="#{msgs.admin}">  
                 <p:ribbonGroup styleClass="ribbonGroup"
                                style="float:#{langBean.styleFloat};">
                     <p:commandButton  value="#{msgs.manage_buses}" 
@@ -17,49 +17,42 @@
                                       actionListener="#{sessionBean.setMenuIndex(0)}"
                                       action="#{sessionBean.navigateManageBuses()}">                       
                     </p:commandButton>
-                    
-                     <p:commandButton  value="#{msgs.manage_drivers}" 
+
+                    <p:commandButton  value="#{msgs.manage_drivers}" 
                                       styleClass="ribbonButton" 
                                       style="float:#{langBean.styleFloat};"
                                       actionListener="#{sessionBean.setMenuIndex(0)}"
                                       action="#{sessionBean.navigateManageDrivers()}">                       
                     </p:commandButton>
-                    
+
                     <p:commandButton  value="#{msgs.manage_students}" 
                                       styleClass="ribbonButton" 
                                       style="float:#{langBean.styleFloat};"
                                       actionListener="#{sessionBean.setMenuIndex(0)}"
                                       action="#{sessionBean.navigateManageStudents()}">                       
                     </p:commandButton>
-                  
-                    
-                      <p:commandButton  value="#{msgs.manage_routes}" 
+
+
+                    <p:commandButton  value="#{msgs.manage_routes}" 
                                       styleClass="ribbonButton" 
                                       style="float:#{langBean.styleFloat};"
                                       actionListener="#{sessionBean.setMenuIndex(0)}"
                                       action="#{sessionBean.navigateManageRoutes()}">                       
                     </p:commandButton>
-                    
+
                     <p:commandButton  value="#{msgs.manage_stops}" 
                                       styleClass="ribbonButton" 
                                       style="float:#{langBean.styleFloat};"
                                       actionListener="#{sessionBean.setMenuIndex(0)}"
                                       action="#{sessionBean.navigateManageStops()}">                       
                     </p:commandButton>
-                    
-                    <p:commandButton  value="#{msgs.bus_position}" 
-                                      styleClass="ribbonButton" 
-                                      style="float:#{langBean.styleFloat};" 
-                                      actionListener="#{sessionBean.setMenuIndex(0)}"
-                                      action="#{sessionBean.navigateBusPosition()}">                        
-                    </p:commandButton>  
-                    
+
                 </p:ribbonGroup>               
             </p:tab>
             <p:tab title="#{msgs.driver}">  
                 <p:ribbonGroup styleClass="ribbonGroup"
                                style="float:#{langBean.styleFloat};">
-                
+
                     <p:commandButton  value="#{msgs.home}" 
                                       styleClass="ribbonButton" 
                                       style="float:#{langBean.styleFloat};"
@@ -78,32 +71,32 @@
                                       actionListener="#{sessionBean.setMenuIndex(1)}"
                                       action="#{sessionBean.navigateDriverPastTrips()}">                       
                     </p:commandButton>
-                    
-                    
+
+
                 </p:ribbonGroup>
             </p:tab>
-            
-             <p:tab title="#{msgs.student}">  
+
+            <p:tab title="#{msgs.student}">  
                 <p:ribbonGroup styleClass="ribbonGroup"
                                style="float:#{langBean.styleFloat};">
-                
+
                     <p:commandButton  value="#{msgs.home}" 
                                       styleClass="ribbonButton" 
                                       style="float:#{langBean.styleFloat};"
                                       actionListener="#{sessionBean.setMenuIndex(2)}"
                                       action="#{sessionBean.navigateStudentHome()}">                       
                     </p:commandButton>
-                    <p:commandButton  value="current trips" 
+                    <p:commandButton  value="#{msgs.current_trips}" 
                                       styleClass="ribbonButton" 
                                       style="float:#{langBean.styleFloat};"
                                       actionListener="#{sessionBean.setMenuIndex(2)}"
                                       action="#{sessionBean.navigateStudentCurrentTrips()}">                       
                     </p:commandButton>
-                    
-                    
+
+
                 </p:ribbonGroup>
             </p:tab>
- 
+
         </p:ribbon>
     </h:form>
 </ui:composition>

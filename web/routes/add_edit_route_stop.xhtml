@@ -19,13 +19,13 @@ and open the template in the editor.
 
                 <p:panel header="#{msgs.add_edit_route_stop}"                            
                          style="min-height:400px; 
-                                direction:#{langBean.dir};margin-top:10px; font-size:10pt">
+                         direction:#{langBean.dir};margin-top:10px; font-size:10pt">
                     <h:panelGrid id="add"
                                  style="float: #{langBean.styleFloat};" 
                                  columns="3"                              
                                  dir="#{langBean.dir}">
-                   
-                        
+
+
                         <p:outputLabel value="#{msgs.stop_name}:" for="stop_name"/>
                         <p:selectOneMenu value="#{addEditRouteStopBean.routeStopId}"
                                          style="width: 320px;"
@@ -42,7 +42,7 @@ and open the template in the editor.
                                            itemValue="#{stopsInfo.stopId}"/>                             
                         </p:selectOneMenu>
                         <h:message for="stop_name" styleClass="errorMsg"/>   
-                        
+
                         <p:outputLabel value="#{msgs.stop_order}:" for="stop_order"/>
                         <p:inputText id="stop_order"
                                      value="#{addEditRouteStopBean.stopOrder}"

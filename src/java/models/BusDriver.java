@@ -11,15 +11,15 @@ import java.io.Serializable;
  *
  * @author MOH
  */
-public class BusesDrivers implements Serializable{
-    
+public class BusDriver implements Serializable {
+
     private int busId;
     private int chasisNumber;
     private String licenseNumber;
     private int capacity;
     private int model;
     private String manufacturer;
-    
+
     private int driverId;
     private String driverNameEn;
     private String driverNameAr;
@@ -41,8 +41,7 @@ public class BusesDrivers implements Serializable{
     public void setDriverNameAr(String driverNameAr) {
         this.driverNameAr = driverNameAr;
     }
-    
-    
+
     public int getBusId() {
         return busId;
     }
@@ -114,8 +113,5 @@ public class BusesDrivers implements Serializable{
     public void setNationalId(String nationalId) {
         this.nationalId = nationalId;
     }
-    
-    
-    
-    
+
 }

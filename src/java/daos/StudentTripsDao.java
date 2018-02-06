@@ -4,27 +4,23 @@
  * and open the template in the editor.
  */
 package daos;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import models.DriverSchedules;
-import models.Stops;
-import models.StudentTrips;
+import models.Stop;
+import models.StudentTrip;
+
 /**
  *
  * @author MOH
  */
-public class StudentTripsDao extends ConnectionDao{
-    
-       public ArrayList<StudentTrips> buildStudentTrips() throws Exception {
-        ArrayList<StudentTrips> list = new ArrayList<>();
+public class StudentTripsDao extends ConnectionDao {
+
+    public ArrayList<StudentTrip> buildStudentTrips() throws Exception {
+        ArrayList<StudentTrip> list = new ArrayList<>();
         Connection conn = getConnection();
 
         try {
@@ -50,11 +46,11 @@ public class StudentTripsDao extends ConnectionDao{
             throw new SQLException(e.getMessage());
         }
     }
-      
-       private StudentTrips populateStudentTrips(ResultSet rs) throws SQLException {
-        
-        StudentTrips studentTrips = new StudentTrips();
-        
+
+    private StudentTrip populateStudentTrips(ResultSet rs) throws SQLException {
+
+        StudentTrip studentTrips = new StudentTrip();
+
         studentTrips.setDepartureTime(rs.getTimestamp("DEPARTURE_TIME"));
         studentTrips.setArrivalTime(rs.getTimestamp("ARRIVAL_TIME"));
         studentTrips.setActualDepartureTime(rs.getTimestamp("ACTUAL_DEPARTURE_TIME"));
@@ -74,15 +70,14 @@ public class StudentTripsDao extends ConnectionDao{
         studentTrips.setLicenseNumber(rs.getString("LICENSE_NUMBER"));
         studentTrips.setStatusEn(rs.getString("STATUS_EN"));
         studentTrips.setStatusAr(rs.getString("STATUS_AR"));
-        
+
         return studentTrips;
-        }  
-    
-    
-       public ArrayList<Stops> buildStudentRouteStopsSchedules(int tripId) throws Exception {
-        ArrayList<Stops> list = new ArrayList<>();
+    }
+
+    public ArrayList<Stop> buildStudentRouteStopsSchedules(int tripId) throws Exception {
+        ArrayList<Stop> list = new ArrayList<>();
         Connection conn = getConnection();
-        
+
         try {
 
             String sql = "SELECT STOP_NAME_EN,STOP_NAME_AR,BUSES.STOPS.STOP_ID,TIME  FROM"
@@ -99,7 +94,7 @@ public class StudentTripsDao extends ConnectionDao{
                     + " ORDER BY TIME";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, tripId);
-         
+
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -115,9 +110,9 @@ public class StudentTripsDao extends ConnectionDao{
             throw new SQLException(e.getMessage());
         }
     }
-     
-    private Stops populateStudentsRouteScheduleStops(ResultSet rs) throws SQLException {
-        Stops stops = new Stops();
+
+    private Stop populateStudentsRouteScheduleStops(ResultSet rs) throws SQLException {
+        Stop stops = new Stop();
         stops.setTime(rs.getTimestamp("TIME"));
         stops.setStopId(rs.getInt("STOP_ID"));
         stops.setStopNameEn(rs.getString("STOP_NAME_EN"));
@@ -125,8 +120,8 @@ public class StudentTripsDao extends ConnectionDao{
         return stops;
     }
 
-    public ArrayList<StudentTrips> buildStudentTrackMap(int tripId) throws Exception {
-        ArrayList<StudentTrips> list = new ArrayList<>();
+    public ArrayList<StudentTrip> buildStudentTrackMap(int tripId) throws Exception {
+        ArrayList<StudentTrip> list = new ArrayList<>();
         Connection conn = getConnection();
 
         try {
@@ -137,8 +132,7 @@ public class StudentTripsDao extends ConnectionDao{
                     + " AND"
                     + " TIME_TAG=(SELECT max(TIME_TAG)"
                     + " FROM BUSES.TRIPS_COORDINATES"
-                    + " WHERE TRIP_ID=?)"
-          ;
+                    + " WHERE TRIP_ID=?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, tripId);
             ps.setInt(2, tripId);
@@ -158,8 +152,8 @@ public class StudentTripsDao extends ConnectionDao{
         }
     }
 
-    private StudentTrips populateStudentTrackMap(ResultSet rs) throws SQLException {
-        StudentTrips studentTrips = new StudentTrips();
+    private StudentTrip populateStudentTrackMap(ResultSet rs) throws SQLException {
+        StudentTrip studentTrips = new StudentTrip();
 
         studentTrips.setLongtitude(rs.getString("LONGTITUDE"));
         studentTrips.setLatitude(rs.getString("LATITUDE"));
@@ -169,7 +163,5 @@ public class StudentTripsDao extends ConnectionDao{
         return studentTrips;
 
     }
-         
-        
-    
+
 }

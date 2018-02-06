@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package beans;
+
 import daos.BusesDriversDao;
-import daos.DriversDao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -15,72 +15,71 @@ import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.BusesDrivers;
-import models.Drivers;
+import models.BusDriver;
 import org.primefaces.context.RequestContext;
+
 /**
  *
  * @author MOH
  */
 @Named(value = "assignDriverToBusBean")
 @ViewScoped
-public class AssignDriversToBusesBean  implements Serializable{
-    
-    private ArrayList<BusesDrivers> busesDriversArray;
-    private ArrayList<BusesDrivers> availableDriversArray;
+public class AssignDriversToBusesBean implements Serializable {
+
+    private ArrayList<BusDriver> busesDriversArray;
+    private ArrayList<BusDriver> availableDriversArray;
     private int busId;
     private int driverId;
     private String firstNameEn;
     private String firstNameAr;
     private String lastNameEn;
-    private String lastNameAr;  
+    private String lastNameAr;
     private String driverNameEn;
     private String driverNameAr;
 
     String error_message_header = "";
     String error_message_content = "";
-    
+
     BusesDriversDao busesDriversDao = new BusesDriversDao();
-    
+
     @Inject
     private SessionBean sessionBean;
-    
-    public AssignDriversToBusesBean(){        
+
+    public AssignDriversToBusesBean() {
     }
-        
+
     @PostConstruct
-    public void init(){                
+    public void init() {
         try {
             busId = sessionBean.getSelectedBusId();
-            busesDriversArray =busesDriversDao.buildBusesDrivers();
+            busesDriversArray = busesDriversDao.buildBusesDrivers();
             availableDriversArray = busesDriversDao.buildAvailableBusesDrivers();
-            
-            if(busId > 0){
-              BusesDrivers busesDrivers = busesDriversDao.getBusesDrivers(busId);
-              driverId = busesDrivers.getDriverId();
-              driverNameEn = busesDrivers.getDriverNameEn();
-              driverNameAr = busesDrivers.getDriverNameAr();
-              //busesDriversArray =busesDriversDao.buildBusesDrivers();  
+
+            if (busId > 0) {
+                BusDriver busesDrivers = busesDriversDao.getBusesDrivers(busId);
+                driverId = busesDrivers.getDriverId();
+                driverNameEn = busesDrivers.getDriverNameEn();
+                driverNameAr = busesDrivers.getDriverNameAr();
+                //busesDriversArray =busesDriversDao.buildBusesDrivers();  
             }
         } catch (Exception ex) {
             Logger.getLogger(AssignDriversToBusesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public ArrayList<BusesDrivers> getAvailableDriversArray() {
+
+    public ArrayList<BusDriver> getAvailableDriversArray() {
         return availableDriversArray;
     }
 
-    public void setAvailableDriversArray(ArrayList<BusesDrivers> availableDriversArray) {
+    public void setAvailableDriversArray(ArrayList<BusDriver> availableDriversArray) {
         this.availableDriversArray = availableDriversArray;
     }
-    
-    
-    public ArrayList<BusesDrivers> getBusesDriversArray() {
+
+    public ArrayList<BusDriver> getBusesDriversArray() {
         return busesDriversArray;
     }
 
-    public void setBusesDriversArray(ArrayList<BusesDrivers> busesDriversArray) {
+    public void setBusesDriversArray(ArrayList<BusDriver> busesDriversArray) {
         this.busesDriversArray = busesDriversArray;
     }
 
@@ -99,7 +98,7 @@ public class AssignDriversToBusesBean  implements Serializable{
     public void setDriverNameAr(String driverNameAr) {
         this.driverNameAr = driverNameAr;
     }
-    
+
     public int getBusId() {
         return busId;
     }
@@ -147,7 +146,7 @@ public class AssignDriversToBusesBean  implements Serializable{
     public void setLastNameAr(String lastNameAr) {
         this.lastNameAr = lastNameAr;
     }
-    
+
     //cuurently not used
     public boolean setFlag() {
         int i;
@@ -192,39 +191,34 @@ public class AssignDriversToBusesBean  implements Serializable{
         }
 
     }
-    
- 
-    
-        public void saveBusDriver() {
+
+    public void saveBusDriver() {
         try {
             int i;
-            int flag=0;
-            for(i=0;i<busesDriversArray.size();i++){
-                if (busId == busesDriversArray.get(i).getBusId()){
-                    flag=1;
+            int flag = 0;
+            for (i = 0; i < busesDriversArray.size(); i++) {
+                if (busId == busesDriversArray.get(i).getBusId()) {
+                    flag = 1;
                     break;
-                }
-                else{
-                flag=0;
+                } else {
+                    flag = 0;
                 }
             }
-            if (flag==1) {
+            if (flag == 1) {
                 busesDriversDao.updateBusDriver(busId, driverId);
             } else {
                 busesDriversDao.insertBusDriver(busId, driverId);
             }
-             
 
-             sessionBean.navigateManageBuses();
+            sessionBean.navigateManageBuses();
         } catch (Exception ex) {
-            
 
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
-            
+
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(AssignDriversToBusesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    } 
+
+    }
 }

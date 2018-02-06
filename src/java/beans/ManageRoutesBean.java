@@ -12,11 +12,12 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.Routes;
+import models.Route;
 import daos.RoutesDao;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import org.primefaces.context.RequestContext;
+
 /**
  *
  * @author MOH
@@ -24,58 +25,59 @@ import org.primefaces.context.RequestContext;
 @Named(value = "manageRoutesBean")
 @ViewScoped
 public class ManageRoutesBean implements Serializable {
-    
-    private Routes selectedRoute;
+
+    private Route selectedRoute;
     private final RoutesDao routesDao = new RoutesDao();
-    private ArrayList<Routes> routesArray; 
-    @Inject 
+    private ArrayList<Route> routesArray;
+    @Inject
     private SessionBean sessionBean;
     String error_message_header = "Error!";
     String error_message_content = "Please delete all stops and schedules related to this route.";
-    public ManageRoutesBean(){}
-     
-        @PostConstruct
-      public void init(){
-        try {            
+
+    public ManageRoutesBean() {
+    }
+
+    @PostConstruct
+    public void init() {
+        try {
             routesArray = routesDao.buildRoutes();
-         
+
         } catch (Exception ex) {
             Logger.getLogger(ManageRoutesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public Routes getSelectedRoute() {
+    public Route getSelectedRoute() {
         return selectedRoute;
     }
 
-    public void setSelectedRoute(Routes selectedRoute) {
+    public void setSelectedRoute(Route selectedRoute) {
         this.selectedRoute = selectedRoute;
     }
 
-    public ArrayList<Routes> getRoutesArray() {
+    public ArrayList<Route> getRoutesArray() {
         return routesArray;
     }
 
-    public void setRoutesArray(ArrayList<Routes> routesArray) {
+    public void setRoutesArray(ArrayList<Route> routesArray) {
         this.routesArray = routesArray;
     }
 
-
-    public void saveSelectedRouteId(){
-       sessionBean.setSelectedRouteId(selectedRoute.getRouteId());
+    public void saveSelectedRouteId() {
+        sessionBean.setSelectedRouteId(selectedRoute.getRouteId());
     }
-    
-    public void deleteSelectedRoute(){
+
+    public void deleteSelectedRoute() {
         try {
             routesDao.deleteRoute(selectedRoute.getRouteId());
             sessionBean.navigateManageRoutes();
 
         } catch (Exception ex) {
-            
+
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
 
             Logger.getLogger(ManageRoutesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

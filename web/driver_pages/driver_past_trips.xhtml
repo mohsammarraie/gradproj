@@ -20,24 +20,24 @@ and open the template in the editor.
             <ui:decorate template="/app_templates/app_template.xhtml">
                 <h:form id="driver_schedule_info_form">
                     <p:dataTable 
-                           id="driver_schedule_info_tbl"
-                           value = "#{driverPastTripsBean.driverPastTripsArray}"
-                           class = "dataTable"
-                           var="pastTrip"
-                           rows="5"
-                           rowsPerPageTemplate="5,10,20"
-                           dir="#{langBean.dir}"
-                           emptyMessage="#{msgs.no_schedules}"
-                           paginator="true"
-                           paginatorPosition="top" 
-                           paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
-                           >
-      
+                        id="driver_schedule_info_tbl"
+                        value = "#{driverPastTripsBean.driverPastTripsArray}"
+                        class = "dataTable"
+                        var="pastTrip"
+                        rows="5"
+                        rowsPerPageTemplate="5,10,20"
+                        dir="#{langBean.dir}"
+                        emptyMessage="#{msgs.no_schedules}"
+                        paginator="true"
+                        paginatorPosition="top" 
+                        paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
+                        >
+
 
                         <f:facet name="header" id="header">
                             #{msgs.my_past_trips}
                         </f:facet> 
-    
+
 
                         <p:column headerText="#{msgs.route_code}"
                                   style="width:20%"
@@ -82,7 +82,7 @@ and open the template in the editor.
                                 <f:convertDateTime pattern="HH:mm" />
                             </h:outputText>  
                         </p:column>
-                         <p:column headerText="#{msgs.actual_departure_time}"
+                        <p:column headerText="#{msgs.actual_departure_time}"
                                   style="width:20%"
                                   filterBy="#{pastTrip.actualDepartureTime}"
                                   filterMatchMode="contains"
@@ -91,7 +91,7 @@ and open the template in the editor.
                                 <f:convertDateTime pattern="HH:mm" />
                             </h:outputText>  
                         </p:column>
-                          <p:column headerText="#{msgs.actual_arrival_time}"
+                        <p:column headerText="#{msgs.actual_arrival_time}"
                                   style="width:20%"
                                   filterBy="#{pastTrip.actualArrivalTime}"
                                   filterMatchMode="contains"
@@ -110,9 +110,9 @@ and open the template in the editor.
                     </p:dataTable>
 
                 </h:form>
-               
+
             </ui:decorate>
-            
+
         </div>
     </h:body>
 </html>

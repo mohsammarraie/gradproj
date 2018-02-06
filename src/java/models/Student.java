@@ -4,14 +4,15 @@
  * and open the template in the editor.
  */
 package models;
+
 import java.io.Serializable;
 
 /**
  *
  * @author Taha Al-khaffaf
  */
-public class Students implements Serializable {
-    
+public class Student implements Serializable {
+
     private String studentId;
     private String firstNameEn;
     private String lastNameEn;
@@ -58,7 +59,4 @@ public class Students implements Serializable {
         this.lastNameAr = lastNameAr;
     }
 
-
-
-    
 }

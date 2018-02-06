@@ -20,14 +20,14 @@ and open the template in the editor.
 
                 <p:panel header="#{msgs.assign_bus_to_schedule}"                            
                          style="min-height:400px; 
-                                direction:#{langBean.dir};margin-top:10px; font-size:10pt">
+                         direction:#{langBean.dir};margin-top:10px; font-size:10pt">
                     <h:panelGrid id="add"
                                  style="float: #{langBean.styleFloat};" 
                                  columns="3"                              
                                  dir="#{langBean.dir}">
-                        
-                        
-                        
+
+
+
                         <p:outputLabel value="#{msgs.assign_bus}:" for="assign_bus"/>
                         <p:selectOneMenu value="#{assignBusToScheduleBean.busId}"
                                          id="assign_bus"
@@ -35,7 +35,7 @@ and open the template in the editor.
                                          filter="true"
                                          filterMatchMode="contains"   
                                          >
-                                        
+
                             <f:selectItem itemLabel="#{msgs.choose_bus}"
                                           itemValue=""/>
                             <f:selectItems var="bus"
@@ -44,20 +44,16 @@ and open the template in the editor.
                                            itemValue="#{bus.busId}"/>                             
                         </p:selectOneMenu>
                         <h:message for="assign_bus" styleClass="errorMsg"/> 
-                     
-                        
-                         
-                       
-                        
-                            <p:outputLabel for="displayed_bus" value="#{msgs.assigned_bus}:"/>
-                            <h:outputText id="displayed_bus"  value="#{assignBusToScheduleBean.displayBusesSchedules(sessionBean.getSelectedRouteId(),sessionBean.getSelectedScheduleId(),langBean.isEnglish?1:0)}"/>   
 
-                            
-                            
-                   
+                        <p:outputLabel for="displayed_bus" value="#{msgs.assigned_bus}:"/>
+                        <h:outputText id="displayed_bus"  value="#{assignBusToScheduleBean.displayBusesSchedules(sessionBean.getSelectedRouteId(),sessionBean.getSelectedScheduleId(),langBean.isEnglish?1:0)}"/>   
+
+
+
+
                     </h:panelGrid>
                 </p:panel>
-                
+
                 <p:commandButton value="#{msgs.save}"
                                  styleClass="commandButton"
                                  icon="ui-icon-disk"

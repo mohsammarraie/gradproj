@@ -9,8 +9,8 @@ package models;
  *
  * @author MOH
  */
-public class Drivers {
-    
+public class Driver {
+
     private int driverId;
     private String firstNameEn;
     private String firstNameAr;
@@ -19,7 +19,7 @@ public class Drivers {
     private String phoneNumber;
     private String nationalId;
 
-    public Drivers() {
+    public Driver() {
     }
 
     public String getNationalId() {
@@ -29,7 +29,7 @@ public class Drivers {
     public void setNationalId(String nationalId) {
         this.nationalId = nationalId;
     }
-    
+
     public int getDriverId() {
         return driverId;
     }
@@ -77,6 +77,5 @@ public class Drivers {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    
-    
+
 }

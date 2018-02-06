@@ -18,14 +18,14 @@ and open the template in the editor.
                 <p:messages id="msgs" closable="true" globalOnly="true"/>
 
                 <p:panel id="add_edit_bus_panel"
-                        header="#{msgs.add_edit_bus}"                            
+                         header="#{msgs.add_edit_bus}"                            
                          style="min-height:400px; 
-                                direction:#{langBean.dir};margin-top:10px; font-size:10pt">
+                         direction:#{langBean.dir};margin-top:10px; font-size:10pt">
                     <h:panelGrid id="add"
                                  style="float: #{langBean.styleFloat};" 
                                  columns="3"                              
                                  dir="#{langBean.dir}">
-          
+
                         <p:outputLabel value="#{msgs.license_plate}:" for="license_plate"/>
                         <p:inputText id="license_plate"
                                      value="#{addEditBusBean.licenseNumber}"
@@ -35,7 +35,7 @@ and open the template in the editor.
                             <f:validateRegex pattern="^[0-9]{1,2}-[0-9]{1,5}$"/>
                         </p:inputText>
                         <h:message for="license_plate" styleClass="errorMsg"/>
-                                                        
+
                         <p:outputLabel value="#{msgs.chasis_number}:" for="chasis_number"/>
                         <p:inputText id="chasis_number"
                                      value="#{addEditBusBean.chasisNumber}"
@@ -44,10 +44,10 @@ and open the template in the editor.
                                      converterMessage="#{msgs.chasis_number_msg}"
                                      validatorMessage="#{msgs.chasis_number_msg}"
                                      requiredMessage="#{msgs.required_msg}">
-                           <f:validateLongRange minimum="1000"/>
+                            <f:validateLongRange minimum="1000"/>
                         </p:inputText>
                         <h:message for="chasis_number" styleClass="errorMsg"/>
-                        
+
                         <p:outputLabel value="#{msgs.manufacturer}:" for="manufacturer"/>
                         <p:inputText id="manufacturer"
                                      value="#{addEditBusBean.manufacturer}"
@@ -57,7 +57,7 @@ and open the template in the editor.
                             <f:validateRegex pattern="[a-zA-Z]+"/>
                         </p:inputText>
                         <h:message for="manufacturer" styleClass="errorMsg"/>
-                        
+
                         <p:outputLabel value="#{msgs.model}:" for="model"/>
                         <p:inputText id="model"
                                      value="#{addEditBusBean.model}"
@@ -66,7 +66,7 @@ and open the template in the editor.
                                      converterMessage="#{msgs.model_msg}"
                                      validatorMessage="#{msgs.model_msg}"
                                      requiredMessage="#{msgs.required_msg}">
-                           <f:validateLongRange minimum="1000" maximum="2050"/>
+                            <f:validateLongRange minimum="1000" maximum="2050"/>
                         </p:inputText>
                         <h:message for="model" styleClass="errorMsg"/>
 

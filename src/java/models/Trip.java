@@ -11,12 +11,17 @@ import java.util.Date;
  *
  * @author MOH
  */
-public class DriverSchedules {
-    private int driverRouteScheduleId;
-    private int scheduleId;
+public class Trip {
+
     private int busId;
-    private int driverId;
+    private int scheduleId;
     private int routeId;
+    private int driverId;
+    private int tripId;
+    private String statusEn;
+    private String statusAr;
+    private Date actualDepartureTime;
+    private Date actualArrivalTime;
     private String sourceAr;
     private String sourceEn;
     private String destinationAr;
@@ -24,19 +29,15 @@ public class DriverSchedules {
     private String routeCode;
     private Date departureTime;
     private Date arrivalTime;
-    
-    
-    
-    public int getDriverRouteScheduleId() {
-        return driverRouteScheduleId;
+
+    public int getBusId() {
+        return busId;
     }
 
-    public void setDriverRouteScheduleId(int driverRouteScheduleId) {
-        this.driverRouteScheduleId = driverRouteScheduleId;
+    public void setBusId(int busId) {
+        this.busId = busId;
     }
-    
-    
-    
+
     public int getScheduleId() {
         return scheduleId;
     }
@@ -45,12 +46,12 @@ public class DriverSchedules {
         this.scheduleId = scheduleId;
     }
 
-    public int getBusId() {
-        return busId;
+    public int getRouteId() {
+        return routeId;
     }
 
-    public void setBusId(int busId) {
-        this.busId = busId;
+    public void setRouteId(int routeId) {
+        this.routeId = routeId;
     }
 
     public int getDriverId() {
@@ -61,12 +62,44 @@ public class DriverSchedules {
         this.driverId = driverId;
     }
 
-    public int getRouteId() {
-        return routeId;
+    public int getTripId() {
+        return tripId;
     }
 
-    public void setRouteId(int routeId) {
-        this.routeId = routeId;
+    public void setTripId(int tripId) {
+        this.tripId = tripId;
+    }
+
+    public String getStatusEn() {
+        return statusEn;
+    }
+
+    public void setStatusEn(String statusEn) {
+        this.statusEn = statusEn;
+    }
+
+    public String getStatusAr() {
+        return statusAr;
+    }
+
+    public void setStatusAr(String statusAr) {
+        this.statusAr = statusAr;
+    }
+
+    public Date getActualDepartureTime() {
+        return actualDepartureTime;
+    }
+
+    public void setActualDepartureTime(Date actualDepartureTime) {
+        this.actualDepartureTime = actualDepartureTime;
+    }
+
+    public Date getActualArrivalTime() {
+        return actualArrivalTime;
+    }
+
+    public void setActualArrivalTime(Date actualArrivalTime) {
+        this.actualArrivalTime = actualArrivalTime;
     }
 
     public String getSourceAr() {
@@ -125,6 +158,4 @@ public class DriverSchedules {
         this.arrivalTime = arrivalTime;
     }
 
-    
-    
 }

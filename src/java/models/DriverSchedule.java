@@ -11,60 +11,59 @@ import java.util.Date;
  *
  * @author MOH
  */
-public class RouteStops {
-    
-    private int stopOrder;
-    private int stopId;
-    private String stopNameEn;
-    private String stopNameAr;
-    private Date time;
+public class DriverSchedule {
+
+    private int driverRouteScheduleId;
+    private int scheduleId;
+    private int busId;
+    private int driverId;
+    private int routeId;
     private String sourceAr;
     private String sourceEn;
     private String destinationAr;
     private String destinationEn;
     private String routeCode;
-    private int routeActive;
+    private Date departureTime;
+    private Date arrivalTime;
 
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
-    
-    
-    public int getStopId() {
-        return stopId;
+    public int getDriverRouteScheduleId() {
+        return driverRouteScheduleId;
     }
 
-    public void setStopId(int stopId) {
-        this.stopId = stopId;
+    public void setDriverRouteScheduleId(int driverRouteScheduleId) {
+        this.driverRouteScheduleId = driverRouteScheduleId;
     }
 
-    public String getStopNameEn() {
-        return stopNameEn;
+    public int getScheduleId() {
+        return scheduleId;
     }
 
-    public void setStopNameEn(String stopNameEn) {
-        this.stopNameEn = stopNameEn;
+    public void setScheduleId(int scheduleId) {
+        this.scheduleId = scheduleId;
     }
 
-    public String getStopNameAr() {
-        return stopNameAr;
+    public int getBusId() {
+        return busId;
     }
 
-    public void setStopNameAr(String stopNameAr) {
-        this.stopNameAr = stopNameAr;
-    }
-    
-    
-    public int getStopOrder() {
-        return stopOrder;
+    public void setBusId(int busId) {
+        this.busId = busId;
     }
 
-    public void setStopOrder(int stopOrder) {
-        this.stopOrder = stopOrder;
+    public int getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
+    }
+
+    public int getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(int routeId) {
+        this.routeId = routeId;
     }
 
     public String getSourceAr() {
@@ -107,16 +106,20 @@ public class RouteStops {
         this.routeCode = routeCode;
     }
 
-    public int getRouteActive() {
-        return routeActive;
+    public Date getDepartureTime() {
+        return departureTime;
     }
 
-    public void setRouteActive(int routeActive) {
-        this.routeActive = routeActive;
+    public void setDepartureTime(Date departureTime) {
+        this.departureTime = departureTime;
     }
 
-    
-    
-    
-    
+    public Date getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(Date arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
 }

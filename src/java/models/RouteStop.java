@@ -5,33 +5,70 @@
  */
 package models;
 
+import java.util.Date;
+
 /**
  *
  * @author MOH
  */
-public class Routes {
-    
-    private int routeId;
+public class RouteStop {
+
+    private int stopOrder;
+    private int stopId;
+    private String stopNameEn;
+    private String stopNameAr;
+    private Date time;
     private String sourceAr;
     private String sourceEn;
     private String destinationAr;
     private String destinationEn;
     private String routeCode;
     private int routeActive;
-    
-    public int getRouteId() {
-        return routeId;
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
+    public int getStopId() {
+        return stopId;
+    }
+
+    public void setStopId(int stopId) {
+        this.stopId = stopId;
+    }
+
+    public String getStopNameEn() {
+        return stopNameEn;
+    }
+
+    public void setStopNameEn(String stopNameEn) {
+        this.stopNameEn = stopNameEn;
+    }
+
+    public String getStopNameAr() {
+        return stopNameAr;
+    }
+
+    public void setStopNameAr(String stopNameAr) {
+        this.stopNameAr = stopNameAr;
+    }
+
+    public int getStopOrder() {
+        return stopOrder;
+    }
+
+    public void setStopOrder(int stopOrder) {
+        this.stopOrder = stopOrder;
     }
 
     public String getSourceAr() {
         return sourceAr;
     }
 
-    public void setRouteId(int routeId) {
-        this.routeId = routeId;
-    }
-    
-    
     public void setSourceAr(String sourceAr) {
         this.sourceAr = sourceAr;
     }
@@ -75,8 +112,5 @@ public class Routes {
     public void setRouteActive(int routeActive) {
         this.routeActive = routeActive;
     }
-
-    
-    
 
 }

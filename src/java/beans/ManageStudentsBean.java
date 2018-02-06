@@ -12,11 +12,12 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.Students;
+import models.Student;
 import daos.StudentsDao;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import org.primefaces.context.RequestContext;
+
 /**
  *
  * @author Taha Al-khaffaf
@@ -25,9 +26,9 @@ import org.primefaces.context.RequestContext;
 @ViewScoped
 public class ManageStudentsBean implements Serializable {
 
-    private Students selectedStudent;
+    private Student selectedStudent;
     private final StudentsDao studentsDao = new StudentsDao();
-    private ArrayList<Students> studentsArray;
+    private ArrayList<Student> studentsArray;
     String error_message_header;
     String error_message_content;
     @Inject
@@ -45,19 +46,19 @@ public class ManageStudentsBean implements Serializable {
         }
     }
 
-    public Students getSelectedStudent() {
+    public Student getSelectedStudent() {
         return selectedStudent;
     }
 
-    public void setSelectedStudent(Students selectedStudent) {
+    public void setSelectedStudent(Student selectedStudent) {
         this.selectedStudent = selectedStudent;
     }
 
-    public ArrayList<Students> getStudentsArray() {
+    public ArrayList<Student> getStudentsArray() {
         return studentsArray;
     }
 
-    public void setStudentsArray(ArrayList<Students> studentsArray) {
+    public void setStudentsArray(ArrayList<Student> studentsArray) {
         this.studentsArray = studentsArray;
     }
 

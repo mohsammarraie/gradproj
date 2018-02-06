@@ -20,11 +20,10 @@ public class SessionBean implements Serializable {
     private String password;
 
     // Session attributes
+    private Connection connection;
 
-    private Connection connection; 
-    
-    private int selectedItemId; 
-    private int selectedBusId; 
+    private int selectedItemId;
+    private int selectedBusId;
     private String selectedStudentId;
     private int selectedDriverId;
     private int selectedRouteId;
@@ -33,7 +32,7 @@ public class SessionBean implements Serializable {
     private int selectedScheduleId;
     private int selectedDriverSchedule;
     private int selectedTripId;
-    
+
     private int menuIndex = 0;
 
     public SessionBean() {
@@ -47,7 +46,6 @@ public class SessionBean implements Serializable {
         this.selectedTripId = selectedTripId;
     }
 
-    
     public int getSelectedDriverSchedule() {
         return selectedDriverSchedule;
     }
@@ -55,8 +53,7 @@ public class SessionBean implements Serializable {
     public void setSelectedDriverSchedule(int selectedDriverSchedule) {
         this.selectedDriverSchedule = selectedDriverSchedule;
     }
-    
-    
+
     public int getSelectedRouteStopId() {
         return selectedRouteStopId;
     }
@@ -80,8 +77,7 @@ public class SessionBean implements Serializable {
     public void setSelectedScheduleId(int selectedScheduleId) {
         this.selectedScheduleId = selectedScheduleId;
     }
-    
-    
+
     public int getSelectedRouteId() {
         return selectedRouteId;
     }
@@ -89,8 +85,6 @@ public class SessionBean implements Serializable {
     public void setSelectedRouteId(int selectedRouteId) {
         this.selectedRouteId = selectedRouteId;
     }
-    
-    
 
     public String getUsername() {
         return username;
@@ -130,8 +124,8 @@ public class SessionBean implements Serializable {
 
     public void setSelectedBusId(int selectedBusId) {
         this.selectedBusId = selectedBusId;
-    } 
-    
+    }
+
     public String getSelectedStudentId() {
 
         return selectedStudentId;
@@ -262,27 +256,34 @@ public class SessionBean implements Serializable {
         navigate("/routes/assign_bus_to_schedule.xhtml");
     }
 
-    public void navigateBusPosition() {
-        navigate("/bus_position.xhtml");
+    public void navigateDriverMap() {
+        navigate("/driver_pages/driver_map.xhtml");
     }
+
     public void navigateDriverSchedules() {
         navigate("/driver_pages/driver_schedules.xhtml");
     }
+
     public void navigateDriverHome() {
         navigate("/driver_pages/driver_home.xhtml");
     }
+
     public void navigateDriverPastTrips() {
         navigate("/driver_pages/driver_past_trips.xhtml");
     }
-     public void navigateStudentCurrentTrips() {
+
+    public void navigateStudentCurrentTrips() {
         navigate("/student_pages/student_current_trips.xhtml");
     }
-     public void navigateStudentHome() {
+
+    public void navigateStudentHome() {
         navigate("/student_pages/student_home.xhtml");
     }
-     public void navigateStudentTripTrackMap() {
+
+    public void navigateStudentTripTrackMap() {
         navigate("/student_pages/student_trip_track_map.xhtml");
     }
+
     public void navigate(String url) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
@@ -291,5 +292,5 @@ public class SessionBean implements Serializable {
             navigationHandler.handleNavigation(facesContext, null, url + "?faces-redirect=true");
         }
     }
-     //end of pages navigations
+    //end of pages navigations
 }

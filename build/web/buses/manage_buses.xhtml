@@ -21,129 +21,129 @@ and open the template in the editor.
             <ui:decorate template="/app_templates/app_template.xhtml">
                 <h:form id="bus_info_form">
                     <p:dataTable 
-                           id="bus_info_tbl"
-                           value = "#{manageBusesBean.busesArray}"
-                           selection="#{manageBusesBean.selectedBus}"
-                           rowKey="#{busesArray.busId}"  
-                           class = "dataTable"
-                           var="busesArray"
-                           rows="5"
-                           rowsPerPageTemplate="5,15,20"
-                           dir="#{langBean.dir}"
-                           emptyMessage="#{msgs.no_buses}"
-                           paginator="true"
-                           paginatorPosition="top" 
-                           paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
-                             >
-                            <p:ajax event="rowSelectRadio"
-                              update=":bus_info_form:bus_info_tbl"/>  
+                        id="bus_info_tbl"
+                        value = "#{manageBusesBean.busesArray}"
+                        selection="#{manageBusesBean.selectedBus}"
+                        rowKey="#{busesArray.busId}"  
+                        class = "dataTable"
+                        var="busesArray"
+                        rows="5"
+                        rowsPerPageTemplate="5,15,20"
+                        dir="#{langBean.dir}"
+                        emptyMessage="#{msgs.no_buses}"
+                        paginator="true"
+                        paginatorPosition="top" 
+                        paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
+                        >
+                        <p:ajax event="rowSelectRadio"
+                                update=":bus_info_form:bus_info_tbl"/>  
 
-                            <f:facet name="header" id="header">
-                                #{msgs.manage_buses}
-                            </f:facet> 
-                            <p:column selectionMode="single" style="width:5%"/>
-                            
-                             <p:column headerText="#{msgs.license_plate}"
-                                style="width:15%"
-                                filterBy="#{busesArray.licenseNumber}}"
-                                filterMatchMode="contains"
-                                sortBy="#{busesArray.licenseNumber}">                    
-                                <h:outputText value="#{busesArray.licenseNumber}"/>  
-                            </p:column>
-                            
-                            <p:column headerText="#{msgs.chasis_number}"
-                                      style="width:15%"
-                                      filterBy="#{busesArray.chasisNumber}}"
-                                      filterMatchMode="contains"
-                                      sortBy="#{busesArray.chasisNumber}">                    
-                                <h:outputText value="#{busesArray.chasisNumber}"/>  
-                            </p:column>
-                            
-                            <p:column headerText="#{msgs.manufacturer}"
-                                      style="width:15%"
-                                      filterBy="#{busesArray.manufacturer}}"
-                                      filterMatchMode="contains"
-                                      sortBy="#{busesArray.manufacturer}">                    
-                                <h:outputText value="#{busesArray.manufacturer}"/>  
-                            </p:column>
-                            
-                            <p:column headerText="#{msgs.model}"
-                                      style="width:15%"
-                                      filterBy="#{busesArray.model}}"
-                                      filterMatchMode="contains"
-                                      sortBy="#{busesArray.model}">                    
-                                <h:outputText value="#{busesArray.model}"/>  
-                            </p:column>
-                        
-                            
-                            <p:column headerText="#{msgs.capacity}"
-                                      style="width:15%"
-                                      filterBy="#{busesArray.capacity}}"
-                                      filterMatchMode="contains"
-                                      sortBy="#{busesArray.capacity}">                    
-                                <h:outputText value="#{busesArray.capacity}"/>  
-                            </p:column>
-                            
-                            <p:column headerText="#{msgs.assigned_driver}"
-                                      style="width:20%"
-                                      filterBy="#{assignDriverToBusBean.displayDriversOnBuses(busesArray.busId,langBean.isEnglish?1:0)}"
-                                      filterMatchMode="contains"> 
+                        <f:facet name="header" id="header">
+                            #{msgs.manage_buses}
+                        </f:facet> 
+                        <p:column selectionMode="single" style="width:5%"/>
 
-                                        <h:outputText value="#{assignDriverToBusBean.displayDriversOnBuses(busesArray.busId,langBean.isEnglish?1:0)}"/>
-             
-                             </p:column>
-                            
-                            <f:facet name="footer">
-                                <p:toolbar style="border: none">
-                                    <p:toolbarGroup align="#{languageBean.screenLeft}">
-                                        <p:commandButton value="#{msgs.delete}"
-                                                 icon="ui-icon-minus"                                  
-                                                 iconPos="#{langBean.styleFloat}"
-                                                 styleClass="commandButton"
-                                                 style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{manageBusesBean.selectedBus==null}"
-                                                 onclick="return confirm('#{msgs.confirm_delete_bus}?');"
-                                                 actionListener="#{manageBusesBean.deleteSelectedBus()}" />
-                                        <p:commandButton value="#{msgs.edit}"
-                                                 icon="ui-icon-pencil"                                  
-                                                 iconPos="#{langBean.styleFloat}"
-                                                 styleClass="commandButton"
-                                                 style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{manageBusesBean.selectedBus==null}"                                                 
-                                                 actionListener="#{manageBusesBean.saveSelectedBusId()}"
-                                                 action="#{sessionBean.navigateAddEditBus()}" />
-                                        <p:commandButton value="#{msgs.assign_driver}"
-                                                 icon="ui-icon-pencil"                                  
-                                                 iconPos="#{langBean.styleFloat}"
-                                                 styleClass="commandButton"
-                                                 style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{manageBusesBean.selectedBus==null}"                                                 
-                                                 actionListener="#{manageBusesBean.saveSelectedBusId()}"
-                                                 action="#{sessionBean.navigateAssignDriverToBus()}" />
-                                        <p:commandButton value="#{msgs.remove_driver}"
-                                                 icon="ui-icon-minus"  
-                                                 ajax="false"
-                                                 iconPos="#{langBean.styleFloat}"
-                                                 styleClass="commandButton"
-                                                 style="float:#{langBean.styleFloat}"   
-                                                 disabled="#{ manageBusesBean.selectedBus==null ||manageBusesBean.checkRemoveDriverButton()==false }"
-                                                 onclick="return confirm('#{msgs.confirm_remove_assigned_driver}?');"
-                                                 action="#{manageBusesBean.deleteBusDrivers()}" />
-                                    </p:toolbarGroup>
-                                </p:toolbar>
-                            </f:facet>
-                        </p:dataTable>
-                      <p:commandButton value="#{msgs.add}"
-                                 icon="ui-icon-plus"                                  
-                                 iconPos="#{langBean.styleFloat}"
-                                 styleClass="commandButton"
-                                 style="float:#{langBean.styleFloat}" 
-                                 actionListener="#{sessionBean.setSelectedBusId(-1)}"
-                                 action="#{sessionBean.navigateAddEditBus()}" /> 
+                        <p:column headerText="#{msgs.license_plate}"
+                                  style="width:15%"
+                                  filterBy="#{busesArray.licenseNumber}}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{busesArray.licenseNumber}">                    
+                            <h:outputText value="#{busesArray.licenseNumber}"/>  
+                        </p:column>
+
+                        <p:column headerText="#{msgs.chasis_number}"
+                                  style="width:15%"
+                                  filterBy="#{busesArray.chasisNumber}}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{busesArray.chasisNumber}">                    
+                            <h:outputText value="#{busesArray.chasisNumber}"/>  
+                        </p:column>
+
+                        <p:column headerText="#{msgs.manufacturer}"
+                                  style="width:15%"
+                                  filterBy="#{busesArray.manufacturer}}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{busesArray.manufacturer}">                    
+                            <h:outputText value="#{busesArray.manufacturer}"/>  
+                        </p:column>
+
+                        <p:column headerText="#{msgs.model}"
+                                  style="width:15%"
+                                  filterBy="#{busesArray.model}}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{busesArray.model}">                    
+                            <h:outputText value="#{busesArray.model}"/>  
+                        </p:column>
+
+
+                        <p:column headerText="#{msgs.capacity}"
+                                  style="width:15%"
+                                  filterBy="#{busesArray.capacity}}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{busesArray.capacity}">                    
+                            <h:outputText value="#{busesArray.capacity}"/>  
+                        </p:column>
+
+                        <p:column headerText="#{msgs.assigned_driver}"
+                                  style="width:20%"
+                                  filterBy="#{assignDriverToBusBean.displayDriversOnBuses(busesArray.busId,langBean.isEnglish?1:0)}"
+                                  filterMatchMode="contains"> 
+
+                            <h:outputText value="#{assignDriverToBusBean.displayDriversOnBuses(busesArray.busId,langBean.isEnglish?1:0)}"/>
+
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:toolbar style="border: none">
+                                <p:toolbarGroup align="#{languageBean.screenLeft}">
+                                    <p:commandButton value="#{msgs.delete}"
+                                                     icon="ui-icon-minus"                                  
+                                                     iconPos="#{langBean.styleFloat}"
+                                                     styleClass="commandButton"
+                                                     style="float:#{langBean.styleFloat}"                                                                                                
+                                                     disabled="#{manageBusesBean.selectedBus==null}"
+                                                     onclick="return confirm('#{msgs.confirm_delete_bus}?');"
+                                                     actionListener="#{manageBusesBean.deleteSelectedBus()}" />
+                                    <p:commandButton value="#{msgs.edit}"
+                                                     icon="ui-icon-pencil"                                  
+                                                     iconPos="#{langBean.styleFloat}"
+                                                     styleClass="commandButton"
+                                                     style="float:#{langBean.styleFloat}"                                                                                                
+                                                     disabled="#{manageBusesBean.selectedBus==null}"                                                 
+                                                     actionListener="#{manageBusesBean.saveSelectedBusId()}"
+                                                     action="#{sessionBean.navigateAddEditBus()}" />
+                                    <p:commandButton value="#{msgs.assign_driver}"
+                                                     icon="ui-icon-pencil"                                  
+                                                     iconPos="#{langBean.styleFloat}"
+                                                     styleClass="commandButton"
+                                                     style="float:#{langBean.styleFloat}"                                                                                                
+                                                     disabled="#{manageBusesBean.selectedBus==null}"                                                 
+                                                     actionListener="#{manageBusesBean.saveSelectedBusId()}"
+                                                     action="#{sessionBean.navigateAssignDriverToBus()}" />
+                                    <p:commandButton value="#{msgs.remove_driver}"
+                                                     icon="ui-icon-minus"  
+                                                     ajax="false"
+                                                     iconPos="#{langBean.styleFloat}"
+                                                     styleClass="commandButton"
+                                                     style="float:#{langBean.styleFloat}"   
+                                                     disabled="#{ manageBusesBean.selectedBus==null ||manageBusesBean.checkRemoveDriverButton()==false }"
+                                                     onclick="return confirm('#{msgs.confirm_remove_assigned_driver}?');"
+                                                     action="#{manageBusesBean.deleteBusDrivers()}" />
+                                </p:toolbarGroup>
+                            </p:toolbar>
+                        </f:facet>
+                    </p:dataTable>
+                    <p:commandButton value="#{msgs.add}"
+                                     icon="ui-icon-plus"                                  
+                                     iconPos="#{langBean.styleFloat}"
+                                     styleClass="commandButton"
+                                     style="float:#{langBean.styleFloat}" 
+                                     actionListener="#{sessionBean.setSelectedBusId(-1)}"
+                                     action="#{sessionBean.navigateAddEditBus()}" /> 
                 </h:form>
-               
+
             </ui:decorate>
-            
+
         </div>
     </h:body>
 </html>

@@ -20,21 +20,21 @@ and open the template in the editor.
 
                 <p:panel header="#{msgs.assign_driver_to_bus}"                            
                          style="min-height:400px; 
-                                direction:#{langBean.dir};margin-top:10px; font-size:10pt">
+                         direction:#{langBean.dir};margin-top:10px; font-size:10pt">
                     <h:panelGrid id="add"
                                  style="float: #{langBean.styleFloat};" 
                                  columns="3"                              
                                  dir="#{langBean.dir}">
-                        
-                        
-                        
+
+
+
                         <p:outputLabel value="#{msgs.assign_driver}:" for="driver_name"/>
                         <p:selectOneMenu value="#{assignDriverToBusBean.driverId}"
                                          id="driver_name"
                                          filter="true"
                                          filterMatchMode="contains"
-                                       
-                                        >
+
+                                         >
                             <f:selectItem itemLabel="#{msgs.choose_driver}"
                                           itemValue=""/>
                             <f:selectItems var="driver"
@@ -43,19 +43,19 @@ and open the template in the editor.
                                            itemValue="#{driver.driverId}"/>                             
                         </p:selectOneMenu>
                         <h:message for="driver_name" styleClass="errorMsg"/> 
-                     
-                        
-                         
-                       
-                        
-                            <p:outputLabel for="displayed_driver_name" value="#{msgs.assigned_driver}:"/>
-                       
-                             <h:outputText id="displayed_driver_name"  value="#{assignDriverToBusBean.displayDriversOnBuses(sessionBean.getSelectedBusId(),langBean.isEnglish?1:0)}"/>   
-                            
-                   
+
+
+
+
+
+                        <p:outputLabel for="displayed_driver_name" value="#{msgs.assigned_driver}:"/>
+
+                        <h:outputText id="displayed_driver_name"  value="#{assignDriverToBusBean.displayDriversOnBuses(sessionBean.getSelectedBusId(),langBean.isEnglish?1:0)}"/>   
+
+
                     </h:panelGrid>
                 </p:panel>
-                
+
                 <p:commandButton value="#{msgs.save}"
                                  styleClass="commandButton"
                                  icon="ui-icon-disk"

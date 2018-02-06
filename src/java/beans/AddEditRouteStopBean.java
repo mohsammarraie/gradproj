@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package beans;
+
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,23 +12,24 @@ import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.Stops;
+import models.Stop;
 import daos.RouteStopsDao;
 import daos.StopsDao;
 import java.util.ArrayList;
 import javax.faces.application.FacesMessage;
-import models.RouteStops;
+import models.RouteStop;
 import org.primefaces.context.RequestContext;
+
 /**
  *
  * @author MOH
  */
 @Named(value = "addEditRouteStopBean")
 @ViewScoped
-public class AddEditRouteStopBean implements Serializable{
-    
-    private ArrayList<RouteStops> routeStopsArray;
-    private ArrayList<Stops> stopsArray;
+public class AddEditRouteStopBean implements Serializable {
+
+    private ArrayList<RouteStop> routeStopsArray;
+    private ArrayList<Stop> stopsArray;
     private final RouteStopsDao routeStopsDao = new RouteStopsDao();
     private final StopsDao stopsDao = new StopsDao();
     private int routeStopId;
@@ -35,44 +37,43 @@ public class AddEditRouteStopBean implements Serializable{
     private String stopNameAr;
     private String stopNameEn;
     private int stopOrder;
-    RouteStops routeStops = new RouteStops();
+    RouteStop routeStops = new RouteStop();
     String error_message_header = "";
     String error_message_content = "";
 
     @Inject
     private SessionBean sessionBean;
-    
-    public AddEditRouteStopBean() {        
+
+    public AddEditRouteStopBean() {
     }
-        
+
     @PostConstruct
-    public void init(){                
+    public void init() {
         try {
             routeStopId = sessionBean.getSelectedRouteStopId();
             routeStopsArray = routeStopsDao.buildRouteStops(routeStopId);
-            stopsArray =  stopsDao.buildStops();
-            if(routeStopId > 0){
+            stopsArray = stopsDao.buildStops();
+            if (routeStopId > 0) {
                 routeStops = routeStopsDao.getRouteStops(routeStopId);
                 stopId = routeStops.getStopId();
                 stopNameAr = routeStops.getStopNameAr();
                 stopNameEn = routeStops.getStopNameEn();
                 stopOrder = routeStops.getStopOrder();
-                
+
             }
         } catch (Exception ex) {
             Logger.getLogger(AddEditStopBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public ArrayList<Stops> getStopsArray() {
+    public ArrayList<Stop> getStopsArray() {
         return stopsArray;
     }
 
-    public void setStopsArray(ArrayList<Stops> stopsArray) {
+    public void setStopsArray(ArrayList<Stop> stopsArray) {
         this.stopsArray = stopsArray;
     }
 
-    
     public int getStopOrder() {
         return stopOrder;
     }
@@ -80,8 +81,8 @@ public class AddEditRouteStopBean implements Serializable{
     public void setStopOrder(int stopOrder) {
         this.stopOrder = stopOrder;
     }
-    
-    public ArrayList<RouteStops> getRouteStopsArray() {
+
+    public ArrayList<RouteStop> getRouteStopsArray() {
         return routeStopsArray;
     }
 
@@ -92,9 +93,7 @@ public class AddEditRouteStopBean implements Serializable{
     public void setRouteStopId(int routeStopId) {
         this.routeStopId = routeStopId;
     }
-    
-    
-    
+
     public int getStopId() {
         return stopId;
     }
@@ -118,40 +117,28 @@ public class AddEditRouteStopBean implements Serializable{
     public void setStopNameEN(String stopNameEn) {
         this.stopNameEn = stopNameEn;
     }
-    
 
-        public void saveRouteStop() {
+    public void saveRouteStop() {
         try {
-        
-        
+
             routeStops.setStopId(routeStopId);
-        
-      
-  
+
             if (sessionBean.getSelectedRouteStopId() > 0) {
-                routeStopsDao.updateRouteStop(routeStopId, stopId, sessionBean.getSelectedRouteId(), stopOrder); 
-//              routeStopsDao.updateRouteScheduleStop(routeStopId, stopId, sessionBean.getSelectedRouteId());
+                routeStopsDao.updateRouteStop(routeStopId, stopId, sessionBean.getSelectedRouteId(), stopOrder);
             } else {
                 routeStopsDao.insertRouteStop(routeStopId, sessionBean.getSelectedRouteId(), stopOrder);
-                //routeStopsDao.insertRouteScheduleNewRow(routeStopId,sessionBean.getSelectedRouteId());
-                //routeStopsDao.insertRouteStopScheduleNewRow(routeStopId,sessionBean.getSelectedRouteId());
-                
+
             }
             sessionBean.navigateManageRouteStops();
         } catch (Exception ex) {
-            
-//            sessionBean.navigate("route_stop_error");
-//                error_message_header= "خطأ";
-//                error_message_content= "لايمكنك تعيين نفس نقطة الوقوف لنفس الطريق مرتين"; 
 
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
-            
+
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
-            Logger.getLogger(AddEditStopBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddEditRouteStopBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
     }
-    
+
 }

@@ -20,28 +20,28 @@ and open the template in the editor.
             <ui:decorate template="/app_templates/app_template.xhtml">
                 <h:form id="student_trips_info_form">
                     <p:dataTable 
-                           id="student_trips_info_tbl"
-                           value = "#{studentTripsBean.studentTripsArray}"
-                           selection="#{studentTripsBean.selectedTrip}"
-                           rowKey="#{studentTrip.tripId}"  
-                           class = "dataTable"
-                           var="studentTrip"
-                           rows="5"
-                           rowsPerPageTemplate="5,10,20"
-                           dir="#{langBean.dir}"
-                           emptyMessage="#{msgs.no_trips}"
-                           paginator="true"
-                           paginatorPosition="top" 
-                           paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
-                           >
+                        id="student_trips_info_tbl"
+                        value = "#{studentTripsBean.studentTripsArray}"
+                        selection="#{studentTripsBean.selectedTrip}"
+                        rowKey="#{studentTrip.tripId}"  
+                        class = "dataTable"
+                        var="studentTrip"
+                        rows="5"
+                        rowsPerPageTemplate="5,10,20"
+                        dir="#{langBean.dir}"
+                        emptyMessage="#{msgs.no_trips}"
+                        paginator="true"
+                        paginatorPosition="top" 
+                        paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
+                        >
                         <p:ajax event="rowSelectRadio"
                                 update=":student_trips_info_form:student_trips_info_tbl"/>  
 
                         <f:facet name="header" id="header">
-                           student current trips
+                            student current trips
                         </f:facet> 
                         <p:column selectionMode="single" style="width:5%"/>
-                        
+
                         <p:column headerText="trip ID"
                                   style="width:20%"
                                   filterBy="#{studentTrip.tripId}"
@@ -49,7 +49,7 @@ and open the template in the editor.
                                   sortBy="#{studentTrip.tripId}">                    
                             <h:outputText value="#{studentTrip.tripId}"/>  
                         </p:column>
-                        
+
                         <p:column headerText="#{msgs.route_code}"
                                   style="width:20%"
                                   filterBy="#{studentTrip.routeCode}"
@@ -57,15 +57,15 @@ and open the template in the editor.
                                   sortBy="#{studentTrip.routeCode}">                    
                             <h:outputText value="#{studentTrip.routeCode}"/>  
                         </p:column>
-                       
-                         <p:column headerText="#{msgs.bus_license_number}"
+
+                        <p:column headerText="#{msgs.bus_license_number}"
                                   style="width:20%"
                                   filterBy="#{studentTrip.licenseNumber}"
                                   filterMatchMode="contains"
                                   sortBy="#{studentTrip.licenseNumber}">                    
                             <h:outputText value="#{studentTrip.licenseNumber}"/>  
                         </p:column>
-                          <p:column headerText="#{msgs.driver_name}"
+                        <p:column headerText="#{msgs.driver_name}"
                                   style="width:20%"
                                   filterBy="#{langBean.isEnglish?studentTrip.driverNameEn:studentTrip.driverNameAr}"
                                   filterMatchMode="contains"
@@ -136,9 +136,9 @@ and open the template in the editor.
                     </p:dataTable>
 
                 </h:form>
-               
+
             </ui:decorate>
-            
+
         </div>
     </h:body>
 </html>

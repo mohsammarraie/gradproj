@@ -14,12 +14,12 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.Buses;
-import daos.DriversDao;
+import models.Bus;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
-import models.BusesDrivers;
+import models.BusDriver;
 import org.primefaces.context.RequestContext;
+
 /**
  *
  * @author MOH
@@ -28,14 +28,13 @@ import org.primefaces.context.RequestContext;
 @ViewScoped
 public class ManageBusesBean implements Serializable {
 
-    private Buses selectedBus;
+    private Bus selectedBus;
     private final BusesDao busesDao = new BusesDao();
-    private ArrayList<Buses> busesArray;
-    private ArrayList<BusesDrivers> busesDriversArray;
+    private ArrayList<Bus> busesArray;
+    private ArrayList<BusDriver> busesDriversArray;
     String error_message_header;
     String error_message_content;
-    
-    
+
     BusesDriversDao busesDriversDao = new BusesDriversDao();
     @Inject
     private SessionBean sessionBean;
@@ -46,35 +45,34 @@ public class ManageBusesBean implements Serializable {
     @PostConstruct
     public void init() {
         try {
-            busesDriversArray =busesDriversDao.buildBusesDrivers();
+            busesDriversArray = busesDriversDao.buildBusesDrivers();
             busesArray = busesDao.buildBuses();
         } catch (Exception ex) {
             Logger.getLogger(ManageBusesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public ArrayList<BusesDrivers> getBusesDriversArray() {
+    public ArrayList<BusDriver> getBusesDriversArray() {
         return busesDriversArray;
     }
 
-    public void setBusesDriversArray(ArrayList<BusesDrivers> busesDriversArray) {
+    public void setBusesDriversArray(ArrayList<BusDriver> busesDriversArray) {
         this.busesDriversArray = busesDriversArray;
     }
-    
-    
-    public Buses getSelectedBus() {
+
+    public Bus getSelectedBus() {
         return selectedBus;
     }
 
-    public void setSelectedBus(Buses selectedBus) {
+    public void setSelectedBus(Bus selectedBus) {
         this.selectedBus = selectedBus;
     }
 
-    public ArrayList<Buses> getBusesArray() {
+    public ArrayList<Bus> getBusesArray() {
         return busesArray;
     }
 
-    public void setBusesArray(ArrayList<Buses> busesArray) {
+    public void setBusesArray(ArrayList<Bus> busesArray) {
         this.busesArray = busesArray;
     }
 
@@ -86,7 +84,7 @@ public class ManageBusesBean implements Serializable {
         try {
             busesDao.deleteBus(selectedBus.getBusId());
             sessionBean.navigateManageBuses();
-   
+
         } catch (Exception ex) {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
@@ -94,13 +92,14 @@ public class ManageBusesBean implements Serializable {
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageBusesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-        public void deleteBusDrivers() {
+
+    public void deleteBusDrivers() {
         try {
             busesDriversDao.deleteBusDriver(selectedBus.getBusId());
             sessionBean.navigateManageBuses();
-           
+
         } catch (Exception ex) {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
@@ -108,9 +107,9 @@ public class ManageBusesBean implements Serializable {
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageBusesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-        
+
     //check if there is an assigned driver. if found then disable delete button on assign_driver_to_bus.xhtml
     public boolean checkRemoveDriverButton() {
         int i;

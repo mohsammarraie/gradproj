@@ -20,87 +20,87 @@ and open the template in the editor.
             <ui:decorate template="/app_templates/app_template.xhtml">
                 <h:form id="students_info_form">
                     <p:dataTable 
-                           id="students_info_tbl"
-                           value = "#{manageStudentsBean.studentsArray}"
-                           selection="#{manageStudentsBean.selectedStudent}"
-                           rowKey="#{studentsArray.studentId}"  
-                           class = "dataTable"
-                           var="studentsArray"
-                           rows="5"
-                           rowsPerPageTemplate="5,10,20"
-                           dir="#{langBean.dir}"
-                           emptyMessage="#{msgs.no_students}"
-                           paginator="true"
-                           paginatorPosition="top" 
-                           paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
-                             >
-                            <p:ajax event="rowSelectRadio"
-                              update=":students_info_form:students_info_tbl"/>  
+                        id="students_info_tbl"
+                        value = "#{manageStudentsBean.studentsArray}"
+                        selection="#{manageStudentsBean.selectedStudent}"
+                        rowKey="#{studentsArray.studentId}"  
+                        class = "dataTable"
+                        var="studentsArray"
+                        rows="5"
+                        rowsPerPageTemplate="5,10,20"
+                        dir="#{langBean.dir}"
+                        emptyMessage="#{msgs.no_students}"
+                        paginator="true"
+                        paginatorPosition="top" 
+                        paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
+                        >
+                        <p:ajax event="rowSelectRadio"
+                                update=":students_info_form:students_info_tbl"/>  
 
-                            <f:facet name="header" id="header">
-                                #{msgs.manage_students}
-                            </f:facet> 
-                            <p:column selectionMode="single" style="width:5%"/>
-                            
-                            <p:column headerText="#{msgs.student_id}"
-                                      style="width:15%"
-                                      filterBy="#{studentsArray.studentId}"
-                                      filterMatchMode="contains"
-                                      sortBy="#{studentsArray.studentId}">                    
-                                <h:outputText value="#{studentsArray.studentId}"/>  
-                            </p:column>
+                        <f:facet name="header" id="header">
+                            #{msgs.manage_students}
+                        </f:facet> 
+                        <p:column selectionMode="single" style="width:5%"/>
 
-                            
-                            <p:column headerText="#{msgs.first_name}"
-                                style="width:20%"
-                                filterBy="#{langBean.isEnglish?studentsArray.firstNameEn:studentsArray.firstNameAr}"
-                                filterMatchMode="contains"
-                                sortBy="#{langBean.isEnglish?studentsArray.firstNameEn:studentsArray.firstNameAr}">                    
-                                <h:outputText value="#{langBean.isEnglish?studentsArray.firstNameEn:studentsArray.firstNameAr}"/>  
-                            </p:column>
-                            
-                            <p:column headerText="#{msgs.last_name}"
-                                style="width:20%"
-                                filterBy="#{langBean.isEnglish?studentsArray.lastNameEn:studentsArray.lastNameAr}"
-                                filterMatchMode="contains"
-                                sortBy="#{langBean.isEnglish?studentsArray.lastNameEn:studentsArray.lastNameAr}">                    
-                                <h:outputText value="#{langBean.isEnglish?studentsArray.lastNameEn:studentsArray.lastNameAr}"/>  
-                            </p:column>
+                        <p:column headerText="#{msgs.student_id}"
+                                  style="width:15%"
+                                  filterBy="#{studentsArray.studentId}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{studentsArray.studentId}">                    
+                            <h:outputText value="#{studentsArray.studentId}"/>  
+                        </p:column>
 
-                            <f:facet name="footer">
-                                <p:toolbar style="border: none">
-                                    <p:toolbarGroup align="#{languageBean.screenLeft}">
-                                        <p:commandButton value="#{msgs.delete}"
-                                                 icon="ui-icon-minus"                                  
-                                                 iconPos="#{langBean.styleFloat}"
-                                                 styleClass="commandButton"
-                                                 style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{manageStudentsBean.selectedStudent==null}"
-                                                 onclick="return confirm('#{msgs.confirm_delete_student}?');"
-                                                 actionListener="#{manageStudentsBean.deleteSelectedStudent()}"/>
-                                        <p:commandButton value="#{msgs.edit}"
-                                                 icon="ui-icon-pencil"                                  
-                                                 iconPos="#{langBean.styleFloat}"
-                                                 styleClass="commandButton"
-                                                 style="float:#{langBean.styleFloat}"                                                                                                
-                                                 disabled="#{manageStudentsBean.selectedStudent==null}"                                                 
-                                                 actionListener="#{manageStudentsBean.saveSelectedStudentId()}"
-                                                 action="#{sessionBean.navigateAddEditStudent()}" />
-                                    </p:toolbarGroup>
-                                </p:toolbar>
-                            </f:facet>
-                        </p:dataTable>
-                      <p:commandButton value="#{msgs.add}"
-                                 icon="ui-icon-plus"                                  
-                                 iconPos="#{langBean.styleFloat}"
-                                 styleClass="commandButton"
-                                 style="float:#{langBean.styleFloat}" 
-                                 actionListener="#{sessionBean.setSelectedStudentId(null)}"
-                                 action="#{sessionBean.navigateAddEditStudent()}" /> 
+
+                        <p:column headerText="#{msgs.first_name}"
+                                  style="width:20%"
+                                  filterBy="#{langBean.isEnglish?studentsArray.firstNameEn:studentsArray.firstNameAr}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{langBean.isEnglish?studentsArray.firstNameEn:studentsArray.firstNameAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?studentsArray.firstNameEn:studentsArray.firstNameAr}"/>  
+                        </p:column>
+
+                        <p:column headerText="#{msgs.last_name}"
+                                  style="width:20%"
+                                  filterBy="#{langBean.isEnglish?studentsArray.lastNameEn:studentsArray.lastNameAr}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{langBean.isEnglish?studentsArray.lastNameEn:studentsArray.lastNameAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?studentsArray.lastNameEn:studentsArray.lastNameAr}"/>  
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:toolbar style="border: none">
+                                <p:toolbarGroup align="#{languageBean.screenLeft}">
+                                    <p:commandButton value="#{msgs.delete}"
+                                                     icon="ui-icon-minus"                                  
+                                                     iconPos="#{langBean.styleFloat}"
+                                                     styleClass="commandButton"
+                                                     style="float:#{langBean.styleFloat}"                                                                                                
+                                                     disabled="#{manageStudentsBean.selectedStudent==null}"
+                                                     onclick="return confirm('#{msgs.confirm_delete_student}?');"
+                                                     actionListener="#{manageStudentsBean.deleteSelectedStudent()}"/>
+                                    <p:commandButton value="#{msgs.edit}"
+                                                     icon="ui-icon-pencil"                                  
+                                                     iconPos="#{langBean.styleFloat}"
+                                                     styleClass="commandButton"
+                                                     style="float:#{langBean.styleFloat}"                                                                                                
+                                                     disabled="#{manageStudentsBean.selectedStudent==null}"                                                 
+                                                     actionListener="#{manageStudentsBean.saveSelectedStudentId()}"
+                                                     action="#{sessionBean.navigateAddEditStudent()}" />
+                                </p:toolbarGroup>
+                            </p:toolbar>
+                        </f:facet>
+                    </p:dataTable>
+                    <p:commandButton value="#{msgs.add}"
+                                     icon="ui-icon-plus"                                  
+                                     iconPos="#{langBean.styleFloat}"
+                                     styleClass="commandButton"
+                                     style="float:#{langBean.styleFloat}" 
+                                     actionListener="#{sessionBean.setSelectedStudentId(null)}"
+                                     action="#{sessionBean.navigateAddEditStudent()}" /> 
                 </h:form>
-               
+
             </ui:decorate>
-            
+
         </div>
     </h:body>
 </html>

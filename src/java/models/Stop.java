@@ -12,8 +12,8 @@ import java.util.Date;
  *
  * @author MOH
  */
-public class Stops implements Serializable{
-    
+public class Stop implements Serializable {
+
     private int stopId;
     private String stopNameEn;
     private String stopNameAr;
@@ -27,8 +27,7 @@ public class Stops implements Serializable{
     public void setScheduleId(int scheduleId) {
         this.scheduleId = scheduleId;
     }
-    
-    
+
     public Date getTime() {
         return time;
     }
@@ -36,8 +35,7 @@ public class Stops implements Serializable{
     public void setTime(Date time) {
         this.time = time;
     }
-    
-    
+
     public int getStopId() {
         return stopId;
     }
@@ -61,6 +59,5 @@ public class Stops implements Serializable{
     public void setStopNameAr(String stopNameAr) {
         this.stopNameAr = stopNameAr;
     }
-    
-    
+
 }

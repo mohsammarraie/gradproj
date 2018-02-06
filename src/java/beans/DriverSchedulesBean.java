@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package beans;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -11,51 +12,49 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.DriverSchedules;
-import javax.faces.application.FacesMessage;
+import models.DriverSchedule;
 import javax.inject.Named;
-import org.primefaces.context.RequestContext;
 import daos.DriverSchedulesDao;
 import daos.TripsDao;
-import models.Trips;
+import models.Trip;
+
 /**
  *
  * @author MOH
  */
 @Named(value = "driverSchedulesBean")
 @ViewScoped
-public class DriverSchedulesBean implements Serializable{
-        
+public class DriverSchedulesBean implements Serializable {
+
     private final DriverSchedulesDao driverSchedulesDao = new DriverSchedulesDao();
     private final TripsDao tripsDao = new TripsDao();
 
-    private ArrayList<DriverSchedules> driverSchedulesArray; 
-    private DriverSchedules selectedSchedule;
+    private ArrayList<DriverSchedule> driverSchedulesArray;
+    private DriverSchedule selectedSchedule;
     private int driverId;
     private int scheduleId;
     private int routeId;
-    
-     @Inject 
-    private SessionBean sessionBean;
-     
-        @PostConstruct
-        public void init(){
-            try {  
-              
-                driverId = sessionBean.getSelectedDriverId();
-                driverSchedulesArray = driverSchedulesDao.buildDriverSchedules(driverId);
-        
-            } catch (Exception ex) {
-                Logger.getLogger(DriverSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
 
-            
-    public ArrayList<DriverSchedules> getDriverSchedulesArray() {
+    @Inject
+    private SessionBean sessionBean;
+
+    @PostConstruct
+    public void init() {
+        try {
+
+            driverId = sessionBean.getSelectedDriverId();
+            driverSchedulesArray = driverSchedulesDao.buildDriverSchedules(driverId);
+
+        } catch (Exception ex) {
+            Logger.getLogger(DriverSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public ArrayList<DriverSchedule> getDriverSchedulesArray() {
         return driverSchedulesArray;
     }
 
-    public void setDriverSchedulesArray(ArrayList<DriverSchedules> driverSchedulesArray) {
+    public void setDriverSchedulesArray(ArrayList<DriverSchedule> driverSchedulesArray) {
         this.driverSchedulesArray = driverSchedulesArray;
     }
 
@@ -67,11 +66,11 @@ public class DriverSchedulesBean implements Serializable{
         this.driverId = driverId;
     }
 
-    public DriverSchedules getSelectedSchedule() {
+    public DriverSchedule getSelectedSchedule() {
         return selectedSchedule;
     }
 
-    public void setSelectedSchedule(DriverSchedules selectedSchedule) {
+    public void setSelectedSchedule(DriverSchedule selectedSchedule) {
         this.selectedSchedule = selectedSchedule;
     }
 
@@ -90,11 +89,12 @@ public class DriverSchedulesBean implements Serializable{
     public void setRouteId(int routeId) {
         this.routeId = routeId;
     }
-    public void startTrip(){
+
+    public void startTrip() {
         //save Selected Driver Schedule Id
         sessionBean.setSelectedDriverSchedule(selectedSchedule.getDriverRouteScheduleId());
-        
-         Trips trip = new Trips();
+
+        Trip trip = new Trip();
 
         int i;
         for (i = 0; i < driverSchedulesArray.size(); i++) {
@@ -112,11 +112,9 @@ public class DriverSchedulesBean implements Serializable{
                 }
             }
         }
-        
-        sessionBean.navigateBusPosition();
-        
-        
+
+        sessionBean.navigateDriverMap();
+
     }
-  
-    
+
 }

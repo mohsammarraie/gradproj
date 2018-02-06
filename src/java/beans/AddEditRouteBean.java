@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package beans;
+
 import daos.RoutesDao;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -12,8 +13,8 @@ import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.Routes;
-import javax.faces.bean.ManagedBean;
+import models.Route;
+
 /**
  *
  * @author MOH
@@ -21,7 +22,7 @@ import javax.faces.bean.ManagedBean;
 @Named(value = "addEditRouteBean")
 @ViewScoped
 public class AddEditRouteBean implements Serializable {
-    
+
     private final RoutesDao routesDao = new RoutesDao();
     private int routeId;
     private String sourceAr;
@@ -31,32 +32,30 @@ public class AddEditRouteBean implements Serializable {
     private String routeCode;
     private int routeActive;
     private boolean checkBoxValue;
-    
+
     @Inject
     private SessionBean sessionBean;
-    
-    public AddEditRouteBean() {        
+
+    public AddEditRouteBean() {
     }
 
     @PostConstruct
-    public void init(){                
+    public void init() {
         try {
             routeId = sessionBean.getSelectedRouteId();
 
-            
-            if(routeId > 0){
-                Routes routesArray = routesDao.getRoutes(routeId);
-           
+            if (routeId > 0) {
+                Route routesArray = routesDao.getRoutes(routeId);
+
                 sourceAr = routesArray.getSourceAr();
                 sourceEn = routesArray.getSourceEn();
                 destinationAr = routesArray.getDestinationAr();
                 destinationEn = routesArray.getDestinationEn();
                 routeCode = routesArray.getRouteCode();
-                routeActive= routesArray.getRouteActive();
-                if(routeActive==1){
-                checkBoxValue = true;
-                }
-                else{
+                routeActive = routesArray.getRouteActive();
+                if (routeActive == 1) {
+                    checkBoxValue = true;
+                } else {
                     checkBoxValue = false;
                 }
             }
@@ -80,7 +79,7 @@ public class AddEditRouteBean implements Serializable {
     public void setRouteActive(int routeActive) {
         this.routeActive = routeActive;
     }
-    
+
     public int getRouteId() {
         return routeId;
     }
@@ -128,20 +127,19 @@ public class AddEditRouteBean implements Serializable {
     public void setRouteCode(String routeCode) {
         this.routeCode = routeCode;
     }
-    
-    public void addActive(){
-        if(checkBoxValue==false){
+
+    public void addActive() {
+        if (checkBoxValue == false) {
             routeActive = 0;
+        } else {
+            routeActive = 1;
         }
-        else{
-         routeActive = 1;
-        }
-    }  
+    }
 
     public void saveRoute() {
         try {
 
-            Routes routes = new Routes();
+            Route routes = new Route();
             routes.setRouteId(routeId);
             routes.setSourceAr(sourceAr);
             routes.setSourceEn(sourceEn);
@@ -160,5 +158,5 @@ public class AddEditRouteBean implements Serializable {
 
         sessionBean.navigateManageRoutes();
     }
-    
+
 }

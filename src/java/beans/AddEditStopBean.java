@@ -12,8 +12,9 @@ import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.Stops;
+import models.Stop;
 import daos.StopsDao;
+
 /**
  *
  * @author MOH
@@ -21,31 +22,29 @@ import daos.StopsDao;
 @Named(value = "addEditStopBean")
 @ViewScoped
 public class AddEditStopBean implements Serializable {
-    
-     private final StopsDao stopsDao = new StopsDao();
+
+    private final StopsDao stopsDao = new StopsDao();
     private int stopId;
     private String stopNameAr;
     private String stopNameEn;
 
-
     @Inject
     private SessionBean sessionBean;
-    
-    public AddEditStopBean() {        
+
+    public AddEditStopBean() {
     }
-        
+
     @PostConstruct
-    public void init(){                
+    public void init() {
         try {
             stopId = sessionBean.getSelectedStopId();
-         
-            
-            if(stopId > 0){
-                Stops stopsArray = stopsDao.getStops(stopId);
-           
+
+            if (stopId > 0) {
+                Stop stopsArray = stopsDao.getStops(stopId);
+
                 stopNameAr = stopsArray.getStopNameAr();
                 stopNameEn = stopsArray.getStopNameEn();
-                
+
             }
         } catch (Exception ex) {
             Logger.getLogger(AddEditStopBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -75,17 +74,15 @@ public class AddEditStopBean implements Serializable {
     public void setStopNameEn(String stopNameEn) {
         this.stopNameEn = stopNameEn;
     }
-        
 
-        public void saveStop() {
+    public void saveStop() {
         try {
-        
-            Stops stops = new Stops();
+
+            Stop stops = new Stop();
             stops.setStopId(stopId);
             stops.setStopNameAr(stopNameAr);
             stops.setStopNameEn(stopNameEn);
-      
-  
+
             if (sessionBean.getSelectedStopId() > 0) {
                 stopsDao.updateStop(stops);
             } else {
@@ -97,5 +94,5 @@ public class AddEditStopBean implements Serializable {
 
         sessionBean.navigateManageStops();
     }
-    
+
 }

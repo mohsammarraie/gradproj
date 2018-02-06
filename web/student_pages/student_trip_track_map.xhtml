@@ -13,59 +13,59 @@
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <h:body> 
         <ui:decorate template="/app_templates/app_template.xhtml">   
-     
-                <h:form id="student_trip_info_form">
-                    <p:dataTable 
-                           id="student_trip_info_tbl"
-                           value = "#{studentMapBean.studentRouteSchedulesStopsArray}"
-                           class = "dataTable"
-                           var="studentRouteScheduleStop"
-                           rows="5"
-                           rowsPerPageTemplate="5,10,20"
-                           dir="#{langBean.dir}"
-                           emptyMessage="#{msgs.no_schedules}"
-                           >
 
-                        
-                        <f:facet name="header" id="header">
-                            #{msgs.route_stops}
-                        </f:facet> 
-                        <c:forEach var="stop" items="#{studentMapBean.studentRouteSchedulesStopsArray}">
-                            <p:column headerText="#{langBean.isEnglish?stop.stopNameEn:stop.stopNameAr}"
-                                      style="width:20%">
-                                <h:form rendered="#{studentRouteScheduleStop.stopId==stop.stopId}">
+            <h:form id="student_trip_info_form">
+                <p:dataTable 
+                    id="student_trip_info_tbl"
+                    value = "#{studentMapBean.studentRouteSchedulesStopsArray}"
+                    class = "dataTable"
+                    var="studentRouteScheduleStop"
+                    rows="5"
+                    rowsPerPageTemplate="5,10,20"
+                    dir="#{langBean.dir}"
+                    emptyMessage="#{msgs.no_schedules}"
+                    >
 
-                                    <h:outputText value="#{studentRouteScheduleStop.time}">  
-                                        <f:convertDateTime pattern="HH:mm" />
-                                    </h:outputText>
-                                </h:form>   
-                            </p:column>
-                        </c:forEach>
-                    </p:dataTable>
-                    <p:commandButton value="#{msgs.back}"
-                                     icon="ui-icon-pencil"
-                                     iconPos="#{langBean.styleFloat}"
-                                     styleClass="commandButton"
-                                     style="float:#{langBean.styleFloat}"
-                                     immediate="true"
-                                     action="#{sessionBean.navigateStudentCurrentTrips()}" />
-               
-                </h:form>
 
-                <p:gmap id="gmap2" 
-                        widgetVar="w_gmap" 
-                        type="roadmap" 
-                        center="#{studentMapBean.lat}, #{studentMapBean.lng}" 
-                        zoom="16"
-                        model="#{studentMapBean.model}"
-                        style="width:600px;height:400px" />       
-                <h:form>
-                    <p:poll interval="7" listener="#{studentMapBean.displayLongLatOnMap()}" update="gmap2"/>
-       
-                </h:form> 
+                    <f:facet name="header" id="header">
+                        #{msgs.route_stops}
+                    </f:facet> 
+                    <c:forEach var="stop" items="#{studentMapBean.studentRouteSchedulesStopsArray}">
+                        <p:column headerText="#{langBean.isEnglish?stop.stopNameEn:stop.stopNameAr}"
+                                  style="width:20%">
+                            <h:form rendered="#{studentRouteScheduleStop.stopId==stop.stopId}">
 
-            
-     
+                                <h:outputText value="#{studentRouteScheduleStop.time}">  
+                                    <f:convertDateTime pattern="HH:mm" />
+                                </h:outputText>
+                            </h:form>   
+                        </p:column>
+                    </c:forEach>
+                </p:dataTable>
+                <p:commandButton value="#{msgs.back}"
+                                 icon="ui-icon-pencil"
+                                 iconPos="#{langBean.styleFloat}"
+                                 styleClass="commandButton"
+                                 style="float:#{langBean.styleFloat}"
+                                 immediate="true"
+                                 action="#{sessionBean.navigateStudentCurrentTrips()}" />
+
+            </h:form>
+
+            <p:gmap id="gmap2" 
+                    widgetVar="w_gmap" 
+                    type="roadmap" 
+                    center="#{studentMapBean.lat}, #{studentMapBean.lng}" 
+                    zoom="16"
+                    model="#{studentMapBean.model}"
+                    style="width:600px;height:400px" />       
+            <h:form>
+                <p:poll interval="7" listener="#{studentMapBean.displayLongLatOnMap()}" update="gmap2"/>
+
+            </h:form> 
+
+
+
 
         </ui:decorate>
     </h:body>

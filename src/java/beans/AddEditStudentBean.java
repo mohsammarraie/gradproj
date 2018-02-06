@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package beans;
+
 import daos.StudentsDao;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -12,41 +13,41 @@ import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.Students;
+import models.Student;
+
 /**
  *
  * @author MOH
  */
 @Named(value = "addEditStudentBean")
 @ViewScoped
-public class AddEditStudentBean implements Serializable{
-    
+public class AddEditStudentBean implements Serializable {
+
     private final StudentsDao studentsDao = new StudentsDao();
     private String studentId;
     private String firstNameEn;
     private String firstNameAr;
     private String lastNameEn;
     private String lastNameAr;
-    
-           @Inject
+
+    @Inject
     private SessionBean sessionBean;
 
     public AddEditStudentBean() {
     }
-           
+
     @PostConstruct
-    public void init(){                
+    public void init() {
         try {
             studentId = sessionBean.getSelectedStudentId();
-         
-            
-            if(studentId != null){
-                
-                Students students = studentsDao.getStudents(studentId);
+
+            if (studentId != null) {
+
+                Student students = studentsDao.getStudents(studentId);
                 firstNameEn = students.getFirstNameEn();
                 firstNameAr = students.getFirstNameAr();
-                lastNameEn =  students.getLastNameEn();
-                lastNameAr =  students.getLastNameAr();  
+                lastNameEn = students.getLastNameEn();
+                lastNameAr = students.getLastNameAr();
             }
         } catch (Exception ex) {
             Logger.getLogger(AddEditStudentBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -92,19 +93,19 @@ public class AddEditStudentBean implements Serializable{
     public void setLastNameAr(String lastNameAr) {
         this.lastNameAr = lastNameAr;
     }
-    
-       public void saveStudent() {
+
+    public void saveStudent() {
         try {
-        
-            Students students = new Students();
+
+            Student students = new Student();
             students.setStudentId(studentId);
             students.setFirstNameEn(firstNameEn);
             students.setFirstNameAr(firstNameAr);
             students.setLastNameEn(lastNameEn);
             students.setLastNameAr(lastNameAr);
- 
-            if (sessionBean.getSelectedStudentId() !=null) {
-                studentsDao.updateStudent(students,sessionBean.getSelectedStudentId());
+
+            if (sessionBean.getSelectedStudentId() != null) {
+                studentsDao.updateStudent(students, sessionBean.getSelectedStudentId());
             } else {
                 studentsDao.insertStudent(students);
             }

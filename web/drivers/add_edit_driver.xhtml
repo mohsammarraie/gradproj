@@ -18,14 +18,14 @@ and open the template in the editor.
                 <p:messages id="msgs" closable="true" globalOnly="true"/>
 
                 <p:panel id="add_edit_driver_panel"
-                        header="#{msgs.add_edit_driver}"                            
+                         header="#{msgs.add_edit_driver}"                            
                          style="min-height:400px; 
-                                direction:#{langBean.dir};margin-top:10px; font-size:10pt">
+                         direction:#{langBean.dir};margin-top:10px; font-size:10pt">
                     <h:panelGrid id="add"
                                  style="float: #{langBean.styleFloat};" 
                                  columns="3"                              
                                  dir="#{langBean.dir}">
-                        
+
                         <p:outputLabel value="#{msgs.national_id}:" for="national_id"/>
                         <p:inputText id="national_id"
                                      value="#{addEditDriverBean.nationalId}"
@@ -35,7 +35,7 @@ and open the template in the editor.
                             <f:validateRegex pattern="[a-zA-Z]?[0-9]{6,15}$"/>
                         </p:inputText>
                         <h:message for="national_id" styleClass="errorMsg"/>
-                        
+
                         <p:outputLabel value="#{msgs.first_name_en}:" for="first_name_en"/>
                         <p:inputText id="first_name_en"
                                      value="#{addEditDriverBean.firstNameEn}"
@@ -53,11 +53,11 @@ and open the template in the editor.
                                      dir="rtl"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}">
-                             <f:validateRegex pattern="[\أ\ئ\ؤ\ء\ا-ي]+\s?[\أ\ئ\ء\ؤ\ا-ي]+"/>
+                            <f:validateRegex pattern="[\أ\ئ\ؤ\ء\ا-ي]+\s?[\أ\ئ\ء\ؤ\ا-ي]+"/>
                         </p:inputText>
                         <h:message for="first_name_ar" styleClass="errorMsg"/>
-                        
-                        
+
+
                         <p:outputLabel value="#{msgs.last_name_en}:" for="last_name_en"/>
                         <p:inputText id="last_name_en"
                                      value="#{addEditDriverBean.lastNameEn}"
@@ -68,18 +68,18 @@ and open the template in the editor.
 
                         </p:inputText>
                         <h:message for="last_name_en" styleClass="errorMsg"/>
-                        
-                            <p:outputLabel value="#{msgs.last_name_ar}:" for="last_name_ar"/>
+
+                        <p:outputLabel value="#{msgs.last_name_ar}:" for="last_name_ar"/>
                         <p:inputText id="last_name_ar"
                                      value="#{addEditDriverBean.lastNameAr}"
                                      required="true"
                                      dir="rtl"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}">
-                             <f:validateRegex pattern="[\أ\ئ\ؤ\ء\ا-ي]+\s?[\أ\ئ\ء\ؤ\ا-ي]+"/>
+                            <f:validateRegex pattern="[\أ\ئ\ؤ\ء\ا-ي]+\s?[\أ\ئ\ء\ؤ\ا-ي]+"/>
                         </p:inputText>
                         <h:message for="last_name_ar" styleClass="errorMsg"/>
-                        
+
                         <p:outputLabel value="#{msgs.phone_number}:" for="phone"/>
                         <p:inputText id="phone"
                                      value="#{addEditDriverBean.phoneNumber}"
@@ -90,7 +90,7 @@ and open the template in the editor.
 
                         </p:inputText>
                         <h:message for="phone" styleClass="errorMsg"/>
-                        
+
                     </h:panelGrid>
                 </p:panel>
 

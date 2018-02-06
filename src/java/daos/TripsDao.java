@@ -5,38 +5,34 @@
  */
 package daos;
 
-import beans.SessionBean;
-import daos.ConnectionDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import models.RouteSchedules;
-import models.Stops;
-import models.Trips;
+import models.Stop;
+import models.Trip;
 
 /**
  *
  * @author MOH
  */
 public class TripsDao extends ConnectionDao {
-        public static int tripId;
-    public ArrayList<Stops> buildDriverRouteStopsSchedules(int routeId, int scheduleId) throws Exception {
-        ArrayList<Stops> list = new ArrayList<>();
+
+    public static int tripId;
+
+    public ArrayList<Stop> buildDriverRouteStopsSchedules(int routeId, int scheduleId) throws Exception {
+        ArrayList<Stop> list = new ArrayList<>();
         Connection conn = getConnection();
-        
+
         try {
 
-            String sql = "SELECT STOP_NAME_EN,STOP_NAME_AR,BUSES.STOPS.STOP_ID,TIME  FROM"
+            String sql = "SELECT STOP_NAME_EN,STOP_NAME_AR,BUSES.STOPS.STOP_ID,TIME "
+                    + " FROM"
                     + " BUSES.ROUTES_STOPS_SCHEDULES JOIN BUSES.STOPS ON"
                     + " BUSES.ROUTES_STOPS_SCHEDULES.STOP_ID = BUSES.STOPS.STOP_ID"
                     + " WHERE"
@@ -62,28 +58,28 @@ public class TripsDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-      
-         private Stops populateDriverRouteScheduleStops(ResultSet rs) throws SQLException {
-            Stops stops = new Stops();
-            stops.setTime(rs.getTimestamp("TIME"));
-            stops.setStopId(rs.getInt("STOP_ID"));
-            stops.setStopNameEn(rs.getString("STOP_NAME_EN"));
-            stops.setStopNameAr(rs.getString("STOP_NAME_AR"));
-            return stops;
-        }
-        
-    public ArrayList<Trips> buildPastTrips(int driverId) throws Exception {
-        ArrayList<Trips> list = new ArrayList<>();
+
+    private Stop populateDriverRouteScheduleStops(ResultSet rs) throws SQLException {
+        Stop stops = new Stop();
+        stops.setTime(rs.getTimestamp("TIME"));
+        stops.setStopId(rs.getInt("STOP_ID"));
+        stops.setStopNameEn(rs.getString("STOP_NAME_EN"));
+        stops.setStopNameAr(rs.getString("STOP_NAME_AR"));
+        return stops;
+    }
+
+    public ArrayList<Trip> buildPastTrips(int driverId) throws Exception {
+        ArrayList<Trip> list = new ArrayList<>();
         Connection conn = getConnection();
-        
+
         try {
-            
-            String sql = "SELECT * FROM PAST_TRIPS_VIEW "
-                    + "WHERE DRIVER_ID =?"
+
+            String sql = "SELECT * FROM PAST_TRIPS_VIEW"
+                    + " WHERE DRIVER_ID =?"
                     + " ORDER BY DEPARTURE_TIME";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, 1);
-         
+
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -99,34 +95,33 @@ public class TripsDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-       private Trips populatePastTrips(ResultSet rs) throws SQLException {
-            Trips trips = new Trips();
-            trips.setActualArrivalTime(rs.getTimestamp("ACTUAL_ARRIVAL_TIME"));
-            trips.setActualDepartureTime(rs.getTimestamp("ACTUAL_DEPARTURE_TIME"));
-            trips.setDepartureTime(rs.getTimestamp("DEPARTURE_TIME"));
-            trips.setArrivalTime(rs.getTimestamp("ARRIVAL_TIME"));
-            trips.setRouteCode(rs.getString("ROUTE_CODE"));
-            trips.setSourceAr(rs.getString("SOURCE_AR"));
-            trips.setSourceEn(rs.getString("SOURCE_EN"));
-            trips.setDestinationEn(rs.getString("DESTINATION_EN"));
-            trips.setDestinationAr(rs.getString("DESTINATION_AR"));
-            trips.setStatusEn(rs.getString("STATUS_EN"));
-            trips.setStatusAr(rs.getString("STATUS_AR"));
-            return trips;
-        }
-         
-        public void insertTrip(Trips trip) throws Exception {                
+
+    private Trip populatePastTrips(ResultSet rs) throws SQLException {
+        Trip trips = new Trip();
+        trips.setActualArrivalTime(rs.getTimestamp("ACTUAL_ARRIVAL_TIME"));
+        trips.setActualDepartureTime(rs.getTimestamp("ACTUAL_DEPARTURE_TIME"));
+        trips.setDepartureTime(rs.getTimestamp("DEPARTURE_TIME"));
+        trips.setArrivalTime(rs.getTimestamp("ARRIVAL_TIME"));
+        trips.setRouteCode(rs.getString("ROUTE_CODE"));
+        trips.setSourceAr(rs.getString("SOURCE_AR"));
+        trips.setSourceEn(rs.getString("SOURCE_EN"));
+        trips.setDestinationEn(rs.getString("DESTINATION_EN"));
+        trips.setDestinationAr(rs.getString("DESTINATION_AR"));
+        trips.setStatusEn(rs.getString("STATUS_EN"));
+        trips.setStatusAr(rs.getString("STATUS_AR"));
+        return trips;
+    }
+
+    public void insertTrip(Trip trip) throws Exception {
         try {
             Connection conn = getConnection();
-           // RouteStops2 stops= new RouteStops2();
             Date date = new Date();
-            Timestamp timeStamp =new Timestamp(date.getTime()) ;
-            
+            Timestamp timeStamp = new Timestamp(date.getTime());
 
             String sql = "INSERT INTO BUSES.TRIPS "
                     + " (TRIP_ID, BUS_ID, SCHEDULE_ID, ROUTE_ID, DRIVER_ID, STATUS_EN, STATUS_AR, ACTUAL_DEPARTURE_TIME)"
-                                      + " VALUES("
-                    + "(select max(TRIP_ID) from BUSES.TRIPS)+1,?,?,?,?,?,?,?)" ;
+                    + " VALUES("
+                    + "(select max(TRIP_ID) from BUSES.TRIPS)+1,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, trip.getBusId());
@@ -135,14 +130,14 @@ public class TripsDao extends ConnectionDao {
             ps.setInt(4, trip.getDriverId());
             ps.setString(5, "Ongoing");
             ps.setString(6, "في الطريق ");
-            ps.setTimestamp(7,timeStamp);
+            ps.setTimestamp(7, timeStamp);
 
             ps.executeUpdate();
             ps.close();
-            
+
             Connection conn2 = getConnection();
 
-            String sql2="SELECT max(TRIP_ID) as TRIP_ID FROM BUSES.TRIPS"
+            String sql2 = "SELECT max(TRIP_ID) as TRIP_ID FROM BUSES.TRIPS"
                     + " WHERE"
                     + " ROUTE_ID=?"
                     + " AND"
@@ -153,21 +148,22 @@ public class TripsDao extends ConnectionDao {
             ps2.setInt(1, trip.getRouteId());
             ps2.setInt(3, trip.getBusId());
             ps2.setInt(2, trip.getScheduleId());
-            
-            ResultSet rs=ps2.executeQuery();
-            while(rs.next()){
-                tripId=rs.getInt("TRIP_ID");
+
+            ResultSet rs = ps2.executeQuery();
+            while (rs.next()) {
+                tripId = rs.getInt("TRIP_ID");
             }
             rs.close();
             ps2.close();
-            
+
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
         }
     }
-    public void updateTripCancel(){
+
+    public void updateTripCancel() {
         try {
-            
+
             Connection conn = getConnection();
             String sql = "UPDATE BUSES.TRIPS"
                     + " SET STATUS_EN=?,"
@@ -183,14 +179,14 @@ public class TripsDao extends ConnectionDao {
 
         } catch (Exception ex) {
             Logger.getLogger(TripsDao.class.getName()).log(Level.SEVERE, null, ex);
-        }  
+        }
 
     }
-    
-        public void updateTripEnd(){
+
+    public void updateTripEnd() {
         try {
             Date date = new Date();
-            Timestamp timeStamp =new Timestamp(date.getTime()) ;
+            Timestamp timeStamp = new Timestamp(date.getTime());
             Connection conn = getConnection();
             String sql = "UPDATE BUSES.TRIPS"
                     + " SET STATUS_EN=?,"
@@ -201,21 +197,21 @@ public class TripsDao extends ConnectionDao {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, "Arrived");
             ps.setString(2, "وصلت");
-            ps.setTimestamp(3,timeStamp);
+            ps.setTimestamp(3, timeStamp);
             ps.setInt(4, tripId);
             ps.executeUpdate();
             ps.close();
 
         } catch (Exception ex) {
             Logger.getLogger(TripsDao.class.getName()).log(Level.SEVERE, null, ex);
-        }  
+        }
 
     }
-        
-    public void insertTripCoordinates(String lat, String lng){
-        try{    
+
+    public void insertTripCoordinates(String lat, String lng) {
+        try {
             Date date = new Date();
-            Timestamp timeStamp =new Timestamp(date.getTime()) ;
+            Timestamp timeStamp = new Timestamp(date.getTime());
             Connection conn = getConnection();
             String sql = "INSERT INTO BUSES.TRIPS_COORDINATES("
                     + " TRIP_COORDINATES_ID,"
@@ -228,15 +224,14 @@ public class TripsDao extends ConnectionDao {
             ps.setInt(1, tripId);
             ps.setString(2, lat);
             ps.setString(3, lng);
-            ps.setTimestamp(4,timeStamp);
+            ps.setTimestamp(4, timeStamp);
 
             ps.executeUpdate();
             ps.close();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(TripsDao.class.getName()).log(Level.SEVERE, null, ex);
-        }  
-    
+        }
+
     }
-    
+
 }

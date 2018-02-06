@@ -12,14 +12,10 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import models.DriverSchedules;
-import javax.faces.application.FacesMessage;
 import javax.inject.Named;
-import org.primefaces.context.RequestContext;
-import daos.DriverSchedulesDao;
 import daos.TripsDao;
-import models.Stops;
-import models.Trips;
+import models.Stop;
+import models.Trip;
 
 /**
  *
@@ -29,58 +25,49 @@ import models.Trips;
 @ViewScoped
 public class TripsBean implements Serializable {
 
-//    private final DriverSchedulesDao driverSchedulesDao = new DriverSchedulesDao();
-    
     private final TripsDao tripsDao = new TripsDao();
-    private ArrayList<Stops> driverRouteSchedulesStopsArray;
-    Trips trip;
-    
-//    private ArrayList<DriverSchedules> driverSchedulesArray;
-   
-    
+    private ArrayList<Stop> driverRouteSchedulesStopsArray;
+    Trip trip;
+
     @Inject
     private SessionBean sessionBean;
 
     @PostConstruct
     public void init() {
         try {
-            driverRouteSchedulesStopsArray=tripsDao.buildDriverRouteStopsSchedules(sessionBean.getSelectedRouteId(), sessionBean.getSelectedScheduleId());
-//            driverSchedulesArray = driverSchedulesDao.buildDriverSchedules();
-                
-         
+            driverRouteSchedulesStopsArray = tripsDao.buildDriverRouteStopsSchedules(sessionBean.getSelectedRouteId(), sessionBean.getSelectedScheduleId());
+
+        } catch (Exception ex) {
+            Logger.getLogger(TripsBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public ArrayList<Stop> getDriverRouteSchedulesStopsArray() {
+        return driverRouteSchedulesStopsArray;
+    }
+
+    public void setDriverRouteSchedulesStopsArray(ArrayList<Stop> driverRouteSchedulesStopsArray) {
+        this.driverRouteSchedulesStopsArray = driverRouteSchedulesStopsArray;
+    }
+
+    public void cancelTrip() {
+        try {
+            tripsDao.updateTripCancel();
 
         } catch (Exception ex) {
             Logger.getLogger(DriverSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    public ArrayList<Stops> getDriverRouteSchedulesStopsArray() {
-        return driverRouteSchedulesStopsArray;
-    }
-
-    public void setDriverRouteSchedulesStopsArray(ArrayList<Stops> driverRouteSchedulesStopsArray) {
-        this.driverRouteSchedulesStopsArray = driverRouteSchedulesStopsArray;
-    }
-    
-    public void cancelTrip(){
-        try{
-            tripsDao.updateTripCancel();
-        
-         } catch (Exception ex) {
-            Logger.getLogger(DriverSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
         sessionBean.navigateDriverSchedules();
     }
-    
-     public void endTrip(){
-        try{
+
+    public void endTrip() {
+        try {
             tripsDao.updateTripEnd();
-        
-         } catch (Exception ex) {
+
+        } catch (Exception ex) {
             Logger.getLogger(DriverSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         sessionBean.navigateDriverSchedules();
     }
-            
-}
 
+}
