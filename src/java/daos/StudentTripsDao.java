@@ -60,7 +60,7 @@ public class StudentTripsDao extends ConnectionDao{
         studentTrips.setActualDepartureTime(rs.getTimestamp("ACTUAL_DEPARTURE_TIME"));
         studentTrips.setActualArrivalTime(rs.getTimestamp("ACTUAL_ARRIVAL_TIME"));
         studentTrips.setBusId(rs.getInt("BUS_ID"));
-         studentTrips.setTripId(rs.getInt("TRIP_ID"));
+        studentTrips.setTripId(rs.getInt("TRIP_ID"));
         studentTrips.setSourceEn(rs.getString("SOURCE_EN"));
         studentTrips.setSourceAr(rs.getString("SOURCE_AR"));
         studentTrips.setDestinationEn(rs.getString("DESTINATION_EN"));
@@ -103,7 +103,7 @@ public class StudentTripsDao extends ConnectionDao{
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                list.add(populateDriverRouteScheduleStops(rs));
+                list.add(populateStudentsRouteScheduleStops(rs));
 
             }
 
@@ -115,15 +115,61 @@ public class StudentTripsDao extends ConnectionDao{
             throw new SQLException(e.getMessage());
         }
     }
-      
-         private Stops populateDriverRouteScheduleStops(ResultSet rs) throws SQLException {
-            Stops stops = new Stops();
-            stops.setTime(rs.getTimestamp("TIME"));
-            stops.setStopId(rs.getInt("STOP_ID"));
-            stops.setStopNameEn(rs.getString("STOP_NAME_EN"));
-            stops.setStopNameAr(rs.getString("STOP_NAME_AR"));
-            return stops;
+     
+    private Stops populateStudentsRouteScheduleStops(ResultSet rs) throws SQLException {
+        Stops stops = new Stops();
+        stops.setTime(rs.getTimestamp("TIME"));
+        stops.setStopId(rs.getInt("STOP_ID"));
+        stops.setStopNameEn(rs.getString("STOP_NAME_EN"));
+        stops.setStopNameAr(rs.getString("STOP_NAME_AR"));
+        return stops;
+    }
+
+    public ArrayList<StudentTrips> buildStudentTrackMap(int tripId) throws Exception {
+        ArrayList<StudentTrips> list = new ArrayList<>();
+        Connection conn = getConnection();
+
+        try {
+
+            String sql = "SELECT * FROM"
+                    + " BUSES.TRIPS_COORDINATES"
+                    + " WHERE TRIP_ID=?"
+                    + " AND"
+                    + " TIME_TAG=(SELECT max(TIME_TAG)"
+                    + " FROM BUSES.TRIPS_COORDINATES"
+                    + " WHERE TRIP_ID=?)"
+          ;
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, tripId);
+            ps.setInt(2, tripId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(populateStudentTrackMap(rs));
+
+            }
+
+            rs.close();
+            ps.close();
+
+            return list;
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
         }
+    }
+
+    private StudentTrips populateStudentTrackMap(ResultSet rs) throws SQLException {
+        StudentTrips studentTrips = new StudentTrips();
+
+        studentTrips.setLongtitude(rs.getString("LONGTITUDE"));
+        studentTrips.setLatitude(rs.getString("LATITUDE"));
+        studentTrips.setTimeTag(rs.getTimestamp("TIME_TAG"));
+        studentTrips.setTripCoordinatesId(rs.getInt("TRIP_COORDINATES_ID"));
+        studentTrips.setTripId(rs.getInt("TRIP_ID"));
+        return studentTrips;
+
+    }
+         
         
     
 }

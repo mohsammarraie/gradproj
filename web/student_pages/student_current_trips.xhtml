@@ -41,7 +41,15 @@ and open the template in the editor.
                            student current trips
                         </f:facet> 
                         <p:column selectionMode="single" style="width:5%"/>
-
+                        
+                        <p:column headerText="trip ID"
+                                  style="width:20%"
+                                  filterBy="#{studentTrip.tripId}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{studentTrip.tripId}">                    
+                            <h:outputText value="#{studentTrip.tripId}"/>  
+                        </p:column>
+                        
                         <p:column headerText="#{msgs.route_code}"
                                   style="width:20%"
                                   filterBy="#{studentTrip.routeCode}"
@@ -113,7 +121,7 @@ and open the template in the editor.
                         <f:facet name="footer">
                             <p:toolbar style="border: none">
                                 <p:toolbarGroup align="#{languageBean.screenLeft}">
-                                    <p:commandButton value="Track Trip"
+                                    <p:commandButton value="#{msgs.track_trip}"
                                                      ajax="false"
                                                      iconPos="#{langBean.styleFloat}"
                                                      styleClass="commandButton"

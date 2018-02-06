@@ -52,51 +52,17 @@
                
                 </h:form>
 
-                <p:gmap id="gmap2" widgetVar="w_gmap" type="roadmap" center="0, 0" zoom="16" style="width:600px;height:400px" />       
+                <p:gmap id="gmap2" 
+                        widgetVar="w_gmap" 
+                        type="roadmap" 
+                        center="#{studentMapBean.lat}, #{studentMapBean.lng}" 
+                        zoom="16"
+                        model="#{studentMapBean.model}"
+                        style="width:600px;height:400px" />       
                 <h:form>
-                    <p:poll interval="5" oncomplete="checkGeolocationByHTML5()" update="gmap2"/>
-                    <p:remoteCommand name="myRemoteCommand" process="@this" autoRun="false" actionListener="#{driverMapBean.saveCoordinates()}"/>
+                    <p:poll interval="7" listener="#{studentMapBean.displayLongLatOnMap()}" update="gmap2"/>
+       
                 </h:form> 
-        
-            <script type="text/javascript">
-                if (navigator.geolocation) {
-                    checkGeolocationByHTML5();
-                } else {
-                    checkGeolocationByLoaderAPI(); // HTML5 not supported go back to Loader API.
-                }
-
-                function checkGeolocationByHTML5() {
-                    navigator.geolocation.getCurrentPosition(function(position) {
-                        setMapCenter(position.coords.latitude, position.coords.longitude);
-                    }, function() {
-                        checkGeolocationByLoaderAPI(); // Error go back to Loader API.
-                    });
-                }
-
-                function checkGeolocationByLoaderAPI() {
-                    if (google.loader.ClientLocation) {
-                        setMapCenter(google.loader.ClientLocation.latitude, google.loader.ClientLocation.longitude);
-                    } else {
-                        alert("Unsupported");
-                    }
-                }
-
-                function setMapCenter(latitude, longitude) {
-                   PF('w_gmap').getMap().setCenter(new google.maps.LatLng(latitude, longitude));
-                   currentMarker = new google.maps.Marker({
-                   position:new google.maps.LatLng(latitude, longitude)
-            });
-                   PF('w_gmap').addOverlay(currentMarker);
-                   
-                   myRemoteCommand ([{name:'lat',   value: latitude}, {name:'lng',     value: longitude}]);
-                   
-//                   setTimeout(function(){
-//                        location.reload(); //Reload after certain amount of time
-//                    },5000);
-                }
-               
-
-            </script>
 
             
      

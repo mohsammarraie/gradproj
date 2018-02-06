@@ -31,6 +31,11 @@ public class StudentTrips {
     private String driverNameAr;
     private String statusEn;
     private String statusAr;
+    
+    private int tripCoordinatesId;
+    private String longtitude;
+    private String latitude;
+    private Date timeTag;
 
     public String getStatusEn() {
         return statusEn;
@@ -187,6 +192,38 @@ public class StudentTrips {
 
     public void setTripId(int tripId) {
         this.tripId = tripId;
+    }
+
+    public int getTripCoordinatesId() {
+        return tripCoordinatesId;
+    }
+
+    public void setTripCoordinatesId(int tripCoordinatesId) {
+        this.tripCoordinatesId = tripCoordinatesId;
+    }
+
+    public String getLongtitude() {
+        return longtitude;
+    }
+
+    public void setLongtitude(String longtitude) {
+        this.longtitude = longtitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public Date getTimeTag() {
+        return timeTag;
+    }
+
+    public void setTimeTag(Date timeTag) {
+        this.timeTag = timeTag;
     }
     
     
