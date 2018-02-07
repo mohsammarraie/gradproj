@@ -31,7 +31,8 @@ and open the template in the editor.
                                      style="width:400px"
                                      required="true"
                                      maxlength="512"
-                                     requiredMessage=" #{msgs.required_msg}">
+                                     requiredMessage=" #{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
                             <f:validateRegex pattern="[\(\)]*[0-9]?[a-zA-Z]+[\-\'\s\a-zA-Z]+[\(\)]*[a-zA-Z]$"/>
                         </p:inputText>
                         <h:message for="stop_name_en" styleClass="errorMsg"/>
@@ -42,7 +43,8 @@ and open the template in the editor.
                                      style="width:400px"
                                      required="true"
                                      maxlength="512"
-                                     requiredMessage=" #{msgs.required_msg}">
+                                     requiredMessage=" #{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
                             <f:validateRegex pattern="[\(\)]*[\s\أ\ئ\ؤ\ء\ا-ي]+[\(\)]*[\s\أ\ئ\ؤ\ء\ا-ي]+[\أ\ئ\ؤ\ء\ا-ي]$"/>
                         </p:inputText>
                         <h:message for="stop_name_ar" styleClass="errorMsg"/>

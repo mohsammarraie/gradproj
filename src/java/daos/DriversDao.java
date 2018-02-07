@@ -6,6 +6,7 @@
 package daos;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -76,6 +77,11 @@ public class DriversDao extends ConnectionDao {
         driverInfo.setLastNameAr(rs.getString("LAST_NAME_AR"));
         driverInfo.setPhoneNumber(rs.getString("PHONE_NUMBER"));
         driverInfo.setNationalId(rs.getString("NATIONAL_ID"));
+        driverInfo.setDateOfBirth(rs.getDate("DATE_OF_BIRTH"));
+        driverInfo.setGenderEn(rs.getString("GENDER_EN"));
+        driverInfo.setNationalityEn(rs.getString("NATIONALITY_EN"));
+        driverInfo.setGenderAr(rs.getString("GENDER_AR"));
+        driverInfo.setNationalityAr(rs.getString("NATIONALITY_AR"));
         return driverInfo;
     }
 
@@ -89,9 +95,15 @@ public class DriversDao extends ConnectionDao {
                     + " LAST_NAME_EN,"
                     + " LAST_NAME_AR,"
                     + " PHONE_NUMBER,"
-                    + " NATIONAL_ID)"
-                    + " VALUES ((select max(DRIVER_ID) from BUSES.DRIVERS)+1,?,?,?,?,?,?)";
+                    + " NATIONAL_ID,"
+                    + " GENDER_EN,"
+                    + " DATE_OF_BIRTH,"
+                    + " NATIONALITY_EN,"
+                    + " GENDER_AR,"
+                    + " NATIONALITY_AR)"
+                    + " VALUES ((select max(DRIVER_ID) from BUSES.DRIVERS)+1,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
+            java.sql.Date sqlStartDate = new java.sql.Date(drivers.getDateOfBirth().getTime());
 
             ps.setString(1, drivers.getFirstNameEn());
             ps.setString(2, drivers.getFirstNameAr());
@@ -99,7 +111,11 @@ public class DriversDao extends ConnectionDao {
             ps.setString(4, drivers.getLastNameAr());
             ps.setString(5, drivers.getPhoneNumber());
             ps.setString(6, drivers.getNationalId());
-
+            ps.setString(7, drivers.getGenderEn());
+            ps.setDate(8,  sqlStartDate);
+            ps.setString(9, drivers.getNationalityEn());
+            ps.setString(10, drivers.getGenderAr());
+            ps.setString(11, drivers.getNationalityAr());
             ps.executeUpdate();
             ps.close();
 
@@ -111,14 +127,19 @@ public class DriversDao extends ConnectionDao {
     public void updateDriver(Driver drivers) throws Exception {
         try {
             Connection conn = getConnection();
-
+            java.sql.Date sqlStartDate = new java.sql.Date(drivers.getDateOfBirth().getTime());
             String sql = "UPDATE BUSES.DRIVERS SET"
                     + " FIRST_NAME_EN=?,"
                     + " FIRST_NAME_AR=?,"
                     + " LAST_NAME_EN=?,"
                     + " LAST_NAME_AR=?,"
                     + " PHONE_NUMBER=?,"
-                    + " NATIONAL_ID=?"
+                    + " NATIONAL_ID=?,"
+                    + " GENDER_EN=?,"
+                    + " DATE_OF_BIRTH=?,"
+                    + " NATIONALITY_EN=?,"
+                    + " GENDER_AR=?,"
+                    + " NATIONALITY_AR=?"
                     + " WHERE DRIVER_ID=?";
             PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -128,8 +149,12 @@ public class DriversDao extends ConnectionDao {
             ps.setString(4, drivers.getLastNameAr());
             ps.setString(5, drivers.getPhoneNumber());
             ps.setString(6, drivers.getNationalId());
-            ps.setInt(7, drivers.getDriverId());
-
+            ps.setString(7, drivers.getGenderEn());
+            ps.setDate(8,  sqlStartDate);
+            ps.setString(9, drivers.getNationalityEn());
+            ps.setString(10, drivers.getGenderAr());
+            ps.setString(11, drivers.getNationalityAr());
+            ps.setInt(12, drivers.getDriverId());
             ps.executeUpdate();
             ps.close();
 

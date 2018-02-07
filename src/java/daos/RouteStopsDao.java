@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.RouteStop;
 
 /**
@@ -153,6 +155,34 @@ public class RouteStopsDao extends ConnectionDao {
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
         }
+    }
+    //checks if this route has schedules then disable buttons: add/edit and delete in manage route stops.
+    public boolean checkRouteStopsSchedules(int routeId){
+         boolean flag = false;
+        try {
+
+            int i=0;
+            Connection conn = getConnection();
+            String sql = "SELECT count(*) as L FROM BUSES.ROUTES_STOPS_SCHEDULES"
+                    + " WHERE ROUTE_ID=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, routeId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                i = rs.getInt("L");
+            }
+            rs.close();
+            ps.close();
+
+            if (i > 0)
+                flag = true;
+            else 
+                flag= false;
+          
+        } catch (Exception ex) {
+            Logger.getLogger(RouteStopsDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           return flag; 
     }
 
 }

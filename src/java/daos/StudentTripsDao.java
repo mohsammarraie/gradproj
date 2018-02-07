@@ -70,6 +70,7 @@ public class StudentTripsDao extends ConnectionDao {
         studentTrips.setLicenseNumber(rs.getString("LICENSE_NUMBER"));
         studentTrips.setStatusEn(rs.getString("STATUS_EN"));
         studentTrips.setStatusAr(rs.getString("STATUS_AR"));
+        studentTrips.setCapacity(rs.getInt("CAPACITY"));
 
         return studentTrips;
     }

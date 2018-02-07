@@ -32,12 +32,22 @@ public class StudentTrip {
     private String driverNameAr;
     private String statusEn;
     private String statusAr;
+    private int capacity;
 
     private int tripCoordinatesId;
     private String longtitude;
     private String latitude;
     private Date timeTag;
 
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+    
+    
     public String getStatusEn() {
         return statusEn;
     }

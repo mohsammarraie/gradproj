@@ -31,7 +31,8 @@ and open the template in the editor.
                                      value="#{addEditStudentBean.studentId}"
                                      required="true"
                                      maxlength="512"  
-                                     requiredMessage="#{msgs.required_msg}">
+                                     requiredMessage="#{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
                             <f:validateRegex pattern="[a-zA-Z]?[0-9]{6,15}$"/>
                         </p:inputText>
                         <h:message for="student_id" styleClass="errorMsg"/>
@@ -41,7 +42,8 @@ and open the template in the editor.
                                      value="#{addEditStudentBean.firstNameEn}"
                                      required="true"
                                      maxlength="512"
-                                     requiredMessage=" #{msgs.required_msg}">
+                                     requiredMessage=" #{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
                             <f:validateRegex pattern="[a-zA-Z]+\s?[a-zA-Z]+"/>
 
                         </p:inputText>
@@ -53,7 +55,8 @@ and open the template in the editor.
                                      required="true"
                                      dir="rtl"
                                      maxlength="512"
-                                     requiredMessage=" #{msgs.required_msg}">
+                                     requiredMessage=" #{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
                             <f:validateRegex pattern="[\أ\ئ\ؤ\ء\ا-ي]+\s?[\أ\ئ\ء\ؤ\ا-ي]+"/>
                         </p:inputText>
                         <h:message for="first_name_ar" styleClass="errorMsg"/>
@@ -64,7 +67,8 @@ and open the template in the editor.
                                      value="#{addEditStudentBean.lastNameEn}"
                                      required="true"
                                      maxlength="512"
-                                     requiredMessage=" #{msgs.required_msg}">
+                                     requiredMessage=" #{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
                             <f:validateRegex pattern="[a-zA-Z]+\s?\-?[a-zA-Z]+"/>
 
                         </p:inputText>
@@ -76,7 +80,8 @@ and open the template in the editor.
                                      required="true"
                                      dir="rtl"
                                      maxlength="512"
-                                     requiredMessage=" #{msgs.required_msg}">
+                                     requiredMessage=" #{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
                             <f:validateRegex pattern="[\أ\ئ\ؤ\ء\ا-ي]+\s?[\أ\ئ\ء\ؤ\ا-ي]+"/>
                         </p:inputText>
                         <h:message for="last_name_ar" styleClass="errorMsg"/>

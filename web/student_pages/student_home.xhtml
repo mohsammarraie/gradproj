@@ -1,16 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">-->
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>student current trips</title>
+    </h:head>
+    <h:body>
+        <div>
+            <ui:decorate template="/app_templates/app_template.xhtml">
+
+                <table cellpadding="4" style="float: left" width="180px">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <center></center></td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                                <p:graphicImage    library="images" 
+                                                   name="person.png" style="height:261px"  /></td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p:fieldset legend="personal information" style="margin-bottom:20px">
+                    <h:panelGrid columns="2" cellpadding="5">
+                    
+                        <p:outputLabel value="first name" for="first_namee"/>
+                        <h:outputText id="first_namee" value="#{langBean.isEnglish?manageStudentsBean.getStudentsArray().get(0).getFirstNameEn():manageStudentsBean.getStudentsArray().get(0).getFirstNameAr()}" />
+                        
+                        <p:outputLabel value="last name" for="last_namee"/>
+                        <h:outputText id="last_namee" value="#{langBean.isEnglish?manageStudentsBean.getStudentsArray().get(0).getLastNameEn():manageStudentsBean.getStudentsArray().get(0).getLastNameAr()}"/>
+                        
+                       
+                        <p:outputLabel value="student id" for="studentId"/>
+                        <h:outputText id="studentId" value="#{manageStudentsBean.getStudentsArray().get(0).getStudentId()}" />
+                        
+           
+                    </h:panelGrid>
+                 </p:fieldset>
+            </ui:decorate>
+
+        </div>
+    </h:body>
 </html>

@@ -191,5 +191,59 @@ public class BusesDriversDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
+    
+      public ArrayList<BusDriver> buildBusDriverInfo(int driverId) throws Exception {
+        ArrayList<BusDriver> list = new ArrayList<>();
+        Connection conn = getConnection();
+
+        try {
+            String sql = "SELECT * FROM BUSES.BUSES, BUSES.DRIVERS, BUSES.BUSES_DRIVERS"
+                    + " WHERE"
+                    + " BUSES.BUSES.BUS_ID = BUSES.BUSES_DRIVERS.BUS_ID"
+                    + " AND"
+                    + " BUSES.DRIVERS.DRIVER_ID=BUSES.BUSES_DRIVERS.DRIVER_ID"
+                    + " AND"
+                    + " BUSES.DRIVERS.DRIVER_ID=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, 1); //selected driverId instead of 1
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(populateBusDriverInfo(rs));
+            }
+
+            rs.close();
+            ps.close();
+
+            return list;
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+
+    private BusDriver populateBusDriverInfo(ResultSet rs) throws SQLException {
+        BusDriver driverInfo = new BusDriver();
+
+        driverInfo.setDriverId(rs.getInt("DRIVER_ID"));
+        driverInfo.setFirstNameAr(rs.getString("FIRST_NAME_AR"));
+        driverInfo.setFirstNameEn(rs.getString("FIRST_NAME_EN"));
+        driverInfo.setLastNameEn(rs.getString("LAST_NAME_EN"));
+        driverInfo.setLastNameAr(rs.getString("LAST_NAME_AR"));
+        driverInfo.setPhoneNumber(rs.getString("PHONE_NUMBER"));
+        driverInfo.setNationalId(rs.getString("NATIONAL_ID"));
+        driverInfo.setDateOfBirth(rs.getDate("DATE_OF_BIRTH"));
+        driverInfo.setGenderEn(rs.getString("GENDER_EN"));
+        driverInfo.setNationalityEn(rs.getString("NATIONALITY_EN"));
+        driverInfo.setGenderAr(rs.getString("GENDER_AR"));
+        driverInfo.setNationalityAr(rs.getString("NATIONALITY_AR"));
+        driverInfo.setBusId(rs.getInt("BUS_ID"));
+        driverInfo.setModel(rs.getInt("MODEL"));
+        driverInfo.setChasisNumber(rs.getInt("CHASIS_NUMBER"));
+        driverInfo.setLicenseNumber(rs.getString("LICENSE_NUMBER"));
+        driverInfo.setManufacturer(rs.getString("MANUFACTURER"));
+        driverInfo.setCapacity(rs.getInt("CAPACITY"));
+
+        return driverInfo;
+    }
 
 }

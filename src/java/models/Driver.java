@@ -5,6 +5,8 @@
  */
 package models;
 
+import java.util.Date;
+
 /**
  *
  * @author MOH
@@ -18,10 +20,57 @@ public class Driver {
     private String lastNameAr;
     private String phoneNumber;
     private String nationalId;
+    private String nationalityEn;
+    private Date dateOfBirth;
+    private String genderEn;
+    private String genderAr;
+    private String nationalityAr;
 
     public Driver() {
     }
 
+    public String getGenderAr() {
+        return genderAr;
+    }
+
+    public void setGenderAr(String genderAr) {
+        this.genderAr = genderAr;
+    }
+
+    public String getNationalityAr() {
+        return nationalityAr;
+    }
+
+    public void setNationalityAr(String nationalityAr) {
+        this.nationalityAr = nationalityAr;
+    }
+    
+    
+    public String getNationalityEn() {
+        return nationalityEn;
+    }
+
+    public void setNationalityEn(String nationalityEn) {
+        this.nationalityEn = nationalityEn;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getGenderEn() {
+        return genderEn;
+    }
+
+    public void setGenderEn(String genderEn) {
+        this.genderEn = genderEn;
+    }
+
+    
     public String getNationalId() {
         return nationalId;
     }

@@ -65,6 +65,13 @@ and open the template in the editor.
                                   sortBy="#{studentTrip.licenseNumber}">                    
                             <h:outputText value="#{studentTrip.licenseNumber}"/>  
                         </p:column>
+                        <p:column headerText="#{msgs.capacity}"
+                                  style="width:20%"
+                                  filterBy="#{studentTrip.capacity}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{studentTrip.capacity}">                    
+                            <h:outputText value="#{studentTrip.capacity}"/>  
+                        </p:column>
                         <p:column headerText="#{msgs.driver_name}"
                                   style="width:20%"
                                   filterBy="#{langBean.isEnglish?studentTrip.driverNameEn:studentTrip.driverNameAr}"

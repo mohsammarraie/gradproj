@@ -7,6 +7,7 @@ package beans;
 
 import daos.DriversDao;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -32,6 +33,11 @@ public class AddEditDriverBean implements Serializable {
     private String lastNameAr;
     private String phoneNumber;
     private String nationalId;
+    private String nationalityEn;
+    private Date dateOfBirth;
+    private String genderEn;
+    private String genderAr;
+    private String nationalityAr;
 
     @Inject
     private SessionBean sessionBean;
@@ -53,6 +59,11 @@ public class AddEditDriverBean implements Serializable {
                 lastNameAr = driversArray.getLastNameAr();
                 phoneNumber = driversArray.getPhoneNumber();
                 nationalId = driversArray.getNationalId();
+                dateOfBirth = driversArray.getDateOfBirth();
+                nationalityEn= driversArray.getNationalityEn();
+                nationalityAr=driversArray.getNationalityAr();
+                genderEn=driversArray.getGenderEn();
+                genderAr=driversArray.getGenderAr();
             }
         } catch (Exception ex) {
             Logger.getLogger(AddEditDriverBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -115,6 +126,46 @@ public class AddEditDriverBean implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getNationalityEn() {
+        return nationalityEn;
+    }
+
+    public void setNationalityEn(String nationalityEn) {
+        this.nationalityEn = nationalityEn;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getGenderEn() {
+        return genderEn;
+    }
+
+    public void setGenderEn(String genderEn) {
+        this.genderEn = genderEn;
+    }
+
+    public String getGenderAr() {
+        return genderAr;
+    }
+
+    public void setGenderAr(String genderAr) {
+        this.genderAr = genderAr;
+    }
+
+    public String getNationalityAr() {
+        return nationalityAr;
+    }
+
+    public void setNationalityAr(String nationalityAr) {
+        this.nationalityAr = nationalityAr;
+    }
+    
     public void saveDriver() {
         try {
 
@@ -126,7 +177,12 @@ public class AddEditDriverBean implements Serializable {
             drivers.setLastNameAr(lastNameAr);
             drivers.setPhoneNumber(phoneNumber);
             drivers.setNationalId(nationalId);
-
+            drivers.setDateOfBirth(dateOfBirth);
+            drivers.setGenderAr(genderAr);
+            drivers.setGenderEn(genderEn);
+            drivers.setNationalityAr(nationalityAr);
+            drivers.setNationalityEn(nationalityEn);
+            
             if (sessionBean.getSelectedDriverId() > 0) {
                 driverDao.updateDriver(drivers);
             } else {

@@ -30,8 +30,9 @@ and open the template in the editor.
                         <p:inputText id="national_id"
                                      value="#{addEditDriverBean.nationalId}"
                                      required="true"
-                                     maxlength="512"  
-                                     requiredMessage="#{msgs.required_msg}">
+                                     maxlength="20"  
+                                     requiredMessage="#{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
                             <f:validateRegex pattern="[a-zA-Z]?[0-9]{6,15}$"/>
                         </p:inputText>
                         <h:message for="national_id" styleClass="errorMsg"/>
@@ -40,8 +41,9 @@ and open the template in the editor.
                         <p:inputText id="first_name_en"
                                      value="#{addEditDriverBean.firstNameEn}"
                                      required="true"
-                                     maxlength="512"
-                                     requiredMessage=" #{msgs.required_msg}">
+                                     maxlength="20"
+                                     requiredMessage=" #{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
                             <f:validateRegex pattern="[a-zA-Z]+\s?[a-zA-Z]+"/>
                         </p:inputText>
                         <h:message for="first_name_en" styleClass="errorMsg"/>
@@ -51,8 +53,9 @@ and open the template in the editor.
                                      value="#{addEditDriverBean.firstNameAr}"
                                      required="true"
                                      dir="rtl"
-                                     maxlength="512"
-                                     requiredMessage=" #{msgs.required_msg}">
+                                     maxlength="20"
+                                     requiredMessage=" #{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
                             <f:validateRegex pattern="[\أ\ئ\ؤ\ء\ا-ي]+\s?[\أ\ئ\ء\ؤ\ا-ي]+"/>
                         </p:inputText>
                         <h:message for="first_name_ar" styleClass="errorMsg"/>
@@ -62,8 +65,9 @@ and open the template in the editor.
                         <p:inputText id="last_name_en"
                                      value="#{addEditDriverBean.lastNameEn}"
                                      required="true"
-                                     maxlength="512"
-                                     requiredMessage=" #{msgs.required_msg}">
+                                     maxlength="20"
+                                     requiredMessage=" #{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
                             <f:validateRegex pattern="[a-zA-Z]+\s?\-?[a-zA-Z]+"/>
 
                         </p:inputText>
@@ -74,18 +78,75 @@ and open the template in the editor.
                                      value="#{addEditDriverBean.lastNameAr}"
                                      required="true"
                                      dir="rtl"
-                                     maxlength="512"
-                                     requiredMessage=" #{msgs.required_msg}">
+                                     maxlength="20"
+                                     requiredMessage=" #{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
                             <f:validateRegex pattern="[\أ\ئ\ؤ\ء\ا-ي]+\s?[\أ\ئ\ء\ؤ\ا-ي]+"/>
                         </p:inputText>
                         <h:message for="last_name_ar" styleClass="errorMsg"/>
-
+                        
+                        <p:outputLabel value="nationality en" for="nationality_en"/>
+                        <p:inputText id="nationality_en"
+                                     value="#{addEditDriverBean.nationalityEn}"
+                                     required="true"
+                                     maxlength="20"
+                                     requiredMessage=" #{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
+                            <f:validateRegex pattern="[a-zA-Z]+\s?[a-zA-Z]+"/>
+                        </p:inputText>
+                        <h:message for="nationality_en" styleClass="errorMsg"/>
+                        
+                         <p:outputLabel value="nationality ar" for="nationality_ar"/>
+                        <p:inputText id="nationality_ar"
+                                     value="#{addEditDriverBean.nationalityAr}"
+                                     required="true"
+                                     maxlength="20"
+                                     requiredMessage=" #{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
+                            <f:validateRegex pattern="[\أ\ئ\ؤ\ء\ا-ي]+\s?[\أ\ئ\ء\ؤ\ا-ي]+"/>
+                        </p:inputText>
+                        <h:message for="nationality_ar" styleClass="errorMsg"/>
+                        <p:outputLabel value="date of birth " for="date_of_birth"/>
+                          <p:calendar id="date_of_birth"
+                                    value="#{addEditDriverBean.dateOfBirth}"
+                                    dir="ltr"
+                                    pattern="dd-MM-yyyy"
+                                    navigator="true"
+                                    required="true"
+                                    yearRange="c-70:c+1"
+                                    requiredMessage=" #{msgs.required_msg}"/> 
+                        <h:message for="date_of_birth" styleClass="errorMsg"/>
+                        
+                        <p:outputLabel value="gender en" for="gender_en"/>
+                        <p:inputText id="gender_en"
+                                     value="#{addEditDriverBean.genderEn}"
+                                     required="true"
+                                     maxlength="20"
+                                     requiredMessage=" #{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
+                            <f:validateRegex pattern="[a-zA-Z]+\s?[a-zA-Z]+"/>
+                        </p:inputText>
+                        <h:message for="gender_en" styleClass="errorMsg"/>
+                        
+                           <p:outputLabel value="gender ar" for="gender_ar"/>
+                        <p:inputText id="gender_ar"
+                                     value="#{addEditDriverBean.genderAr}"
+                                     required="true"
+                                     maxlength="20"
+                                     requiredMessage=" #{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
+                            <f:validateRegex pattern="[\أ\ئ\ؤ\ء\ا-ي]+\s?[\أ\ئ\ء\ؤ\ا-ي]+"/>
+                        </p:inputText>
+                        <h:message for="gender_ar" styleClass="errorMsg"/>
+                        
+                        
                         <p:outputLabel value="#{msgs.phone_number}:" for="phone"/>
                         <p:inputText id="phone"
                                      value="#{addEditDriverBean.phoneNumber}"
                                      required="true"
                                      maxlength="13"
-                                     requiredMessage=" #{msgs.required_msg}">
+                                     requiredMessage=" #{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
                             <f:validateRegex pattern="[0-9]{10,13}"/>
 
                         </p:inputText>

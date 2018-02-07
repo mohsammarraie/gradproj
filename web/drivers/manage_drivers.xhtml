@@ -66,6 +66,15 @@ and open the template in the editor.
                                   sortBy="#{langBean.isEnglish?driversArray.lastNameEn:driversArray.lastNameAr}">                    
                             <h:outputText value="#{langBean.isEnglish?driversArray.lastNameEn:driversArray.lastNameAr}"/>  
                         </p:column>
+                        <p:column headerText="date of birth"
+                                  style="width:20%"
+                                  filterBy="#{driversArray.dateOfBirth}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{driversArray.dateOfBirth}">                    
+                            <h:outputText value="#{driversArray.dateOfBirth}">
+                                <f:convertDateTime pattern="dd-MM-yyyy" />
+                            </h:outputText>
+                        </p:column>
 
                         <p:column headerText="#{msgs.phone_number}"
                                   style="width:20%"
@@ -74,7 +83,20 @@ and open the template in the editor.
                                   sortBy="#{driversArray.phoneNumber}">                    
                             <h:outputText value="#{driversArray.phoneNumber}"/>  
                         </p:column>
-
+                        <p:column headerText="nationality"
+                                  style="width:20%"
+                                  filterBy="#{langBean.isEnglish?driversArray.nationalityEn:driversArray.nationalityAr}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{langBean.isEnglish?driversArray.nationalityEn:driversArray.nationalityAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?driversArray.nationalityEn:driversArray.nationalityAr}"/>  
+                        </p:column>
+                        <p:column headerText="gender"
+                                  style="width:20%"
+                                  filterBy="#{langBean.isEnglish?driversArray.genderEn:driversArray.genderAr}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{langBean.isEnglish?driversArray.genderEn:driversArray.genderAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?driversArray.genderEn:driversArray.genderAr}"/>  
+                        </p:column>
                         <f:facet name="footer">
                             <p:toolbar style="border: none">
                                 <p:toolbarGroup align="#{languageBean.screenLeft}">

@@ -31,7 +31,8 @@ and open the template in the editor.
                                      value="#{addEditBusBean.licenseNumber}"
                                      required="true"
                                      maxlength="512"
-                                     requiredMessage=" #{msgs.required_msg}">
+                                     requiredMessage="#{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
                             <f:validateRegex pattern="^[0-9]{1,2}-[0-9]{1,5}$"/>
                         </p:inputText>
                         <h:message for="license_plate" styleClass="errorMsg"/>
@@ -42,7 +43,7 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="20"  
                                      converterMessage="#{msgs.chasis_number_msg}"
-                                     validatorMessage="#{msgs.chasis_number_msg}"
+                                     validatorMessage="#{msgs.regex_message}"
                                      requiredMessage="#{msgs.required_msg}">
                             <f:validateLongRange minimum="1000"/>
                         </p:inputText>
@@ -53,7 +54,8 @@ and open the template in the editor.
                                      value="#{addEditBusBean.manufacturer}"
                                      required="true"
                                      maxlength="512"
-                                     requiredMessage=" #{msgs.required_msg}">
+                                     requiredMessage=" #{msgs.required_msg}"
+                                     validatorMessage="#{msgs.regex_message}">
                             <f:validateRegex pattern="[a-zA-Z]+"/>
                         </p:inputText>
                         <h:message for="manufacturer" styleClass="errorMsg"/>
@@ -64,7 +66,7 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="20"  
                                      converterMessage="#{msgs.model_msg}"
-                                     validatorMessage="#{msgs.model_msg}"
+                                     validatorMessage="#{msgs.regex_message}"
                                      requiredMessage="#{msgs.required_msg}">
                             <f:validateLongRange minimum="1000" maximum="2050"/>
                         </p:inputText>
@@ -77,7 +79,7 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="3"  
                                      converterMessage="#{msgs.capacity_msg}"
-                                     validatorMessage="#{msgs.capacity_msg}"
+                                     validatorMessage="#{msgs.regex_message}"
                                      requiredMessage="#{msgs.required_msg}">
                             <f:validateLongRange minimum="0" maximum="100"/>
                         </p:inputText>

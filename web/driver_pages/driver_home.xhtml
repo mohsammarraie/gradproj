@@ -1,16 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">-->
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>student current trips</title>
+    </h:head>
+    <h:body>
+        <div>
+            <ui:decorate template="/app_templates/app_template.xhtml">
+
+                <table cellpadding="4" style="float: left" width="180px">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <center></center></td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                                <p:graphicImage    library="images" 
+                                                   name="person.png" style="height:261px"  /></td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p:fieldset legend="personal information" style="margin-bottom:20px">
+                    <h:panelGrid columns="2" cellpadding="5">
+                    
+                        <p:outputLabel value="first name" for="first_name"/>
+                        <h:outputText id="first_name" value="#{langBean.isEnglish?busDriverInfoBean.getBusDriverInfoArray().get(0).getFirstNameEn():busDriverInfoBean.getBusDriverInfoArray().get(0).getFirstNameAr()}" />
+                        
+                        <p:outputLabel value="last name" for="last_name"/>
+                        <h:outputText id="last_name" value="#{langBean.isEnglish?busDriverInfoBean.getBusDriverInfoArray().get(0).getLastNameEn():busDriverInfoBean.getBusDriverInfoArray().get(0).getLastNameAr()}" />
+                        
+                        <p:outputLabel value="nationality" for="nationality"/>
+                        <h:outputText id="nationality" value="#{langBean.isEnglish?busDriverInfoBean.getBusDriverInfoArray().get(0).getNationalityEn():busDriverInfoBean.getBusDriverInfoArray().get(0).getNationalityAr()}" />
+                        
+                        <p:outputLabel value="national id" for="nationalid"/>
+                        <h:outputText id="nationalid" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getNationalId()}" />
+                        
+                        <p:outputLabel value="date of birth" for="t"/>
+                        <h:outputText id="t"  value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getDateOfBirth()}" />
+                        <p:outputLabel value="gender" for="gender"/>
+                        <h:outputText id="gender" value="#{langBean.isEnglish?busDriverInfoBean.getBusDriverInfoArray().get(0).getGenderEn():busDriverInfoBean.getBusDriverInfoArray().get(0).getGenderr()}" />
+                        
+                        <p:outputLabel value="phone number" for="number"/>
+                        <h:outputText id="number"  value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getPhoneNumber()}" />
+                    </h:panelGrid>
+                </p:fieldset>
+                  <p:fieldset legend="assigned bus information" style="margin-bottom:20px">
+                    <h:panelGrid columns="2" cellpadding="5">
+
+                        <p:outputLabel value="license plate" for="a"/>
+                        <h:outputText id="a" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getLicenseNumber()}" />
+                        
+                        <p:outputLabel value="chasis number" for="b"/>
+                        <h:outputText id="b" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getChasisNumber()}" />
+                        
+                        <p:outputLabel value="model" for="c"/>
+                        <h:outputText id="c" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getManufacturer()}" />
+                        
+                        <p:outputLabel value="manufacturer" for="u"/>
+                        <h:outputText id="u" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getModel()}" />
+                        
+                        <p:outputLabel value="capacity" for="q"/>
+                        <h:outputText id="q" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getCapacity()}" />
+                    
+                    </h:panelGrid>
+                </p:fieldset>
+            </ui:decorate>
+
+        </div>
+    </h:body>
 </html>
