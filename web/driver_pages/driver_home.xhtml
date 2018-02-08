@@ -19,65 +19,59 @@ and open the template in the editor.
         <div>
             <ui:decorate template="/app_templates/app_template.xhtml">
 
-                <table cellpadding="4" style="float: left" width="180px">
+             <table cellpadding="4" style="float: left" width="180px">
                     <tbody>
-                        <tr>
-                            <td>
-                                <center></center></td>
-                        </tr>
                         <tr>
                             <td>
 
                                 <p:graphicImage    library="images" 
-                                                   name="person.png" style="height:261px"  /></td>
-                        </tr>
-                        <tr>
-                            <td>
+                                                   name="person.png" style="height:261px"  />
                             </td>
                         </tr>
+                       
                     </tbody>
                 </table>
-                <p:fieldset legend="personal information" style="margin-bottom:20px">
+                <p:fieldset legend="#{msgs.personal_information}" style="margin-bottom:20px">
                     <h:panelGrid columns="2" cellpadding="5">
                     
-                        <p:outputLabel value="first name" for="first_name"/>
-                        <h:outputText id="first_name" value="#{langBean.isEnglish?busDriverInfoBean.getBusDriverInfoArray().get(0).getFirstNameEn():busDriverInfoBean.getBusDriverInfoArray().get(0).getFirstNameAr()}" />
+                        <p:outputLabel value="#{msgs.first_name}" for="driver__home_first_name"/>
+                        <h:outputText id="driver__home_first_name" value="#{langBean.isEnglish?busDriverInfoBean.getBusDriverInfoArray().get(0).getFirstNameEn():busDriverInfoBean.getBusDriverInfoArray().get(0).getFirstNameAr()}" />
                         
-                        <p:outputLabel value="last name" for="last_name"/>
-                        <h:outputText id="last_name" value="#{langBean.isEnglish?busDriverInfoBean.getBusDriverInfoArray().get(0).getLastNameEn():busDriverInfoBean.getBusDriverInfoArray().get(0).getLastNameAr()}" />
+                        <p:outputLabel value="#{msgs.last_name}" for="driver__home_last_name"/>
+                        <h:outputText id="driver__home_last_name" value="#{langBean.isEnglish?busDriverInfoBean.getBusDriverInfoArray().get(0).getLastNameEn():busDriverInfoBean.getBusDriverInfoArray().get(0).getLastNameAr()}" />
                         
-                        <p:outputLabel value="nationality" for="nationality"/>
-                        <h:outputText id="nationality" value="#{langBean.isEnglish?busDriverInfoBean.getBusDriverInfoArray().get(0).getNationalityEn():busDriverInfoBean.getBusDriverInfoArray().get(0).getNationalityAr()}" />
+                        <p:outputLabel value="#{msgs.nationality}" for="driver__home_nationality"/>
+                        <h:outputText id="driver__home_nationality" value="#{langBean.isEnglish?busDriverInfoBean.getBusDriverInfoArray().get(0).getNationalityEn():busDriverInfoBean.getBusDriverInfoArray().get(0).getNationalityAr()}" />
                         
-                        <p:outputLabel value="national id" for="nationalid"/>
-                        <h:outputText id="nationalid" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getNationalId()}" />
+                        <p:outputLabel value="#{msgs.national_id}" for="driver__home_national_id"/>
+                        <h:outputText id="driver__home_national_id" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getNationalId()}" />
                         
-                        <p:outputLabel value="date of birth" for="t"/>
-                        <h:outputText id="t"  value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getDateOfBirth()}" />
-                        <p:outputLabel value="gender" for="gender"/>
-                        <h:outputText id="gender" value="#{langBean.isEnglish?busDriverInfoBean.getBusDriverInfoArray().get(0).getGenderEn():busDriverInfoBean.getBusDriverInfoArray().get(0).getGenderr()}" />
+                        <p:outputLabel value="#{msgs.date_of_birth}" for="driver__home_date_of_birth"/>
+                        <h:outputText id="driver__home_date_of_birth"  value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getDateOfBirth()}" />
+                        <p:outputLabel value="#{msgs.gender}" for="driver__home_gender"/>
+                        <h:outputText id="driver__home_gender" value="#{langBean.isEnglish?busDriverInfoBean.getBusDriverInfoArray().get(0).getGenderEn():busDriverInfoBean.getBusDriverInfoArray().get(0).getGenderAr()}" />
                         
-                        <p:outputLabel value="phone number" for="number"/>
-                        <h:outputText id="number"  value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getPhoneNumber()}" />
+                        <p:outputLabel value="#{msgs.phone_number}" for="driver__home_phone_number"/>
+                        <h:outputText id="driver__home_phone_number"  value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getPhoneNumber()}" />
                     </h:panelGrid>
                 </p:fieldset>
-                  <p:fieldset legend="assigned bus information" style="margin-bottom:20px">
+                  <p:fieldset legend="#{msgs.assigned_bus_information}" style="margin-bottom:20px">
                     <h:panelGrid columns="2" cellpadding="5">
 
-                        <p:outputLabel value="license plate" for="a"/>
-                        <h:outputText id="a" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getLicenseNumber()}" />
+                        <p:outputLabel value="#{msgs.license_plate}" for="driver__home_license_plate"/>
+                        <h:outputText id="driver__home_license_plate" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getLicenseNumber()}" />
                         
-                        <p:outputLabel value="chasis number" for="b"/>
-                        <h:outputText id="b" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getChasisNumber()}" />
+                        <p:outputLabel value="#{msgs.chasis_number}" for="driver__home_chasis_number"/>
+                        <h:outputText id="driver__home_chasis_number" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getChasisNumber()}" />
                         
-                        <p:outputLabel value="model" for="c"/>
-                        <h:outputText id="c" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getManufacturer()}" />
+                        <p:outputLabel value="#{msgs.model}" for="driver__home_model"/>
+                        <h:outputText id="driver__home_model" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getManufacturer()}" />
                         
-                        <p:outputLabel value="manufacturer" for="u"/>
-                        <h:outputText id="u" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getModel()}" />
+                        <p:outputLabel value="#{msgs.manufacturer}" for="driver__home_manufacturer"/>
+                        <h:outputText id="driver__home_manufacturer" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getModel()}" />
                         
-                        <p:outputLabel value="capacity" for="q"/>
-                        <h:outputText id="q" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getCapacity()}" />
+                        <p:outputLabel value="#{msgs.capacity}" for="driver__home_capacity"/>
+                        <h:outputText id="driver__home_capacity" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getCapacity()}" />
                     
                     </h:panelGrid>
                 </p:fieldset>

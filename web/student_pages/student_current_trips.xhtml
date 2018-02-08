@@ -13,7 +13,7 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>student current trips</title>
+        <title>#{msgs.current_trips}</title>
     </h:head>
     <h:body>
         <div>
@@ -38,7 +38,7 @@ and open the template in the editor.
                                 update=":student_trips_info_form:student_trips_info_tbl"/>  
 
                         <f:facet name="header" id="header">
-                            student current trips
+                            #{msgs.current_trips}
                         </f:facet> 
                         <p:column selectionMode="single" style="width:5%"/>
 
@@ -134,7 +134,7 @@ and open the template in the editor.
                                                      styleClass="commandButton"
                                                      style="float:#{langBean.styleFloat}"
                                                      disabled="#{studentTripsBean.selectedTrip==null}"
-                                                     onclick="return confirm('#{msgs.confirm_start_trip}');"
+                                                     onclick="return confirm('#{msgs.confirm_track_trip}');"
                                                      actionListener="#{studentTripsBean.saveSelectedTripId()}"
                                                      action="#{sessionBean.navigateStudentTripTrackMap()}"/>
                                 </p:toolbarGroup>

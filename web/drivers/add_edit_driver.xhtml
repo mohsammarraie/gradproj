@@ -85,7 +85,7 @@ and open the template in the editor.
                         </p:inputText>
                         <h:message for="last_name_ar" styleClass="errorMsg"/>
                         
-                        <p:outputLabel value="nationality en" for="nationality_en"/>
+                        <p:outputLabel value="#{msgs.nationality_en}" for="nationality_en"/>
                         <p:inputText id="nationality_en"
                                      value="#{addEditDriverBean.nationalityEn}"
                                      required="true"
@@ -96,7 +96,7 @@ and open the template in the editor.
                         </p:inputText>
                         <h:message for="nationality_en" styleClass="errorMsg"/>
                         
-                         <p:outputLabel value="nationality ar" for="nationality_ar"/>
+                         <p:outputLabel value="#{msgs.nationality_ar}" for="nationality_ar"/>
                         <p:inputText id="nationality_ar"
                                      value="#{addEditDriverBean.nationalityAr}"
                                      required="true"
@@ -106,7 +106,7 @@ and open the template in the editor.
                             <f:validateRegex pattern="[\أ\ئ\ؤ\ء\ا-ي]+\s?[\أ\ئ\ء\ؤ\ا-ي]+"/>
                         </p:inputText>
                         <h:message for="nationality_ar" styleClass="errorMsg"/>
-                        <p:outputLabel value="date of birth " for="date_of_birth"/>
+                        <p:outputLabel value="#{msgs.date_of_birth}" for="date_of_birth"/>
                           <p:calendar id="date_of_birth"
                                     value="#{addEditDriverBean.dateOfBirth}"
                                     dir="ltr"
@@ -117,7 +117,7 @@ and open the template in the editor.
                                     requiredMessage=" #{msgs.required_msg}"/> 
                         <h:message for="date_of_birth" styleClass="errorMsg"/>
                         
-                        <p:outputLabel value="gender en" for="gender_en"/>
+                        <p:outputLabel value="#{msgs.gender_en}" for="gender_en"/>
                         <p:inputText id="gender_en"
                                      value="#{addEditDriverBean.genderEn}"
                                      required="true"
@@ -128,7 +128,7 @@ and open the template in the editor.
                         </p:inputText>
                         <h:message for="gender_en" styleClass="errorMsg"/>
                         
-                           <p:outputLabel value="gender ar" for="gender_ar"/>
+                           <p:outputLabel value="#{msgs.gender_ar}" for="gender_ar"/>
                         <p:inputText id="gender_ar"
                                      value="#{addEditDriverBean.genderAr}"
                                      required="true"
