@@ -48,6 +48,7 @@ and open the template in the editor.
                         
                         <p:outputLabel value="#{msgs.date_of_birth}" for="driver__home_date_of_birth"/>
                         <h:outputText id="driver__home_date_of_birth"  value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getDateOfBirth()}" />
+                        
                         <p:outputLabel value="#{msgs.gender}" for="driver__home_gender"/>
                         <h:outputText id="driver__home_gender" value="#{langBean.isEnglish?busDriverInfoBean.getBusDriverInfoArray().get(0).getGenderEn():busDriverInfoBean.getBusDriverInfoArray().get(0).getGenderAr()}" />
                         

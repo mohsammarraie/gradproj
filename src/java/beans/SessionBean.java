@@ -283,7 +283,16 @@ public class SessionBean implements Serializable {
     public void navigateStudentTripTrackMap() {
         navigate("/student_pages/student_trip_track_map.xhtml");
     }
-
+    public void navigateReports() {
+        navigate("/reports/reports.xhtml");
+    }
+    public void navigateMapTestOnMobile(){
+        navigate("/gps_mobile_test.xhtml");
+    }
+     public void navigateMapEx1(){
+        navigate("/geo1.htm");
+    }
+     
     public void navigate(String url) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
 

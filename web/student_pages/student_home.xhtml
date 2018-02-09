@@ -25,7 +25,7 @@ and open the template in the editor.
                             <td>
 
                                 <p:graphicImage    library="images" 
-                                                   name="person.png" style="height:261px"  />
+                                                   name="person.png" style="height:240px"  />
                             </td>
                         </tr>
                        
@@ -44,7 +44,41 @@ and open the template in the editor.
                         <p:outputLabel value="#{msgs.student_id}" for="student_home_id"/>
                         <h:outputText id="student_home_id" value="#{manageStudentsBean.getStudentsArray().get(0).getStudentId()}" />
                         
-           
+                        <p:outputLabel value="#{msgs.nationality}" for="student_nationality"/>
+                        <h:outputText id="student_nationality" value="Iraqi" />
+                        
+                        <p:outputLabel value="#{msgs.date_of_birth}" for="student__home_date_of_birth"/>
+                        <h:outputText id="student__home_date_of_birth"  value="12/11/1994" />
+
+                        
+                         <p:outputLabel value="#{msgs.gender}" for="student_home_gender"/>
+                        <h:outputText id="student_home_gender" value="Male" />
+                        
+                    </h:panelGrid>
+                 </p:fieldset>
+                   <p:fieldset legend="Acadmic Information" style="margin-bottom:20px">
+                    <h:panelGrid columns="2" cellpadding="5">
+                    
+                        <p:outputLabel value="Degree" for="Degree"/>
+                        <h:outputText id="Degree" value="Bachelor" />
+                        
+                        <p:outputLabel value="Faculty" for="Faculty"/>
+                        <h:outputText id="Faculty" value="School of Electrical Engineering and Information Technology"/>
+                        
+                       
+                        <p:outputLabel value="Department" for="Department"/>
+                        <h:outputText id="Department" value="Computer Engineering Department" />
+                        
+                        <p:outputLabel value="Major" for="Major"/>
+                        <h:outputText id="Major" value="Computer Engineering" />
+                        
+                        <p:outputLabel value="Program" for="Program"/>
+                        <h:outputText id="Program"  value="International Program" />
+
+                        
+                         <p:outputLabel value="Enrollment Year" for="Enrollment_Year"/>
+                        <h:outputText id="Enrollment_Year" value="2012" />
+                        
                     </h:panelGrid>
                  </p:fieldset>
             </ui:decorate>

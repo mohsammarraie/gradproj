@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">-->
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{msgs.reports}</title>
+    </h:head>
+    <h:body>
+        <div style="width:100%;">
+            <ui:decorate template="/app_templates/app_template.xhtml">
+
+                <p:fieldset legend="#{msgs.filtering_criteria}" style="margin-bottom:20px">
+                    <h:form id="driver_schedule_info_form1">
+                        <h:panelGrid columns="4" cellpadding="5">
+
+
+                            <p:outputLabel value="#{msgs.stop_name}:" for="stop_name"/>
+                            <p:selectOneMenu value="#{addEditRouteStopBean.routeStopId}"
+                                             style="width: 320px;"
+                                             id="stop_name"
+                                             filter="true"
+                                             filterMatchMode="contains">
+                                <f:selectItem itemLabel="#{msgs.choose_stop}"
+                                              itemValue=""/>
+                                <f:selectItems var="stopsInfo"
+                                               value="#{addEditRouteStopBean.stopsArray}" 
+                                               itemLabel="#{langBean.isEnglish?stopsInfo.stopNameEn:stopsInfo.stopNameAr}"
+                                               itemValue="#{stopsInfo.stopId}"/>                             
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="#{msgs.source}:" for="route_source"/>
+                            <p:selectOneMenu value=""
+                                             style="width: 320px;"
+                                             id="route_source"
+                                             filter="true"
+                                             filterMatchMode="contains">
+                                <f:selectItem itemLabel="#{msgs.choose_source}"
+                                              itemValue=""/>
+                                <f:selectItems var="routeInfo"
+                                               value="#{manageRoutesBean.routesArray}" 
+                                               itemLabel="#{langBean.isEnglish?routeInfo.sourceEn:routeInfo.sourceAr}"
+                                               itemValue="#{routeInfo.routeId}"/>                             
+                            </p:selectOneMenu>
+
+
+                            <p:outputLabel value="#{msgs.destination}:" for="route_destination"/>
+                            <p:selectOneMenu value=""
+                                             style="width: 320px;"
+                                             id="route_destination"
+                                             filter="true"
+                                             filterMatchMode="contains">
+                                <f:selectItem itemLabel="#{msgs.choose_destination}"
+                                              itemValue=""/>
+                                <f:selectItems var="routeInfo"
+                                               value="#{manageRoutesBean.routesArray}" 
+                                               itemLabel="#{langBean.isEnglish?routeInfo.destinationEn:routeInfo.destinationAr}"
+                                               itemValue="#{routeInfo.routeId}"/>                             
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="#{msgs.departure_time}:" for="route_departure_time"/>
+                            <p:selectOneMenu value=""
+                                             style="width: 320px;"
+                                             id="route_departure_time"
+                                             filter="true"
+                                             filterMatchMode="contains">
+                                <f:selectItem itemLabel="#{msgs.choose_departure_time}"
+                                              itemValue=""/>
+                                <f:selectItems var="report"
+                                               value="#{manageReportsBean.reportsArray}" 
+                                               itemLabel="#{report.departureTime}"
+                                               itemValue="#{report.routeId}"/>                             
+                            </p:selectOneMenu>
+
+
+                            <p:outputLabel value="#{msgs.arrival_time}:" for="route_arrival_time"/>
+                            <p:selectOneMenu value=""
+                                             style="width: 320px;"
+                                             id="route_arrival_time"
+                                             filter="true"
+                                             filterMatchMode="contains">
+                                <f:selectItem itemLabel="#{msgs.choose_arrival_time}"
+                                              itemValue=""/>
+                                <f:selectItems var="report"
+                                               value="#{manageReportsBean.reportsArray}" 
+                                               itemLabel="#{report.arrivalTime}"
+                                               itemValue="#{report.routeId}"/>                             
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="#{msgs.stop_order}:" for="stop_order"/>
+                            <p:inputText id="stop_order"
+                                         value="#{addEditRouteStopBean.stopOrder}"
+                                         style="width: 320px;"
+                                         required="true"
+                                         maxlength="3"  
+                                         converterMessage="#{msgs.capacity_msg}"
+                                         validatorMessage="#{msgs.capacity_msg}"
+                                         requiredMessage="#{msgs.required_msg}">
+                                <f:validateLongRange minimum="0" maximum="100"/>
+                            </p:inputText>
+                            <h:message for="stop_order" styleClass="errorMsg"/>    
+                        </h:panelGrid> 
+                        <div class="centered_div">
+                            <p:commandButton value="#{msgs.search}"
+                                             icon="ui-icon-search"
+                                             iconPos="#{langBean.styleFloat}"
+                                             styleClass="commandButton"
+                                             style=""  
+                                             ajax ="false"
+                                             actionListener="#{tripsBean.endTrip()}" />
+                        </div>
+                    </h:form> 
+                </p:fieldset>
+
+                <h:form id="report_info_tbl_form">
+                    <p:dataTable 
+                        id="report_info_tbl"
+                        value = "#{manageReportsBean.reportsArray}"
+                        class = "dataTable"
+                        var="reportInfo"
+                        rows="5"
+                        rowsPerPageTemplate="5,10,20"
+                        dir="#{langBean.dir}"
+                        emptyMessage="#{msgs.no_schedules}"
+                        paginator="true"
+                        paginatorPosition="top" 
+                        paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
+                        >
+
+
+                        <f:facet name="header" id="header">
+                            #{msgs.reports}
+                        </f:facet> 
+                        <p:column headerText="#{msgs.license_plate}"
+                                  style="width:15%"
+                               
+                                  sortBy="#{reportInfo.licenseNumber}">                    
+                            <h:outputText value="#{reportInfo.licenseNumber}"/>  
+                        </p:column>
+                         <p:column headerText="#{msgs.capacity}"
+                                  style="width:10%"
+                               
+                                  sortBy="#{reportInfo.capacity}">                    
+                            <h:outputText value="#{reportInfo.capacity}"/>  
+                        </p:column>
+                        <p:column headerText="#{msgs.national_id}"
+                                  style="width:20%"
+                                 
+                                  sortBy="#{reportInfo.nationalId}">                    
+                            <h:outputText value="#{reportInfo.nationalId}"/>  
+                        </p:column>
+
+
+                        <p:column headerText="#{msgs.driver_name}"
+                                  style="width:20%"
+                              
+                                  sortBy="#{langBean.isEnglish?reportInfo.driverNameEn:reportInfo.driverNameAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?reportInfo.driverNameEn:reportInfo.driverNameAr}"/>  
+                        </p:column>
+
+                        <p:column headerText="#{msgs.route_code}"
+                                  style="width:10%"
+                                
+                                  sortBy="#{reportInfo.routeCode}">                    
+                            <h:outputText value="#{reportInfo.routeCode}"/>  
+                        </p:column>
+                        <p:column headerText="#{msgs.source}"
+                                  style="width:20%"
+                           
+                                  sortBy="#{langBean.isEnglish?reportInfo.sourceEn:reportInfo.sourceAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?reportInfo.sourceEn:reportInfo.sourceAr}"/>  
+                        </p:column>
+
+                        <p:column headerText="#{msgs.destination}"
+                                  style="width:20%"
+                       
+                                  sortBy="#{langBean.isEnglish?reportInfo.destinationEn:reportInfo.destinationAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?reportInfo.destinationEn:reportInfo.destinationAr}"/>  
+                        </p:column>
+
+                        <p:column headerText="#{msgs.departure_time}"
+                                  style="width:20%"
+                              
+                                  sortBy="#{reportInfo.departureTime}">
+                            <h:outputText value="#{reportInfo.departureTime}">  
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>
+
+                        </p:column>
+
+                        <p:column headerText="#{msgs.arrival_time}"
+                                  style="width:20%"
+                                
+                                  sortBy="#{reportInfo.arrivalTime}">                    
+                            <h:outputText value="#{reportInfo.arrivalTime}">  
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>  
+                        </p:column>
+                        <p:column headerText="#{msgs.actual_departure_time}"
+                                  style="width:20%"
+                             
+                                  sortBy="#{reportInfo.actualDepartureTime}">                    
+                            <h:outputText value="#{reportInfo.actualDepartureTime}">  
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>  
+                        </p:column>
+                        <p:column headerText="#{msgs.actual_arrival_time}"
+                                  style="width:20%"
+                                 
+                                  sortBy="#{reportInfo.actualArrivalTime}">                    
+                            <h:outputText value="#{reportInfo.actualArrivalTime}">  
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>  
+                        </p:column>
+                        <p:column headerText="#{msgs.status}"
+                                  style="width:20%"
+                             
+                                  sortBy="#{langBean.isEnglish?reportInfo.statusEn:reportInfo.statusAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?reportInfo.statusEn:reportInfo.statusAr}"/>  
+                        </p:column>
+                        <p:column headerText="#{msgs.departure_time_status}"
+                                  style="width:20%"
+                             
+                                  sortBy="#{langBean.isEnglish?reportInfo.departureTimeStatusEn:reportInfo.departureTimeStatusAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?reportInfo.departureTimeStatusEn:reportInfo.departureTimeStatusAr}"/>  
+                        </p:column>
+                        <p:column headerText="#{msgs.arrival_time_status}"
+                                  style="width:20%"
+                             
+                                  sortBy="#{langBean.isEnglish?reportInfo.arrivalTimeStatusEn:reportInfo.arrivalTimeStatusAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?reportInfo.arrivalTimeStatusEn:reportInfo.arrivalTimeStatusAr}"/>  
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+
+            </ui:decorate>
+
+        </div>
+    </h:body>
+</html>

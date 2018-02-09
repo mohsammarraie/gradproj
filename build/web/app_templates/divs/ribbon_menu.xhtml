@@ -46,7 +46,24 @@
                                       actionListener="#{sessionBean.setMenuIndex(0)}"
                                       action="#{sessionBean.navigateManageStops()}">                       
                     </p:commandButton>
-
+                    <p:commandButton  value="#{msgs.reports}" 
+                                      styleClass="ribbonButton" 
+                                      style="float:#{langBean.styleFloat};"
+                                      actionListener="#{sessionBean.setMenuIndex(0)}"
+                                      action="#{sessionBean.navigateReports()}">                       
+                    </p:commandButton>
+                    <p:commandButton  value="GPS Mobile Test" 
+                                      styleClass="ribbonButton" 
+                                      style="float:#{langBean.styleFloat};"
+                                      actionListener="#{sessionBean.setMenuIndex(0)}"
+                                      action="#{sessionBean.navigateMapTestOnMobile()}">                       
+                    </p:commandButton>
+                    <p:commandButton  value="GPS Mobile example" 
+                                      styleClass="ribbonButton" 
+                                      style="float:#{langBean.styleFloat};"
+                                      actionListener="#{sessionBean.setMenuIndex(0)}"
+                                      action="#{sessionBean.navigateMapEx1()}">                       
+                    </p:commandButton>
                 </p:ribbonGroup>               
             </p:tab>
             <p:tab title="#{msgs.driver}">  
