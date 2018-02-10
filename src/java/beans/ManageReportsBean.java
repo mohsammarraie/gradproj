@@ -54,7 +54,7 @@ public class ManageReportsBean implements Serializable {
 
             resultReportsArray = reportsDao.buildResultReports(routeId, busId, driverId, departureTime, arrivalTime,statusEn,statusAr,departureTimeStatusEn,departureTimeStatusAr,arrivalTimeStatusEn,arrivalTimeStatusAr);
 
-            reportsArray = reportsDao.buildReports();
+//            reportsArray = reportsDao.buildReports();
             statusArray = reportStatusDao.buildReportStatus();
 
         } catch (Exception ex) {

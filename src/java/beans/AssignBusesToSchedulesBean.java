@@ -51,6 +51,7 @@ public class AssignBusesToSchedulesBean implements Serializable {
             availableBusesArray = busesSchedulesDao.buildAvailableBuses();
             routeId = sessionBean.getSelectedRouteId();
             scheduleId = sessionBean.getSelectedScheduleId();
+            busId = sessionBean.getSelectedBusId();
 
             if (scheduleId > 0) {
                 busesSchedules = busesSchedulesDao.getBusesSchedules(routeId, scheduleId);
@@ -138,7 +139,7 @@ public class AssignBusesToSchedulesBean implements Serializable {
             }
         }
         if (flag) {
-
+            sessionBean.setSelectedBusId(busesSchedulesArray.get(i).getBusId()); 
             return busesSchedulesArray.get(i).getAssignedBus();
 
         } else {

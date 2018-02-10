@@ -286,11 +286,14 @@ public class SessionBean implements Serializable {
     public void navigateReports() {
         navigate("/reports/reports.xhtml");
     }
+    public void navigateReportsRouteStopsSchedules(){
+        navigate("/reports/reports_route_stops_schedules.xhtml");
+    }
     public void navigateMapTestOnMobile(){
         navigate("/gps_mobile_test.xhtml");
     }
      public void navigateMapEx1(){
-        navigate("/geo1.htm");
+        navigate("/GPS_test_firas.xhtml");
     }
      
     public void navigate(String url) {

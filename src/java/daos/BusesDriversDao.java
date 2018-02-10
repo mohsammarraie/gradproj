@@ -23,11 +23,17 @@ public class BusesDriversDao extends ConnectionDao {
         Connection conn = getConnection();
 
         try {
+//            String sql = "SELECT CONCAT(CONCAT(CONCAT(CONCAT(FIRST_NAME_EN,' '), LAST_NAME_EN),', '),NATIONAL_ID) AS DRIVER_NAME_EN,"
+//                    + " CONCAT(CONCAT(CONCAT(CONCAT(FIRST_NAME_AR,' '), LAST_NAME_AR),', '),NATIONAL_ID) AS DRIVER_NAME_AR,"
+//                    + " DRIVER_ID,NATIONAL_ID"
+//                    + " FROM BUSES.DRIVERS "
+//                    + " WHERE DRIVER_ID NOT IN (SELECT DRIVER_ID FROM BUSES_DRIVERS)"
+//                    + " ORDER BY DRIVER_ID";
+
             String sql = "SELECT CONCAT(CONCAT(CONCAT(CONCAT(FIRST_NAME_EN,' '), LAST_NAME_EN),', '),NATIONAL_ID) AS DRIVER_NAME_EN,"
                     + " CONCAT(CONCAT(CONCAT(CONCAT(FIRST_NAME_AR,' '), LAST_NAME_AR),', '),NATIONAL_ID) AS DRIVER_NAME_AR,"
                     + " DRIVER_ID,NATIONAL_ID"
                     + " FROM BUSES.DRIVERS "
-                    + " WHERE DRIVER_ID NOT IN (SELECT DRIVER_ID FROM BUSES_DRIVERS)"
                     + " ORDER BY DRIVER_ID";
             PreparedStatement ps = conn.prepareStatement(sql);
 

@@ -16,8 +16,6 @@
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <h:body> 
         <ui:decorate template="/app_templates/app_template.xhtml">   
-
-
             <p:gmap id="gmap2" widgetVar="w_gmap" type="roadmap" center="0, 0" zoom="16" style="width:600px;height:400px" />    
 
             <h:form>
@@ -59,13 +57,7 @@
                     myRemoteCommand([{name: 'lat', value: latitude}, {name: 'lng', value: longitude}]);
 
                 }
-
-
             </script>
-
-
-
-
         </ui:decorate>
     </h:body>
 </html>

@@ -40,6 +40,19 @@ and open the template in the editor.
                                                itemValue="#{routeInfo.routeId}"/>                             
                             </p:selectOneMenu>
 
+                            <p:outputLabel value="#{msgs.status}:" for="report_status"/>
+                            <p:selectOneMenu value="#{langBean.isEnglish?manageReportsBean.statusEn:manageReportsBean.statusAr}"
+                                             style="width: 320px;"
+                                             id="report_status"
+                                             filter="true"
+                                             filterMatchMode="contains">
+                                <f:selectItem itemLabel="#{msgs.choose_trip_status}"
+                                              itemValue=""/>
+                                <f:selectItems var="statusInfo"
+                                               value="#{manageReportsBean.statusArray}" 
+                                               itemLabel="#{langBean.isEnglish?statusInfo.statusEn:statusInfo.statusAr}"
+                                               itemValue="#{langBean.isEnglish?statusInfo.statusEn:statusInfo.statusAr}"/>                             
+                            </p:selectOneMenu>
 
                             <p:outputLabel value="#{msgs.driver_name}:" for="report_driver"/>
                             <p:selectOneMenu value="#{manageReportsBean.driverId}"
@@ -55,6 +68,20 @@ and open the template in the editor.
                                                itemValue="#{driverInfo.driverId}"/>                             
                             </p:selectOneMenu>
 
+                            <p:outputLabel value="#{msgs.departure_time_status}:" for="report_departure_time_status"/>
+                            <p:selectOneMenu value="#{langBean.isEnglish?manageReportsBean.departureTimeStatusEn:manageReportsBean.departureTimeStatusAr}"
+                                             style="width: 320px;"
+                                             id="report_departure_time_status"
+                                             filter="true"
+                                             filterMatchMode="contains">
+                                <f:selectItem itemLabel="#{msgs.choose_departure_time_status}"
+                                              itemValue=""/>
+                                <f:selectItems var="statusInfo"
+                                               value="#{manageReportsBean.statusArray}" 
+                                               itemLabel="#{langBean.isEnglish?statusInfo.departureTimeStatusEn:statusInfo.departureTimeStatusAr}"
+                                               itemValue="#{langBean.isEnglish?statusInfo.departureTimeStatusEn:statusInfo.departureTimeStatusAr}"/>                             
+                            </p:selectOneMenu>
+
                             <p:outputLabel value="#{msgs.bus_license_number}:" for="report_license_number"/>
                             <p:selectOneMenu value="#{manageReportsBean.busId}"
                                              style="width: 320px;"
@@ -67,6 +94,20 @@ and open the template in the editor.
                                                value="#{manageBusesBean.busesArray}" 
                                                itemLabel="#{busInfo.licenseNumber}"
                                                itemValue="#{busInfo.busId}"/>                             
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="#{msgs.arrival_time_status}:" for="report_arrival_time_status"/>
+                            <p:selectOneMenu value="#{langBean.isEnglish?manageReportsBean.arrivalTimeStatusEn:manageReportsBean.arrivalTimeStatusAr}"
+                                             style="width: 320px;"
+                                             id="report_arrival_time_status"
+                                             filter="true"
+                                             filterMatchMode="contains">
+                                <f:selectItem itemLabel="#{msgs.choose_arrival_time_status}"
+                                              itemValue=""/>
+                                <f:selectItems var="statusInfo"
+                                               value="#{manageReportsBean.statusArray}" 
+                                               itemLabel="#{langBean.isEnglish?statusInfo.arrivalTimeStatusEn:statusInfo.arrivalTimeStatusAr}"
+                                               itemValue="#{langBean.isEnglish?statusInfo.arrivalTimeStatusEn:statusInfo.arrivalTimeStatusAr}"/>                             
                             </p:selectOneMenu>
 
                             <p:outputLabel for="report_departure_time" value="#{msgs.departure_time}:" />
@@ -88,49 +129,6 @@ and open the template in the editor.
                                         navigator="true"
                                         yearRange="c-10:c+1"
                                         timeInput="true"/> 
-                            
-                            <p:outputLabel value="#{msgs.status}:" for="report_status"/>
-                            <p:selectOneMenu value="#{langBean.isEnglish?manageReportsBean.statusEn:manageReportsBean.statusAr}"
-                                             style="width: 320px;"
-                                             id="report_status"
-                                             filter="true"
-                                             filterMatchMode="contains">
-                                <f:selectItem itemLabel="choose status"
-                                              itemValue=""/>
-                                <f:selectItems var="statusInfo"
-                                               value="#{manageReportsBean.statusArray}" 
-                                               itemLabel="#{langBean.isEnglish?statusInfo.statusEn:statusInfo.statusAr}"
-                                               itemValue="#{langBean.isEnglish?statusInfo.statusEn:statusInfo.statusAr}"/>                             
-                            </p:selectOneMenu>
-
-                            <p:outputLabel value="#{msgs.departure_time_status}:" for="report_departure_time_status"/>
-                            <p:selectOneMenu value="#{langBean.isEnglish?manageReportsBean.departureTimeStatusEn:manageReportsBean.departureTimeStatusAr}"
-                                             style="width: 320px;"
-                                             id="report_departure_time_status"
-                                             filter="true"
-                                             filterMatchMode="contains">
-                                <f:selectItem itemLabel="choose status"
-                                              itemValue=""/>
-                                <f:selectItems var="statusInfo"
-                                               value="#{manageReportsBean.statusArray}" 
-                                               itemLabel="#{langBean.isEnglish?statusInfo.departureTimeStatusEn:statusInfo.departureTimeStatusAr}"
-                                               itemValue="#{langBean.isEnglish?statusInfo.departureTimeStatusEn:statusInfo.departureTimeStatusAr}"/>                             
-                            </p:selectOneMenu>
-
-                            <p:outputLabel value="#{msgs.arrival_time_status}:" for="report_arrival_time_status"/>
-                            <p:selectOneMenu value="#{langBean.isEnglish?manageReportsBean.arrivalTimeStatusEn:manageReportsBean.arrivalTimeStatusAr}"
-                                             style="width: 320px;"
-                                             id="report_arrival_time_status"
-                                             filter="true"
-                                             filterMatchMode="contains">
-                                <f:selectItem itemLabel="choose status"
-                                              itemValue=""/>
-                                <f:selectItems var="statusInfo"
-                                               value="#{manageReportsBean.statusArray}" 
-                                               itemLabel="#{langBean.isEnglish?statusInfo.arrivalTimeStatusEn:statusInfo.arrivalTimeStatusAr}"
-                                               itemValue="#{langBean.isEnglish?statusInfo.arrivalTimeStatusEn:statusInfo.arrivalTimeStatusAr}"/>                             
-                            </p:selectOneMenu>
-
 
                         </h:panelGrid> 
                         <div class="centered_div">
@@ -149,6 +147,8 @@ and open the template in the editor.
                     <p:dataTable 
                         id="report_info_tbl"
                         value = "#{manageReportsBean.resultReportsArray}"
+                        selection="#{manageReportsBean.selectedReport}"
+                        rowKey="#{reportInfo.tripId}" 
                         class = "dataTable"
                         var="reportInfo"
                         rows="5"
@@ -160,10 +160,13 @@ and open the template in the editor.
                         paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
                         >
 
+                        <p:ajax event="rowSelectRadio"
+                                update=":report_info_tbl_form:report_info_tbl"/>  
 
                         <f:facet name="header" id="header">
                             #{msgs.reports}
                         </f:facet> 
+                        <p:column selectionMode="single" style="width:5%"/>
                         <p:column headerText="#{msgs.license_plate}"
                                   style="width:15%"
 
@@ -263,7 +266,22 @@ and open the template in the editor.
                                   sortBy="#{langBean.isEnglish?reportInfo.arrivalTimeStatusEn:reportInfo.arrivalTimeStatusAr}">                    
                             <h:outputText value="#{langBean.isEnglish?reportInfo.arrivalTimeStatusEn:reportInfo.arrivalTimeStatusAr}"/>  
                         </p:column>
+                        <f:facet name="footer">
+                            <p:toolbar style="border: none">
+                                <p:toolbarGroup align="#{languageBean.screenLeft}">
 
+                                    <p:commandButton value="#{msgs.stops}"
+                                                     icon="ui-icon-pencil"                                  
+                                                     iconPos="#{langBean.styleFloat}"
+                                                     styleClass="commandButton"
+                                                     style="float:#{langBean.styleFloat}"                                                                                                
+                                                     disabled="#{manageReportsBean.selectedReport==null}"                                                 
+                                                     actionListener="#{manageReportsBean.saveSelectedTripId()}"
+                                                     action="#{sessionBean.navigateReportsRouteStopsSchedules()}" />
+
+                                </p:toolbarGroup>
+                            </p:toolbar>
+                        </f:facet>
                     </p:dataTable>
 
                 </h:form>

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>#{msgs.trip_map}</title>
+    </h:head>
+<!--    <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyAT-PnUumnLEeph1uswtj11VoLEjdeO_90"></script>-->
+<!--    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>-->
+        <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script> <!--mobile sensor based-->
+
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <h:body> 
+        <ui:decorate template="/app_templates/app_template.xhtml">   
+
+            <h:form id="report_info_form">
+
+
+                <p:fieldset legend="#{msgs.route_stops}" style="margin-bottom:20px">
+                    <h:panelGrid columns="2" cellpadding="5">
+
+                        <c:forEach var="reportsRouteStopsSchedule" items="#{reportsRouteStopsSchedulesBean.reportsRouteStopsSchedulesArray}" varStatus="loop">
+
+                            <p:outputLabel value="#{langBean.isEnglish?reportsRouteStopsSchedule.stopNameEn:reportsRouteStopsSchedule.stopNameAr}:" for="report_stop_time_#{loop.index}"/>
+                            <h:outputText id="report_stop_time_#{loop.index}" value="#{reportsRouteStopsSchedule.time}">  
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>                    
+                        </c:forEach>
+                    </h:panelGrid>
+                </p:fieldset>
+                
+                <p:commandButton  value="#{msgs.back}"
+                                      icon="ui-icon-back"                                  
+                                      iconPos="#{langBean.styleFloat}"
+                                      styleClass="commandButton"
+                                      style="float:#{langBean.styleFloat}"
+                                      action="#{sessionBean.navigateReports()}" />
+
+            </h:form>
+
+        </ui:decorate>
+    </h:body>
+</html>
