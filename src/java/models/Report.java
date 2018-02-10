@@ -42,6 +42,8 @@ public class Report {
     private String departureTimeStatusAr;
     private String arrivalTimeStatusAr;
     private String arrivalTimeStatusEn;
+    
+    
 
     public int getTripId() {
         return tripId;

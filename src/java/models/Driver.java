@@ -25,10 +25,29 @@ public class Driver {
     private String genderEn;
     private String genderAr;
     private String nationalityAr;
+    private String driverNameEn;
+    private String driverNameAr;
 
     public Driver() {
     }
 
+    public String getDriverNameEn() {
+        return driverNameEn;
+    }
+
+    public void setDriverNameEn(String driverNameEn) {
+        this.driverNameEn = driverNameEn;
+    }
+
+    public String getDriverNameAr() {
+        return driverNameAr;
+    }
+
+    public void setDriverNameAr(String driverNameAr) {
+        this.driverNameAr = driverNameAr;
+    }
+    
+    
     public String getGenderAr() {
         return genderAr;
     }

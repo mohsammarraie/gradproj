@@ -18,7 +18,26 @@ public class Route {
     private String destinationEn;
     private String routeCode;
     private int routeActive;
+    private String routeNameAr;
+    private String routeNameEn;
 
+    public String getRouteNameAr() {
+        return routeNameAr;
+    }
+
+    public void setRouteNameAr(String routeNameAr) {
+        this.routeNameAr = routeNameAr;
+    }
+
+    public String getRouteNameEn() {
+        return routeNameEn;
+    }
+
+    public void setRouteNameEn(String routeNameEn) {
+        this.routeNameEn = routeNameEn;
+    }
+
+    
     public int getRouteId() {
         return routeId;
     }

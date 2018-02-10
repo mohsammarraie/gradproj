@@ -9,7 +9,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import models.Report;
 
 /**
@@ -77,5 +81,168 @@ public class ReportsDao extends ConnectionDao{
         
         return report;
     }
+    
+    public void dynamicQuery(String sourceEn){
+    
+        
+        
+    }
+    
+    public ArrayList<Report> buildResultReports(int routeId, int busId, int driverId, Date departureTime, Date arrivalTime,String statusEn,String statusAr,
+            String departureTimeStatusEn,String departureTimeStatusAr,String arrivalTimeStatusEn,String arrivalTimeStatusAr) throws Exception {
+        ArrayList<Report> list = new ArrayList<>();
+        Connection conn = getConnection();
+        
+        try {
+        String sql="SELECT * FROM REPORTS_VIEW";
+        if(routeId>0 || busId>0 || driverId>0 || departureTime!=null|| arrivalTime!=null ||statusEn!=null||statusAr!=null
+                || departureTimeStatusEn!=null|| departureTimeStatusAr!=null|| arrivalTimeStatusEn !=null || arrivalTimeStatusAr!=null){
+             sql+=" WHERE ";
+        }
+      
+        if(routeId > 0){
+            sql+="ROUTE_ID="+routeId ;
+            if( busId>0 || driverId>0 || departureTime!=null|| arrivalTime!=null ||statusEn!=null||statusAr!=null
+                || departureTimeStatusEn!=null|| departureTimeStatusAr!=null|| arrivalTimeStatusEn !=null || arrivalTimeStatusAr!=null){
+                sql+=" AND ";
+            }
+        }
+         if(busId > 0){
+            sql+="BUS_ID="+busId ;
+             if(driverId>0 || departureTime!=null|| arrivalTime!=null ||statusEn!=null||statusAr!=null
+                || departureTimeStatusEn!=null|| departureTimeStatusAr!=null|| arrivalTimeStatusEn !=null || arrivalTimeStatusAr!=null){
+                sql+=" AND ";
+            }
+        }
+          if(driverId > 0){
+              
+            sql+="DRIVER_ID=" + driverId;
+                if (departureTime != null || arrivalTime != null || statusEn != null || statusAr != null
+                        || departureTimeStatusEn != null || departureTimeStatusAr != null || arrivalTimeStatusEn != null || arrivalTimeStatusAr != null) {
+                    sql += " AND ";
+                }
+            }
+            if (departureTime != null) {
+                Timestamp timeStampDepartureTime = new Timestamp(departureTime.getTime());
+                Format formatt = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");;
+                String dateToString = formatt.format(timeStampDepartureTime);
+                String[] splitDate = dateToString.split(" ");
+
+                sql += "DEPARTURE_TIME='" + "01-JAN-70 " + splitDate[1] + "'";
+                if (arrivalTime != null || statusEn != null || statusAr != null
+                        || departureTimeStatusEn != null || departureTimeStatusAr != null || arrivalTimeStatusEn != null || arrivalTimeStatusAr != null) {
+                    sql += " AND ";
+                }
+
+            }
+            if (arrivalTime != null) {
+                Timestamp timeStampArrivalTime = new Timestamp(arrivalTime.getTime());
+                Format formatt = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");;
+                String dateToString = formatt.format(timeStampArrivalTime);
+                String[] splitDate = dateToString.split(" ");
+                sql += "ARRIVAL_TIME='" + "01-JAN-70 " + splitDate[1] + "'";
+                if (statusEn != null || statusAr != null
+                        || departureTimeStatusEn != null || departureTimeStatusAr != null || arrivalTimeStatusEn != null || arrivalTimeStatusAr != null) {
+                    sql += " AND ";
+                }
+            }
+            if (statusEn != null) {
+            sql+="STATUS_EN='"+statusEn+"'" ;
+            if( statusAr!=null
+                || departureTimeStatusEn!=null|| departureTimeStatusAr!=null|| arrivalTimeStatusEn !=null || arrivalTimeStatusAr!=null){
+                sql+=" AND ";
+            }
+        }
+           if(statusAr !=null){
+            sql+="STATUS_AR='"+statusAr+"'" ;
+            if( departureTimeStatusEn!=null|| departureTimeStatusAr!=null|| arrivalTimeStatusEn !=null || arrivalTimeStatusAr!=null){
+                sql+=" AND ";
+            }
+        }
+           if(departureTimeStatusEn !=null){
+            sql+="DEPARTURE_TIME_STATUS_EN='"+departureTimeStatusEn+"'" ;
+            if(  departureTimeStatusAr!=null|| arrivalTimeStatusEn !=null || arrivalTimeStatusAr!=null){
+                sql+=" AND ";
+            }
+        }
+           if(departureTimeStatusAr !=null){
+            sql+="DEPARTURE_TIME_STATUS_AR='"+departureTimeStatusAr+"'" ;
+            if(  arrivalTimeStatusEn !=null || arrivalTimeStatusAr!=null){
+                sql+=" AND ";
+            }
+        }
+           if(arrivalTimeStatusEn !=null){
+            sql+="ARRIVAL_TIME_STATUS_EN='"+arrivalTimeStatusEn+"'" ;
+            if(  arrivalTimeStatusAr!=null){
+                sql+=" AND ";
+            }
+        }
+           if(arrivalTimeStatusAr !=null){
+            sql+="ARRIVAL_TIME_STATUS_AR='"+arrivalTimeStatusAr+"'" ;
+          
+        }
+  
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(populateReports(rs));
+
+            }
+
+            rs.close();
+            ps.close();
+
+            return list;
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+    
+    
+//    public String AssembleSimpleSelectQuery(String TableName,Hashtable<String,String> criteria) {
+//    Hashtable<String,String> columnlist = ReturnColumnList(TableName);
+//    Iterator<String> iter = columnlist.keySet().iterator();
+//    int count = 0;
+//    StringBuilder query=new StringBuilder();
+//    query.append("SELECT ");
+//    while(iter.hasNext())
+//    {
+//        count++;
+//        query.append(iter.next());
+//        if(count < (columnlist.size()))
+//        {
+//            query.append(",");
+//        }
+//    }
+//    query.append(" From " + TableName );
+//
+//
+//    Iterator<String> crit = criteria.keySet().iterator();
+//    if(criteria.size()>0)
+//    {
+//        query.append(" where ");
+//    }
+//    count = 0;
+//    while(crit.hasNext())
+//    {
+//        count++;
+//        String temp = crit.next();
+//        query.append(temp + "=");
+//        if(columnlist.get(temp).equals("String") || columnlist.get(temp).equals("Id"))
+//        {
+//            query.append("'" + criteria.get(temp) + "'");
+//        }
+//        else if(columnlist.get(temp).equals("Date"))
+//        {
+//            query.append("to_date('"+criteria.get(temp)+"','mm-dd-yyyy')");
+//        }
+//        if(count < criteria.size())
+//        {
+//            query.append(" and ");
+//        }
+//    }
+//    return query.toString();
+//}
     
 }

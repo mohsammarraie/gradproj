@@ -25,7 +25,14 @@ public class DriversDao extends ConnectionDao {
         Connection conn = getConnection();
 
         try {
-            String sql = "SELECT * FROM BUSES.DRIVERS ORDER BY DRIVER_ID";
+            String sql = "SELECT DRIVER_ID,FIRST_NAME_AR,FIRST_NAME_EN,"
+                    + " LAST_NAME_EN,LAST_NAME_AR,PHONE_NUMBER,"
+                    + " NATIONAL_ID,DATE_OF_BIRTH,GENDER_EN,GENDER_AR,"
+                    + " NATIONALITY_EN, NATIONALITY_AR,"
+                    + " CONCAT(CONCAT(FIRST_NAME_EN,' '), LAST_NAME_EN) AS DRIVER_NAME_EN,"
+                    + " CONCAT(CONCAT(FIRST_NAME_AR,' '), LAST_NAME_AR) AS DRIVER_NAME_AR"
+                    + " FROM"
+                    + " BUSES.DRIVERS ORDER BY DRIVER_ID";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
@@ -43,29 +50,6 @@ public class DriversDao extends ConnectionDao {
         }
     }
 
-    public HashMap<Integer, Driver> buildDriverMap() throws Exception {
-        HashMap<Integer, Driver> map = new HashMap<>();
-        Connection conn = getConnection();
-
-        try {
-            String sql = "SELECT * FROM BUSES.DRIVERS ORDER BY DRIVER_ID";
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Driver driverInfo = populateDrivers(rs);
-                map.put(driverInfo.getDriverId(), driverInfo);
-            }
-
-            rs.close();
-            ps.close();
-
-            return map;
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
-    }
 
     private Driver populateDrivers(ResultSet rs) throws SQLException {
         Driver driverInfo = new Driver();
@@ -82,6 +66,8 @@ public class DriversDao extends ConnectionDao {
         driverInfo.setNationalityEn(rs.getString("NATIONALITY_EN"));
         driverInfo.setGenderAr(rs.getString("GENDER_AR"));
         driverInfo.setNationalityAr(rs.getString("NATIONALITY_AR"));
+        driverInfo.setDriverNameEn(rs.getString("DRIVER_NAME_EN"));
+        driverInfo.setDriverNameAr(rs.getString("DRIVER_NAME_AR"));
         return driverInfo;
     }
 

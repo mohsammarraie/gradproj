@@ -20,94 +20,118 @@ and open the template in the editor.
             <ui:decorate template="/app_templates/app_template.xhtml">
 
                 <p:fieldset legend="#{msgs.filtering_criteria}" style="margin-bottom:20px">
-                    <h:form id="driver_schedule_info_form1">
+                    <h:form id="report_info_form">
                         <h:panelGrid columns="4" cellpadding="5">
 
 
-                            <p:outputLabel value="#{msgs.stop_name}:" for="stop_name"/>
-                            <p:selectOneMenu value="#{addEditRouteStopBean.routeStopId}"
-                                             style="width: 320px;"
-                                             id="stop_name"
-                                             filter="true"
-                                             filterMatchMode="contains">
-                                <f:selectItem itemLabel="#{msgs.choose_stop}"
-                                              itemValue=""/>
-                                <f:selectItems var="stopsInfo"
-                                               value="#{addEditRouteStopBean.stopsArray}" 
-                                               itemLabel="#{langBean.isEnglish?stopsInfo.stopNameEn:stopsInfo.stopNameAr}"
-                                               itemValue="#{stopsInfo.stopId}"/>                             
-                            </p:selectOneMenu>
 
-                            <p:outputLabel value="#{msgs.source}:" for="route_source"/>
-                            <p:selectOneMenu value=""
+
+                            <p:outputLabel value="#{msgs.source}:" for="report_route"/>
+                            <p:selectOneMenu value="#{manageReportsBean.routeId}"
                                              style="width: 320px;"
-                                             id="route_source"
+                                             id="report_route"
                                              filter="true"
                                              filterMatchMode="contains">
                                 <f:selectItem itemLabel="#{msgs.choose_source}"
                                               itemValue=""/>
                                 <f:selectItems var="routeInfo"
                                                value="#{manageRoutesBean.routesArray}" 
-                                               itemLabel="#{langBean.isEnglish?routeInfo.sourceEn:routeInfo.sourceAr}"
+                                               itemLabel="#{langBean.isEnglish?routeInfo.routeNameEn:routeInfo.routeNameAr}"
                                                itemValue="#{routeInfo.routeId}"/>                             
                             </p:selectOneMenu>
 
 
-                            <p:outputLabel value="#{msgs.destination}:" for="route_destination"/>
-                            <p:selectOneMenu value=""
+                            <p:outputLabel value="#{msgs.driver_name}:" for="report_driver"/>
+                            <p:selectOneMenu value="#{manageReportsBean.driverId}"
                                              style="width: 320px;"
-                                             id="route_destination"
+                                             id="report_driver"
                                              filter="true"
                                              filterMatchMode="contains">
-                                <f:selectItem itemLabel="#{msgs.choose_destination}"
+                                <f:selectItem itemLabel="#{msgs.choose_driver}"
                                               itemValue=""/>
-                                <f:selectItems var="routeInfo"
-                                               value="#{manageRoutesBean.routesArray}" 
-                                               itemLabel="#{langBean.isEnglish?routeInfo.destinationEn:routeInfo.destinationAr}"
-                                               itemValue="#{routeInfo.routeId}"/>                             
+                                <f:selectItems var="driverInfo"
+                                               value="#{manageDriversBean.driversArray}" 
+                                               itemLabel="#{langBean.isEnglish?driverInfo.driverNameEn:driverInfo.driverNameAr}"
+                                               itemValue="#{driverInfo.driverId}"/>                             
                             </p:selectOneMenu>
 
-                            <p:outputLabel value="#{msgs.departure_time}:" for="route_departure_time"/>
-                            <p:selectOneMenu value=""
+                            <p:outputLabel value="#{msgs.bus_license_number}:" for="report_license_number"/>
+                            <p:selectOneMenu value="#{manageReportsBean.busId}"
                                              style="width: 320px;"
-                                             id="route_departure_time"
+                                             id="report_license_number"
                                              filter="true"
                                              filterMatchMode="contains">
-                                <f:selectItem itemLabel="#{msgs.choose_departure_time}"
+                                <f:selectItem itemLabel="#{msgs.choose_bus_license_number}"
                                               itemValue=""/>
-                                <f:selectItems var="report"
-                                               value="#{manageReportsBean.reportsArray}" 
-                                               itemLabel="#{report.departureTime}"
-                                               itemValue="#{report.routeId}"/>                             
+                                <f:selectItems var="busInfo"
+                                               value="#{manageBusesBean.busesArray}" 
+                                               itemLabel="#{busInfo.licenseNumber}"
+                                               itemValue="#{busInfo.busId}"/>                             
                             </p:selectOneMenu>
 
+                            <p:outputLabel for="report_departure_time" value="#{msgs.departure_time}:" />
+                            <p:calendar id="report_departure_time"
+                                        value="#{manageReportsBean.departureTime}"
+                                        dir="ltr"
+                                        pattern="HH:mm"
+                                        timeOnly="true"
+                                        navigator="true"
+                                        yearRange="c-10:c+1"
+                                        timeInput="true"/> 
 
-                            <p:outputLabel value="#{msgs.arrival_time}:" for="route_arrival_time"/>
-                            <p:selectOneMenu value=""
+                            <p:outputLabel for="report_arrival_time" value="#{msgs.arrival_time}:" />
+                            <p:calendar id="report_arrival_time"
+                                        value="#{manageReportsBean.arrivalTime}"
+                                        dir="ltr"
+                                        pattern="HH:mm"
+                                        timeOnly="true"
+                                        navigator="true"
+                                        yearRange="c-10:c+1"
+                                        timeInput="true"/> 
+                            
+                            <p:outputLabel value="#{msgs.status}:" for="report_status"/>
+                            <p:selectOneMenu value="#{langBean.isEnglish?manageReportsBean.statusEn:manageReportsBean.statusAr}"
                                              style="width: 320px;"
-                                             id="route_arrival_time"
+                                             id="report_status"
                                              filter="true"
                                              filterMatchMode="contains">
-                                <f:selectItem itemLabel="#{msgs.choose_arrival_time}"
+                                <f:selectItem itemLabel="choose status"
                                               itemValue=""/>
-                                <f:selectItems var="report"
-                                               value="#{manageReportsBean.reportsArray}" 
-                                               itemLabel="#{report.arrivalTime}"
-                                               itemValue="#{report.routeId}"/>                             
+                                <f:selectItems var="statusInfo"
+                                               value="#{manageReportsBean.statusArray}" 
+                                               itemLabel="#{langBean.isEnglish?statusInfo.statusEn:statusInfo.statusAr}"
+                                               itemValue="#{langBean.isEnglish?statusInfo.statusEn:statusInfo.statusAr}"/>                             
                             </p:selectOneMenu>
 
-                            <p:outputLabel value="#{msgs.stop_order}:" for="stop_order"/>
-                            <p:inputText id="stop_order"
-                                         value="#{addEditRouteStopBean.stopOrder}"
-                                         style="width: 320px;"
-                                         required="true"
-                                         maxlength="3"  
-                                         converterMessage="#{msgs.capacity_msg}"
-                                         validatorMessage="#{msgs.capacity_msg}"
-                                         requiredMessage="#{msgs.required_msg}">
-                                <f:validateLongRange minimum="0" maximum="100"/>
-                            </p:inputText>
-                            <h:message for="stop_order" styleClass="errorMsg"/>    
+                            <p:outputLabel value="#{msgs.departure_time_status}:" for="report_departure_time_status"/>
+                            <p:selectOneMenu value="#{langBean.isEnglish?manageReportsBean.departureTimeStatusEn:manageReportsBean.departureTimeStatusAr}"
+                                             style="width: 320px;"
+                                             id="report_departure_time_status"
+                                             filter="true"
+                                             filterMatchMode="contains">
+                                <f:selectItem itemLabel="choose status"
+                                              itemValue=""/>
+                                <f:selectItems var="statusInfo"
+                                               value="#{manageReportsBean.statusArray}" 
+                                               itemLabel="#{langBean.isEnglish?statusInfo.departureTimeStatusEn:statusInfo.departureTimeStatusAr}"
+                                               itemValue="#{langBean.isEnglish?statusInfo.departureTimeStatusEn:statusInfo.departureTimeStatusAr}"/>                             
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="#{msgs.arrival_time_status}:" for="report_arrival_time_status"/>
+                            <p:selectOneMenu value="#{langBean.isEnglish?manageReportsBean.arrivalTimeStatusEn:manageReportsBean.arrivalTimeStatusAr}"
+                                             style="width: 320px;"
+                                             id="report_arrival_time_status"
+                                             filter="true"
+                                             filterMatchMode="contains">
+                                <f:selectItem itemLabel="choose status"
+                                              itemValue=""/>
+                                <f:selectItems var="statusInfo"
+                                               value="#{manageReportsBean.statusArray}" 
+                                               itemLabel="#{langBean.isEnglish?statusInfo.arrivalTimeStatusEn:statusInfo.arrivalTimeStatusAr}"
+                                               itemValue="#{langBean.isEnglish?statusInfo.arrivalTimeStatusEn:statusInfo.arrivalTimeStatusAr}"/>                             
+                            </p:selectOneMenu>
+
+
                         </h:panelGrid> 
                         <div class="centered_div">
                             <p:commandButton value="#{msgs.search}"
@@ -116,7 +140,7 @@ and open the template in the editor.
                                              styleClass="commandButton"
                                              style=""  
                                              ajax ="false"
-                                             actionListener="#{tripsBean.endTrip()}" />
+                                             action="#{manageReportsBean.reportsFilter()}" />
                         </div>
                     </h:form> 
                 </p:fieldset>
@@ -124,7 +148,7 @@ and open the template in the editor.
                 <h:form id="report_info_tbl_form">
                     <p:dataTable 
                         id="report_info_tbl"
-                        value = "#{manageReportsBean.reportsArray}"
+                        value = "#{manageReportsBean.resultReportsArray}"
                         class = "dataTable"
                         var="reportInfo"
                         rows="5"
@@ -142,19 +166,19 @@ and open the template in the editor.
                         </f:facet> 
                         <p:column headerText="#{msgs.license_plate}"
                                   style="width:15%"
-                               
+
                                   sortBy="#{reportInfo.licenseNumber}">                    
                             <h:outputText value="#{reportInfo.licenseNumber}"/>  
                         </p:column>
-                         <p:column headerText="#{msgs.capacity}"
+                        <p:column headerText="#{msgs.capacity}"
                                   style="width:10%"
-                               
+
                                   sortBy="#{reportInfo.capacity}">                    
                             <h:outputText value="#{reportInfo.capacity}"/>  
                         </p:column>
                         <p:column headerText="#{msgs.national_id}"
                                   style="width:20%"
-                                 
+
                                   sortBy="#{reportInfo.nationalId}">                    
                             <h:outputText value="#{reportInfo.nationalId}"/>  
                         </p:column>
@@ -162,34 +186,34 @@ and open the template in the editor.
 
                         <p:column headerText="#{msgs.driver_name}"
                                   style="width:20%"
-                              
+
                                   sortBy="#{langBean.isEnglish?reportInfo.driverNameEn:reportInfo.driverNameAr}">                    
                             <h:outputText value="#{langBean.isEnglish?reportInfo.driverNameEn:reportInfo.driverNameAr}"/>  
                         </p:column>
 
                         <p:column headerText="#{msgs.route_code}"
                                   style="width:10%"
-                                
+
                                   sortBy="#{reportInfo.routeCode}">                    
                             <h:outputText value="#{reportInfo.routeCode}"/>  
                         </p:column>
                         <p:column headerText="#{msgs.source}"
                                   style="width:20%"
-                           
+
                                   sortBy="#{langBean.isEnglish?reportInfo.sourceEn:reportInfo.sourceAr}">                    
                             <h:outputText value="#{langBean.isEnglish?reportInfo.sourceEn:reportInfo.sourceAr}"/>  
                         </p:column>
 
                         <p:column headerText="#{msgs.destination}"
                                   style="width:20%"
-                       
+
                                   sortBy="#{langBean.isEnglish?reportInfo.destinationEn:reportInfo.destinationAr}">                    
                             <h:outputText value="#{langBean.isEnglish?reportInfo.destinationEn:reportInfo.destinationAr}"/>  
                         </p:column>
 
                         <p:column headerText="#{msgs.departure_time}"
                                   style="width:20%"
-                              
+
                                   sortBy="#{reportInfo.departureTime}">
                             <h:outputText value="#{reportInfo.departureTime}">  
                                 <f:convertDateTime pattern="HH:mm" />
@@ -199,7 +223,7 @@ and open the template in the editor.
 
                         <p:column headerText="#{msgs.arrival_time}"
                                   style="width:20%"
-                                
+
                                   sortBy="#{reportInfo.arrivalTime}">                    
                             <h:outputText value="#{reportInfo.arrivalTime}">  
                                 <f:convertDateTime pattern="HH:mm" />
@@ -207,7 +231,7 @@ and open the template in the editor.
                         </p:column>
                         <p:column headerText="#{msgs.actual_departure_time}"
                                   style="width:20%"
-                             
+
                                   sortBy="#{reportInfo.actualDepartureTime}">                    
                             <h:outputText value="#{reportInfo.actualDepartureTime}">  
                                 <f:convertDateTime pattern="HH:mm" />
@@ -215,7 +239,7 @@ and open the template in the editor.
                         </p:column>
                         <p:column headerText="#{msgs.actual_arrival_time}"
                                   style="width:20%"
-                                 
+
                                   sortBy="#{reportInfo.actualArrivalTime}">                    
                             <h:outputText value="#{reportInfo.actualArrivalTime}">  
                                 <f:convertDateTime pattern="HH:mm" />
@@ -223,19 +247,19 @@ and open the template in the editor.
                         </p:column>
                         <p:column headerText="#{msgs.status}"
                                   style="width:20%"
-                             
+
                                   sortBy="#{langBean.isEnglish?reportInfo.statusEn:reportInfo.statusAr}">                    
                             <h:outputText value="#{langBean.isEnglish?reportInfo.statusEn:reportInfo.statusAr}"/>  
                         </p:column>
                         <p:column headerText="#{msgs.departure_time_status}"
                                   style="width:20%"
-                             
+
                                   sortBy="#{langBean.isEnglish?reportInfo.departureTimeStatusEn:reportInfo.departureTimeStatusAr}">                    
                             <h:outputText value="#{langBean.isEnglish?reportInfo.departureTimeStatusEn:reportInfo.departureTimeStatusAr}"/>  
                         </p:column>
                         <p:column headerText="#{msgs.arrival_time_status}"
                                   style="width:20%"
-                             
+
                                   sortBy="#{langBean.isEnglish?reportInfo.arrivalTimeStatusEn:reportInfo.arrivalTimeStatusAr}">                    
                             <h:outputText value="#{langBean.isEnglish?reportInfo.arrivalTimeStatusEn:reportInfo.arrivalTimeStatusAr}"/>  
                         </p:column>

@@ -24,7 +24,11 @@ public class RoutesDao extends ConnectionDao {
         Connection conn = getConnection();
 
         try {
-            String sql = "SELECT * FROM BUSES.ROUTES ORDER BY ROUTE_ID";
+            String sql = "SELECT ROUTE_ID,ROUTE_CODE,ROUTE_ACTIVE,SOURCE_EN, SOURCE_AR,DESTINATION_EN, DESTINATION_AR,"
+                    + " CONCAT(CONCAT(CONCAT(CONCAT(SOURCE_EN,' - '), DESTINATION_EN),' , '),ROUTE_CODE) AS ROUTE_NAME_EN,"
+                    + " CONCAT(CONCAT(CONCAT(CONCAT(SOURCE_AR,' - '), DESTINATION_AR),' , '),ROUTE_CODE) AS ROUTE_NAME_AR"
+                    + " FROM"
+                    + " BUSES.ROUTES ORDER BY ROUTE_ID";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
@@ -42,29 +46,6 @@ public class RoutesDao extends ConnectionDao {
         }
     }
 
-    public HashMap<Integer, Route> buildRoutesMap() throws Exception {
-        HashMap<Integer, Route> map = new HashMap<>();
-        Connection conn = getConnection();
-
-        try {
-            String sql = "SELECT * FROM BUSES.ROUTES ORDER BY ROUTE_ID";
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Route routesInfo = populateRoutes(rs);
-                map.put(routesInfo.getRouteId(), routesInfo);
-            }
-
-            rs.close();
-            ps.close();
-
-            return map;
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
-    }
 
     private Route populateRoutes(ResultSet rs) throws SQLException {
         Route routes = new Route();
@@ -76,6 +57,21 @@ public class RoutesDao extends ConnectionDao {
         routes.setDestinationAr(rs.getString("DESTINATION_AR"));
         routes.setRouteCode(rs.getString("ROUTE_CODE"));
         routes.setRouteActive(rs.getInt("ROUTE_ACTIVE"));
+        
+        String givenString=rs.getString("ROUTE_NAME_EN").toLowerCase();
+//        String[] arr = givenString.split(" ");
+//        StringBuilder sb = new StringBuilder();
+//
+//        for(int i = 0; i < arr.length; i++) {
+//        sb.append(Character.toUpperCase(arr[i].charAt(0)))
+//            .append(arr[i].substring(1)).append(" ");
+//    }          
+//     givenString=sb.toString().trim();
+    
+        routes.setRouteNameEn(givenString);
+        routes.setRouteNameAr(rs.getString("ROUTE_NAME_AR"));
+        
+        
         return routes;
     }
 
