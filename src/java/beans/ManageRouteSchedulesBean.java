@@ -112,6 +112,10 @@ public class ManageRouteSchedulesBean implements Serializable {
             sessionBean.navigateManageRouteSchedules();
 
         } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
 
             Logger.getLogger(ManageRouteSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -47,11 +47,13 @@ public class AssignBusesToSchedulesBean implements Serializable {
     @PostConstruct
     public void init() {
         try {
+            int y=0;
             busesSchedulesArray = busesSchedulesDao.buildBusesSchedules();
             availableBusesArray = busesSchedulesDao.buildAvailableBuses();
             routeId = sessionBean.getSelectedRouteId();
             scheduleId = sessionBean.getSelectedScheduleId();
-            busId = sessionBean.getSelectedBusId();
+            
+            displayBusesSchedules( routeId,  scheduleId, y);
 
             if (scheduleId > 0) {
                 busesSchedules = busesSchedulesDao.getBusesSchedules(routeId, scheduleId);
@@ -126,13 +128,14 @@ public class AssignBusesToSchedulesBean implements Serializable {
         return flag;
     }
 
-    // to display driver name and national id in manage buses table.
+    // to display bus model and license number in manage buses table.
     public String displayBusesSchedules(int busesArrayrouteId, int busesArrayscheduleId, int x) {
         int i;
         boolean flag = false;
         for (i = 0; i < busesSchedulesArray.size(); i++) {
             if (busesArrayscheduleId == busesSchedulesArray.get(i).getScheduleId() && busesArrayrouteId == busesSchedulesArray.get(i).getRouteId()) {
                 flag = true;
+                busId = sessionBean.getSelectedBusId();
                 break;
             } else {
                 flag = false;
@@ -143,6 +146,7 @@ public class AssignBusesToSchedulesBean implements Serializable {
             return busesSchedulesArray.get(i).getAssignedBus();
 
         } else {
+                sessionBean.setSelectedBusId(0);
             if (x == 1) {
                 return "Not Assigned";
             } else {

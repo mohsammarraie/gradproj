@@ -10,7 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -114,14 +117,59 @@ public class TripsDao extends ConnectionDao {
 
     public void insertTrip(Trip trip) throws Exception {
         try {
+              
             Connection conn = getConnection();
+            
+            String actualDepartureTimeStatusEn="";
+            String actualDepartureTimeStatusAr="";
+            
+            //actual departure time
             Date date = new Date();
-            Timestamp timeStamp = new Timestamp(date.getTime());
+            Timestamp timestampActualDepartureTime = new Timestamp(date.getTime());
+
+            Date departureTimeDate = trip.getDepartureTime();
+            Timestamp timestampDepartureTime = new Timestamp(departureTimeDate.getTime());
+
+            Format formatt = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+
+            String timestampActualDepartureTimeToString = formatt.format(timestampActualDepartureTime);
+            String timestampDepartureTimeToString = formatt.format(timestampDepartureTime);
+
+            String[] splitActualDepartureTimeToString = timestampActualDepartureTimeToString.split(" ");
+            String[] splitDepartureTimeToString = timestampDepartureTimeToString.split(" ");
+
+            SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+
+            Date actualDT = df.parse(splitActualDepartureTimeToString[1]);
+            Date departureT = df.parse(splitDepartureTimeToString[1]);
+
+            Calendar cal1 = Calendar.getInstance();
+            Calendar cal2 = Calendar.getInstance();
+             Calendar cal3 = Calendar.getInstance();
+            
+            cal1.setTime(actualDT);
+            cal2.setTime(departureT);
+            cal3.setTime(departureT);
+            
+            cal2.add(Calendar.MINUTE, 10);
+            cal3.add(Calendar.MINUTE, -10);
+            
+            if (cal1.compareTo(cal2) < 0 && cal1.compareTo(cal3) > 0 ){
+                actualDepartureTimeStatusEn = "On Time";
+                actualDepartureTimeStatusAr = "على الموعد";
+            }
+            else if (cal1.compareTo(cal2) > 0) {
+                actualDepartureTimeStatusEn = "Late";
+                actualDepartureTimeStatusAr = "متأخر";
+            } else if (cal1.compareTo(cal3) < 0) {
+                actualDepartureTimeStatusEn = "Early";
+                actualDepartureTimeStatusAr = "مبكر";
+            } 
 
             String sql = "INSERT INTO BUSES.TRIPS "
-                    + " (TRIP_ID, BUS_ID, SCHEDULE_ID, ROUTE_ID, DRIVER_ID, STATUS_EN, STATUS_AR, ACTUAL_DEPARTURE_TIME)"
+                    + " (TRIP_ID, BUS_ID, SCHEDULE_ID, ROUTE_ID, DRIVER_ID, STATUS_EN, STATUS_AR, ACTUAL_DEPARTURE_TIME, DEPARTURE_TIME_STATUS_EN, DEPARTURE_TIME_STATUS_AR)"
                     + " VALUES("
-                    + "(select max(TRIP_ID) from BUSES.TRIPS)+1,?,?,?,?,?,?,?)";
+                    + "(select max(TRIP_ID) from BUSES.TRIPS)+1,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, trip.getBusId());
@@ -130,8 +178,9 @@ public class TripsDao extends ConnectionDao {
             ps.setInt(4, trip.getDriverId());
             ps.setString(5, "Ongoing");
             ps.setString(6, "في الطريق ");
-            ps.setTimestamp(7, timeStamp);
-
+            ps.setTimestamp(7, timestampActualDepartureTime);
+            ps.setString(8,actualDepartureTimeStatusEn );
+            ps.setString(9, actualDepartureTimeStatusAr);
             ps.executeUpdate();
             ps.close();
 
@@ -183,22 +232,70 @@ public class TripsDao extends ConnectionDao {
 
     }
 
-    public void updateTripEnd() {
+    public void updateTripEnd(Trip trip) {
         try {
+            String actualArrivalTimeStatusEn="";
+            String actualArrivalTimeStatusAr="";
+            
+            //actual departure time
             Date date = new Date();
-            Timestamp timeStamp = new Timestamp(date.getTime());
+            Timestamp timestampActualArrivalTime = new Timestamp(date.getTime());
+
+            Date arrivalTimeDate = trip.getArrivalTime();
+            Timestamp timestampArrivalTime = new Timestamp(arrivalTimeDate.getTime());
+
+            Format formatt = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+
+            String timestampActualArrivalTimeToString = formatt.format(timestampActualArrivalTime);
+            String timestampArrivalTimeToString = formatt.format(timestampArrivalTime);
+
+            String[] splitActualArrivalTimeToString = timestampActualArrivalTimeToString.split(" ");
+            String[] splitArrivalTimeToString = timestampArrivalTimeToString.split(" ");
+
+            SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+
+            Date actualAT = df.parse(splitActualArrivalTimeToString[1]);
+            Date arrivalT = df.parse(splitArrivalTimeToString[1]);
+
+            Calendar cal1 = Calendar.getInstance();
+            Calendar cal2 = Calendar.getInstance();
+             Calendar cal3 = Calendar.getInstance();
+            
+            cal1.setTime(actualAT);
+            cal2.setTime(arrivalT);
+            cal3.setTime(arrivalT);
+            
+            cal2.add(Calendar.MINUTE, 10);
+            cal3.add(Calendar.MINUTE, -10);
+            
+            if (cal1.compareTo(cal2) < 0 && cal1.compareTo(cal3) > 0 ){
+                actualArrivalTimeStatusEn = "On Time";
+                actualArrivalTimeStatusAr = "على الموعد";
+            }
+            else if (cal1.compareTo(cal2) > 0) {
+                actualArrivalTimeStatusEn = "Late";
+                actualArrivalTimeStatusAr = "متأخر";
+            } else if (cal1.compareTo(cal3) < 0) {
+                actualArrivalTimeStatusEn = "Early";
+                actualArrivalTimeStatusAr = "مبكر";
+            } 
+
             Connection conn = getConnection();
             String sql = "UPDATE BUSES.TRIPS"
                     + " SET STATUS_EN=?,"
                     + " STATUS_AR=?,"
-                    + " ACTUAL_ARRIVAL_TIME=?"
+                    + " ACTUAL_ARRIVAL_TIME=?,"
+                    + " ARRIVAL_TIME_STATUS_EN=?,"
+                    + " ARRIVAL_TIME_STATUS_AR=?"
                     + " WHERE"
                     + " TRIP_ID=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, "Arrived");
             ps.setString(2, "وصلت");
-            ps.setTimestamp(3, timeStamp);
-            ps.setInt(4, tripId);
+            ps.setTimestamp(3, timestampActualArrivalTime);
+             ps.setString(4, actualArrivalTimeStatusEn);
+              ps.setString(5,actualArrivalTimeStatusAr);
+            ps.setInt(6, tripId);
             ps.executeUpdate();
             ps.close();
 

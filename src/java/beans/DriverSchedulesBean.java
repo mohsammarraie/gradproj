@@ -103,6 +103,8 @@ public class DriverSchedulesBean implements Serializable {
                 trip.setRouteId(driverSchedulesArray.get(i).getRouteId());
                 trip.setDriverId(driverSchedulesArray.get(i).getDriverId());
                 trip.setScheduleId(driverSchedulesArray.get(i).getScheduleId());
+                trip.setDepartureTime(driverSchedulesArray.get(i).getDepartureTime());
+                trip.setArrivalTime(driverSchedulesArray.get(i).getArrivalTime());
                 try {
                     sessionBean.setSelectedRouteId(trip.getRouteId());
                     sessionBean.setSelectedScheduleId(trip.getScheduleId());
