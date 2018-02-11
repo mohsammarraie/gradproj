@@ -15,9 +15,11 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import daos.TripsDao;
+import javax.faces.application.FacesMessage;
 import models.DriverSchedule;
 import models.Stop;
 import models.Trip;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -34,6 +36,7 @@ public class TripsBean implements Serializable {
     Trip trip = new Trip();
     private int driverId;
     private ArrayList<DriverSchedule> driverSchedulesArray;
+        
     @Inject
     private SessionBean sessionBean;
 
@@ -46,6 +49,8 @@ public class TripsBean implements Serializable {
             driverRouteSchedulesStopsArray = tripsDao.buildDriverRouteStopsSchedules(sessionBean.getSelectedRouteId(), sessionBean.getSelectedScheduleId());
 
         } catch (Exception ex) {
+            
+   
             Logger.getLogger(TripsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -84,9 +89,10 @@ public class TripsBean implements Serializable {
                     sessionBean.setSelectedScheduleId(trip.getScheduleId());
                     tripsDao.updateTripEnd(trip);
                 } catch (Exception ex) {
+                   
                     Logger.getLogger(TripsBean.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                  sessionBean.navigateDriverSchedules();
+                sessionBean.navigateDriverSchedules();
             }
         }
         

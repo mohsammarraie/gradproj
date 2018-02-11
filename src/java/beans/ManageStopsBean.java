@@ -14,7 +14,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import models.Stop;
 import daos.StopsDao;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -27,7 +29,10 @@ public class ManageStopsBean implements Serializable {
     private Stop selectedStop;
     private final StopsDao stopsDao = new StopsDao();
     private ArrayList<Stop> stopsArray;
-
+    
+    String error_message_header = "";
+    String error_message_content = "";
+    
     @Inject
     private SessionBean sessionBean;
 
@@ -39,6 +44,10 @@ public class ManageStopsBean implements Serializable {
         try {
             stopsArray = stopsDao.buildStops();
         } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageStopsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -69,7 +78,10 @@ public class ManageStopsBean implements Serializable {
             sessionBean.navigateManageStops();
 
         } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
 
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageStopsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

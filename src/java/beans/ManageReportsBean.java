@@ -16,8 +16,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import daos.ReportsDao;
 import java.util.Date;
+import javax.faces.application.FacesMessage;
 import models.Report;
 import models.ReportStatus;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -44,7 +46,10 @@ public class ManageReportsBean implements Serializable {
     private Report selectedReport;
     private ArrayList<Report> resultReportsArray;
     private final ReportStatusDao reportStatusDao = new ReportStatusDao();
-
+    
+    String error_message_header = "";
+    String error_message_content = "";
+    
     @Inject
     private SessionBean sessionBean;
 
@@ -58,6 +63,10 @@ public class ManageReportsBean implements Serializable {
             statusArray = reportStatusDao.buildReportStatus();
 
         } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(StudentTripsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -194,6 +203,10 @@ public class ManageReportsBean implements Serializable {
                     statusEn,statusAr,departureTimeStatusEn,departureTimeStatusAr,arrivalTimeStatusEn,arrivalTimeStatusAr);
 
         } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageReportsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 

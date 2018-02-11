@@ -29,8 +29,8 @@ public class ManageStudentsBean implements Serializable {
     private Student selectedStudent;
     private final StudentsDao studentsDao = new StudentsDao();
     private ArrayList<Student> studentsArray;
-    String error_message_header;
-    String error_message_content;
+    String error_message_header="";
+    String error_message_content="";
     @Inject
     private SessionBean sessionBean;
 
@@ -42,7 +42,11 @@ public class ManageStudentsBean implements Serializable {
         try {
             studentsArray = studentsDao.buildStudents();
         } catch (Exception ex) {
-            Logger.getLogger(ManageBusesBean.class.getName()).log(Level.SEVERE, null, ex);
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            Logger.getLogger(ManageStudentsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

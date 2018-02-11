@@ -34,7 +34,8 @@ public class DriverSchedulesBean implements Serializable {
     private int driverId;
     private int scheduleId;
     private int routeId;
-
+    
+    
     @Inject
     private SessionBean sessionBean;
 
@@ -46,6 +47,7 @@ public class DriverSchedulesBean implements Serializable {
             driverSchedulesArray = driverSchedulesDao.buildDriverSchedules(driverId);
 
         } catch (Exception ex) {
+
             Logger.getLogger(DriverSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -110,6 +112,7 @@ public class DriverSchedulesBean implements Serializable {
                     sessionBean.setSelectedScheduleId(trip.getScheduleId());
                     tripsDao.insertTrip(trip);
                 } catch (Exception ex) {
+               
                     Logger.getLogger(DriverSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

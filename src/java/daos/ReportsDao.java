@@ -81,12 +81,7 @@ public class ReportsDao extends ConnectionDao{
         
         return report;
     }
-    
-    public void dynamicQuery(String sourceEn){
-    
-        
-        
-    }
+   
     
     public ArrayList<Report> buildResultReports(int routeId, int busId, int driverId, Date departureTime, Date arrivalTime,String statusEn,String statusAr,
             String departureTimeStatusEn,String departureTimeStatusAr,String arrivalTimeStatusEn,String arrivalTimeStatusAr) throws Exception {
@@ -200,49 +195,5 @@ public class ReportsDao extends ConnectionDao{
     }
     
     
-//    public String AssembleSimpleSelectQuery(String TableName,Hashtable<String,String> criteria) {
-//    Hashtable<String,String> columnlist = ReturnColumnList(TableName);
-//    Iterator<String> iter = columnlist.keySet().iterator();
-//    int count = 0;
-//    StringBuilder query=new StringBuilder();
-//    query.append("SELECT ");
-//    while(iter.hasNext())
-//    {
-//        count++;
-//        query.append(iter.next());
-//        if(count < (columnlist.size()))
-//        {
-//            query.append(",");
-//        }
-//    }
-//    query.append(" From " + TableName );
-//
-//
-//    Iterator<String> crit = criteria.keySet().iterator();
-//    if(criteria.size()>0)
-//    {
-//        query.append(" where ");
-//    }
-//    count = 0;
-//    while(crit.hasNext())
-//    {
-//        count++;
-//        String temp = crit.next();
-//        query.append(temp + "=");
-//        if(columnlist.get(temp).equals("String") || columnlist.get(temp).equals("Id"))
-//        {
-//            query.append("'" + criteria.get(temp) + "'");
-//        }
-//        else if(columnlist.get(temp).equals("Date"))
-//        {
-//            query.append("to_date('"+criteria.get(temp)+"','mm-dd-yyyy')");
-//        }
-//        if(count < criteria.size())
-//        {
-//            query.append(" and ");
-//        }
-//    }
-//    return query.toString();
-//}
-    
+
 }

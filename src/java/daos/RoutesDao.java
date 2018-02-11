@@ -46,7 +46,6 @@ public class RoutesDao extends ConnectionDao {
         }
     }
 
-
     private Route populateRoutes(ResultSet rs) throws SQLException {
         Route routes = new Route();
 
@@ -57,21 +56,29 @@ public class RoutesDao extends ConnectionDao {
         routes.setDestinationAr(rs.getString("DESTINATION_AR"));
         routes.setRouteCode(rs.getString("ROUTE_CODE"));
         routes.setRouteActive(rs.getInt("ROUTE_ACTIVE"));
-        
-        String givenString=rs.getString("ROUTE_NAME_EN").toLowerCase();
-//        String[] arr = givenString.split(" ");
-//        StringBuilder sb = new StringBuilder();
-//
-//        for(int i = 0; i < arr.length; i++) {
-//        sb.append(Character.toUpperCase(arr[i].charAt(0)))
-//            .append(arr[i].substring(1)).append(" ");
-//    }          
-//     givenString=sb.toString().trim();
-    
-        routes.setRouteNameEn(givenString);
+
+        // captalize first letter of each word
+        String givenString = rs.getString("ROUTE_NAME_EN").toLowerCase();
+
+        String words[] = givenString.split("\\s");
+        String capitalizeWord = "";
+        String first = "";
+        String afterfirst = "";
+
+        for (String w : words) {
+            if (w.length() > 0) {
+                first = w.substring(0, 1);
+                afterfirst = w.substring(1);
+            }
+
+            capitalizeWord += first.toUpperCase() + afterfirst + " ";
+        }
+        String routeNameEn = capitalizeWord.trim();
+        // captalize first letter of each word
+
+        routes.setRouteNameEn(routeNameEn);
         routes.setRouteNameAr(rs.getString("ROUTE_NAME_AR"));
-        
-        
+
         return routes;
     }
 

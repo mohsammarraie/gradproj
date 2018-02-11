@@ -43,6 +43,10 @@ public class ManageRoutesBean implements Serializable {
             routesArray = routesDao.buildRoutes();
 
         } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageRoutesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -74,8 +78,10 @@ public class ManageRoutesBean implements Serializable {
 
         } catch (Exception ex) {
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
 
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageRoutesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

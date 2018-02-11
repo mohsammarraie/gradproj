@@ -62,6 +62,7 @@ public class AssignBusesToSchedulesBean implements Serializable {
             }
 
         } catch (Exception ex) {
+           
             Logger.getLogger(AssignBusesToSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

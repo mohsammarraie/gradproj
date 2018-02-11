@@ -10,10 +10,12 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import models.Student;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -29,7 +31,10 @@ public class AddEditStudentBean implements Serializable {
     private String firstNameAr;
     private String lastNameEn;
     private String lastNameAr;
-
+    
+    String error_message_header = "";
+    String error_message_content = "";
+    
     @Inject
     private SessionBean sessionBean;
 
@@ -110,6 +115,10 @@ public class AddEditStudentBean implements Serializable {
                 studentsDao.insertStudent(students);
             }
         } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(AddEditStudentBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 

@@ -14,6 +14,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import models.Stop;
 import daos.StopsDao;
+import javax.faces.application.FacesMessage;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -27,7 +29,10 @@ public class AddEditStopBean implements Serializable {
     private int stopId;
     private String stopNameAr;
     private String stopNameEn;
-
+    
+    String error_message_header = "";
+    String error_message_content = "";
+    
     @Inject
     private SessionBean sessionBean;
 
@@ -89,6 +94,11 @@ public class AddEditStopBean implements Serializable {
                 stopsDao.insertStop(stops);
             }
         } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            
             Logger.getLogger(AddEditStopBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 

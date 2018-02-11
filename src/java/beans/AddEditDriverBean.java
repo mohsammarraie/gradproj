@@ -11,10 +11,12 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import models.Driver;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -38,7 +40,10 @@ public class AddEditDriverBean implements Serializable {
     private String genderEn;
     private String genderAr;
     private String nationalityAr;
-
+    
+    String error_message_header = "";
+    String error_message_content = "";
+    
     @Inject
     private SessionBean sessionBean;
 
@@ -189,6 +194,10 @@ public class AddEditDriverBean implements Serializable {
                 driverDao.insertDriver(drivers);
             }
         } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(AddEditDriverBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 

@@ -17,9 +17,11 @@ import javax.inject.Named;
 import daos.ReportsDao;
 import daos.ReportsRouteStopsSchedulesDao;
 import java.util.Date;
+import javax.faces.application.FacesMessage;
 import models.Report;
 import models.ReportStatus;
 import models.Stop;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -32,6 +34,10 @@ public class ReportsRouteStopsSchedulesBean implements Serializable{
     private ArrayList<Stop> reportsRouteStopsSchedulesArray;
     private int tripId;
     private final ReportsRouteStopsSchedulesDao reportsRouteStopsSchedulesDao = new ReportsRouteStopsSchedulesDao();
+    
+    String error_message_header = "";
+    String error_message_content = "";
+    
       @Inject
     private SessionBean sessionBean;
 
@@ -43,7 +49,11 @@ public class ReportsRouteStopsSchedulesBean implements Serializable{
 
 
         } catch (Exception ex) {
-            Logger.getLogger(StudentTripsBean.class.getName()).log(Level.SEVERE, null, ex);
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            Logger.getLogger(ReportsRouteStopsSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

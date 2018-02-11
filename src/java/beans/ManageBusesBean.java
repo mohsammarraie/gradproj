@@ -32,8 +32,8 @@ public class ManageBusesBean implements Serializable {
     private final BusesDao busesDao = new BusesDao();
     private ArrayList<Bus> busesArray;
     private ArrayList<BusDriver> busesDriversArray;
-    String error_message_header;
-    String error_message_content;
+    String error_message_header="";
+    String error_message_content="";
 
     BusesDriversDao busesDriversDao = new BusesDriversDao();
     @Inject
@@ -48,6 +48,10 @@ public class ManageBusesBean implements Serializable {
             busesDriversArray = busesDriversDao.buildBusesDrivers();
             busesArray = busesDao.buildBuses();
         } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageBusesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

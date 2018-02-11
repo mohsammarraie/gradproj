@@ -73,12 +73,7 @@ public class AddEditRouteScheduleBean implements Serializable {
 
                 scheduleId = sessionBean.getSelectedScheduleId();
                 routeScheduleStop = routeSchedulesDao.buildRouteScheduleStops(sessionBean.getSelectedRouteId());
-
-                //routeSchedules = routeSchedulesDao.getRouteSchedules(routeId);
-//            stopNameAr = routeSchedules.getStopNameAr();
-//              stopNameEn = routeSchedules.getStopNameEn();
-//              addTimeArray =routeSchedules.getScheduleTime();
-//                
+               
             }
         } catch (Exception ex) {
             Logger.getLogger(AddEditStopBean.class.getName()).log(Level.SEVERE, null, ex);

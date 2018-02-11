@@ -28,6 +28,7 @@ public class DriverPastTripsBean implements Serializable {
 
     private ArrayList<Trip> driverPastTripsArray;
     private int driverId;
+ 
     @Inject
     private SessionBean sessionBean;
 
@@ -39,6 +40,7 @@ public class DriverPastTripsBean implements Serializable {
             driverPastTripsArray = tripsDao.buildPastTrips(driverId);
 
         } catch (Exception ex) {
+  
             Logger.getLogger(DriverSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

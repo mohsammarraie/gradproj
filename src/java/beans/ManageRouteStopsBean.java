@@ -43,6 +43,10 @@ public class ManageRouteStopsBean implements Serializable {
         try {
             routeStopsArray = routeStopsDao.buildRouteStops(sessionBean.getSelectedRouteId());
         } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -74,11 +78,14 @@ public class ManageRouteStopsBean implements Serializable {
 
         } catch (Exception ex) {
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
 
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public void checklRouteSchedulesStops(){
        boolean flag= routeStopsDao.checkRouteStopsSchedules(sessionBean.getSelectedRouteId());
      
@@ -88,12 +95,13 @@ public class ManageRouteStopsBean implements Serializable {
            }
            else{
                sessionBean.navigateAddEditRouteStop();
-           }
-      
-          } catch (Exception ex) {
+            }
+
+        } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
 
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
-
             Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

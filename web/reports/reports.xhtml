@@ -26,13 +26,13 @@ and open the template in the editor.
 
 
 
-                            <p:outputLabel value="#{msgs.source}:" for="report_route"/>
+                            <p:outputLabel value="#{msgs.route}:" for="report_route"/>
                             <p:selectOneMenu value="#{manageReportsBean.routeId}"
                                              style="width: 320px;"
                                              id="report_route"
                                              filter="true"
                                              filterMatchMode="contains">
-                                <f:selectItem itemLabel="#{msgs.choose_source}"
+                                <f:selectItem itemLabel="#{msgs.choose_route}"
                                               itemValue=""/>
                                 <f:selectItems var="routeInfo"
                                                value="#{manageRoutesBean.routesArray}" 

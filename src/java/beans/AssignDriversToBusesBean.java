@@ -54,7 +54,7 @@ public class AssignDriversToBusesBean implements Serializable {
             busId = sessionBean.getSelectedBusId();
             busesDriversArray = busesDriversDao.buildBusesDrivers();
             availableDriversArray = busesDriversDao.buildAvailableBusesDrivers();
-
+            driverId=0;
             if (busId > 0) {
                 BusDriver busesDrivers = busesDriversDao.getBusesDrivers(busId);
                 driverId = busesDrivers.getDriverId();
@@ -63,6 +63,7 @@ public class AssignDriversToBusesBean implements Serializable {
                 //busesDriversArray =busesDriversDao.buildBusesDrivers();  
             }
         } catch (Exception ex) {
+        
             Logger.getLogger(AssignDriversToBusesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
