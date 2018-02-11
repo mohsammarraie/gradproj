@@ -25,14 +25,14 @@ and open the template in the editor.
                                  style="float: #{langBean.styleFloat};" 
                                  columns="3"                              
                                  dir="#{langBean.dir}">
-
-
-
+                        
                         <p:outputLabel value="#{msgs.assign_driver}:" for="driver_name"/>
                         <p:selectOneMenu value="#{assignDriverToBusBean.driverId}"
                                          id="driver_name"
                                          filter="true"
                                          filterMatchMode="contains"
+                                         required="true"                                                                                  
+                                         requiredMessage=" #{msgs.required_msg}"
                                          >
                             <f:selectItem itemLabel="#{msgs.choose_driver}"
                                           itemValue=""/>

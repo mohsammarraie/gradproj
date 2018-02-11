@@ -139,6 +139,14 @@ and open the template in the editor.
                                              style=""  
                                              ajax ="false"
                                              action="#{manageReportsBean.reportsFilter()}" />
+                            
+                             <p:commandButton value="#{msgs.reset}"
+                                             icon="fa-eraser"
+                                             iconPos="#{langBean.styleFloat}"
+                                             styleClass="commandButton"
+                                             style=""  
+                                             ajax ="false"
+                                             action="#{manageReportsBean.clearReportsFilter()}" />
                         </div>
                     </h:form> 
                 </p:fieldset>

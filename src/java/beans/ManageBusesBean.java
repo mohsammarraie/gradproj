@@ -92,6 +92,11 @@ public class ManageBusesBean implements Serializable {
         } catch (Exception ex) {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
+             if(error_message_content.contains("ORA-02292: integrity constraint (BUSES.BUSES_DRIVERS_FK1) violated - child record found")){
+                error_message_content="Unable to delete bus with assigned driver. Please remove assigned driver first then try again.";
+            
+            }
+            
 
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageBusesBean.class.getName()).log(Level.SEVERE, null, ex);

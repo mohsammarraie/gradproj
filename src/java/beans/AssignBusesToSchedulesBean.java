@@ -172,7 +172,7 @@ public class AssignBusesToSchedulesBean implements Serializable {
 
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
-
+            
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(AssignBusesToSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -29,8 +29,8 @@ public class ManageRouteStopsBean implements Serializable {
     private RouteStop selectedRouteStop;
     private final RouteStopsDao routeStopsDao = new RouteStopsDao();
     private ArrayList<RouteStop> routeStopsArray;
-    String error_message_header = "Error!";
-    String error_message_content = "Please delete the route schedule assigned to this route stop.";
+    String error_message_header = "";
+    String error_message_content = "";
 
     @Inject
     private SessionBean sessionBean;
@@ -80,21 +80,25 @@ public class ManageRouteStopsBean implements Serializable {
 
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
+            if (error_message_content.contains("ORA-02292: integrity constraint (BUSES.ROUTES_STOPS_SCHEDULES_FK1) violated - child record found")) {
+                error_message_content = "Please delete the route schedule assigned to this route stop in order to delete this stop";
+
+            }
 
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void checklRouteSchedulesStops(){
-       boolean flag= routeStopsDao.checkRouteStopsSchedules(sessionBean.getSelectedRouteId());
-     
-       try{
-           if(flag){
+    public void checklRouteSchedulesStops() {
+        boolean flag = routeStopsDao.checkRouteStopsSchedules(sessionBean.getSelectedRouteId());
+
+        try {
+            if (flag) {
+                error_message_content = "Please delete the route schedule assigned to this route stop in order to edit this stop";
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
-           }
-           else{
-               sessionBean.navigateAddEditRouteStop();
+            } else {
+                sessionBean.navigateAddEditRouteStop();
             }
 
         } catch (Exception ex) {

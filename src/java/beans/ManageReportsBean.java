@@ -211,5 +211,32 @@ public class ManageReportsBean implements Serializable {
         }
 
     }
+    
+       public void clearReportsFilter() {
+
+        try {
+            routeId=0; 
+            busId=0;
+            driverId=0;
+            departureTime=null; 
+            arrivalTime=null;
+            statusEn=null;
+            statusAr=null;
+            departureTimeStatusEn=null;departureTimeStatusAr=null;
+            arrivalTimeStatusEn=null;
+            arrivalTimeStatusAr=null;
+            
+            resultReportsArray = reportsDao.buildResultReports(routeId, busId, driverId, departureTime, arrivalTime,
+                    statusEn,statusAr,departureTimeStatusEn,departureTimeStatusAr,arrivalTimeStatusEn,arrivalTimeStatusAr);
+
+        } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            Logger.getLogger(ManageReportsBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
 }

@@ -101,6 +101,16 @@ public class BusesDriversDao extends ConnectionDao {
         driverInfo.setBusId(rs.getInt("BUS_ID"));
         return driverInfo;
     }
+    
+      private BusDriver populategetBusesDrivers(ResultSet rs) throws SQLException {
+        BusDriver driverInfo = new BusDriver();
+
+        driverInfo.setDriverId(rs.getInt("DRIVER_ID"));
+        driverInfo.setDriverNameEn(rs.getString("DRIVER_NAME_EN"));
+        driverInfo.setDriverNameAr(rs.getString("DRIVER_NAME_AR"));
+        driverInfo.setBusId(rs.getInt("BUS_ID"));
+        return driverInfo;
+    }
 
     public void insertBusDriver(int busId, int driverId) throws Exception {
         try {
@@ -186,7 +196,7 @@ public class BusesDriversDao extends ConnectionDao {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                busesDrivers = populateBusesDrivers(rs);
+                busesDrivers = populategetBusesDrivers(rs);
             }
 
             rs.close();

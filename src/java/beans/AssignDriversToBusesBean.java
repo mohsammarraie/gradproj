@@ -54,12 +54,16 @@ public class AssignDriversToBusesBean implements Serializable {
             busId = sessionBean.getSelectedBusId();
             busesDriversArray = busesDriversDao.buildBusesDrivers();
             availableDriversArray = busesDriversDao.buildAvailableBusesDrivers();
-            driverId=0;
+            driverId = 0;
+
             if (busId > 0) {
                 BusDriver busesDrivers = busesDriversDao.getBusesDrivers(busId);
-                driverId = busesDrivers.getDriverId();
-                driverNameEn = busesDrivers.getDriverNameEn();
-                driverNameAr = busesDrivers.getDriverNameAr();
+                if (busesDrivers != null) {
+                    driverId = busesDrivers.getDriverId();
+                    driverNameEn = busesDrivers.getDriverNameEn();
+                    driverNameAr = busesDrivers.getDriverNameAr();
+                }
+             
                 //busesDriversArray =busesDriversDao.buildBusesDrivers();  
             }
         } catch (Exception ex) {
@@ -216,6 +220,10 @@ public class AssignDriversToBusesBean implements Serializable {
 
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
+            if(error_message_content.contains("ORA-00001: unique constraint (BUSES.BUSES_DRIVERS_UK1) violated")){
+                error_message_content="Please assign unassigned driver";
+            
+            }
 
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(AssignDriversToBusesBean.class.getName()).log(Level.SEVERE, null, ex);

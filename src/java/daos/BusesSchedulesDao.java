@@ -171,7 +171,7 @@ public class BusesSchedulesDao extends ConnectionDao {
             BusSchedule busesSchedules = null;
             Connection conn = getConnection();
 
-            String sql = "SELECT BUSES.BUSES.BUS_ID,FROM_DATE,TO_DATE, CONCAT(CONCAT(CONCAT(CONCAT(MANUFACTURER,', '), LICENSE_NUMBER),', '),CAPACITY) AS ASSIGNED_BUS"
+            String sql = "SELECT ROUTE_ID,SCHEDULE_ID,BUSES.BUSES.BUS_ID,FROM_DATE,TO_DATE, CONCAT(CONCAT(CONCAT(CONCAT(MANUFACTURER,', '), LICENSE_NUMBER),', '),CAPACITY) AS ASSIGNED_BUS"
                     + " FROM BUSES.BUSES,"
                     + " BUSES.BUSES_SCHEDULES"
                     + " WHERE"
