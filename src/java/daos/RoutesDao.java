@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import models.Route;
 
 /**
@@ -86,6 +85,21 @@ public class RoutesDao extends ConnectionDao {
         try {
             Connection conn = getConnection();
 
+            String query = "SELECT count (*) as ROW_COUNTER FROM BUSES.ROUTES";
+            PreparedStatement preparedStm = conn.prepareStatement(query);
+            ResultSet resultSet = preparedStm.executeQuery();
+
+            int count = 0;
+            while (resultSet.next()) {
+                count = resultSet.getInt("ROW_COUNTER");
+            }
+            String countOrMax = "";
+            if (count > 0) {
+                countOrMax = "max";
+            } else {
+                countOrMax = "count";
+            }
+
             String sql = "INSERT INTO BUSES.ROUTES (ROUTE_ID,"
                     + " SOURCE_EN,"
                     + " SOURCE_AR,"
@@ -93,7 +107,7 @@ public class RoutesDao extends ConnectionDao {
                     + " DESTINATION_AR,"
                     + " ROUTE_CODE,"
                     + " ROUTE_ACTIVE)"
-                    + " VALUES ((select max(ROUTE_ID) from ROUTES)+1,?,?,?,?,?,?)";
+                    + " VALUES ((select " + countOrMax + "(ROUTE_ID) from ROUTES)+1,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, routes.getSourceEn());

@@ -78,6 +78,11 @@ public class ManageDriversBean implements Serializable {
         } catch (Exception ex) {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
+              if(error_message_content.contains("ORA-02292: integrity constraint (BUSES.BUSES_DRIVERS_FK2) violated - child record found")){
+                error_message_content="This driver is currently assigned to a bus. Please unassign this driver from bus first then try again.";
+            
+            }
+            
 
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageDriversBean.class.getName()).log(Level.SEVERE, null, ex);

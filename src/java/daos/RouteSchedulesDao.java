@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.RouteSchedule;
 import models.Stop;
 
@@ -137,11 +139,29 @@ public class RouteSchedulesDao extends ConnectionDao {
     public void insertRouteSchedule(int routeId) throws Exception {
         try {
             Connection conn = getConnection();
-            // RouteStops2 stops= new RouteStops2();
+
+            String query = "SELECT count (*) as ROW_COUNTER FROM BUSES.ROUTES_SCHEDULES"
+                    + " WHERE"
+                    + " ROUTE_ID=?";
+            PreparedStatement preparedStm = conn.prepareStatement(query);
+            preparedStm.setInt(1, routeId);
+            ResultSet resultSet = preparedStm.executeQuery();
+
+            int count = 0;
+
+            while (resultSet.next()) {
+                count = resultSet.getInt("ROW_COUNTER");
+            }
+            String countOrMax = "";
+            if (count > 0) {
+                countOrMax = "max";
+            } else {
+                countOrMax = "count";
+            }
 
             String sql2 = "INSERT INTO BUSES.ROUTES_SCHEDULES(SCHEDULE_ID, ROUTE_ID, ROUTE_SCHEDULE_ACTIVE)"
                     + " VALUES ("
-                    + "(select max(SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES WHERE ROUTE_ID = ?)+1,?,1)";
+                    + "(select " + countOrMax + "(SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES WHERE ROUTE_ID = ?)+1,?,1)";
             PreparedStatement ps2 = conn.prepareStatement(sql2);
 
             ps2.setInt(1, routeId);
@@ -160,8 +180,26 @@ public class RouteSchedulesDao extends ConnectionDao {
         try {
             Connection conn = getConnection();
 
+            String query = "SELECT count (*) as ROW_COUNTER FROM BUSES.ROUTES_STOPS_SCHEDULES"
+                    + " WHERE"
+                    + " ROUTE_ID=?";
+            PreparedStatement preparedStm = conn.prepareStatement(query);
+            preparedStm.setInt(1, routeId);
+            ResultSet resultSet = preparedStm.executeQuery();
+
+            int count = 0;
+            while (resultSet.next()) {
+                count = resultSet.getInt("ROW_COUNTER");
+            }
+            String countOrMax = "";
+            if (count > 0) {
+                countOrMax = "max";
+            } else {
+                countOrMax = "count";
+            }
+
             String sql = "INSERT INTO BUSES.ROUTES_STOPS_SCHEDULES(SCHEDULE_ID, ROUTE_ID, TIME, STOP_ID)"
-                    + " VALUES ((select max(SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES WHERE ROUTE_ID = ?),?,?,?)";
+                    + " VALUES ((select " + countOrMax + "(SCHEDULE_ID) from BUSES.ROUTES_SCHEDULES WHERE ROUTE_ID = ?),?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             Timestamp timeStamp = new Timestamp(time.getTime());
 
@@ -246,4 +284,37 @@ public class RouteSchedulesDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
+       public boolean checkBusesSchedules(int routeId, int scheduleId){
+         boolean flag = false;
+        try {
+
+            int i=0;
+            Connection conn = getConnection();
+            
+            String sql = "SELECT count(*) as ROW_COUNTER FROM BUSES.BUSES_SCHEDULES"
+                    + " WHERE"
+                    + " ROUTE_ID=?"
+                    + " AND"
+                    + " SCHEDULE_ID=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, routeId);
+             ps.setInt(2, scheduleId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                i = rs.getInt("ROW_COUNTER");
+            }
+            rs.close();
+            ps.close();
+
+            if (i > 0)
+                flag = true;
+            else 
+                flag= false;
+          
+        } catch (Exception ex) {
+            Logger.getLogger(RouteStopsDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           return flag; 
+    }
+    
 }

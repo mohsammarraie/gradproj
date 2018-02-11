@@ -163,13 +163,13 @@ public class RouteStopsDao extends ConnectionDao {
 
             int i=0;
             Connection conn = getConnection();
-            String sql = "SELECT count(*) as L FROM BUSES.ROUTES_STOPS_SCHEDULES"
+            String sql = "SELECT count(*) as ROW_COUNTER FROM BUSES.ROUTES_STOPS_SCHEDULES"
                     + " WHERE ROUTE_ID=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, routeId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                i = rs.getInt("L");
+                i = rs.getInt("ROW_COUNTER");
             }
             rs.close();
             ps.close();

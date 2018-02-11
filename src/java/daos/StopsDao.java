@@ -80,10 +80,25 @@ public class StopsDao extends ConnectionDao {
         try {
             Connection conn = getConnection();
 
+            String query = "SELECT count (*) as ROW_COUNTER FROM BUSES.STOPS";
+            PreparedStatement preparedStm = conn.prepareStatement(query);
+            ResultSet resultSet = preparedStm.executeQuery();
+
+            int count = 0;
+            while (resultSet.next()) {
+                count = resultSet.getInt("ROW_COUNTER");
+            }
+            String countOrMax = "";
+            if (count > 0) {
+                countOrMax = "max";
+            } else {
+                countOrMax = "count";
+            }
+
             String sql = "INSERT INTO BUSES.STOPS  (STOP_ID,"
                     + " STOP_NAME_EN,"
                     + " STOP_NAME_AR)"
-                    + " VALUES ((select max(STOP_ID) from BUSES.STOPS)+1,?,?)";
+                    + " VALUES ((select " + countOrMax + "(STOP_ID) from BUSES.STOPS)+1,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, stops.getStopNameEn());

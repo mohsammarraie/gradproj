@@ -95,7 +95,7 @@ and open the template in the editor.
                                                      style="float:#{langBean.styleFloat}"                                                                                                
                                                      disabled="#{manageRouteSchedulesBean.selectedSchedule==null}"                                                 
                                                      actionListener="#{manageRouteSchedulesBean.saveSelectedScheduleID()}"
-                                                     action="#{sessionBean.navigateAddEditRouteSchedules()}" />
+                                                     action="#{manageRouteSchedulesBean.checklBusesSchedules()}" />
                                     <p:commandButton value="#{msgs.assign_bus}"
                                                      icon="ui-icon-plus"                                  
                                                      iconPos="#{langBean.styleFloat}"

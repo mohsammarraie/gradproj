@@ -117,12 +117,12 @@ public class TripsDao extends ConnectionDao {
 
     public void insertTrip(Trip trip) throws Exception {
         try {
-              
+
             Connection conn = getConnection();
-            
-            String actualDepartureTimeStatusEn="";
-            String actualDepartureTimeStatusAr="";
-            
+
+            String actualDepartureTimeStatusEn = "";
+            String actualDepartureTimeStatusAr = "";
+
             //actual departure time
             Date date = new Date();
             Timestamp timestampActualDepartureTime = new Timestamp(date.getTime());
@@ -145,31 +145,45 @@ public class TripsDao extends ConnectionDao {
 
             Calendar cal1 = Calendar.getInstance();
             Calendar cal2 = Calendar.getInstance();
-             Calendar cal3 = Calendar.getInstance();
-            
+            Calendar cal3 = Calendar.getInstance();
+
             cal1.setTime(actualDT);
             cal2.setTime(departureT);
             cal3.setTime(departureT);
-            
+
             cal2.add(Calendar.MINUTE, 10);
             cal3.add(Calendar.MINUTE, -10);
-            
-            if (cal1.compareTo(cal2) < 0 && cal1.compareTo(cal3) > 0 ){
+
+            if (cal1.compareTo(cal2) < 0 && cal1.compareTo(cal3) > 0) {
                 actualDepartureTimeStatusEn = "On Time";
                 actualDepartureTimeStatusAr = "على الموعد";
-            }
-            else if (cal1.compareTo(cal2) > 0) {
+            } else if (cal1.compareTo(cal2) > 0) {
                 actualDepartureTimeStatusEn = "Late";
                 actualDepartureTimeStatusAr = "متأخر";
             } else if (cal1.compareTo(cal3) < 0) {
                 actualDepartureTimeStatusEn = "Early";
                 actualDepartureTimeStatusAr = "مبكر";
-            } 
+            }
+
+            String query = "SELECT count (*) as ROW_COUNTER FROM BUSES.TRIPS";
+            PreparedStatement preparedStm = conn.prepareStatement(query);
+            ResultSet resultSet = preparedStm.executeQuery();
+
+            int count = 0;
+            while (resultSet.next()) {
+                count = resultSet.getInt("ROW_COUNTER");
+            }
+            String countOrMax = "";
+            if (count > 0) {
+                countOrMax = "max";
+            } else {
+                countOrMax = "count";
+            }
 
             String sql = "INSERT INTO BUSES.TRIPS "
                     + " (TRIP_ID, BUS_ID, SCHEDULE_ID, ROUTE_ID, DRIVER_ID, STATUS_EN, STATUS_AR, ACTUAL_DEPARTURE_TIME, DEPARTURE_TIME_STATUS_EN, DEPARTURE_TIME_STATUS_AR)"
                     + " VALUES("
-                    + "(select max(TRIP_ID) from BUSES.TRIPS)+1,?,?,?,?,?,?,?,?,?)";
+                    + "(select " + countOrMax + "(TRIP_ID) from BUSES.TRIPS)+1,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, trip.getBusId());
@@ -179,7 +193,7 @@ public class TripsDao extends ConnectionDao {
             ps.setString(5, "Ongoing");
             ps.setString(6, "في الطريق ");
             ps.setTimestamp(7, timestampActualDepartureTime);
-            ps.setString(8,actualDepartureTimeStatusEn );
+            ps.setString(8, actualDepartureTimeStatusEn);
             ps.setString(9, actualDepartureTimeStatusAr);
             ps.executeUpdate();
             ps.close();
@@ -234,9 +248,9 @@ public class TripsDao extends ConnectionDao {
 
     public void updateTripEnd(Trip trip) {
         try {
-            String actualArrivalTimeStatusEn="";
-            String actualArrivalTimeStatusAr="";
-            
+            String actualArrivalTimeStatusEn = "";
+            String actualArrivalTimeStatusAr = "";
+
             //actual departure time
             Date date = new Date();
             Timestamp timestampActualArrivalTime = new Timestamp(date.getTime());
@@ -259,26 +273,25 @@ public class TripsDao extends ConnectionDao {
 
             Calendar cal1 = Calendar.getInstance();
             Calendar cal2 = Calendar.getInstance();
-             Calendar cal3 = Calendar.getInstance();
-            
+            Calendar cal3 = Calendar.getInstance();
+
             cal1.setTime(actualAT);
             cal2.setTime(arrivalT);
             cal3.setTime(arrivalT);
-            
+
             cal2.add(Calendar.MINUTE, 10);
             cal3.add(Calendar.MINUTE, -10);
-            
-            if (cal1.compareTo(cal2) < 0 && cal1.compareTo(cal3) > 0 ){
+
+            if (cal1.compareTo(cal2) < 0 && cal1.compareTo(cal3) > 0) {
                 actualArrivalTimeStatusEn = "On Time";
                 actualArrivalTimeStatusAr = "على الموعد";
-            }
-            else if (cal1.compareTo(cal2) > 0) {
+            } else if (cal1.compareTo(cal2) > 0) {
                 actualArrivalTimeStatusEn = "Late";
                 actualArrivalTimeStatusAr = "متأخر";
             } else if (cal1.compareTo(cal3) < 0) {
                 actualArrivalTimeStatusEn = "Early";
                 actualArrivalTimeStatusAr = "مبكر";
-            } 
+            }
 
             Connection conn = getConnection();
             String sql = "UPDATE BUSES.TRIPS"
@@ -293,8 +306,8 @@ public class TripsDao extends ConnectionDao {
             ps.setString(1, "Arrived");
             ps.setString(2, "وصلت");
             ps.setTimestamp(3, timestampActualArrivalTime);
-             ps.setString(4, actualArrivalTimeStatusEn);
-              ps.setString(5,actualArrivalTimeStatusAr);
+            ps.setString(4, actualArrivalTimeStatusEn);
+            ps.setString(5, actualArrivalTimeStatusAr);
             ps.setInt(6, tripId);
             ps.executeUpdate();
             ps.close();
@@ -310,13 +323,32 @@ public class TripsDao extends ConnectionDao {
             Date date = new Date();
             Timestamp timeStamp = new Timestamp(date.getTime());
             Connection conn = getConnection();
+
+            String query = "SELECT count (*) as ROW_COUNTER FROM BUSES.TRIPS_COORDINATES"
+                    + " WHERE"
+                    + " TRIP_ID=?";
+            PreparedStatement preparedStm = conn.prepareStatement(query);
+            preparedStm.setInt(1, tripId);
+            ResultSet resultSet = preparedStm.executeQuery();
+
+            int count = 0;
+            while (resultSet.next()) {
+                count = resultSet.getInt("ROW_COUNTER");
+            }
+            String countOrMax = "";
+            if (count > 0) {
+                countOrMax = "max";
+            } else {
+                countOrMax = "count";
+            }
+
             String sql = "INSERT INTO BUSES.TRIPS_COORDINATES("
                     + " TRIP_COORDINATES_ID,"
                     + " TRIP_ID,"
                     + " LATITUDE,"
                     + " LONGTITUDE,"
                     + " TIME_TAG)"
-                    + " VALUES((select count(TRIP_COORDINATES_ID) from BUSES.TRIPS_COORDINATES)+1,?,?,?,?)";
+                    + " VALUES((select " + countOrMax + "(TRIP_COORDINATES_ID) from BUSES.TRIPS_COORDINATES)+1,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, tripId);
             ps.setString(2, lat);

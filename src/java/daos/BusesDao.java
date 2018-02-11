@@ -81,13 +81,28 @@ public class BusesDao extends ConnectionDao {
         try {
             Connection conn = getConnection();
 
+            String query = "SELECT count (*) as ROW_COUNTER FROM BUSES.BUSES";
+            PreparedStatement preparedStm = conn.prepareStatement(query);
+            ResultSet resultSet = preparedStm.executeQuery();
+
+            int count = 0;
+            while (resultSet.next()) {
+                count = resultSet.getInt("ROW_COUNTER");
+            }
+            String countOrMax = "";
+            if (count > 0) {
+                countOrMax = "max";
+            } else {
+                countOrMax = "count";
+            }
+
             String sql = "INSERT INTO BUSES.BUSES (BUS_ID,"
                     + " CHASIS_NUMBER,"
                     + " LICENSE_NUMBER,"
                     + " CAPACITY,"
                     + " MODEL,"
                     + " MANUFACTURER)"
-                    + " VALUES ((select max(BUS_ID) from BUSES.BUSES)+1,?,?,?,?,?)";
+                    + " VALUES ((select " + countOrMax + "(BUS_ID) from BUSES.BUSES)+1,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, buses.getChasisNumber());

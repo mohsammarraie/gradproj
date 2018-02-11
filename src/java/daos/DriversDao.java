@@ -50,7 +50,6 @@ public class DriversDao extends ConnectionDao {
         }
     }
 
-
     private Driver populateDrivers(ResultSet rs) throws SQLException {
         Driver driverInfo = new Driver();
 
@@ -75,6 +74,21 @@ public class DriversDao extends ConnectionDao {
         try {
             Connection conn = getConnection();
 
+            String query = "SELECT count (*) as ROW_COUNTER FROM BUSES.DRIVERS";
+            PreparedStatement preparedStm = conn.prepareStatement(query);
+            ResultSet resultSet = preparedStm.executeQuery();
+
+            int count = 0;
+            while (resultSet.next()) {
+                count = resultSet.getInt("ROW_COUNTER");
+            }
+            String countOrMax = "";
+            if (count > 0) {
+                countOrMax = "max";
+            } else {
+                countOrMax = "count";
+            }
+
             String sql = "INSERT INTO BUSES.DRIVERS (DRIVER_ID,"
                     + " FIRST_NAME_EN,"
                     + " FIRST_NAME_AR,"
@@ -87,7 +101,7 @@ public class DriversDao extends ConnectionDao {
                     + " NATIONALITY_EN,"
                     + " GENDER_AR,"
                     + " NATIONALITY_AR)"
-                    + " VALUES ((select max(DRIVER_ID) from BUSES.DRIVERS)+1,?,?,?,?,?,?,?,?,?,?,?)";
+                    + " VALUES ((select " + countOrMax + "(DRIVER_ID) from BUSES.DRIVERS)+1,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             java.sql.Date sqlStartDate = new java.sql.Date(drivers.getDateOfBirth().getTime());
 
@@ -98,7 +112,7 @@ public class DriversDao extends ConnectionDao {
             ps.setString(5, drivers.getPhoneNumber());
             ps.setString(6, drivers.getNationalId());
             ps.setString(7, drivers.getGenderEn());
-            ps.setDate(8,  sqlStartDate);
+            ps.setDate(8, sqlStartDate);
             ps.setString(9, drivers.getNationalityEn());
             ps.setString(10, drivers.getGenderAr());
             ps.setString(11, drivers.getNationalityAr());
@@ -136,7 +150,7 @@ public class DriversDao extends ConnectionDao {
             ps.setString(5, drivers.getPhoneNumber());
             ps.setString(6, drivers.getNationalId());
             ps.setString(7, drivers.getGenderEn());
-            ps.setDate(8,  sqlStartDate);
+            ps.setDate(8, sqlStartDate);
             ps.setString(9, drivers.getNationalityEn());
             ps.setString(10, drivers.getGenderAr());
             ps.setString(11, drivers.getNationalityAr());

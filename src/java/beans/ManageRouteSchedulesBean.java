@@ -111,9 +111,30 @@ public class ManageRouteSchedulesBean implements Serializable {
 
     public void deleteSelectedRouteSchedule() {
         try {
-            routeSchedulesDao.deleteRouteScheduleStops(selectedSchedule.getScheduleId(), routeId);
-            routeSchedulesDao.deleteRouteSchedules(selectedSchedule.getScheduleId(), routeId);
-            sessionBean.navigateManageRouteSchedules();
+
+         
+                boolean flag = routeSchedulesDao.checkBusesSchedules(sessionBean.getSelectedRouteId(), selectedSchedule.getScheduleId());
+
+                try {
+                    if (flag) {
+                        error_message_content = "Please unassign bus before deleting this route schedule.";
+                        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+                    }
+                    else {
+                routeSchedulesDao.deleteRouteScheduleStops(selectedSchedule.getScheduleId(), routeId);
+                routeSchedulesDao.deleteRouteSchedules(selectedSchedule.getScheduleId(), routeId);
+                sessionBean.navigateManageRouteSchedules();
+            }
+
+                } catch (Exception ex) {
+                    error_message_header = "Error!";
+                    error_message_content = ex.getMessage();
+
+                    RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+                    Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            
 
         } catch (Exception ex) {
             error_message_header = "Error!";
@@ -149,6 +170,27 @@ public class ManageRouteSchedulesBean implements Serializable {
             } else {
                 flag = false;
             }
+        }
+        return flag;
+    }
+
+    public boolean checklBusesSchedules() {
+        boolean flag = routeSchedulesDao.checkBusesSchedules(sessionBean.getSelectedRouteId(), selectedSchedule.getScheduleId());
+
+        try {
+            if (flag) {
+                error_message_content = "Please unassign bus before editing or removing this route schedule.";
+                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            } else {
+                sessionBean.navigateAddEditRouteSchedules();
+            }
+
+        } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         return flag;
     }
