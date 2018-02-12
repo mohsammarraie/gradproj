@@ -112,7 +112,6 @@ public class ManageRouteSchedulesBean implements Serializable {
     public void deleteSelectedRouteSchedule() {
         try {
 
-         
                 boolean flag = routeSchedulesDao.checkBusesSchedules(sessionBean.getSelectedRouteId(), selectedSchedule.getScheduleId());
 
                 try {

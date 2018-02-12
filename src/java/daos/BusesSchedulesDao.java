@@ -5,6 +5,7 @@
  */
 package daos;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -97,18 +98,12 @@ public class BusesSchedulesDao extends ConnectionDao {
         try {
             Connection conn = getConnection();
 
-            String sql = "INSERT INTO BUSES.BUSES_SCHEDULES (BUS_ID,"
-                    + " ROUTE_ID,"
-                    + " SCHEDULE_ID)"
-                    + " VALUES (?,?,?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.setInt(1, busId);
-            ps.setInt(2, routeId);
-            ps.setInt(3, scheduleId);
-
-            ps.executeUpdate();
-            ps.close();
+            CallableStatement cs = conn.prepareCall("{call INSERT_WITH_CONFLICT_CHECK(?,?,?) }");
+            cs.setInt(1, busId);
+            cs.setInt(2, routeId);
+            cs.setInt(3, scheduleId);
+            cs.execute();
+            cs.close();
 
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
@@ -117,21 +112,17 @@ public class BusesSchedulesDao extends ConnectionDao {
 
     public void updateBusSchedule(int busId, int routeId, int scheduleId) throws Exception {
         try {
+
+
             Connection conn = getConnection();
+            
+            CallableStatement cs = conn.prepareCall("{call UPDATE_WITH_CONFLICT_CHECK(?,?,?) }");
+            cs.setInt(1, busId);
+            cs.setInt(2, routeId);
+            cs.setInt(3, scheduleId);
+            cs.execute();
+            cs.close();
 
-            String sql = "UPDATE BUSES.BUSES_SCHEDULES SET"
-                    + " BUS_ID=?"
-                    + " WHERE ROUTE_ID=?"
-                    + " AND"
-                    + " SCHEDULE_ID=?";
-
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.setInt(1, busId);
-            ps.setInt(2, routeId);
-            ps.setInt(3, scheduleId);
-            ps.executeUpdate();
-            ps.close();
 
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());

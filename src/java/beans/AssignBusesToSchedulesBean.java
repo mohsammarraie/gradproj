@@ -47,22 +47,26 @@ public class AssignBusesToSchedulesBean implements Serializable {
     @PostConstruct
     public void init() {
         try {
-            int y=0;
+            int y = 0;
             busesSchedulesArray = busesSchedulesDao.buildBusesSchedules();
             availableBusesArray = busesSchedulesDao.buildAvailableBuses();
             routeId = sessionBean.getSelectedRouteId();
             scheduleId = sessionBean.getSelectedScheduleId();
-            
-            displayBusesSchedules( routeId,  scheduleId, y);
+
+            displayBusesSchedules(routeId, scheduleId, y);
 
             if (scheduleId > 0) {
                 busesSchedules = busesSchedulesDao.getBusesSchedules(routeId, scheduleId);
-                busId = busesSchedules.getBusId();
-                assignedBus = busesSchedules.getAssignedBus();
+
+                if (busesSchedules != null) {
+                    busId = busesSchedules.getBusId();
+                    assignedBus = busesSchedules.getAssignedBus();
+
+                }
             }
 
         } catch (Exception ex) {
-           
+
             Logger.getLogger(AssignBusesToSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -143,11 +147,11 @@ public class AssignBusesToSchedulesBean implements Serializable {
             }
         }
         if (flag) {
-            sessionBean.setSelectedBusId(busesSchedulesArray.get(i).getBusId()); 
+            sessionBean.setSelectedBusId(busesSchedulesArray.get(i).getBusId());
             return busesSchedulesArray.get(i).getAssignedBus();
 
         } else {
-                sessionBean.setSelectedBusId(0);
+            sessionBean.setSelectedBusId(0);
             if (x == 1) {
                 return "Not Assigned";
             } else {
@@ -172,7 +176,13 @@ public class AssignBusesToSchedulesBean implements Serializable {
 
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
+
+              if(error_message_content.contains("ORA-20100: CONFLICT.")){
+                error_message_content="The chosen bus is already assigned to other schedules that conflict in time with this schedule.";
             
+            }
+          
+
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(AssignBusesToSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
