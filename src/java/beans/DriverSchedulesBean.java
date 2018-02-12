@@ -16,7 +16,9 @@ import models.DriverSchedule;
 import javax.inject.Named;
 import daos.DriverSchedulesDao;
 import daos.TripsDao;
+import javax.faces.application.FacesMessage;
 import models.Trip;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -34,8 +36,10 @@ public class DriverSchedulesBean implements Serializable {
     private int driverId;
     private int scheduleId;
     private int routeId;
-    
-    
+
+    String error_message_header = "";
+    String error_message_content = "";
+
     @Inject
     private SessionBean sessionBean;
 
@@ -96,29 +100,42 @@ public class DriverSchedulesBean implements Serializable {
         //save Selected Driver Schedule Id
         sessionBean.setSelectedDriverSchedule(selectedSchedule.getDriverRouteScheduleId());
 
-        Trip trip = new Trip();
+        if (startTripRestriction() < 1) {
 
-        int i;
-        for (i = 0; i < driverSchedulesArray.size(); i++) {
-            if (driverSchedulesArray.get(i).getDriverRouteScheduleId() == sessionBean.getSelectedDriverSchedule()) {
-                trip.setBusId(driverSchedulesArray.get(i).getBusId());
-                trip.setRouteId(driverSchedulesArray.get(i).getRouteId());
-                trip.setDriverId(driverSchedulesArray.get(i).getDriverId());
-                trip.setScheduleId(driverSchedulesArray.get(i).getScheduleId());
-                trip.setDepartureTime(driverSchedulesArray.get(i).getDepartureTime());
-                trip.setArrivalTime(driverSchedulesArray.get(i).getArrivalTime());
-                try {
-                    sessionBean.setSelectedRouteId(trip.getRouteId());
-                    sessionBean.setSelectedScheduleId(trip.getScheduleId());
-                    tripsDao.insertTrip(trip);
-                } catch (Exception ex) {
-               
-                    Logger.getLogger(DriverSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
+            Trip trip = new Trip();
+
+            int i;
+            for (i = 0; i < driverSchedulesArray.size(); i++) {
+                if (driverSchedulesArray.get(i).getDriverRouteScheduleId() == sessionBean.getSelectedDriverSchedule()) {
+                    trip.setBusId(driverSchedulesArray.get(i).getBusId());
+                    trip.setRouteId(driverSchedulesArray.get(i).getRouteId());
+                    trip.setDriverId(driverSchedulesArray.get(i).getDriverId());
+                    trip.setScheduleId(driverSchedulesArray.get(i).getScheduleId());
+                    trip.setDepartureTime(driverSchedulesArray.get(i).getDepartureTime());
+                    trip.setArrivalTime(driverSchedulesArray.get(i).getArrivalTime());
+                    try {
+                        sessionBean.setSelectedRouteId(trip.getRouteId());
+                        sessionBean.setSelectedScheduleId(trip.getScheduleId());
+                        tripsDao.insertTrip(trip);
+                    } catch (Exception ex) {
+
+                        Logger.getLogger(DriverSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
+
+            sessionBean.navigateDriverMap();
+
+        } else {
+            error_message_content = "This trip is unavailable. Please select from the available trips";
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
         }
 
-        sessionBean.navigateDriverMap();
+    }
+
+    public int startTripRestriction() {
+        int rowNum = driverSchedulesArray.indexOf(selectedSchedule);
+        return rowNum;
 
     }
 
