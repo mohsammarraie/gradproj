@@ -40,7 +40,7 @@ public class StudentsDao extends ConnectionDao {
 
     private Student populateStudents(ResultSet rs) throws SQLException {
         Student students = new Student();
-
+        students.setStudentIncId(rs.getInt("STUDENT_INC_ID"));
         students.setStudentId(rs.getString("STUDENT_ID"));
         students.setFirstNameEn(rs.getString("FIRST_NAME_EN"));
         students.setLastNameEn(rs.getString("LAST_NAME_EN"));
@@ -50,15 +50,15 @@ public class StudentsDao extends ConnectionDao {
         return students;
     }
 
-    public Student getStudents(String StudentId) throws Exception {
+    public Student getStudents(int StudentIncId) throws Exception {
         try {
             Student students = null;
             Connection conn = getConnection();
 
             String sql = "SELECT * FROM BUSES.STUDENTS"
-                    + " WHERE STUDENT_ID=?";
+                    + " WHERE STUDENT_INC_ID=?";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, StudentId);
+            ps.setInt(1, StudentIncId);
 
             ResultSet rs = ps.executeQuery();
 
@@ -78,13 +78,29 @@ public class StudentsDao extends ConnectionDao {
     public void insertStudent(Student students) throws Exception {
         try {
             Connection conn = getConnection();
+            
+            String query = "SELECT count (*) as ROW_COUNTER FROM BUSES.STUDENTS";
+            PreparedStatement preparedStm = conn.prepareStatement(query);
+            ResultSet resultSet = preparedStm.executeQuery();
 
+            int count = 0;
+            while (resultSet.next()) {
+                count = resultSet.getInt("ROW_COUNTER");
+            }
+            String countOrMax = "";
+            if (count > 0) {
+                countOrMax = "max";
+            } else {
+                countOrMax = "count";
+            }
+            
             String sql = "INSERT INTO BUSES.STUDENTS (STUDENT_ID,"
                     + " FIRST_NAME_EN,"
                     + " LAST_NAME_EN,"
                     + " FIRST_NAME_AR,"
-                    + " LAST_NAME_AR)"
-                    + " VALUES (?,?,?,?,?)";
+                    + " LAST_NAME_AR,"
+                    + " STUDENT_INC_ID)"
+                    + " VALUES (?,?,?,?,?,(select " + countOrMax + "(STUDENT_INC_ID) from BUSES.STUDENTS)+1)";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, students.getStudentId());
@@ -102,7 +118,7 @@ public class StudentsDao extends ConnectionDao {
         }
     }
 
-    public void updateStudent(Student students, String currentStudentId) throws Exception {
+    public void updateStudent(Student students, int studentIncId) throws Exception {
         try {
             Connection conn = getConnection();
 
@@ -112,7 +128,7 @@ public class StudentsDao extends ConnectionDao {
                     + " FIRST_NAME_AR=?,"
                     + " LAST_NAME_AR=?,"
                     + " STUDENT_ID=?"
-                    + " WHERE STUDENT_ID=?";
+                    + " WHERE STUDENT_INC_ID=?";
 
             PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -121,7 +137,7 @@ public class StudentsDao extends ConnectionDao {
             ps.setString(3, students.getFirstNameAr());
             ps.setString(4, students.getLastNameAr());
             ps.setString(5, students.getStudentId());
-            ps.setString(6, currentStudentId);
+            ps.setInt(6, studentIncId);
 
             ps.executeUpdate();
             ps.close();

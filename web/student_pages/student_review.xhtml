@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>#{msgs.add_edit_bus}</title>
+        <title>#{msgs.review_trip}</title>
     </h:head>
     <h:body>
         <ui:decorate template="/app_templates/app_template.xhtml">  
@@ -25,50 +25,49 @@ and open the template in the editor.
                                  style="float: #{langBean.styleFloat};" 
                                  columns="2"                              
                                  dir="#{langBean.dir}">
+                        
+                        <p:outputLabel value="#{msgs.msg_question1}" for="review_trip_radio1" style="padding:5px;"/>
+                        <p:selectOneRadio id="review_trip_radio1" value="#{studentReviewBean.rating1}" style="padding:5px;">
 
-
-
-
-
-                        <p:outputLabel value="how was the trip?" for="review_trip_radio1"/>
-                        <p:selectOneRadio id="review_trip_radio1" value="#{studentReviewBean.rating1}" >
-
-                            <f:selectItem itemLabel="Very Bad" itemValue="1" />
-                            <f:selectItem itemLabel="Bad" itemValue="2" />
-                            <f:selectItem itemLabel="Okay" itemValue="3" />
-                            <f:selectItem itemLabel="Good" itemValue="4" />
-                            <f:selectItem itemLabel="Very Good" itemValue="5" />
+                            <f:selectItem itemLabel="#{msgs.very_bad}" itemValue="1" />
+                            <f:selectItem itemLabel="#{msgs.bad}" itemValue="2" />
+                            <f:selectItem itemLabel="#{msgs.okay}" itemValue="3" />
+                            <f:selectItem itemLabel="#{msgs.good}" itemValue="4" />
+                            <f:selectItem itemLabel="#{msgs.very_good}" itemValue="5" />
                         </p:selectOneRadio>
 
-                        <p:outputLabel value="how was the trip?" for="review_trip_radio2"/>
-                        <p:selectOneRadio id="review_trip_radio2" value="#{studentReviewBean.rating2}" >
+                        <p:outputLabel value="question2 ?" for="review_trip_radio2" style="padding:5px;"/>
+                        <p:selectOneRadio id="review_trip_radio2" value="#{studentReviewBean.rating2}" style="padding:5px;">
 
-                            <f:selectItem itemLabel="Very Bad" itemValue="1" />
-                            <f:selectItem itemLabel="Bad" itemValue="2" />
-                            <f:selectItem itemLabel="Okay" itemValue="3" />
-                            <f:selectItem itemLabel="Good" itemValue="4" />
-                            <f:selectItem itemLabel="Very Good" itemValue="5" />
+                            <f:selectItem itemLabel="#{msgs.very_bad}" itemValue="1" />
+                            <f:selectItem itemLabel="#{msgs.bad}" itemValue="2" />
+                            <f:selectItem itemLabel="#{msgs.okay}" itemValue="3" />
+                            <f:selectItem itemLabel="#{msgs.good}" itemValue="4" />
+                            <f:selectItem itemLabel="#{msgs.very_good}" itemValue="5" />
                         </p:selectOneRadio>
 
-                        <p:outputLabel value="how was the trip?" for="review_trip_radio3"/>
-                        <p:selectOneRadio id="review_trip_radio3" value="#{studentReviewBean.rating3}" >
+                        <p:outputLabel value="question3 ?" for="review_trip_radio3" style="padding:5px;"/>
+                        <p:selectOneRadio id="review_trip_radio3" value="#{studentReviewBean.rating3}" style="padding:5px;">
 
-                            <f:selectItem itemLabel="Very Bad" itemValue="1" />
-                            <f:selectItem itemLabel="Bad" itemValue="2" />
-                            <f:selectItem itemLabel="Okay" itemValue="3" />
-                            <f:selectItem itemLabel="Good" itemValue="4" />
-                            <f:selectItem itemLabel="Very Good" itemValue="5" />
+                            <f:selectItem itemLabel="#{msgs.very_bad}" itemValue="1" />
+                            <f:selectItem itemLabel="#{msgs.bad}" itemValue="2" />
+                            <f:selectItem itemLabel="#{msgs.okay}" itemValue="3" />
+                            <f:selectItem itemLabel="#{msgs.good}" itemValue="4" />
+                            <f:selectItem itemLabel="#{msgs.very_good}" itemValue="5" />
                         </p:selectOneRadio>
 
-                        <p:outputLabel value="#{msgs.review_trip}:" for="review_trip"/>
+                        <p:outputLabel value="#{msgs.comment}:" for="review_trip" style="padding:5px;"/>
                         <p:inputText id="review_trip"
                                      value="#{studentReviewBean.studentTextReview}"
-                                     style="width:300px; height: 100px;"
-                                     maxlength="512">
+                                     style=" padding:5px;"
+                                     maxlength="70"
+                                     size="75"
+                                     >
                         </p:inputText>
+                        
 
 
-                        <p:commandButton value="#{msgs.save}"
+                        <p:commandButton value="#{msgs.submit}"
                                          styleClass="commandButton"
                                          icon="ui-icon-disk"
                                          iconPos="#{langBean.styleFloat}"

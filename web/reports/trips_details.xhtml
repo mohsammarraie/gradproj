@@ -13,14 +13,14 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>#{msgs.reports}</title>
+        <title>#{msgs.trips_details}</title>
     </h:head>
     <h:body>
         <div style="width:100%;">
             <ui:decorate template="/app_templates/app_template.xhtml">
                 <p:scrollPanel mode="native" style="width:1920px;height:750px">
                     <p:fieldset legend="#{msgs.filtering_criteria}" style="margin-bottom:20px">
-                        <h:form id="report_info_form">
+                        <h:form id="trip_details_info_form">
                             <h:panelGrid columns="4" cellpadding="5">
 
 
@@ -63,7 +63,7 @@ and open the template in the editor.
                                                  id="report_schedule_time"
                                                  filter="true"
                                                  filterMatchMode="contains">
-                                    <f:selectItem itemLabel="#{msgs.all_route_schedules}"
+                                    <f:selectItem itemLabel="#{msgs.select_route_first}"
                                                   itemValue=""/>
                                     <f:selectItems var="statusInfo"
                                                    value="#{manageReportsBean.reportSchedulesArray}" 
@@ -170,9 +170,9 @@ and open the template in the editor.
                         </h:form> 
                     </p:fieldset>
 
-                    <h:form id="report_info_tbl_form">
+                    <h:form id="trip_details_info_tbl_form">
                         <p:dataTable 
-                            id="report_info_tbl"
+                            id="trip_details_info_tbl"
                             value = "#{manageReportsBean.resultReportsArray}"
                             selection="#{manageReportsBean.selectedReport}"
                             rowKey="#{reportInfo.tripId}" 
@@ -188,10 +188,10 @@ and open the template in the editor.
                             >
 
                             <p:ajax event="rowSelectRadio"
-                                    update=":report_info_tbl_form:report_info_tbl"/>  
+                                    update=":trip_details_info_tbl_form:trip_details_info_tbl"/>  
 
                             <f:facet name="header" id="header">
-                                #{msgs.reports}
+                                #{msgs.trips_details}
                             </f:facet> 
                             <p:column selectionMode="single" style="width:5%"/>
                             <p:column headerText="#{msgs.license_plate}"
@@ -306,7 +306,7 @@ and open the template in the editor.
                                                          actionListener="#{manageReportsBean.saveSelectedTripId()}"
                                                          action="#{sessionBean.navigateReportsRouteStopsSchedules()}" />
                                         
-                                        <p:commandButton value="trip review"
+                                        <p:commandButton value="#{msgs.trip_review}"
                                                          icon="ui-icon-pencil"                                  
                                                          iconPos="#{langBean.styleFloat}"
                                                          styleClass="commandButton"

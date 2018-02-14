@@ -66,8 +66,8 @@ public class ManageStudentsBean implements Serializable {
         this.studentsArray = studentsArray;
     }
 
-    public void saveSelectedStudentId() {
-        sessionBean.setSelectedStudentId(selectedStudent.getStudentId());
+    public void saveSelectedStudentIncId() {
+        sessionBean.setSelectedStudentIncId(selectedStudent.getStudentIncId());
     }
 
     public void deleteSelectedStudent() {

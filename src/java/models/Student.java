@@ -12,13 +12,23 @@ import java.io.Serializable;
  * @author Taha Al-khaffaf
  */
 public class Student implements Serializable {
-
+    
+    private int studentIncId;
     private String studentId;
     private String firstNameEn;
     private String lastNameEn;
     private String firstNameAr;
     private String lastNameAr;
 
+    public int getStudentIncId() {
+        return studentIncId;
+    }
+
+    public void setStudentIncId(int studentIncId) {
+        this.studentIncId = studentIncId;
+    }
+    
+    
     public String getStudentId() {
         return studentId;
     }

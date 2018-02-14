@@ -184,7 +184,13 @@ public class DriversDao extends ConnectionDao {
             Driver drivers = null;
             Connection conn = getConnection();
 
-            String sql = "SELECT * FROM BUSES.DRIVERS"
+            String sql = "SELECT DRIVER_ID,FIRST_NAME_AR,FIRST_NAME_EN,"
+                    + " LAST_NAME_EN,LAST_NAME_AR,PHONE_NUMBER,"
+                    + " NATIONAL_ID,DATE_OF_BIRTH,GENDER_EN,GENDER_AR,"
+                    + " NATIONALITY_EN, NATIONALITY_AR,"
+                    + " CONCAT(CONCAT(FIRST_NAME_EN,' '), LAST_NAME_EN) AS DRIVER_NAME_EN,"
+                    + " CONCAT(CONCAT(FIRST_NAME_AR,' '), LAST_NAME_AR) AS DRIVER_NAME_AR"
+                    + " FROM BUSES.DRIVERS"
                     + " WHERE DRIVER_ID=?";
 
             PreparedStatement ps = conn.prepareStatement(sql);

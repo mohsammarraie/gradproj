@@ -14,7 +14,7 @@ and open the template in the editor.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <title>trip review</title>
+        <title>#{msgs.trip_review}</title>
     </h:head>
     <h:body>
         <div>
@@ -37,10 +37,10 @@ and open the template in the editor.
                       
 
                         <f:facet name="header" id="header">
-                            #{msgs.manage_buses}
+                            #{msgs.trip_review}
                         </f:facet> 
 
-                        <p:column headerText="trip_id"
+                        <p:column headerText="#{msgs.trip_id}"
                                   style="width:15%"
                                   filterBy="#{tripReview.tripId}"
                                   filterMatchMode="contains"
@@ -56,7 +56,7 @@ and open the template in the editor.
                             <h:outputText value="#{tripReview.studentId}"/>  
                         </p:column>
 
-                        <p:column headerText="question 1"
+                        <p:column headerText="#{msgs.msg_question1}"
                                   style="width:15%"
                                   filterBy="#{tripReview.rating1}}"
                                   filterMatchMode="contains"
@@ -78,14 +78,14 @@ and open the template in the editor.
                                   sortBy="#{tripReview.rating3}">                    
                             <h:outputText value="#{tripReview.rating3}"/>  
                         </p:column>
-                           <p:column headerText="Avg"
+                           <p:column headerText="#{msgs.avg_rating}"
                                   style="width:15%"
                                   filterBy="#{tripReview.avgRating}"
                                   filterMatchMode="contains"
                                   sortBy="#{tripReview.avgRating}">                    
                             <h:outputText value="#{tripReview.avgRating}"/>  
                         </p:column>
-                        <p:column headerText="review text"
+                        <p:column headerText="#{msgs.comment}"
                                   style="width:15%"
                                   filterBy="#{tripReview.reviewText}"
                                   filterMatchMode="contains"

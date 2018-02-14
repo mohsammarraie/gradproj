@@ -23,7 +23,7 @@ and open the template in the editor.
                         id="students_info_tbl"
                         value = "#{manageStudentsBean.studentsArray}"
                         selection="#{manageStudentsBean.selectedStudent}"
-                        rowKey="#{studentsArray.studentId}"  
+                        rowKey="#{studentsArray.studentIncId}"  
                         class = "dataTable"
                         var="studentsArray"
                         rows="5"
@@ -84,7 +84,7 @@ and open the template in the editor.
                                                      styleClass="commandButton"
                                                      style="float:#{langBean.styleFloat}"                                                                                                
                                                      disabled="#{manageStudentsBean.selectedStudent==null}"                                                 
-                                                     actionListener="#{manageStudentsBean.saveSelectedStudentId()}"
+                                                     actionListener="#{manageStudentsBean.saveSelectedStudentIncId()}"
                                                      action="#{sessionBean.navigateAddEditStudent()}" />
                                 </p:toolbarGroup>
                             </p:toolbar>
@@ -95,7 +95,7 @@ and open the template in the editor.
                                      iconPos="#{langBean.styleFloat}"
                                      styleClass="commandButton"
                                      style="float:#{langBean.styleFloat}" 
-                                     actionListener="#{sessionBean.setSelectedStudentId(null)}"
+                                     actionListener="#{sessionBean.setSelectedStudentIncId(-1)}"
                                      action="#{sessionBean.navigateAddEditStudent()}" /> 
                 </h:form>
 

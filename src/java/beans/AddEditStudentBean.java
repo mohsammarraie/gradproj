@@ -31,7 +31,7 @@ public class AddEditStudentBean implements Serializable {
     private String firstNameAr;
     private String lastNameEn;
     private String lastNameAr;
-    
+    private int studentIncId;
     String error_message_header = "";
     String error_message_content = "";
     
@@ -44,21 +44,32 @@ public class AddEditStudentBean implements Serializable {
     @PostConstruct
     public void init() {
         try {
-            studentId = sessionBean.getSelectedStudentId();
+            studentIncId = sessionBean.getSelectedStudentIncId();
 
-            if (studentId != null) {
+            if (studentIncId >0) {
 
-                Student students = studentsDao.getStudents(studentId);
-                firstNameEn = students.getFirstNameEn();
-                firstNameAr = students.getFirstNameAr();
-                lastNameEn = students.getLastNameEn();
-                lastNameAr = students.getLastNameAr();
+                Student students = studentsDao.getStudents(studentIncId);
+                if(students!=null){
+                    studentId= students.getStudentId();
+                    firstNameEn = students.getFirstNameEn();
+                    firstNameAr = students.getFirstNameAr();
+                    lastNameEn = students.getLastNameEn();
+                    lastNameAr = students.getLastNameAr();
+                }
             }
         } catch (Exception ex) {
             Logger.getLogger(AddEditStudentBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    public int getStudentIncId() {
+        return studentIncId;
+    }
+
+    public void setStudentIncId(int studentIncId) {
+        this.studentIncId = studentIncId;
+    }
+    
     public String getStudentId() {
         return studentId;
     }
@@ -109,8 +120,8 @@ public class AddEditStudentBean implements Serializable {
             students.setLastNameEn(lastNameEn);
             students.setLastNameAr(lastNameAr);
 
-            if (sessionBean.getSelectedStudentId() != null) {
-                studentsDao.updateStudent(students, sessionBean.getSelectedStudentId());
+            if (sessionBean.getSelectedStudentIncId() > 0) {
+                studentsDao.updateStudent(students, sessionBean.getSelectedStudentIncId());
             } else {
                 studentsDao.insertStudent(students);
             }
