@@ -286,9 +286,24 @@ public class SessionBean implements Serializable {
     public void navigateReports() {
         navigate("/reports/reports.xhtml");
     }
+     public void navigateTripsDetails() {
+        navigate("/reports/trips_details.xhtml");
+    }
     public void navigateReportsRouteStopsSchedules(){
         navigate("/reports/reports_route_stops_schedules.xhtml");
     }
+    public void navigateTripsReviews() {
+        navigate("/reports/trip_reviews.xhtml");
+    }
+    public void navigateReviewPastTrips(){
+        navigate("/student_pages/student_arrived_trips_review.xhtml");
+    
+    }
+       public void navigateStudentReview(){
+        navigate("/student_pages/student_review.xhtml");
+    
+    }
+    
     public void navigateMapTestOnMobile(){
         navigate("/gps_mobile_test.xhtml");
     }

@@ -79,7 +79,7 @@ public class TripsDao extends ConnectionDao {
 
             String sql = "SELECT * FROM PAST_TRIPS_VIEW"
                     + " WHERE DRIVER_ID =?"
-                    + " ORDER BY DEPARTURE_TIME";
+                    + " ORDER BY DEPARTURE_TIME DESC";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, 1);
 

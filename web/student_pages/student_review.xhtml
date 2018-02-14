@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{msgs.add_edit_bus}</title>
+    </h:head>
+    <h:body>
+        <ui:decorate template="/app_templates/app_template.xhtml">  
+            <h:form id="student_review_form">
+                <p:messages id="msgs" closable="true" globalOnly="true"/>
+
+                <p:panel id="add_review_panel"
+                         header="#{msgs.review_trip}"                            
+                         style="min-height:400px; 
+                         direction:#{langBean.dir};margin-top:10px; font-size:10pt">
+                    <h:panelGrid id="add"
+                                 style="float: #{langBean.styleFloat};" 
+                                 columns="2"                              
+                                 dir="#{langBean.dir}">
+
+
+
+
+
+                        <p:outputLabel value="how was the trip?" for="review_trip_radio1"/>
+                        <p:selectOneRadio id="review_trip_radio1" value="#{studentReviewBean.rating1}" >
+
+                            <f:selectItem itemLabel="Very Bad" itemValue="1" />
+                            <f:selectItem itemLabel="Bad" itemValue="2" />
+                            <f:selectItem itemLabel="Okay" itemValue="3" />
+                            <f:selectItem itemLabel="Good" itemValue="4" />
+                            <f:selectItem itemLabel="Very Good" itemValue="5" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel value="how was the trip?" for="review_trip_radio2"/>
+                        <p:selectOneRadio id="review_trip_radio2" value="#{studentReviewBean.rating2}" >
+
+                            <f:selectItem itemLabel="Very Bad" itemValue="1" />
+                            <f:selectItem itemLabel="Bad" itemValue="2" />
+                            <f:selectItem itemLabel="Okay" itemValue="3" />
+                            <f:selectItem itemLabel="Good" itemValue="4" />
+                            <f:selectItem itemLabel="Very Good" itemValue="5" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel value="how was the trip?" for="review_trip_radio3"/>
+                        <p:selectOneRadio id="review_trip_radio3" value="#{studentReviewBean.rating3}" >
+
+                            <f:selectItem itemLabel="Very Bad" itemValue="1" />
+                            <f:selectItem itemLabel="Bad" itemValue="2" />
+                            <f:selectItem itemLabel="Okay" itemValue="3" />
+                            <f:selectItem itemLabel="Good" itemValue="4" />
+                            <f:selectItem itemLabel="Very Good" itemValue="5" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel value="#{msgs.review_trip}:" for="review_trip"/>
+                        <p:inputText id="review_trip"
+                                     value="#{studentReviewBean.studentTextReview}"
+                                     style="width:300px; height: 100px;"
+                                     maxlength="512">
+                        </p:inputText>
+
+
+                        <p:commandButton value="#{msgs.save}"
+                                         styleClass="commandButton"
+                                         icon="ui-icon-disk"
+                                         iconPos="#{langBean.styleFloat}"
+                                         style="float:#{langBean.styleFloat}" 
+                                         ajax="false"
+                                         action="#{studentReviewBean.submitStudentTripReview()}" />
+                        <p:commandButton value="#{msgs.cancel}"
+                                         icon="ui-icon-cancel"  
+                                         iconPos="#{langBean.styleFloat}"
+                                         styleClass="commandButton"
+                                         immediate="true" 
+                                         style="float:#{langBean.styleFloat}"                                 
+                                         action="#{sessionBean.navigateReviewPastTrips()}"  />   
+
+
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+
+
+
+
+        </ui:decorate>
+    </h:body>
+</html>

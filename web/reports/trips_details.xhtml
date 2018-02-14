@@ -127,20 +127,6 @@ and open the template in the editor.
                                                    itemLabel="#{busInfo.licenseNumber}"
                                                    itemValue="#{busInfo.busId}"/>                             
                                 </p:selectOneMenu>
-                                
-                                <p:outputLabel value="avg review" for="report_avg_review"/>
-                                <p:selectOneMenu value="#{manageReportsBean.avgRating}"
-                                                 style="width: 320px;"
-                                                 id="report_avg_review"
-                                                 filter="true"
-                                                 filterMatchMode="contains">
-                                    <f:selectItem itemLabel="#{msgs.all_bus_license_number}"
-                                                  itemValue=""/>
-                                    <f:selectItems var="review"
-                                                   value="#{studentReviewBean.studentTripReviewsArray}" 
-                                                   itemLabel="#{review.avgRating}"
-                                                   itemValue="#{review.avgRating}"/>                             
-                                </p:selectOneMenu>
 
 
                                 <p:outputLabel for="report_departure_time" value="#{msgs.departure_time}:" />
@@ -307,9 +293,31 @@ and open the template in the editor.
                                       sortBy="#{langBean.isEnglish?reportInfo.arrivalTimeStatusEn:reportInfo.arrivalTimeStatusAr}">                    
                                 <h:outputText value="#{langBean.isEnglish?reportInfo.arrivalTimeStatusEn:reportInfo.arrivalTimeStatusAr}"/>  
                             </p:column>
+                            <f:facet name="footer">
+                                <p:toolbar style="border: none">
+                                    <p:toolbarGroup align="#{languageBean.screenLeft}">
 
+                                        <p:commandButton value="#{msgs.stops}"
+                                                         icon="ui-icon-pencil"                                  
+                                                         iconPos="#{langBean.styleFloat}"
+                                                         styleClass="commandButton"
+                                                         style="float:#{langBean.styleFloat}"                                                                                                
+                                                         disabled="#{manageReportsBean.selectedReport==null}"                                                 
+                                                         actionListener="#{manageReportsBean.saveSelectedTripId()}"
+                                                         action="#{sessionBean.navigateReportsRouteStopsSchedules()}" />
+                                        
+                                        <p:commandButton value="trip review"
+                                                         icon="ui-icon-pencil"                                  
+                                                         iconPos="#{langBean.styleFloat}"
+                                                         styleClass="commandButton"
+                                                         style="float:#{langBean.styleFloat}"                                                                                                
+                                                         disabled="#{manageReportsBean.selectedReport==null}"                                                 
+                                                         actionListener="#{manageReportsBean.saveSelectedTripId()}"
+                                                         action="#{sessionBean.navigateTripsReviews()}" />
 
-                          
+                                    </p:toolbarGroup>
+                                </p:toolbar>
+                            </f:facet>
                         </p:dataTable>
 
                     </h:form>

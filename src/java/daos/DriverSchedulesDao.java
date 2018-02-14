@@ -9,7 +9,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.DriverSchedule;
 
 /**
@@ -24,8 +32,8 @@ public class DriverSchedulesDao extends ConnectionDao {
 
         try {
 
-            String sql = "SELECT * FROM DRIVERS_SCHEDULES_VIEW"
-                    + " WHERE"
+            String sql = "select * from DRIVERS_SCHEDULES_VIEW where to_char(DEPARTURE_TIME, 'HH24:MI:SS') >  to_char(SYSDATE - 0.0208333333333333, 'HH24:MI:SS')"
+                    + " AND"
                     + " DRIVER_ID=?"
                     + " ORDER BY DEPARTURE_TIME";
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -33,7 +41,9 @@ public class DriverSchedulesDao extends ConnectionDao {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                list.add(populateDriverSchedules(rs));
+
+                    list.add(populateDriverSchedules(rs));
+                
 
             }
 
@@ -47,8 +57,9 @@ public class DriverSchedulesDao extends ConnectionDao {
     }
 
     private DriverSchedule populateDriverSchedules(ResultSet rs) throws SQLException {
-
+            
         DriverSchedule driverSchedule = new DriverSchedule();
+
 
         driverSchedule.setDepartureTime(rs.getTimestamp("DEPARTURE_TIME"));
         driverSchedule.setArrivalTime(rs.getTimestamp("ARRIVAL_TIME"));
@@ -61,12 +72,11 @@ public class DriverSchedulesDao extends ConnectionDao {
         driverSchedule.setRouteCode(rs.getString("ROUTE_CODE"));
         driverSchedule.setDriverId(rs.getInt("DRIVER_ID"));
         driverSchedule.setRouteId(rs.getInt("ROUTE_ID"));
-
-        //implemented from concat routeId, scheduleId, busId to be used as a unique value (to make a unique row)
+    //implemented from concat routeId, scheduleId, busId to be used as a unique value (to make a unique row)
         String aa = "" + driverSchedule.getRouteId() + driverSchedule.getScheduleId() + driverSchedule.getBusId();
         driverSchedule.setDriverRouteScheduleId(Integer.parseInt(aa));
 
-        return driverSchedule;
+         return driverSchedule;
     }
 
 }

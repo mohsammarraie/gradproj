@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">-->
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{msgs.review_past_trips}</title>
+    </h:head>
+    <h:body>
+        <div>
+            <ui:decorate template="/app_templates/app_template.xhtml">
+                <h:form id="student_review_past_trips_info_form">
+                    <p:dataTable 
+                        id="student_review_past_trips_info_tbl"
+                        value = "#{studentArrivedTripsReviewBean.studentArrivedTripsArray}"
+                        selection="#{studentArrivedTripsReviewBean.selectedTrip}"
+                        rowKey="#{studentPastTrip.tripId}"  
+                        class = "dataTable"
+                        var="studentPastTrip"
+                        rows="5"
+                        rowsPerPageTemplate="5,10,20"
+                        dir="#{langBean.dir}"
+                        emptyMessage="#{msgs.no_trips}"
+                        paginator="true"
+                        paginatorPosition="top" 
+                        paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
+                        >
+                        <p:ajax event="rowSelectRadio"
+                                update=":student_review_past_trips_info_form:student_review_past_trips_info_tbl"/>  
+
+                        <f:facet name="header" id="header">
+                            #{msgs.review_past_trips}
+                        </f:facet> 
+                        <p:column selectionMode="single" style="width:5%"/>
+
+                        <p:column headerText="trip ID"
+                                  style="width:20%"
+                                  filterBy="#{studentTrip.tripId}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{studentTrip.tripId}">                    
+                            <h:outputText value="#{studentPastTrip.tripId}"/>  
+                        </p:column>
+
+                        <p:column headerText="#{msgs.route_code}"
+                                  style="width:20%"
+                                  filterBy="#{studentTrip.routeCode}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{studentTrip.routeCode}">                    
+                            <h:outputText value="#{studentPastTrip.routeCode}"/>  
+                        </p:column>
+
+                        <p:column headerText="#{msgs.bus_license_number}"
+                                  style="width:20%"
+                                  filterBy="#{studentPastTrip.licenseNumber}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{studentPastTrip.licenseNumber}">                    
+                            <h:outputText value="#{studentPastTrip.licenseNumber}"/>  
+                        </p:column>
+                        <p:column headerText="#{msgs.capacity}"
+                                  style="width:20%"
+                                  filterBy="#{studentPastTrip.capacity}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{studentPastTrip.capacity}">                    
+                            <h:outputText value="#{studentPastTrip.capacity}"/>  
+                        </p:column>
+                        <p:column headerText="#{msgs.driver_name}"
+                                  style="width:20%"
+                                  filterBy="#{langBean.isEnglish?studentPastTrip.driverNameEn:studentPastTrip.driverNameAr}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{langBean.isEnglish?studentPastTrip.driverNameEn:studentPastTrip.driverNameAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?studentPastTrip.driverNameEn:studentPastTrip.driverNameAr}"/>  
+                        </p:column>
+                        <p:column headerText="#{msgs.source}"
+                                  style="width:20%"
+                                  filterBy="#{langBean.isEnglish?studentPastTrip.sourceEn:studentPastTrip.sourceAr}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{langBean.isEnglish?studentPastTrip.sourceEn:studentPastTrip.sourceAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?studentPastTrip.sourceEn:studentPastTrip.sourceAr}"/>  
+                        </p:column>
+
+                        <p:column headerText="#{msgs.destination}"
+                                  style="width:20%"
+                                  filterBy="#{langBean.isEnglish?studentPastTrip.destinationEn:studentPastTrip.destinationAr}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{langBean.isEnglish?studentPastTrip.destinationEn:studentPastTrip.destinationAr}">                    
+                            <h:outputText value="#{langBean.isEnglish?studentPastTrip.destinationEn:studentPastTrip.destinationAr}"/>  
+                        </p:column>
+
+                        <p:column headerText="#{msgs.departure_time}"
+                                  style="width:20%"
+                                  filterBy="#{studentPastTrip.departureTime}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{studentPastTrip.departureTime}">
+                            <h:outputText value="#{studentPastTrip.departureTime}">  
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>
+
+                        </p:column>
+
+                        <p:column headerText="#{msgs.arrival_time}"
+                                  style="width:20%"
+                                  filterBy="#{studentPastTrip.arrivalTime}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{studentPastTrip.arrivalTime}">                    
+                            <h:outputText value="#{studentPastTrip.arrivalTime}">  
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>  
+                        </p:column>
+                        <p:column headerText="#{msgs.actual_departure_time}"
+                                  style="width:20%"
+                                  filterBy="#{studentPastTrip.actualDepartureTime}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{studentPastTrip.actualDepartureTime}">
+                            <h:outputText value="#{studentPastTrip.actualDepartureTime}">  
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msgs.actual_arrival_time}"
+                                  style="width:20%"
+                                  filterBy="#{studentPastTrip.actualArrivalTime}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{studentPastTrip.actualArrivalTime}">
+                            <h:outputText value="#{studentPastTrip.actualArrivalTime}">  
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>
+
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:toolbar style="border: none">
+                                <p:toolbarGroup align="#{languageBean.screenLeft}">
+                                    <p:commandButton value="#{msgs.review_trip}"
+                                                     ajax="false"
+                                                     iconPos="#{langBean.styleFloat}"
+                                                     styleClass="commandButton"
+                                                     style="float:#{langBean.styleFloat}"
+                                                     disabled="#{studentArrivedTripsReviewBean.selectedTrip==null}"
+                                                     actionListener="#{studentArrivedTripsReviewBean.saveSelectedTripId()}"
+                                                     action="#{sessionBean.navigateStudentReview()}"/>
+                                </p:toolbarGroup>
+                            </p:toolbar>
+                        </f:facet>
+                    </p:dataTable>
+
+                </h:form>
+
+            </ui:decorate>
+
+        </div>
+    </h:body>
+</html>

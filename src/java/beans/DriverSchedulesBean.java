@@ -16,6 +16,11 @@ import models.DriverSchedule;
 import javax.inject.Named;
 import daos.DriverSchedulesDao;
 import daos.TripsDao;
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import javax.faces.application.FacesMessage;
 import models.Trip;
 import org.primefaces.context.RequestContext;
@@ -99,36 +104,68 @@ public class DriverSchedulesBean implements Serializable {
     public void startTrip() {
         //save Selected Driver Schedule Id
         sessionBean.setSelectedDriverSchedule(selectedSchedule.getDriverRouteScheduleId());
+        Date currentTime = new Date();
+        Date scheduleDepartureTime = selectedSchedule.getDepartureTime();
+        Format formatt = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
-        if (startTripRestriction() < 1) {
+        String currentTimeToString = formatt.format(currentTime);
+        String scheduleDepartureTimeToString = formatt.format(scheduleDepartureTime);
 
-            Trip trip = new Trip();
+        String[] splitCurrentTimeToString = currentTimeToString.split(" ");
+        String[] splitScheduleDepartureTimeToString = scheduleDepartureTimeToString.split(" ");
 
-            int i;
-            for (i = 0; i < driverSchedulesArray.size(); i++) {
-                if (driverSchedulesArray.get(i).getDriverRouteScheduleId() == sessionBean.getSelectedDriverSchedule()) {
-                    trip.setBusId(driverSchedulesArray.get(i).getBusId());
-                    trip.setRouteId(driverSchedulesArray.get(i).getRouteId());
-                    trip.setDriverId(driverSchedulesArray.get(i).getDriverId());
-                    trip.setScheduleId(driverSchedulesArray.get(i).getScheduleId());
-                    trip.setDepartureTime(driverSchedulesArray.get(i).getDepartureTime());
-                    trip.setArrivalTime(driverSchedulesArray.get(i).getArrivalTime());
-                    try {
-                        sessionBean.setSelectedRouteId(trip.getRouteId());
-                        sessionBean.setSelectedScheduleId(trip.getScheduleId());
-                        tripsDao.insertTrip(trip);
-                    } catch (Exception ex) {
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm");
 
-                        Logger.getLogger(DriverSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            Date currentTimeOnly = df.parse(splitCurrentTimeToString[1]);
+            Date scheduleDepartureTimeOnly = df.parse(splitScheduleDepartureTimeToString[1]);
+
+            Calendar calCurrentTime = Calendar.getInstance();
+            Calendar calLateTime = Calendar.getInstance();
+            Calendar calEarlyTime = Calendar.getInstance();
+
+            calCurrentTime.setTime(currentTimeOnly);
+            calLateTime.setTime(scheduleDepartureTimeOnly);
+            calEarlyTime.setTime(scheduleDepartureTimeOnly);
+
+            calLateTime.add(Calendar.MINUTE, 30);
+            calEarlyTime.add(Calendar.MINUTE, -30);
+
+            if (startTripRestriction() < 1 && calCurrentTime.compareTo(calLateTime) < 0 && calCurrentTime.compareTo(calEarlyTime) > 0) {
+
+                Trip trip = new Trip();
+
+                int i;
+                for (i = 0; i < driverSchedulesArray.size(); i++) {
+                    if (driverSchedulesArray.get(i).getDriverRouteScheduleId() == sessionBean.getSelectedDriverSchedule()) {
+                        trip.setBusId(driverSchedulesArray.get(i).getBusId());
+                        trip.setRouteId(driverSchedulesArray.get(i).getRouteId());
+                        trip.setDriverId(driverSchedulesArray.get(i).getDriverId());
+                        trip.setScheduleId(driverSchedulesArray.get(i).getScheduleId());
+                        trip.setDepartureTime(driverSchedulesArray.get(i).getDepartureTime());
+                        trip.setArrivalTime(driverSchedulesArray.get(i).getArrivalTime());
+                        try {
+                            sessionBean.setSelectedRouteId(trip.getRouteId());
+                            sessionBean.setSelectedScheduleId(trip.getScheduleId());
+                            tripsDao.insertTrip(trip);
+                        } catch (Exception ex) {
+
+                            Logger.getLogger(DriverSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
+
+                sessionBean.navigateDriverMap();
+
+            } else {
+                error_message_content = "This trip is unavailable. Please select from the available trips";
+                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             }
 
-            sessionBean.navigateDriverMap();
-
-        } else {
-            error_message_content = "This trip is unavailable. Please select from the available trips";
+        } catch (ParseException ex) {
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+
+            Logger.getLogger(DriverSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

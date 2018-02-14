@@ -20,34 +20,34 @@ import models.StudentTrip;
  *
  * @author MOH
  */
-@Named(value = "studentTripsBean")
+@Named(value = "studentArrivedTripsReviewBean")
 @ViewScoped
-public class StudentTripsBean implements Serializable {
+public class StudentArrivedTripsReviewBean implements Serializable {
 
-private final StudentTripsDao studentTripsDao = new StudentTripsDao();
-private ArrayList<StudentTrip> studentTripsArray;
-private StudentTrip selectedTrip;
+    private final StudentTripsDao studentTripsDao = new StudentTripsDao();
+    private ArrayList<StudentTrip> studentArrivedTripsArray;
+    private StudentTrip selectedTrip;
 
-@Inject
-private SessionBean sessionBean;
+    @Inject
+    private SessionBean sessionBean;
 
-@PostConstruct
-public void init() {
-    try {
+    @PostConstruct
+    public void init() {
+        try {
 
-        studentTripsArray = studentTripsDao.buildStudentTrips();
+            studentArrivedTripsArray = studentTripsDao.buildStudentArrivedTrips();
 
-    } catch (Exception ex) {
-        Logger.getLogger(StudentTripsBean.class.getName()).log(Level.SEVERE, null, ex);
-    }
-}
-
-    public ArrayList<StudentTrip> getStudentTripsArray() {
-        return studentTripsArray;
+        } catch (Exception ex) {
+            Logger.getLogger(StudentTripsBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public void setStudentTripsArray(ArrayList<StudentTrip> studentTripsArray) {
-        this.studentTripsArray = studentTripsArray;
+    public ArrayList<StudentTrip> getStudentArrivedTripsArray() {
+        return studentArrivedTripsArray;
+    }
+
+    public void setStudentArrivedTripsArray(ArrayList<StudentTrip> studentArrivedTripsArray) {
+        this.studentArrivedTripsArray = studentArrivedTripsArray;
     }
 
     public StudentTrip getSelectedTrip() {
@@ -62,5 +62,4 @@ public void init() {
         sessionBean.setSelectedTripId(selectedTrip.getTripId());
 
     }
-
 }

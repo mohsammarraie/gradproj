@@ -42,9 +42,28 @@ public class Report {
     private String departureTimeStatusAr;
     private String arrivalTimeStatusAr;
     private String arrivalTimeStatusEn;
-    
-    
+    private String scheduleTime;
+    private int avgRating;
 
+    public int getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(int avgRating) {
+        this.avgRating = avgRating;
+    }
+    
+    
+    public String getScheduleTime() {
+        return scheduleTime;
+    }
+
+    public void setScheduleTime(String scheduleTime) {
+        this.scheduleTime = scheduleTime;
+    }
+    
+    
+    
     public int getTripId() {
         return tripId;
     }

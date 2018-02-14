@@ -165,4 +165,32 @@ public class StudentTripsDao extends ConnectionDao {
 
     }
 
+    public ArrayList<StudentTrip> buildStudentArrivedTrips() throws Exception {
+        ArrayList<StudentTrip> list = new ArrayList<>();
+        Connection conn = getConnection();
+
+        try {
+
+            String sql = "SELECT * FROM STUDENT_CURRENT_TRIPS_VIEW"
+                    + " WHERE"
+                    + " STATUS_EN=?"
+                    + " ORDER BY DEPARTURE_TIME DESC";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, "Arrived");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(populateStudentTrips(rs));
+
+            }
+
+            rs.close();
+            ps.close();
+
+            return list;
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+
 }

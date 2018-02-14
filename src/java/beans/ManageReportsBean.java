@@ -32,17 +32,20 @@ public class ManageReportsBean implements Serializable {
     private int routeId;
     private int driverId;
     private int busId;
+    private int scheduleId;
     private String statusEn;
     private String statusAr;
+    private int avgRating;
     private Date departureTime;
     private Date arrivalTime;
+    private String scheduleTime;
     private String departureTimeStatusEn;
     private String departureTimeStatusAr;
     private String arrivalTimeStatusEn;
     private String arrivalTimeStatusAr;
     private ArrayList<ReportStatus> statusArray;
     private final ReportsDao reportsDao = new ReportsDao();
-    private ArrayList<Report> reportsArray;
+    private ArrayList<Report> reportSchedulesArray;
     private Report selectedReport;
     private ArrayList<Report> resultReportsArray;
     private final ReportStatusDao reportStatusDao = new ReportStatusDao();
@@ -57,9 +60,8 @@ public class ManageReportsBean implements Serializable {
     public void init() {
         try {
 
-            resultReportsArray = reportsDao.buildResultReports(routeId, busId, driverId, departureTime, arrivalTime,statusEn,statusAr,departureTimeStatusEn,departureTimeStatusAr,arrivalTimeStatusEn,arrivalTimeStatusAr);
+            resultReportsArray = reportsDao.buildResultReports(avgRating,scheduleId,routeId, busId, driverId, departureTime, arrivalTime,statusEn,statusAr,departureTimeStatusEn,departureTimeStatusAr,arrivalTimeStatusEn,arrivalTimeStatusAr);
 
-//            reportsArray = reportsDao.buildReports();
             statusArray = reportStatusDao.buildReportStatus();
 
         } catch (Exception ex) {
@@ -71,6 +73,30 @@ public class ManageReportsBean implements Serializable {
         }
     }
 
+    public int getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(int avgRating) {
+        this.avgRating = avgRating;
+    }
+    
+    public int getScheduleId() {
+        return scheduleId;
+    }
+
+    public void setScheduleId(int scheduleId) {
+        this.scheduleId = scheduleId;
+    }
+    
+    public String getScheduleTime() {
+        return scheduleTime;
+    }
+
+    public void setScheduleTime(String scheduleTime) {
+        this.scheduleTime = scheduleTime;
+    }
+    
     public String getDepartureTimeStatusEn() {
         return departureTimeStatusEn;
     }
@@ -167,12 +193,12 @@ public class ManageReportsBean implements Serializable {
         this.resultReportsArray = resultReportsArray;
     }
 
-    public ArrayList<Report> getReportsArray() {
-        return reportsArray;
+    public ArrayList<Report> getReportSchedulesArray() {
+        return reportSchedulesArray;
     }
 
-    public void setReportsArray(ArrayList<Report> reportsArray) {
-        this.reportsArray = reportsArray;
+    public void setReportSchedulesArray(ArrayList<Report> reportSchedulesArray) {
+        this.reportSchedulesArray = reportSchedulesArray;
     }
 
     public Report getSelectedReport() {
@@ -199,7 +225,7 @@ public class ManageReportsBean implements Serializable {
     public void reportsFilter() {
 
         try {
-            resultReportsArray = reportsDao.buildResultReports(routeId, busId, driverId, departureTime, arrivalTime,
+            resultReportsArray = reportsDao.buildResultReports(avgRating,scheduleId,routeId, busId, driverId, departureTime, arrivalTime,
                     statusEn,statusAr,departureTimeStatusEn,departureTimeStatusAr,arrivalTimeStatusEn,arrivalTimeStatusAr);
 
         } catch (Exception ex) {
@@ -215,6 +241,8 @@ public class ManageReportsBean implements Serializable {
        public void clearReportsFilter() {
 
         try {
+            avgRating=0;
+            scheduleId=0;
             routeId=0; 
             busId=0;
             driverId=0;
@@ -226,7 +254,7 @@ public class ManageReportsBean implements Serializable {
             arrivalTimeStatusEn=null;
             arrivalTimeStatusAr=null;
             
-            resultReportsArray = reportsDao.buildResultReports(routeId, busId, driverId, departureTime, arrivalTime,
+            resultReportsArray = reportsDao.buildResultReports(avgRating,scheduleId,routeId, busId, driverId, departureTime, arrivalTime,
                     statusEn,statusAr,departureTimeStatusEn,departureTimeStatusAr,arrivalTimeStatusEn,arrivalTimeStatusAr);
 
         } catch (Exception ex) {
@@ -238,5 +266,16 @@ public class ManageReportsBean implements Serializable {
         }
 
     }
+       public void setSchedulesTimesOnFilter(){
+        try {
+            reportSchedulesArray = reportsDao.buildReportSchedules(routeId);
+            
+            
+        } catch (Exception ex) {
+            Logger.getLogger(ManageReportsBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+       
+       }
 
 }
