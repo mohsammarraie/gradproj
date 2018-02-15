@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Driver;
 
 /**
@@ -212,4 +214,34 @@ public class DriversDao extends ConnectionDao {
         }
     }
 
+    public boolean checkBusesDrivers(int driverId) {
+        boolean flag = false;
+        try {
+
+            int i = 0;
+            Connection conn = getConnection();
+
+            String sql = "SELECT count(*) as ROW_COUNTER FROM BUSES.BUSES_DRIVERS"
+                    + " WHERE"
+                    + " DRIVER_ID=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, driverId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                i = rs.getInt("ROW_COUNTER");
+            }
+            rs.close();
+            ps.close();
+
+            if (i > 0) {
+                flag = true;
+            } else {
+                flag = false;
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(RouteStopsDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return flag;
+    }
 }

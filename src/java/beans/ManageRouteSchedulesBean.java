@@ -116,6 +116,7 @@ public class ManageRouteSchedulesBean implements Serializable {
 
                 try {
                     if (flag) {
+                        error_message_header = "Error!";
                         error_message_content = "Please unassign bus before deleting this route schedule.";
                         RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
                     }
@@ -178,6 +179,7 @@ public class ManageRouteSchedulesBean implements Serializable {
 
         try {
             if (flag) {
+                error_message_header = "Error!";
                 error_message_content = "Please unassign bus before editing or removing this route schedule.";
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             } else {

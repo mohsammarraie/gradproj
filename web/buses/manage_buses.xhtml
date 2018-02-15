@@ -111,7 +111,7 @@ and open the template in the editor.
                                                      style="float:#{langBean.styleFloat}"                                                                                                
                                                      disabled="#{manageBusesBean.selectedBus==null}"                                                 
                                                      actionListener="#{manageBusesBean.saveSelectedBusId()}"
-                                                     action="#{sessionBean.navigateAddEditBus()}" />
+                                                     action="#{manageBusesBean.checklBusesSchedules()}" />
                                     <p:commandButton value="#{msgs.assign_driver}"
                                                      icon="ui-icon-pencil"                                  
                                                      iconPos="#{langBean.styleFloat}"

@@ -7,6 +7,7 @@ package beans;
 
 import daos.BusesDao;
 import daos.BusesDriversDao;
+import daos.RouteSchedulesDao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -30,10 +31,11 @@ public class ManageBusesBean implements Serializable {
 
     private Bus selectedBus;
     private final BusesDao busesDao = new BusesDao();
+
     private ArrayList<Bus> busesArray;
     private ArrayList<BusDriver> busesDriversArray;
-    String error_message_header="";
-    String error_message_content="";
+    String error_message_header = "";
+    String error_message_content = "";
 
     BusesDriversDao busesDriversDao = new BusesDriversDao();
     @Inject
@@ -86,17 +88,32 @@ public class ManageBusesBean implements Serializable {
 
     public void deleteSelectedBus() {
         try {
-            busesDao.deleteBus(selectedBus.getBusId());
-            sessionBean.navigateManageBuses();
+            boolean flagDriver = busesDao.checkBusesDrivers(selectedBus.getBusId());
+
+            boolean flagSchedule = busesDao.checkBusesSchedules(selectedBus.getBusId());
+
+            if (flagSchedule || flagDriver) {
+                if (flagSchedule) {
+                    error_message_header = "Error!";
+                    error_message_content = "Please unassign this bus from all route schedules before deleting it.";
+                } else {
+                    error_message_header = "Error!";
+                    error_message_content = "Please unassign this bus from driver before deleting it.";
+                }
+                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            } else {
+                busesDao.deleteBus(selectedBus.getBusId());
+                sessionBean.navigateManageBuses();
+
+            }
 
         } catch (Exception ex) {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
-             if(error_message_content.contains("ORA-02292: integrity constraint (BUSES.BUSES_DRIVERS_FK1) violated - child record found")){
-                error_message_content="Unable to delete bus with assigned driver. Please remove assigned driver first then try again.";
-            
+            if (error_message_content.contains("ORA-02292: integrity constraint (BUSES.BUSES_DRIVERS_FK1) violated - child record found")) {
+                error_message_content = "Unable to delete bus with assigned driver. Please remove assigned driver first then try again.";
+
             }
-            
 
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageBusesBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -134,4 +151,31 @@ public class ManageBusesBean implements Serializable {
         return flag;
     }
 
+    public void checklBusesSchedules() {
+        boolean flagSchedule = busesDao.checkBusesSchedules(selectedBus.getBusId());
+        boolean flagDriver = busesDao.checkBusesDrivers(selectedBus.getBusId());
+
+        try {
+            if (flagSchedule || flagDriver) {
+                if (flagSchedule) {
+                    error_message_header = "Error!";
+                    error_message_content = "Please unassign this bus from all route schedules before deleting it.";
+                } else {
+                    error_message_header = "Error!";
+                    error_message_content = "Please unassign this bus from driver before deleting it.";
+                }
+                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+
+            } else {
+                sessionBean.navigateAddEditBus();
+            }
+
+        } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
