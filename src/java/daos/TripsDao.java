@@ -81,7 +81,7 @@ public class TripsDao extends ConnectionDao {
                     + " WHERE DRIVER_ID =?"
                     + " ORDER BY DEPARTURE_TIME DESC";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, 1);
+            ps.setInt(1, driverId);
 
             ResultSet rs = ps.executeQuery();
 

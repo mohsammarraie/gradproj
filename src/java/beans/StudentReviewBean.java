@@ -48,7 +48,7 @@ public class StudentReviewBean implements Serializable {
     public void init() {
         try {
             tripId = sessionBean.getSelectedTripId();
-            studentId = "20122502006";
+            studentId = sessionBean.getStudentUserId();
             studentTripReviewsArray=studentTripReviewDao.buildStudentTripReviews(tripId);
             
 

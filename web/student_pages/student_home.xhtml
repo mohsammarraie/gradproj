@@ -35,14 +35,14 @@ and open the template in the editor.
                     <h:panelGrid columns="2" cellpadding="5">
                     
                         <p:outputLabel value="#{msgs.first_name}" for="student_home_first_name"/>
-                        <h:outputText id="student_home_first_name" value="#{langBean.isEnglish?manageStudentsBean.getStudentsArray().get(0).getFirstNameEn():manageStudentsBean.getStudentsArray().get(0).getFirstNameAr()}" />
+                        <h:outputText id="student_home_first_name" value="#{langBean.isEnglish?studentInfoBean.getStudentInfoArray().get(0).getFirstNameEn():studentInfoBean.getStudentInfoArray().get(0).getFirstNameAr()}" />
                         
                         <p:outputLabel value="#{msgs.last_name}" for="student_home_last_name"/>
-                        <h:outputText id="student_home_last_name" value="#{langBean.isEnglish?manageStudentsBean.getStudentsArray().get(0).getLastNameEn():manageStudentsBean.getStudentsArray().get(0).getLastNameAr()}"/>
+                        <h:outputText id="student_home_last_name" value="#{langBean.isEnglish?studentInfoBean.getStudentInfoArray().get(0).getLastNameEn():studentInfoBean.getStudentInfoArray().get(0).getLastNameAr()}"/>
                         
                        
                         <p:outputLabel value="#{msgs.student_id}" for="student_home_id"/>
-                        <h:outputText id="student_home_id" value="#{manageStudentsBean.getStudentsArray().get(0).getStudentId()}" />
+                        <h:outputText id="student_home_id" value="#{studentInfoBean.getStudentInfoArray().get(0).getStudentId()}" />
                         
                         <p:outputLabel value="#{msgs.nationality}" for="student_nationality"/>
                         <h:outputText id="student_nationality" value="Iraqi" />

@@ -37,6 +37,32 @@ public class StudentsDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
+        public ArrayList<Student> buildStudentInfo(String studentId)
+            throws Exception {
+        ArrayList<Student> list = new ArrayList<>();
+
+        try {
+            Connection conn = getConnection();
+
+            String sql = "SELECT * FROM BUSES.STUDENTS"
+                    + " WHERE"
+                    + " STUDENT_ID=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, studentId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(populateStudents(rs));
+            }
+
+            rs.close();
+            ps.close();
+
+            return list;
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
 
     private Student populateStudents(ResultSet rs) throws SQLException {
         Student students = new Student();

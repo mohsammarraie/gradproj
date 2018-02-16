@@ -5,6 +5,7 @@
  */
 package beans;
 
+import daos.DriversDao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -28,15 +29,17 @@ public class DriverPastTripsBean implements Serializable {
 
     private ArrayList<Trip> driverPastTripsArray;
     private int driverId;
- 
+    private final DriversDao driversDao = new DriversDao();
+    private String nationalId;
     @Inject
     private SessionBean sessionBean;
+  
 
     @PostConstruct
     public void init() {
         try {
-
-            //driverId = sessionBean.getSelectedDriverId();
+            nationalId= sessionBean.getDriverUserNationalId();
+            driverId = driversDao.nationalIdToDriverId(nationalId);
             driverPastTripsArray = tripsDao.buildPastTrips(driverId);
 
         } catch (Exception ex) {
@@ -45,6 +48,14 @@ public class DriverPastTripsBean implements Serializable {
         }
     }
 
+    public String getNationalId() {
+        return nationalId;
+    }
+
+    public void setNationalId(String nationalId) {
+        this.nationalId = nationalId;
+    }
+    
     public ArrayList<Trip> getDriverPastTripsArray() {
         return driverPastTripsArray;
     }

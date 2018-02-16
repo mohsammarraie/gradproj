@@ -58,6 +58,12 @@
                                       actionListener="#{sessionBean.setMenuIndex(0)}"
                                       action="#{sessionBean.navigateTripsDetails()}">                       
                     </p:commandButton>
+                       <p:commandButton  value="create new user" 
+                                      styleClass="ribbonButton" 
+                                      style="float:#{langBean.styleFloat};"
+                                      actionListener="#{sessionBean.setMenuIndex(0)}"
+                                      action="#{sessionBean.navigateCreateNewUser()}">                       
+                    </p:commandButton>
                     <p:commandButton  value="GPS Mobile Test" 
                                       styleClass="ribbonButton" 
                                       style="float:#{langBean.styleFloat};"

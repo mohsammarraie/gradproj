@@ -135,6 +135,13 @@ and open the template in the editor.
 
                         </p:column>
 
+                        <p:column headerText="evaluation status"
+                                  style="width:20%">
+
+                            <h:outputText value="#{studentArrivedTripsReviewBean.displayReviewStatusOnStudentReview(studentPastTrip.tripId,langBean.isEnglish?1:0)}"/>
+
+                        </p:column>
+
                         <f:facet name="footer">
                             <p:toolbar style="border: none">
                                 <p:toolbarGroup align="#{languageBean.screenLeft}">
@@ -145,7 +152,7 @@ and open the template in the editor.
                                                      style="float:#{langBean.styleFloat}"
                                                      disabled="#{studentArrivedTripsReviewBean.selectedTrip==null}"
                                                      actionListener="#{studentArrivedTripsReviewBean.saveSelectedTripId()}"
-                                                     action="#{sessionBean.navigateStudentReview()}"/>
+                                                     action="#{studentArrivedTripsReviewBean.checkTripReview()}"/>
                                 </p:toolbarGroup>
                             </p:toolbar>
                         </f:facet>

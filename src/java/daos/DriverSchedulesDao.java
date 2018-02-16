@@ -37,7 +37,7 @@ public class DriverSchedulesDao extends ConnectionDao {
                     + " DRIVER_ID=?"
                     + " ORDER BY DEPARTURE_TIME";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, 1);
+            ps.setInt(1, driverId);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

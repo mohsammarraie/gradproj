@@ -278,10 +278,10 @@ public class ReportsDao extends ConnectionDao {
         try {
 
 
-            String sql = "SELECT TRIP_ID, AVG(AVG_RATING) AS TRIP_RATING"
+            String sql = "SELECT STUDENT_ID, TRIP_ID, AVG(AVG_RATING) AS TRIP_RATING"
                     + " FROM"
                     + " BUSES.STUDENT_TRIP_REVIEWS"
-                    + " GROUP BY TRIP_ID";
+                    + " GROUP BY TRIP_ID, STUDENT_ID";
 
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -302,7 +302,7 @@ public class ReportsDao extends ConnectionDao {
      private Report populateReportAvgRating(ResultSet rs) throws SQLException {
 
         Report report = new Report();
-
+        report.setStudentId(rs.getString("STUDENT_ID"));
         report.setTripId(rs.getInt("TRIP_ID"));
         report.setAvgRating(rs.getInt("TRIP_RATING"));
 

@@ -36,7 +36,6 @@ public class DriversDao extends ConnectionDao {
                     + " FROM"
                     + " BUSES.DRIVERS ORDER BY DRIVER_ID";
             PreparedStatement ps = conn.prepareStatement(sql);
-
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -51,6 +50,7 @@ public class DriversDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
+
 
     private Driver populateDrivers(ResultSet rs) throws SQLException {
         Driver driverInfo = new Driver();
@@ -244,4 +244,32 @@ public class DriversDao extends ConnectionDao {
         }
         return flag;
     }
+        public int nationalIdToDriverId(String nationalId) throws Exception {
+        int driverId = 0;
+        Connection conn = getConnection();
+
+        try {
+            String sql = "SELECT DRIVER_ID"
+                    + " FROM BUSES.DRIVERS"
+                    + " WHERE"
+                    + " NATIONAL_ID=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, nationalId);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                driverId = rs.getInt("DRIVER_ID");
+            }
+
+            rs.close();
+            ps.close();
+
+            return driverId;
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+
+    }
+
 }

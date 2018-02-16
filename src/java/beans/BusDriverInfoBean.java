@@ -6,6 +6,7 @@
 package beans;
 
 import daos.BusesDriversDao;
+import daos.DriversDao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -31,7 +32,8 @@ public class BusDriverInfoBean implements Serializable {
     String error_message_content = "";
     private int driverId;
     BusesDriversDao busesDriversDao = new BusesDriversDao();
-
+    private final DriversDao driversDao = new DriversDao();
+    private String nationalId;
     @Inject
     private SessionBean sessionBean;
 
@@ -41,6 +43,8 @@ public class BusDriverInfoBean implements Serializable {
     @PostConstruct
     public void init() {
         try {
+            nationalId = sessionBean.getDriverUserNationalId();
+            driverId = driversDao.nationalIdToDriverId(nationalId);
             busDriverInfoArray = busesDriversDao.buildBusDriverInfo(driverId);
 
         } catch (Exception ex) {
@@ -50,6 +54,14 @@ public class BusDriverInfoBean implements Serializable {
             RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(BusDriverInfoBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public String getNationalId() {
+        return nationalId;
+    }
+
+    public void setNationalId(String nationalId) {
+        this.nationalId = nationalId;
     }
 
     public ArrayList<BusDriver> getBusDriverInfoArray() {

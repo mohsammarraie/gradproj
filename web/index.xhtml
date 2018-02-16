@@ -23,7 +23,7 @@
                             <p:outputLabel style="color: #0B70BE" value="#{msgs.username}:"/>
                             <p:inputText id="login_username"
                                          maxlength="64"                                         
-                                         value="#{sessionBean.username}"
+                                         value="#{loginBean.username}"
                                          style="width:300px"
                                          required="true"
                                          requiredMessage="#{msgs.wrong_username}">
@@ -35,16 +35,29 @@
                                         maxlength="48"                                       
                                         required="true"
                                         requiredMessage="#{msgs.wrong_password}"
-                                        value="#{sessionBean.password}"
+                                        value="#{loginBean.password}"
                                         style="width:300px;">          
                                 <p:watermark for="login_password" value="#{msgs.enter_password}"/>                                
                             </p:password>                             
                         </h:panelGrid>
+                        
+                        <h:panelGrid style="text-align: left" columns="1">
 
-                        <p:commandButton   value="#{msgs.login}"                                                
-                                           style="width:130px; height:35px; margin-top:25px; background-color: #428BCA;" 
-                                           ajax="false"
-                                           action="#{sessionBean.login()}" />                                                         
+                            <p:commandButton   value="#{msgs.login_as_student}"                                                
+                                               style="width:130px; height:35px; margin-top:25px; background-color: #428BCA;" 
+                                               ajax="false"
+                                               action="#{loginBean.loginAsStudent()}" /> 
+
+                             <p:commandButton   value="#{msgs.login_as_driver}"                                                
+                                               style="width:130px; height:35px; margin-top:25px; background-color: #428BCA;" 
+                                               ajax="false"
+                                               action="#{loginBean.loginAsDriver()}" />  
+                             
+                             <p:commandButton   value="#{msgs.login_as_admin}"                                                
+                                               style="width:130px; height:35px; margin-top:25px; background-color: #428BCA;" 
+                                               ajax="false"
+                                               action="#{loginBean.loginAsAdmin()}" />  
+                         </h:panelGrid>
                     </p:fieldset> 
                 </center>
             </h:form>              

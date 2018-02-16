@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import models.DriverSchedule;
 import javax.inject.Named;
 import daos.DriverSchedulesDao;
+import daos.DriversDao;
 import daos.TripsDao;
 import java.text.Format;
 import java.text.ParseException;
@@ -22,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.faces.application.FacesMessage;
+import models.Driver;
 import models.Trip;
 import org.primefaces.context.RequestContext;
 
@@ -35,12 +37,13 @@ public class DriverSchedulesBean implements Serializable {
 
     private final DriverSchedulesDao driverSchedulesDao = new DriverSchedulesDao();
     private final TripsDao tripsDao = new TripsDao();
-
+    private final DriversDao driversDao = new DriversDao();
     private ArrayList<DriverSchedule> driverSchedulesArray;
     private DriverSchedule selectedSchedule;
     private int driverId;
     private int scheduleId;
     private int routeId;
+    private String nationalId;
 
     String error_message_header = "";
     String error_message_content = "";
@@ -51,8 +54,8 @@ public class DriverSchedulesBean implements Serializable {
     @PostConstruct
     public void init() {
         try {
-
-            driverId = sessionBean.getSelectedDriverId();
+            nationalId= sessionBean.getDriverUserNationalId();
+            driverId = driversDao.nationalIdToDriverId(nationalId);
             driverSchedulesArray = driverSchedulesDao.buildDriverSchedules(driverId);
 
         } catch (Exception ex) {
@@ -61,6 +64,14 @@ public class DriverSchedulesBean implements Serializable {
         }
     }
 
+    public String getNationalId() {
+        return nationalId;
+    }
+
+    public void setNationalId(String nationalId) {
+        this.nationalId = nationalId;
+    }
+    
     public ArrayList<DriverSchedule> getDriverSchedulesArray() {
         return driverSchedulesArray;
     }

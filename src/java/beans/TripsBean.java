@@ -6,6 +6,7 @@
 package beans;
 
 import daos.DriverSchedulesDao;
+import daos.DriversDao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -36,14 +37,16 @@ public class TripsBean implements Serializable {
     Trip trip = new Trip();
     private int driverId;
     private ArrayList<DriverSchedule> driverSchedulesArray;
-        
+    private final DriversDao driversDao = new DriversDao();
+    private String nationalId;
     @Inject
     private SessionBean sessionBean;
 
     @PostConstruct
     public void init() {
         try {
-            driverId = sessionBean.getSelectedDriverId();
+            nationalId= sessionBean.getDriverUserNationalId();
+            driverId = driversDao.nationalIdToDriverId(nationalId);
             driverSchedulesArray = driverSchedulesDao.buildDriverSchedules(driverId);
 
             driverRouteSchedulesStopsArray = tripsDao.buildDriverRouteStopsSchedules(sessionBean.getSelectedRouteId(), sessionBean.getSelectedScheduleId());
@@ -80,11 +83,13 @@ public class TripsBean implements Serializable {
             if (driverSchedulesArray.get(i).getDriverRouteScheduleId() == sessionBean.getSelectedDriverSchedule()) {
                 trip.setBusId(driverSchedulesArray.get(i).getBusId());
                 trip.setRouteId(driverSchedulesArray.get(i).getRouteId());
-                trip.setDriverId(driverSchedulesArray.get(i).getDriverId());
+                //trip.setDriverId(driverSchedulesArray.get(i).getDriverId());
                 trip.setScheduleId(driverSchedulesArray.get(i).getScheduleId());
                 trip.setDepartureTime(driverSchedulesArray.get(i).getDepartureTime());
                 trip.setArrivalTime(driverSchedulesArray.get(i).getArrivalTime());
                 try {
+                    trip.setDriverId(driverId);
+
                     sessionBean.setSelectedRouteId(trip.getRouteId());
                     sessionBean.setSelectedScheduleId(trip.getScheduleId());
                     tripsDao.updateTripEnd(trip);

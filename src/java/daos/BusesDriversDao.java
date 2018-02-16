@@ -221,7 +221,7 @@ public class BusesDriversDao extends ConnectionDao {
                     + " AND"
                     + " BUSES.DRIVERS.DRIVER_ID=?";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, 1); //selected driverId instead of 1
+            ps.setInt(1, driverId); 
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

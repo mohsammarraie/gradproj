@@ -12,7 +12,7 @@ import java.util.Date;
  * @author MOH
  */
 public class Report {
-
+    private String studentId;
     private int tripId;
     private int scheduleId;
     private int busId;
@@ -45,6 +45,14 @@ public class Report {
     private String scheduleTime;
     private int avgRating;
 
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+    
     public int getAvgRating() {
         return avgRating;
     }

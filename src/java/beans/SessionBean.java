@@ -33,12 +33,38 @@ public class SessionBean implements Serializable {
     private int selectedScheduleId;
     private int selectedDriverSchedule;
     private int selectedTripId;
-
+    private String studentUserId; //same as student Id
+    private String driverUserNationalId; //same as national Id
+    private String adminUserName;
     private int menuIndex = 0;
 
     public SessionBean() {
     }
 
+    public String getAdminUserName() {
+        return adminUserName;
+    }
+
+    public void setAdminUserName(String adminUserName) {
+        this.adminUserName = adminUserName;
+    }
+    
+    public String getDriverUserNationalId() {
+        return driverUserNationalId;
+    }
+
+    public void setDriverUserNationalId(String driverUserNationalId) {
+        this.driverUserNationalId = driverUserNationalId;
+    }
+    
+    public String getStudentUserId() {
+        return studentUserId;
+    }
+
+    public void setStudentUserId(String studentUserId) {
+        this.studentUserId = studentUserId;
+    }
+    
     public int getSelectedStudentIncId() {
         return selectedStudentIncId;
     }
@@ -310,6 +336,10 @@ public class SessionBean implements Serializable {
     }
        public void navigateStudentReview(){
         navigate("/student_pages/student_review.xhtml");
+    
+    }
+        public void navigateCreateNewUser(){
+        navigate("/admin_pages/create_new_user.xhtml");
     
     }
     
