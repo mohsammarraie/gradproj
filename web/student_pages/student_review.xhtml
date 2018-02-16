@@ -23,11 +23,11 @@ and open the template in the editor.
                          direction:#{langBean.dir};margin-top:10px; font-size:10pt">
                     <h:panelGrid id="add"
                                  style="float: #{langBean.styleFloat};" 
-                                 columns="2"                              
+                                 columns="3"                              
                                  dir="#{langBean.dir}">
-                        
+
                         <p:outputLabel value="#{msgs.msg_question1}" for="review_trip_radio1" style="padding:5px;"/>
-                        <p:selectOneRadio id="review_trip_radio1" value="#{studentReviewBean.rating1}" style="padding:5px;">
+                        <p:selectOneRadio id="review_trip_radio1" value="#{studentReviewBean.rating1}" style="padding:5px;" required="true"  requiredMessage="#{msgs.required_msg}">
 
                             <f:selectItem itemLabel="#{msgs.very_bad}" itemValue="1" />
                             <f:selectItem itemLabel="#{msgs.bad}" itemValue="2" />
@@ -35,9 +35,10 @@ and open the template in the editor.
                             <f:selectItem itemLabel="#{msgs.good}" itemValue="4" />
                             <f:selectItem itemLabel="#{msgs.very_good}" itemValue="5" />
                         </p:selectOneRadio>
+                        <h:message for="review_trip_radio1" styleClass="errorMsg"/>
 
                         <p:outputLabel value="question2 ?" for="review_trip_radio2" style="padding:5px;"/>
-                        <p:selectOneRadio id="review_trip_radio2" value="#{studentReviewBean.rating2}" style="padding:5px;">
+                        <p:selectOneRadio id="review_trip_radio2" value="#{studentReviewBean.rating2}" style="padding:5px;" required="true"  requiredMessage="#{msgs.required_msg}">
 
                             <f:selectItem itemLabel="#{msgs.very_bad}" itemValue="1" />
                             <f:selectItem itemLabel="#{msgs.bad}" itemValue="2" />
@@ -45,9 +46,10 @@ and open the template in the editor.
                             <f:selectItem itemLabel="#{msgs.good}" itemValue="4" />
                             <f:selectItem itemLabel="#{msgs.very_good}" itemValue="5" />
                         </p:selectOneRadio>
+                        <h:message for="review_trip_radio2" styleClass="errorMsg"/>
 
                         <p:outputLabel value="question3 ?" for="review_trip_radio3" style="padding:5px;"/>
-                        <p:selectOneRadio id="review_trip_radio3" value="#{studentReviewBean.rating3}" style="padding:5px;">
+                        <p:selectOneRadio id="review_trip_radio3" value="#{studentReviewBean.rating3}" style="padding:5px;" required="true"  requiredMessage="#{msgs.required_msg}">
 
                             <f:selectItem itemLabel="#{msgs.very_bad}" itemValue="1" />
                             <f:selectItem itemLabel="#{msgs.bad}" itemValue="2" />
@@ -55,6 +57,7 @@ and open the template in the editor.
                             <f:selectItem itemLabel="#{msgs.good}" itemValue="4" />
                             <f:selectItem itemLabel="#{msgs.very_good}" itemValue="5" />
                         </p:selectOneRadio>
+                        <h:message for="review_trip_radio3" styleClass="errorMsg"/>
 
                         <p:outputLabel value="#{msgs.comment}:" for="review_trip" style="padding:5px;"/>
                         <p:inputText id="review_trip"
@@ -64,9 +67,9 @@ and open the template in the editor.
                                      size="75"
                                      >
                         </p:inputText>
-                        
 
 
+                        <br></br>
                         <p:commandButton value="#{msgs.submit}"
                                          styleClass="commandButton"
                                          icon="ui-icon-disk"

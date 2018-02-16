@@ -15,9 +15,11 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import daos.StudentTripsDao;
+import javax.faces.application.FacesMessage;
 import models.BusDriver;
 import models.StudentTrip;
 import models.StudentTripReview;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -36,7 +38,8 @@ public class StudentReviewBean implements Serializable {
     StudentTripReview studentTripReview = new StudentTripReview();
     private final StudentTripReviewDao studentTripReviewDao = new StudentTripReviewDao();
     private ArrayList<StudentTripReview> studentTripReviewsArray;
-
+    String error_message_header = "";
+    String error_message_content = "";
     
     @Inject
     private SessionBean sessionBean;
@@ -124,6 +127,14 @@ public class StudentReviewBean implements Serializable {
             studentTripReviewDao.insertStudentTripReview(studentTripReview);
             sessionBean.navigateReviewPastTrips();
         } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+             if (error_message_content.contains("ORA-00001: unique constraint (BUSES.REVIEWS_PK) violated")) {
+                error_message_content = "You cannot review the same trip twice.";
+
+            }
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(StudentReviewBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 

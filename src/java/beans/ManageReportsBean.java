@@ -46,6 +46,8 @@ public class ManageReportsBean implements Serializable {
     private ArrayList<ReportStatus> statusArray;
     private final ReportsDao reportsDao = new ReportsDao();
     private ArrayList<Report> reportSchedulesArray;
+    private ArrayList<Report> reportAvgRatingArray;
+
     private Report selectedReport;
     private ArrayList<Report> resultReportsArray;
     private final ReportStatusDao reportStatusDao = new ReportStatusDao();
@@ -59,7 +61,7 @@ public class ManageReportsBean implements Serializable {
     @PostConstruct
     public void init() {
         try {
-
+            reportAvgRatingArray=reportsDao.buildReportAvgRating();
             resultReportsArray = reportsDao.buildResultReports(avgRating,scheduleId,routeId, busId, driverId, departureTime, arrivalTime,statusEn,statusAr,departureTimeStatusEn,departureTimeStatusAr,arrivalTimeStatusEn,arrivalTimeStatusAr);
 
             statusArray = reportStatusDao.buildReportStatus();
@@ -73,6 +75,14 @@ public class ManageReportsBean implements Serializable {
         }
     }
 
+    public ArrayList<Report> getReportAvgRatingArray() {
+        return reportAvgRatingArray;
+    }
+
+    public void setReportAvgRatingArray(ArrayList<Report> reportAvgRatingArray) {
+        this.reportAvgRatingArray = reportAvgRatingArray;
+    }
+    
     public int getAvgRating() {
         return avgRating;
     }
@@ -277,5 +287,33 @@ public class ManageReportsBean implements Serializable {
 
        
        }
+       // to display avg rating column in reports table.
+    public String displayAvgRatingOnReport(int arrayTripId, int x) {
+        int i;
+        String displayedAvgRatings=null;
+        boolean flag = false;
+        for (i = 0; i < reportAvgRatingArray.size(); i++) {
+            if (arrayTripId == reportAvgRatingArray.get(i).getTripId()) {
+                flag = true;
+                break;
+            } else {
+                flag = false;
+            }
+        }
+        if (flag) {
+         
+            displayedAvgRatings= Integer.toString(reportAvgRatingArray.get(i).getAvgRating());
+            return displayedAvgRatings;
+            
+        } else {
+            if (x == 1) {
+                return "Not Available";
+            } else {
+                return "غير متاح";
+            }
+
+        }
+
+    }
 
 }

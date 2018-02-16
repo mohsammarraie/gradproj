@@ -269,5 +269,45 @@ public class ReportsDao extends ConnectionDao {
 
         return report;
     }
+    
+    
+     public ArrayList<Report> buildReportAvgRating() throws Exception {
+        ArrayList<Report> list = new ArrayList<>();
+        Connection conn = getConnection();
+
+        try {
+
+
+            String sql = "SELECT TRIP_ID, AVG(AVG_RATING) AS TRIP_RATING"
+                    + " FROM"
+                    + " BUSES.STUDENT_TRIP_REVIEWS"
+                    + " GROUP BY TRIP_ID";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(populateReportAvgRating(rs));
+
+            }
+
+            rs.close();
+            ps.close();
+
+            return list;
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+     private Report populateReportAvgRating(ResultSet rs) throws SQLException {
+
+        Report report = new Report();
+
+        report.setTripId(rs.getInt("TRIP_ID"));
+        report.setAvgRating(rs.getInt("TRIP_RATING"));
+
+        return report;
+    }
+
 
 }
