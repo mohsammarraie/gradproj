@@ -125,8 +125,8 @@ and open the template in the editor.
                                                    itemValue="#{busInfo.busId}"/>                             
                                 </p:selectOneMenu>
 
-                                <p:outputLabel value="#{msgs.avg_rating}" for="report_avg_review"/>
-                                <p:selectOneMenu value="#{manageReportsBean.avgRating}"
+                                <p:outputLabel value="#{msgs.avg_rating_out_5}" for="report_avg_review"/>
+                                <p:selectOneMenu value="#{manageReportsBean.selectedAvgRating}"
                                                  style="width: 320px;"
                                                  id="report_avg_review"
                                                  filter="true"

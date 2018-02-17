@@ -32,7 +32,7 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}"
-                                     validatorMessage="#{msgs.regex_message}">
+                                     validatorMessage="#{msgs.source_en_valid_msg}">
                             <f:validateRegex pattern="[\(\)]*[0-9]?[a-zA-Z]+[\-\'\s\a-zA-Z]+[\(\)]*[a-zA-Z]$"/>
                         </p:inputText>
                         <h:message for="source_en" styleClass="errorMsg"/>
@@ -45,7 +45,7 @@ and open the template in the editor.
                                      maxlength="512"
                                      dir="rtl"
                                      requiredMessage=" #{msgs.required_msg}"
-                                     validatorMessage="#{msgs.regex_message}">
+                                     validatorMessage="#{msgs.letters_valid_msg}">
                             <f:validateRegex pattern="[\(\)]*[\s\أ\ئ\ؤ\ء\ا-ي]+[\(\)]*[\s\أ\ئ\ؤ\ء\ا-ي]+[\أ\ئ\ؤ\ء\ا-ي]$"/>
                         </p:inputText>
                         <h:message for="source_ar" styleClass="errorMsg"/>
@@ -57,7 +57,7 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}"
-                                     validatorMessage="#{msgs.regex_message}">
+                                     validatorMessage="#{msgs.source_en_valid_msg}">
                             <f:validateRegex pattern="[\(\)]*[0-9]?[a-zA-Z]+[\-\'\s\a-zA-Z]+[\(\)]*[a-zA-Z]$"/>
                         </p:inputText>
                         <h:message for="destination_en" styleClass="errorMsg"/>
@@ -70,7 +70,7 @@ and open the template in the editor.
                                      maxlength="512"
                                      dir="rtl"
                                      requiredMessage=" #{msgs.required_msg}"
-                                     validatorMessage="#{msgs.regex_message}">
+                                     validatorMessage="#{msgs.letters_valid_msg}">
                             <f:validateRegex pattern="[\(\)]*[\s\أ\ئ\ؤ\ء\ا-ي]+[\(\)]*[\s\أ\ئ\ؤ\ء\ا-ي]+[\أ\ئ\ؤ\ء\ا-ي]$"/>
                         </p:inputText>
                         <h:message for="destination_ar" styleClass="errorMsg"/>
@@ -82,7 +82,9 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="4"
                                      requiredMessage=" #{msgs.required_msg}"
-                                     validatorMessage="#{msgs.regex_message}">                          
+                                     validatorMessage="#{msgs.route_code_valid_msg}">
+                        <f:validateRegex pattern="[A-Z][0-9]?"/>
+
                         </p:inputText>
                         <h:message for="destination_ar" styleClass="errorMsg"/>
 

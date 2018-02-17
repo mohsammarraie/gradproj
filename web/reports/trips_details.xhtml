@@ -24,8 +24,6 @@ and open the template in the editor.
                             <h:panelGrid columns="4" cellpadding="5">
 
 
-
-
                                 <p:outputLabel value="#{msgs.route}:" for="report_route"/>
                                 <p:selectOneMenu value="#{manageReportsBean.routeId}"
                                                  style="width: 320px;"
@@ -128,6 +126,20 @@ and open the template in the editor.
                                                    itemValue="#{busInfo.busId}"/>                             
                                 </p:selectOneMenu>
 
+                                <p:outputLabel value="#{msgs.avg_rating_out_5}" for="report_avg_review"/>
+                                <p:selectOneMenu value="#{manageReportsBean.selectedAvgRating}"
+                                                 style="width: 320px;"
+                                                 id="report_avg_review"
+                                                 filter="true"
+                                                 filterMatchMode="contains">
+                                    <f:selectItem itemLabel="#{msgs.all_rating}"
+                                                  itemValue=""/>
+                                    <f:selectItems var="review"
+                                                   value="#{manageReportsBean.avgRatingArrayEn}" 
+                                                   itemLabel="#{review}"
+                                                   itemValue="#{review}"/>                             
+                                </p:selectOneMenu>
+
 
                                 <p:outputLabel for="report_departure_time" value="#{msgs.departure_time}:" />
                                 <p:calendar id="report_departure_time"
@@ -148,7 +160,6 @@ and open the template in the editor.
                                             navigator="true"
                                             yearRange="c-10:c+1"
                                             timeInput="true"/> 
-
                             </h:panelGrid> 
                             <div class="centered_div">
                                 <p:commandButton value="#{msgs.search}"
@@ -293,7 +304,7 @@ and open the template in the editor.
                                       sortBy="#{langBean.isEnglish?reportInfo.arrivalTimeStatusEn:reportInfo.arrivalTimeStatusAr}">                    
                                 <h:outputText value="#{langBean.isEnglish?reportInfo.arrivalTimeStatusEn:reportInfo.arrivalTimeStatusAr}"/>  
                             </p:column>
-                               <p:column headerText="#{msgs.avg_rating}"
+                           <p:column headerText="#{msgs.avg_rating}"
                                       style="width:20%">
                                    
                                 <h:outputText value="#{reportInfo.avgRating>0?reportInfo.avgRating:msgs.not_available}"/>

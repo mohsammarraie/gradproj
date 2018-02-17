@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import daos.ReportsDao;
 import java.util.Date;
+import java.util.Iterator;
 import javax.faces.application.FacesMessage;
 import models.Report;
 import models.ReportStatus;
@@ -36,6 +37,7 @@ public class ManageReportsBean implements Serializable {
     private String statusEn;
     private String statusAr;
     private int avgRating;
+    private String selectedAvgRating;
     private Date departureTime;
     private Date arrivalTime;
     private String scheduleTime;
@@ -47,6 +49,7 @@ public class ManageReportsBean implements Serializable {
     private final ReportsDao reportsDao = new ReportsDao();
     private ArrayList<Report> reportSchedulesArray;
     private ArrayList<Report> reportAvgRatingArray;
+    private ArrayList<Report> reportArray;
 
     private Report selectedReport;
     private ArrayList<Report> resultReportsArray;
@@ -76,6 +79,22 @@ public class ManageReportsBean implements Serializable {
         }
     }
 
+    public String getSelectedAvgRating() {
+        return selectedAvgRating;
+    }
+
+    public void setSelectedAvgRating(String selectedAvgRating) {
+        this.selectedAvgRating = selectedAvgRating;
+    }
+    
+    public ArrayList<Report> getReportArray() {
+        return reportArray;
+    }
+
+    public void setReportArray(ArrayList<Report> reportArray) {
+        this.reportArray = reportArray;
+    }
+    
     public String[] getAvgRatingArrayEn() {
         return avgRatingArrayEn;
     }
@@ -244,13 +263,13 @@ public class ManageReportsBean implements Serializable {
     public void reportsFilter() {
 
         try {
-
             resultReportsArray = reportsDao.buildResultReports( scheduleId, routeId, busId, driverId, departureTime, arrivalTime,
                     statusEn, statusAr, departureTimeStatusEn, departureTimeStatusAr, arrivalTimeStatusEn, arrivalTimeStatusAr);
             
-                avgRatingFilter();
 
               displayTotalAvgRatingOnReport();
+                avgRatingFilter();
+
 
 
         } catch (Exception ex) {
@@ -266,6 +285,7 @@ public class ManageReportsBean implements Serializable {
     public void clearReportsFilter() {
 
         try {
+            selectedAvgRating=null;
             avgRating = 0;
             scheduleId = 0;
             routeId = 0;
@@ -282,7 +302,7 @@ public class ManageReportsBean implements Serializable {
 
             resultReportsArray = reportsDao.buildResultReports( scheduleId, routeId, busId, driverId, departureTime, arrivalTime,
                     statusEn, statusAr, departureTimeStatusEn, departureTimeStatusAr, arrivalTimeStatusEn, arrivalTimeStatusAr);
-
+            displayTotalAvgRatingOnReport();
         } catch (Exception ex) {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
@@ -352,21 +372,24 @@ public class ManageReportsBean implements Serializable {
     }
 
     public void avgRatingFilter() {
+    Iterator<Report> itr = resultReportsArray.iterator();
+
         int i = 0;
         int x;
-          if(avgRating==6){
+          if("Not Available".equals(selectedAvgRating)){
              x = 0;
         
         }
+          
         else{
-            x=avgRating;
+            x=Integer.parseInt(selectedAvgRating);
         }
-        if (avgRating != 0) {
-            for (i = 0; i < resultReportsArray.size(); i++) {
-                if (x != resultReportsArray.get(i).getAvgRating()) {
-                    resultReportsArray.remove(i);
+        if (selectedAvgRating != null) {
+            while (itr.hasNext()) {
+                if(itr.next().getAvgRating() != x){
+                    itr.remove();
                 }
-
+            
             }
         }
       
@@ -374,3 +397,11 @@ public class ManageReportsBean implements Serializable {
     }
 
 }
+
+
+//     for (i = 0; i < resultReportsArray.size(); i++) {
+//                if (x != resultReportsArray.get(i).getAvgRating()) {
+//                    resultReportsArray.remove(i);
+//                }
+//
+//            }
