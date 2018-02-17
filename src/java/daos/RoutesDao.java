@@ -175,7 +175,10 @@ public class RoutesDao extends ConnectionDao {
             Route routes = null;
             Connection conn = getConnection();
 
-            String sql = "SELECT * FROM BUSES.ROUTES"
+            String sql = "SELECT ROUTE_ID,ROUTE_CODE,ROUTE_ACTIVE,SOURCE_EN, SOURCE_AR,DESTINATION_EN, DESTINATION_AR,"
+                    + " CONCAT(CONCAT(CONCAT(CONCAT(SOURCE_EN,' - '), DESTINATION_EN),' , '),ROUTE_CODE) AS ROUTE_NAME_EN,"
+                    + " CONCAT(CONCAT(CONCAT(CONCAT(SOURCE_AR,' - '), DESTINATION_AR),' , '),ROUTE_CODE) AS ROUTE_NAME_AR"
+                    + " FROM BUSES.ROUTES"
                     + " WHERE ROUTE_ID=?";
 
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -185,12 +188,7 @@ public class RoutesDao extends ConnectionDao {
 
             while (rs.next()) {
                 routes = populateRoutes(rs);
-                routes.setSourceEn(rs.getString("SOURCE_EN"));
-                routes.setSourceAr(rs.getString("SOURCE_AR"));
-                routes.setDestinationEn(rs.getString("DESTINATION_EN"));
-                routes.setDestinationAr(rs.getString("DESTINATION_AR"));
-                routes.setRouteCode(rs.getString("ROUTE_CODE"));
-                routes.setRouteActive(rs.getInt("ROUTE_ACTIVE"));
+            
             }
 
             rs.close();

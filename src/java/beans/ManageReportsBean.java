@@ -54,7 +54,7 @@ public class ManageReportsBean implements Serializable {
 
     String error_message_header = "";
     String error_message_content = "";
-    private String aab[]={"1","2","3","4","5","Not Available"};
+    private String[] avgRatingArrayEn={"1","2","3","4","5","Not Available"};
     @Inject
     private SessionBean sessionBean;
 
@@ -76,12 +76,12 @@ public class ManageReportsBean implements Serializable {
         }
     }
 
-    public String[] getAab() {
-        return aab;
+    public String[] getAvgRatingArrayEn() {
+        return avgRatingArrayEn;
     }
 
-    public void setAab(String[] aab) {
-        this.aab = aab;
+    public void setAvgRatingArrayEn(String[] avgRatingArrayEn) {
+        this.avgRatingArrayEn = avgRatingArrayEn;
     }
     
     public ArrayList<Report> getReportAvgRatingArray() {
@@ -244,9 +244,14 @@ public class ManageReportsBean implements Serializable {
     public void reportsFilter() {
 
         try {
-            avgRatingFilter();
+
             resultReportsArray = reportsDao.buildResultReports( scheduleId, routeId, busId, driverId, departureTime, arrivalTime,
                     statusEn, statusAr, departureTimeStatusEn, departureTimeStatusAr, arrivalTimeStatusEn, arrivalTimeStatusAr);
+            
+                avgRatingFilter();
+
+              displayTotalAvgRatingOnReport();
+
 
         } catch (Exception ex) {
             error_message_header = "Error!";
@@ -299,29 +304,29 @@ public class ManageReportsBean implements Serializable {
     }
     // to display avg rating column in reports table.
 
-    public String displayAvgRatingOnReport(int arrayTripId, int x) {
-        int i = 0;
-        boolean flag = false;
-        String displayedAvgRatings = null;
-        for (i = 0; i < resultReportsArray.size(); i++) {
-            if (resultReportsArray.get(i).getAvgRating() != 0) {
-
-                displayedAvgRatings = Integer.toString(reportAvgRatingArray.get(i).getAvgRating());
-                flag = true;
-                break;
-
-            } else {
-                if (x == 1) {
-                    displayedAvgRatings = "Not Available";
-                } else {
-                    displayedAvgRatings = "غير متاح";
-                }
-
-            }
-        }
-        return displayedAvgRatings;
-
-    }
+//    public String displayAvgRatingOnReport(int arrayTripId, int x) {
+//        int i = 0;
+//        boolean flag = false;
+//        String displayedAvgRatings = null;
+//        for (i = 0; i < resultReportsArray.size(); i++) {
+//            if (resultReportsArray.get(i).getAvgRating() != 0) {
+//
+//                displayedAvgRatings = Integer.toString(reportAvgRatingArray.get(i).getAvgRating());
+//                flag = true;
+//                break;
+//
+//            } else {
+//                if (x == 1) {
+//                    displayedAvgRatings = "Not Available";
+//                } else {
+//                    displayedAvgRatings = "غير متاح";
+//                }
+//
+//            }
+//        }
+//        return displayedAvgRatings;
+//
+//    }
 
     public void displayTotalAvgRatingOnReport() {
         int i = 0;

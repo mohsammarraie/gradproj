@@ -32,7 +32,7 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="512"
                                      requiredMessage="#{msgs.required_msg}"
-                                     validatorMessage="#{msgs.regex_message}">
+                                     validatorMessage="#{msgs.license_number_valid_msg}">
                             <f:validateRegex pattern="^[0-9]{1,2}-[0-9]{1,5}$"/>
                         </p:inputText>
                         <h:message for="license_plate" styleClass="errorMsg"/>
@@ -43,7 +43,7 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="20"  
                                      converterMessage="#{msgs.chasis_number_msg}"
-                                     validatorMessage="#{msgs.regex_message}"
+                                     validatorMessage="#{msgs.digits_valid_msg}"
                                      requiredMessage="#{msgs.required_msg}">
                             <f:validateLongRange minimum="1000"/>
                         </p:inputText>
@@ -55,7 +55,7 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="512"
                                      requiredMessage=" #{msgs.required_msg}"
-                                     validatorMessage="#{msgs.regex_message}">
+                                     validatorMessage="#{msgs.letters_valid_msg}">
                             <f:validateRegex pattern="[a-zA-Z]+"/>
                         </p:inputText>
                         <h:message for="manufacturer" styleClass="errorMsg"/>
@@ -81,7 +81,7 @@ and open the template in the editor.
                                      converterMessage="#{msgs.capacity_msg}"
                                      validatorMessage="#{msgs.regex_message}"
                                      requiredMessage="#{msgs.required_msg}">
-                            <f:validateLongRange minimum="0" maximum="100"/>
+                            <f:validateLongRange minimum="4" maximum="100"/>
                         </p:inputText>
                         <h:message for="capacity" styleClass="errorMsg"/>                          
                     </h:panelGrid>

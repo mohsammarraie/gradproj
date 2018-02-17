@@ -32,7 +32,7 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="20"  
                                      requiredMessage="#{msgs.required_msg}"
-                                     validatorMessage="#{msgs.regex_message}">
+                                     validatorMessage="#{msgs.national_id_valid_msg}">
                             <f:validateRegex pattern="[a-zA-Z]?[0-9]{6,15}$"/>
                         </p:inputText>
                         <h:message for="national_id" styleClass="errorMsg"/>
@@ -43,7 +43,7 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="20"
                                      requiredMessage=" #{msgs.required_msg}"
-                                     validatorMessage="#{msgs.regex_message}">
+                                     validatorMessage="#{msgs.letters_valid_msg}">
                             <f:validateRegex pattern="[a-zA-Z]+\s?[a-zA-Z]+"/>
                         </p:inputText>
                         <h:message for="first_name_en" styleClass="errorMsg"/>
@@ -55,7 +55,7 @@ and open the template in the editor.
                                      dir="rtl"
                                      maxlength="20"
                                      requiredMessage=" #{msgs.required_msg}"
-                                     validatorMessage="#{msgs.regex_message}">
+                                     validatorMessage="#{msgs.letters_valid_msg}">
                             <f:validateRegex pattern="[\أ\ئ\ؤ\ء\ا-ي]+\s?[\أ\ئ\ء\ؤ\ا-ي]+"/>
                         </p:inputText>
                         <h:message for="first_name_ar" styleClass="errorMsg"/>
@@ -67,7 +67,7 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="20"
                                      requiredMessage=" #{msgs.required_msg}"
-                                     validatorMessage="#{msgs.regex_message}">
+                                     validatorMessage="#{msgs.last_name_valid_msg}">
                             <f:validateRegex pattern="[a-zA-Z]+\s?\-?[a-zA-Z]+"/>
 
                         </p:inputText>
@@ -80,7 +80,7 @@ and open the template in the editor.
                                      dir="rtl"
                                      maxlength="20"
                                      requiredMessage=" #{msgs.required_msg}"
-                                     validatorMessage="#{msgs.regex_message}">
+                                     validatorMessage="#{msgs.last_name_valid_msg}">
                             <f:validateRegex pattern="[\أ\ئ\ؤ\ء\ا-ي]+\s?[\أ\ئ\ء\ؤ\ا-ي]+"/>
                         </p:inputText>
                         <h:message for="last_name_ar" styleClass="errorMsg"/>
@@ -91,7 +91,7 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="20"
                                      requiredMessage=" #{msgs.required_msg}"
-                                     validatorMessage="#{msgs.regex_message}">
+                                     validatorMessage="#{msgs.letters_valid_msg}">
                             <f:validateRegex pattern="[a-zA-Z]+\s?[a-zA-Z]+"/>
                         </p:inputText>
                         <h:message for="nationality_en" styleClass="errorMsg"/>
@@ -102,10 +102,11 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="20"
                                      requiredMessage=" #{msgs.required_msg}"
-                                     validatorMessage="#{msgs.regex_message}">
+                                     validatorMessage="#{msgs.letters_valid_msg}">
                             <f:validateRegex pattern="[\أ\ئ\ؤ\ء\ا-ي]+\s?[\أ\ئ\ء\ؤ\ا-ي]+"/>
                         </p:inputText>
                         <h:message for="nationality_ar" styleClass="errorMsg"/>
+                        
                         <p:outputLabel value="#{msgs.date_of_birth}" for="date_of_birth"/>
                           <p:calendar id="date_of_birth"
                                     value="#{addEditDriverBean.dateOfBirth}"
@@ -123,7 +124,7 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="20"
                                      requiredMessage=" #{msgs.required_msg}"
-                                     validatorMessage="#{msgs.regex_message}">
+                                     validatorMessage="#{msgs.letters_valid_msg}">
                             <f:validateRegex pattern="[a-zA-Z]+\s?[a-zA-Z]+"/>
                         </p:inputText>
                         <h:message for="gender_en" styleClass="errorMsg"/>
@@ -134,7 +135,7 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="20"
                                      requiredMessage=" #{msgs.required_msg}"
-                                     validatorMessage="#{msgs.regex_message}">
+                                     validatorMessage="#{msgs.letters_valid_msg}">
                             <f:validateRegex pattern="[\أ\ئ\ؤ\ء\ا-ي]+\s?[\أ\ئ\ء\ؤ\ا-ي]+"/>
                         </p:inputText>
                         <h:message for="gender_ar" styleClass="errorMsg"/>
@@ -146,7 +147,7 @@ and open the template in the editor.
                                      required="true"
                                      maxlength="13"
                                      requiredMessage=" #{msgs.required_msg}"
-                                     validatorMessage="#{msgs.regex_message}">
+                                     validatorMessage="#{msgs.digits_valid_msg}">
                             <f:validateRegex pattern="[0-9]{10,13}"/>
 
                         </p:inputText>
