@@ -120,7 +120,7 @@ public class LogInBean implements Serializable {
         }
 
         if (success) {
-            sessionBean.navigate("/first_page");
+            sessionBean.navigate("/first_page_student");
         }
     }
 
@@ -147,7 +147,7 @@ public class LogInBean implements Serializable {
         }
 
         if (success) {
-            sessionBean.navigate("/first_page");
+            sessionBean.navigate("/first_page_driver");
         }
     }
 
