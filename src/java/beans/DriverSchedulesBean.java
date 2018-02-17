@@ -44,6 +44,7 @@ public class DriverSchedulesBean implements Serializable {
     private int scheduleId;
     private int routeId;
     private String nationalId;
+    private boolean color;
 
     String error_message_header = "";
     String error_message_content = "";
@@ -54,6 +55,7 @@ public class DriverSchedulesBean implements Serializable {
     @PostConstruct
     public void init() {
         try {
+            //startTripRestriction();
             nationalId= sessionBean.getDriverUserNationalId();
             driverId = driversDao.nationalIdToDriverId(nationalId);
             driverSchedulesArray = driverSchedulesDao.buildDriverSchedules(driverId);
@@ -64,6 +66,14 @@ public class DriverSchedulesBean implements Serializable {
         }
     }
 
+    public boolean isColor() {
+        return color;
+    }
+
+    public void setColor(boolean color) {
+        this.color = color;
+    }
+    
     public String getNationalId() {
         return nationalId;
     }
@@ -136,16 +146,14 @@ public class DriverSchedulesBean implements Serializable {
             Calendar calEarlyTime = Calendar.getInstance();
 
             calCurrentTime.setTime(currentTimeOnly);
-            calLateTime.setTime(scheduleDepartureTimeOnly);
+            //calLateTime.setTime(scheduleDepartureTimeOnly);
             calEarlyTime.setTime(scheduleDepartureTimeOnly);
 
-            calLateTime.add(Calendar.MINUTE, 30);
             calEarlyTime.add(Calendar.MINUTE, -30);
 
-            if (startTripRestriction() < 1 && calCurrentTime.compareTo(calLateTime) < 0 && calCurrentTime.compareTo(calEarlyTime) > 0) {
-
+            if (calCurrentTime.compareTo(calEarlyTime) > 0) {
+                
                 Trip trip = new Trip();
-
                 int i;
                 for (i = 0; i < driverSchedulesArray.size(); i++) {
                     if (driverSchedulesArray.get(i).getDriverRouteScheduleId() == sessionBean.getSelectedDriverSchedule()) {
@@ -181,10 +189,47 @@ public class DriverSchedulesBean implements Serializable {
 
     }
 
-    public int startTripRestriction() {
-        int rowNum = driverSchedulesArray.indexOf(selectedSchedule);
-        return rowNum;
+    public boolean startTripRestriction(Date scheduleDepartureTime) {
+    
+        Date currentTime = new Date();
+//        scheduleDepartureTime = selectedSchedule.getDepartureTime();
+        Format formatt = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
+        String currentTimeToString = formatt.format(currentTime);
+        String scheduleDepartureTimeToString = formatt.format(scheduleDepartureTime);
+
+        String[] splitCurrentTimeToString = currentTimeToString.split(" ");
+        String[] splitScheduleDepartureTimeToString = scheduleDepartureTimeToString.split(" ");
+
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+
+      
+            Date currentTimeOnly;
+        try {
+            currentTimeOnly = df.parse(splitCurrentTimeToString[1]);
+            Date scheduleDepartureTimeOnly = df.parse(splitScheduleDepartureTimeToString[1]);
+            Calendar calCurrentTime = Calendar.getInstance();
+            Calendar calLateTime = Calendar.getInstance();
+            Calendar calEarlyTime = Calendar.getInstance();
+
+            calCurrentTime.setTime(currentTimeOnly);
+            //calLateTime.setTime(scheduleDepartureTimeOnly);
+            calEarlyTime.setTime(scheduleDepartureTimeOnly);
+
+            calEarlyTime.add(Calendar.MINUTE, -30);
+
+            if (calCurrentTime.compareTo(calEarlyTime) > 0) {
+                color =true;
+            }
+            else{
+                color=false;
+            }
+
+        } catch (ParseException ex) {
+            Logger.getLogger(DriverSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        return color;
     }
 
 }

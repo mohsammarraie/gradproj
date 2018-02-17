@@ -11,12 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.Format;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import models.Report;
 
 /**
@@ -87,24 +84,17 @@ public class ReportsDao extends ConnectionDao {
         return report;
     }
 
-    public ArrayList<Report> buildResultReports(int avgRating,int scheduleId ,int routeId, int busId, int driverId, Date departureTime, Date arrivalTime, String statusEn, String statusAr,
+    public ArrayList<Report> buildResultReports(int scheduleId ,int routeId, int busId, int driverId, Date departureTime, Date arrivalTime, String statusEn, String statusAr,
             String departureTimeStatusEn, String departureTimeStatusAr, String arrivalTimeStatusEn, String arrivalTimeStatusAr) throws Exception {
         ArrayList<Report> list = new ArrayList<>();
         Connection conn = getConnection();
 
         try {
             String sql = "SELECT * FROM REPORTS_VIEW";
-            if ( avgRating>0 ||scheduleId>0 || routeId > 0 || busId > 0 || driverId > 0 || departureTime != null || arrivalTime != null || statusEn != null || statusAr != null
+            if ( scheduleId>0 || routeId > 0 || busId > 0 || driverId > 0 || departureTime != null || arrivalTime != null || statusEn != null || statusAr != null
                     || departureTimeStatusEn != null || departureTimeStatusAr != null || arrivalTimeStatusEn != null || arrivalTimeStatusAr != null) {
                 sql += " WHERE ";
             }
-//             if (avgRating > 0) {
-//                sql += "AVG_RATING=" + avgRating;
-//                if (scheduleId > 0 || routeId > 0 || busId > 0 || driverId > 0 || departureTime != null || arrivalTime != null || statusEn != null || statusAr != null
-//                        || departureTimeStatusEn != null || departureTimeStatusAr != null || arrivalTimeStatusEn != null || arrivalTimeStatusAr != null) {
-//                    sql += " AND ";
-//                }
-//            }
               if (scheduleId > 0) {
                 sql += "SCHEDULE_ID=" + scheduleId;
                 if (routeId > 0 || busId > 0 || driverId > 0 || departureTime != null || arrivalTime != null || statusEn != null || statusAr != null

@@ -10,14 +10,14 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>fsdfdsfsd</title>
+        <title>#{msgs.create_new_user}</title>
     </h:head>
     <h:body>
         <ui:decorate template="/app_templates/app_template.xhtml">  
             <h:form id="add_user">            
                 <p:messages id="msgs" closable="true" globalOnly="true"/>
 
-                <p:panel header="add new user"                            
+                <p:panel header="#{msgs.create_new_user}"                            
                          style="min-height:400px; 
                          direction:#{langBean.dir};margin-top:10px; font-size:10pt">
                     <h:panelGrid id="add"
@@ -54,7 +54,7 @@ and open the template in the editor.
                     </h:panelGrid>
                 </p:panel>
 
-                <p:commandButton value="create for admin"
+                <p:commandButton value="#{msgs.create_admin}"
                                  styleClass="commandButton"
                                  icon="ui-icon-disk"
                                  ajax="false"
@@ -62,7 +62,7 @@ and open the template in the editor.
                                  style="float:#{langBean.styleFloat}"                                                                   
                                  actionListener="#{createNewUserBean.insertAdmin()}" />
                 
-                 <p:commandButton value="create for driver"
+                 <p:commandButton value="#{msgs.create_driver}"
                                  styleClass="commandButton"
                                  icon="ui-icon-disk"
                                  ajax="false"
@@ -70,7 +70,7 @@ and open the template in the editor.
                                  style="float:#{langBean.styleFloat}"                                                                   
                                  actionListener="#{createNewUserBean.insertDriver()}" />
                  
-                  <p:commandButton value="create for student"
+                  <p:commandButton value="#{msgs.create_student}"
                                  styleClass="commandButton"
                                  icon="ui-icon-disk"
                                  ajax="false"

@@ -51,19 +51,20 @@ public class ManageReportsBean implements Serializable {
     private Report selectedReport;
     private ArrayList<Report> resultReportsArray;
     private final ReportStatusDao reportStatusDao = new ReportStatusDao();
-    
+
     String error_message_header = "";
     String error_message_content = "";
-    
+    private String aab[]={"1","2","3","4","5","Not Available"};
     @Inject
     private SessionBean sessionBean;
 
     @PostConstruct
     public void init() {
         try {
-            reportAvgRatingArray=reportsDao.buildReportAvgRating();
-            resultReportsArray = reportsDao.buildResultReports(avgRating,scheduleId,routeId, busId, driverId, departureTime, arrivalTime,statusEn,statusAr,departureTimeStatusEn,departureTimeStatusAr,arrivalTimeStatusEn,arrivalTimeStatusAr);
-
+       
+            reportAvgRatingArray = reportsDao.buildReportAvgRating();
+            resultReportsArray = reportsDao.buildResultReports( scheduleId, routeId, busId, driverId, departureTime, arrivalTime, statusEn, statusAr, departureTimeStatusEn, departureTimeStatusAr, arrivalTimeStatusEn, arrivalTimeStatusAr);
+            displayTotalAvgRatingOnReport();
             statusArray = reportStatusDao.buildReportStatus();
 
         } catch (Exception ex) {
@@ -75,6 +76,14 @@ public class ManageReportsBean implements Serializable {
         }
     }
 
+    public String[] getAab() {
+        return aab;
+    }
+
+    public void setAab(String[] aab) {
+        this.aab = aab;
+    }
+    
     public ArrayList<Report> getReportAvgRatingArray() {
         return reportAvgRatingArray;
     }
@@ -82,7 +91,7 @@ public class ManageReportsBean implements Serializable {
     public void setReportAvgRatingArray(ArrayList<Report> reportAvgRatingArray) {
         this.reportAvgRatingArray = reportAvgRatingArray;
     }
-    
+
     public int getAvgRating() {
         return avgRating;
     }
@@ -90,7 +99,7 @@ public class ManageReportsBean implements Serializable {
     public void setAvgRating(int avgRating) {
         this.avgRating = avgRating;
     }
-    
+
     public int getScheduleId() {
         return scheduleId;
     }
@@ -98,7 +107,7 @@ public class ManageReportsBean implements Serializable {
     public void setScheduleId(int scheduleId) {
         this.scheduleId = scheduleId;
     }
-    
+
     public String getScheduleTime() {
         return scheduleTime;
     }
@@ -106,7 +115,7 @@ public class ManageReportsBean implements Serializable {
     public void setScheduleTime(String scheduleTime) {
         this.scheduleTime = scheduleTime;
     }
-    
+
     public String getDepartureTimeStatusEn() {
         return departureTimeStatusEn;
     }
@@ -235,8 +244,9 @@ public class ManageReportsBean implements Serializable {
     public void reportsFilter() {
 
         try {
-            resultReportsArray = reportsDao.buildResultReports(avgRating,scheduleId,routeId, busId, driverId, departureTime, arrivalTime,
-                    statusEn,statusAr,departureTimeStatusEn,departureTimeStatusAr,arrivalTimeStatusEn,arrivalTimeStatusAr);
+            avgRatingFilter();
+            resultReportsArray = reportsDao.buildResultReports( scheduleId, routeId, busId, driverId, departureTime, arrivalTime,
+                    statusEn, statusAr, departureTimeStatusEn, departureTimeStatusAr, arrivalTimeStatusEn, arrivalTimeStatusAr);
 
         } catch (Exception ex) {
             error_message_header = "Error!";
@@ -247,25 +257,26 @@ public class ManageReportsBean implements Serializable {
         }
 
     }
-    
-       public void clearReportsFilter() {
+
+    public void clearReportsFilter() {
 
         try {
-            avgRating=0;
-            scheduleId=0;
-            routeId=0; 
-            busId=0;
-            driverId=0;
-            departureTime=null; 
-            arrivalTime=null;
-            statusEn=null;
-            statusAr=null;
-            departureTimeStatusEn=null;departureTimeStatusAr=null;
-            arrivalTimeStatusEn=null;
-            arrivalTimeStatusAr=null;
-            
-            resultReportsArray = reportsDao.buildResultReports(avgRating,scheduleId,routeId, busId, driverId, departureTime, arrivalTime,
-                    statusEn,statusAr,departureTimeStatusEn,departureTimeStatusAr,arrivalTimeStatusEn,arrivalTimeStatusAr);
+            avgRating = 0;
+            scheduleId = 0;
+            routeId = 0;
+            busId = 0;
+            driverId = 0;
+            departureTime = null;
+            arrivalTime = null;
+            statusEn = null;
+            statusAr = null;
+            departureTimeStatusEn = null;
+            departureTimeStatusAr = null;
+            arrivalTimeStatusEn = null;
+            arrivalTimeStatusAr = null;
+
+            resultReportsArray = reportsDao.buildResultReports( scheduleId, routeId, busId, driverId, departureTime, arrivalTime,
+                    statusEn, statusAr, departureTimeStatusEn, departureTimeStatusAr, arrivalTimeStatusEn, arrivalTimeStatusAr);
 
         } catch (Exception ex) {
             error_message_header = "Error!";
@@ -276,43 +287,84 @@ public class ManageReportsBean implements Serializable {
         }
 
     }
-       public void setSchedulesTimesOnFilter(){
+
+    public void setSchedulesTimesOnFilter() {
         try {
             reportSchedulesArray = reportsDao.buildReportSchedules(routeId);
-            
-            
+
         } catch (Exception ex) {
             Logger.getLogger(ManageReportsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-       
-       }
-       // to display avg rating column in reports table.
+    }
+    // to display avg rating column in reports table.
+
     public String displayAvgRatingOnReport(int arrayTripId, int x) {
-        int i;
-        String displayedAvgRatings=null;
+        int i = 0;
         boolean flag = false;
-        for (i = 0; i < reportAvgRatingArray.size(); i++) {
-            if (arrayTripId == reportAvgRatingArray.get(i).getTripId()) {
+        String displayedAvgRatings = null;
+        for (i = 0; i < resultReportsArray.size(); i++) {
+            if (resultReportsArray.get(i).getAvgRating() != 0) {
+
+                displayedAvgRatings = Integer.toString(reportAvgRatingArray.get(i).getAvgRating());
                 flag = true;
                 break;
+
             } else {
-                flag = false;
+                if (x == 1) {
+                    displayedAvgRatings = "Not Available";
+                } else {
+                    displayedAvgRatings = "غير متاح";
+                }
+
             }
         }
-        if (flag) {
-         
-            displayedAvgRatings= Integer.toString(reportAvgRatingArray.get(i).getAvgRating());
-            return displayedAvgRatings;
-            
-        } else {
-            if (x == 1) {
-                return "Not Available";
-            } else {
-                return "غير متاح";
+        return displayedAvgRatings;
+
+    }
+
+    public void displayTotalAvgRatingOnReport() {
+        int i = 0;
+        int j = 0;
+        for (j = 0; j < resultReportsArray.size(); j++) {
+            int total = 0;
+            int count = 0;
+
+            for (i = 0; i < reportAvgRatingArray.size(); i++) {
+                if (resultReportsArray.get(j).getTripId() == reportAvgRatingArray.get(i).getTripId()) {
+                    total = total + reportAvgRatingArray.get(i).getAvgRating();
+                    count++;
+
+                }
+
+            }
+            if (count > 0) {
+                resultReportsArray.get(j).setAvgRating(total / count);
             }
 
         }
+
+    }
+
+    public void avgRatingFilter() {
+        int i = 0;
+        int x;
+          if(avgRating==6){
+             x = 0;
+        
+        }
+        else{
+            x=avgRating;
+        }
+        if (avgRating != 0) {
+            for (i = 0; i < resultReportsArray.size(); i++) {
+                if (x != resultReportsArray.get(i).getAvgRating()) {
+                    resultReportsArray.remove(i);
+                }
+
+            }
+        }
+      
 
     }
 
