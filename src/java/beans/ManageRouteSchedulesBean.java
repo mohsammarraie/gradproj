@@ -195,4 +195,27 @@ public class ManageRouteSchedulesBean implements Serializable {
         }
         return flag;
     }
+    
+    
+    public void checklRouteStopsSchedules() {
+        boolean flag = routeSchedulesDao.checkRouteStopsSchedules(sessionBean.getSelectedRouteId());
+
+        try {
+            if (flag) {
+                sessionBean.navigateAddEditRouteSchedules();
+    
+            } else {
+                error_message_header = "Error!";
+                error_message_content = "This route does not contain any stops. Please add stops first then try again.";
+                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            }
+
+        } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

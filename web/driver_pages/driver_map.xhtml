@@ -8,69 +8,69 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>#{msgs.trip_map}</title>
-<!--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+        <!--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
 
     </h:head>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyAT-PnUumnLEeph1uswtj11VoLEjdeO_90"></script>
-<!--    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>-->
-<!--        <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script> mobile sensor based-->
+    <!--    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>-->
+    <!--        <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script> mobile sensor based-->
 
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    
+
     <h:body> 
         <ui:decorate template="/app_templates/app_template_driver.xhtml">   
+            <div  style="float:#{langBean.styleFloat}">
 
-            <h:form id="driver_trip_info_form">
+                <h:form id="driver_trip_info_form">
+
+                    <p:fieldset legend="#{msgs.route_stops}" style="margin-bottom:20px; " >
+                        <h:panelGrid columns="2" cellpadding="5">
+
+                            <c:forEach var="driverRouteScheduleStop" items="#{tripsBean.driverRouteSchedulesStopsArray}" varStatus="loop">
+
+                                <p:outputLabel value="#{langBean.isEnglish?driverRouteScheduleStop.stopNameEn:driverRouteScheduleStop.stopNameAr}:" for="driver_stop_time_#{loop.index}"/>
+                                <h:outputText id="driver_stop_time_#{loop.index}" value="#{driverRouteScheduleStop.time}">  
+                                    <f:convertDateTime pattern="HH:mm" />
+                                </h:outputText>                    
+                            </c:forEach>
+                        </h:panelGrid>
+                    </p:fieldset>
 
 
-                <p:fieldset legend="#{msgs.route_stops}" style="margin-bottom:20px">
-                    <h:panelGrid columns="2" cellpadding="5">
+                </h:form>
 
-                        <c:forEach var="driverRouteScheduleStop" items="#{tripsBean.driverRouteSchedulesStopsArray}" varStatus="loop">
+                <p:gmap id="gmap2" widgetVar="w_gmap" type="roadmap" center="0, 0" zoom="16" style="width:600px;height:400px; " />    
 
-                            <p:outputLabel value="#{langBean.isEnglish?driverRouteScheduleStop.stopNameEn:driverRouteScheduleStop.stopNameAr}:" for="driver_stop_time_#{loop.index}"/>
-                            <h:outputText id="driver_stop_time_#{loop.index}" value="#{driverRouteScheduleStop.time}">  
-                                <f:convertDateTime pattern="HH:mm" />
-                            </h:outputText>                    
-                        </c:forEach>
-                    </h:panelGrid>
-                </p:fieldset>
+                <h:form>
+                    <p:poll interval="5" oncomplete="checkGeolocationByHTML5()" update="gmap2"/>
+                    <p:remoteCommand name="myRemoteCommand" process="@this" autoRun="false" actionListener="#{driverMapBean.saveCoordinates()}"/>
+
+                    <p:commandButton value="#{msgs.cancel}"
+                                     icon="ui-icon-pencil"
+                                     iconPos="#{langBean.styleFloat}"
+                                     styleClass="commandButton"
+                                     style="float:#{langBean.styleFloat}"  
+                                     ajax ="false"
+                                     onclick="return confirm('#{msgs.confirm_cancel_trip}');"
+                                     actionListener="#{tripsBean.cancelTrip()}" />
+                    <p:commandButton value="#{msgs.end_trip}"
+                                     icon="ui-icon-pencil"
+                                     iconPos="#{langBean.styleFloat}"
+                                     styleClass="commandButton"
+                                     style="float:#{langBean.styleFloat}"  
+                                     ajax ="false"
+                                     onclick="return confirm('#{msgs.confirm_end_trip}');"
+                                     actionListener="#{tripsBean.endTrip()}" />
 
 
-            </h:form>
 
-            <p:gmap id="gmap2" widgetVar="w_gmap" type="roadmap" center="0, 0" zoom="16" style="width:600px;height:400px" />    
+                    <!--                <p:confirmDialog closeOnEscape="" severity="alert" widgetVar="confirmation" global="true" showEffect="fade" hideEffect="fade" message="Are you sure?">
+                                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                    </p:confirmDialog>-->
 
-            <h:form>
-                <p:poll interval="5" oncomplete="checkGeolocationByHTML5()" update="gmap2"/>
-                <p:remoteCommand name="myRemoteCommand" process="@this" autoRun="false" actionListener="#{driverMapBean.saveCoordinates()}"/>
-                
-                <p:commandButton value="#{msgs.cancel}"
-                                 icon="ui-icon-pencil"
-                                 iconPos="#{langBean.styleFloat}"
-                                 styleClass="commandButton"
-                                 style="float:#{langBean.styleFloat}"  
-                                 ajax ="false"
-                                 onclick="return confirm('#{msgs.confirm_cancel_trip}');"
-                                 actionListener="#{tripsBean.cancelTrip()}" />
-                <p:commandButton value="#{msgs.end_trip}"
-                                 icon="ui-icon-pencil"
-                                 iconPos="#{langBean.styleFloat}"
-                                 styleClass="commandButton"
-                                 style="float:#{langBean.styleFloat}"  
-                                 ajax ="false"
-                                 onclick="return confirm('#{msgs.confirm_end_trip}');"
-                                 actionListener="#{tripsBean.endTrip()}" />
-
-               
-
-<!--                <p:confirmDialog closeOnEscape="" severity="alert" widgetVar="confirmation" global="true" showEffect="fade" hideEffect="fade" message="Are you sure?">
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                </p:confirmDialog>-->
-                
-            </h:form> 
-
+                </h:form> 
+            </div>
             <script type="text/javascript">
                 if (navigator.geolocation) {
                     checkGeolocationByHTML5();
@@ -116,7 +116,7 @@
 //                });
 
             </script>
-   
+
 
 
 

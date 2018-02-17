@@ -195,7 +195,7 @@ public class LogInBean implements Serializable {
         } finally {
             setPassword(null);
             setUsername(null);
-
+            sessionBean.navigate("/index");
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.getExternalContext().invalidateSession();
         }
