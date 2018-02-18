@@ -4,9 +4,11 @@
     <h:form id="logout_form"> 
         <h:panelGrid cellspacing="5px" columns="2" >
             <h:commandLink style="float:left"
+                           styleClass="commandLink"
                            value="#{langBean.linkLabel}"                       
                            actionListener="#{langBean.toggleLanguage()}"/>        
             <h:commandLink value="#{msgs.logout}"  
+                           styleClass="commandLink"
                            style="float:right"
                            actionListener="#{loginBean.logout()}"
                            action="/index.xhtml"/> 

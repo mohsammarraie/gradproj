@@ -28,7 +28,7 @@
 
                             <c:forEach var="driverRouteScheduleStop" items="#{tripsBean.driverRouteSchedulesStopsArray}" varStatus="loop">
 
-                                <p:outputLabel value="#{langBean.isEnglish?driverRouteScheduleStop.stopNameEn:driverRouteScheduleStop.stopNameAr}:" for="driver_stop_time_#{loop.index}"/>
+                                <p:outputLabel style="font-weight: bold;" value="#{langBean.isEnglish?driverRouteScheduleStop.stopNameEn:driverRouteScheduleStop.stopNameAr}:" for="driver_stop_time_#{loop.index}"/>
                                 <h:outputText id="driver_stop_time_#{loop.index}" value="#{driverRouteScheduleStop.time}">  
                                     <f:convertDateTime pattern="HH:mm" />
                                 </h:outputText>                    
@@ -46,7 +46,7 @@
                     <p:remoteCommand name="myRemoteCommand" process="@this" autoRun="false" actionListener="#{driverMapBean.saveCoordinates()}"/>
 
                     <p:commandButton value="#{msgs.cancel}"
-                                     icon="ui-icon-pencil"
+                                     icon="ui-icon-close"
                                      iconPos="#{langBean.styleFloat}"
                                      styleClass="commandButton"
                                      style="float:#{langBean.styleFloat}"  
@@ -54,7 +54,7 @@
                                      onclick="return confirm('#{msgs.confirm_cancel_trip}');"
                                      actionListener="#{tripsBean.cancelTrip()}" />
                     <p:commandButton value="#{msgs.end_trip}"
-                                     icon="ui-icon-pencil"
+                                     icon="ui-icon-check"
                                      iconPos="#{langBean.styleFloat}"
                                      styleClass="commandButton"
                                      style="float:#{langBean.styleFloat}"  

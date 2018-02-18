@@ -16,7 +16,7 @@ and open the template in the editor.
         <title>#{msgs.home}</title>
     </h:head>
     <h:body>
-        <div>
+        <div >
             <ui:decorate template="/app_templates/app_template_student.xhtml">
 
                 <table cellpadding="4" style="float: left" width="180px">
@@ -31,27 +31,27 @@ and open the template in the editor.
                        
                     </tbody>
                 </table>
-                <p:fieldset legend="#{msgs.personal_information}" style="margin-bottom:20px">
+                <p:fieldset legend="#{msgs.personal_information}" style="margin-bottom:20px; ">
                     <h:panelGrid columns="2" cellpadding="5">
-                    
-                        <p:outputLabel value="#{msgs.first_name}" for="student_home_first_name"/>
+                        
+                        <p:outputLabel style="font-weight: bold;" value="#{msgs.first_name}:" for="student_home_first_name"/>
                         <h:outputText id="student_home_first_name" value="#{langBean.isEnglish?studentInfoBean.getStudentInfoArray().get(0).getFirstNameEn():studentInfoBean.getStudentInfoArray().get(0).getFirstNameAr()}" />
                         
-                        <p:outputLabel value="#{msgs.last_name}" for="student_home_last_name"/>
+                        <p:outputLabel style="font-weight: bold;" value="#{msgs.last_name}:" for="student_home_last_name"/>
                         <h:outputText id="student_home_last_name" value="#{langBean.isEnglish?studentInfoBean.getStudentInfoArray().get(0).getLastNameEn():studentInfoBean.getStudentInfoArray().get(0).getLastNameAr()}"/>
                         
                        
-                        <p:outputLabel value="#{msgs.student_id}" for="student_home_id"/>
+                        <p:outputLabel style="font-weight: bold;" value="#{msgs.student_id}:" for="student_home_id"/>
                         <h:outputText id="student_home_id" value="#{studentInfoBean.getStudentInfoArray().get(0).getStudentId()}" />
                         
-                        <p:outputLabel value="#{msgs.nationality}" for="student_nationality"/>
+                        <p:outputLabel style="font-weight: bold;" value="#{msgs.nationality}:" for="student_nationality"/>
                         <h:outputText id="student_nationality" value="Iraqi" />
                         
-                        <p:outputLabel value="#{msgs.date_of_birth}" for="student__home_date_of_birth"/>
+                        <p:outputLabel style="font-weight: bold;" value="#{msgs.date_of_birth}:" for="student__home_date_of_birth"/>
                         <h:outputText id="student__home_date_of_birth"  value="12/11/1994" />
 
                         
-                         <p:outputLabel value="#{msgs.gender}" for="student_home_gender"/>
+                         <p:outputLabel style="font-weight: bold;" value="#{msgs.gender}:" for="student_home_gender"/>
                         <h:outputText id="student_home_gender" value="Male" />
                         
                     </h:panelGrid>
@@ -59,24 +59,24 @@ and open the template in the editor.
                    <p:fieldset legend="Acadmic Information" style="margin-bottom:20px">
                     <h:panelGrid columns="2" cellpadding="5">
                     
-                        <p:outputLabel value="Degree" for="Degree"/>
+                        <p:outputLabel style="font-weight: bold;" value="Degree:" for="Degree"/>
                         <h:outputText id="Degree" value="Bachelor" />
                         
-                        <p:outputLabel value="Faculty" for="Faculty"/>
+                        <p:outputLabel style="font-weight: bold;" value="Faculty:" for="Faculty"/>
                         <h:outputText id="Faculty" value="School of Electrical Engineering and Information Technology"/>
                         
                        
-                        <p:outputLabel value="Department" for="Department"/>
+                        <p:outputLabel style="font-weight: bold;" value="Department:" for="Department"/>
                         <h:outputText id="Department" value="Computer Engineering Department" />
                         
-                        <p:outputLabel value="Major" for="Major"/>
+                        <p:outputLabel style="font-weight: bold;" value="Major:" for="Major"/>
                         <h:outputText id="Major" value="Computer Engineering" />
                         
-                        <p:outputLabel value="Program" for="Program"/>
+                        <p:outputLabel style="font-weight: bold;" value="Program:" for="Program"/>
                         <h:outputText id="Program"  value="International Program" />
 
                         
-                         <p:outputLabel value="Enrollment Year" for="Enrollment_Year"/>
+                         <p:outputLabel style="font-weight: bold;" value="Enrollment Year:" for="Enrollment_Year"/>
                         <h:outputText id="Enrollment_Year" value="2012" />
                         
                     </h:panelGrid>

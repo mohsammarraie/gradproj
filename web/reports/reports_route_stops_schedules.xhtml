@@ -25,7 +25,7 @@
 
                         <c:forEach var="reportsRouteStopsSchedule" items="#{reportsRouteStopsSchedulesBean.reportsRouteStopsSchedulesArray}" varStatus="loop">
 
-                            <p:outputLabel value="#{langBean.isEnglish?reportsRouteStopsSchedule.stopNameEn:reportsRouteStopsSchedule.stopNameAr}:" for="report_stop_time_#{loop.index}"/>
+                            <p:outputLabel style="font-weight: bold;" value="#{langBean.isEnglish?reportsRouteStopsSchedule.stopNameEn:reportsRouteStopsSchedule.stopNameAr}:" for="report_stop_time_#{loop.index}"/>
                             <h:outputText id="report_stop_time_#{loop.index}" value="#{reportsRouteStopsSchedule.time}">  
                                 <f:convertDateTime pattern="HH:mm" />
                             </h:outputText>                    

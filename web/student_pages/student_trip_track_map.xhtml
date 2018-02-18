@@ -22,7 +22,7 @@
 
                         <c:forEach var="studentRouteScheduleStop" items="#{studentMapBean.studentRouteSchedulesStopsArray}" varStatus="loop">
 
-                            <p:outputLabel value="#{langBean.isEnglish?studentRouteScheduleStop.stopNameEn:studentRouteScheduleStopstopNameAr}:" for="student_stop_time_#{loop.index}"/>
+                            <p:outputLabel style="font-weight: bold;" value="#{langBean.isEnglish?studentRouteScheduleStop.stopNameEn:studentRouteScheduleStopstopNameAr}:" for="student_stop_time_#{loop.index}"/>
                             <h:outputText id="student_stop_time_#{loop.index}" value="#{studentRouteScheduleStop.time}">  
                                 <f:convertDateTime pattern="HH:mm" />
                             </h:outputText>                    
@@ -45,7 +45,7 @@
             <h:form>
                 <p:poll interval="7" listener="#{studentMapBean.displayLongLatOnMap()}" update="gmap2"/>
                 <p:commandButton value="#{msgs.back}"
-                                 icon="ui-icon-right-arrow"
+                                 icon="ui-icon-arrowreturnthick-1-n"
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  style="float:#{langBean.styleFloat}"
