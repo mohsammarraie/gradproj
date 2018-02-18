@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">-->
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{msgs.reports}</title>
+    </h:head>
+    <h:body>
+        <div style="width:100%;">
+            <ui:decorate template="/app_templates/app_template.xhtml">
+                    <p:fieldset legend="#{msgs.filtering_criteria}" style="margin-bottom:20px">
+                        <h:form id="report_info_form">
+                            <h:panelGrid columns="4" cellpadding="5">
+
+                                <p:outputLabel value="#{msgs.route}:" for="report_route"/>
+                                <p:selectOneMenu value="#{routeSchedulesViewBean.routeId}"
+                                                 style="width: 320px;"
+                                                 id="report_route"
+                                                 filter="true"
+                                                 filterMatchMode="contains">
+
+                                    <p:ajax listener="#{routeSchedulesViewBean.setSchedulesTimesOnFilter}" update="report_schedule_time" />
+
+                                    <f:selectItem itemLabel="#{msgs.all_route}"
+                                                  itemValue=""/>
+                                    <f:selectItems var="routeInfo"
+                                                   value="#{manageRoutesBean.routesArray}" 
+                                                   itemLabel="#{langBean.isEnglish?routeInfo.routeNameEn:routeInfo.routeNameAr}"
+                                                   itemValue="#{routeInfo.routeId}"/>                             
+                                </p:selectOneMenu>
+
+                  
+
+
+                                <p:outputLabel for="report_departure_time" value="#{msgs.departure_time}:" />
+                                <p:calendar id="report_departure_time"
+                                            value="#{routeSchedulesViewBean.departureTime}"
+                                            dir="ltr"
+                                            pattern="HH:mm"
+                                            timeOnly="true"
+                                            navigator="true"
+                                            yearRange="c-10:c+1"
+                                            timeInput="true"/> 
+                                
+                                
+                                <p:outputLabel value="#{msgs.route_schedules}" for="report_schedule_time"/>
+                                <p:selectOneMenu value="#{routeSchedulesViewBean.scheduleId}"
+                                                 style="width: 320px;"
+                                                 id="report_schedule_time"
+                                                 filter="true"
+                                                 filterMatchMode="contains">
+                                    <f:selectItem itemLabel="#{msgs.select_route_first}"
+                                                  itemValue=""/>
+                                    <f:selectItems var="statusInfo"
+                                                   value="#{routeSchedulesViewBean.reportSchedulesArray}" 
+                                                   itemLabel="#{statusInfo.scheduleTime}"
+                                                   itemValue="#{statusInfo.scheduleId}"/>                             
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="report_arrival_time" value="#{msgs.arrival_time}:" />
+                                <p:calendar id="report_arrival_time"
+                                            value="#{routeSchedulesViewBean.arrivalTime}"
+                                            dir="ltr"
+                                            pattern="HH:mm"
+                                            timeOnly="true"
+                                            navigator="true"
+                                            yearRange="c-10:c+1"
+                                            timeInput="true"/> 
+                                
+                                 <p:outputLabel value="#{msgs.bus_license_number}:" for="report_license_number"/>
+                                <p:selectOneMenu value="#{routeSchedulesViewBean.busId}"
+                                                 style="width: 320px;"
+                                                 id="report_license_number"
+                                                 filter="true"
+                                                 filterMatchMode="contains">
+                                    <f:selectItem itemLabel="#{msgs.all_bus_license_number}"
+                                                  itemValue=""/>
+                                    <f:selectItems var="busInfo"
+                                                   value="#{manageBusesBean.busesArray}" 
+                                                   itemLabel="#{busInfo.licenseNumber}"
+                                                   itemValue="#{busInfo.busId}"/>                             
+                                </p:selectOneMenu>
+
+                            </h:panelGrid> 
+                            <div class="centered_div">
+                                <p:commandButton value="#{msgs.search}"
+                                                 icon="ui-icon-search"
+                                                 iconPos="#{langBean.styleFloat}"
+                                                 styleClass="commandButton"
+                                                 style=""  
+                                                 ajax ="false"
+                                                 action="#{routeSchedulesViewBean.routeSchedulesViewFilter()}" />
+
+                                <p:commandButton value="#{msgs.reset}"
+                                                 icon="ui-icon-arrowrefresh-1-n"
+                                                 iconPos="#{langBean.styleFloat}"
+                                                 styleClass="commandButton"
+                                                 style=""  
+                                                 ajax ="false"
+                                                 action="#{routeSchedulesViewBean.clearRouteSchedulesViewFilter()}" />
+                            </div>
+                        </h:form> 
+                    </p:fieldset>
+                
+
+                    <h:form id="report_info_tbl_form">
+                        <p:dataTable 
+                            id="report_info_tbl"
+                            scrollable="true"
+                            scrollWidth	="100%"
+                            value = "#{routeSchedulesViewBean.allRouteSchedulesArray}"
+                            class = "dataTable"
+                            var="reportInfo"
+                            rows="5"
+                            rowsPerPageTemplate="5,10,20"
+                            dir="#{langBean.dir}"
+                            emptyMessage="#{msgs.no_schedules}"
+                            paginator="true"
+                            paginatorPosition="top" 
+                            paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
+                            >
+
+                        
+
+                            <f:facet name="header" id="header">
+                              all routes schedules
+                            </f:facet> 
+                           
+
+
+                            <p:column headerText="#{msgs.route_code}"
+                                      style="width:15%"
+
+                                      sortBy="#{reportInfo.routeCode}">                    
+                                <h:outputText value="#{reportInfo.routeCode}"/>  
+                            </p:column>
+                            <p:column headerText="#{msgs.source}"
+                                      style="width:25%"
+
+                                      sortBy="#{langBean.isEnglish?reportInfo.sourceEn:reportInfo.sourceAr}">                    
+                                <h:outputText value="#{langBean.isEnglish?reportInfo.sourceEn:reportInfo.sourceAr}"/>  
+                            </p:column>
+
+                            <p:column headerText="#{msgs.destination}"
+                                      style="width:25%"
+
+                                      sortBy="#{langBean.isEnglish?reportInfo.destinationEn:reportInfo.destinationAr}">                    
+                                <h:outputText value="#{langBean.isEnglish?reportInfo.destinationEn:reportInfo.destinationAr}"/>  
+                            </p:column>
+
+                            <p:column headerText="#{msgs.departure_time}"
+                                      style="width:20%"
+
+                                      sortBy="#{reportInfo.departureTime}">
+                                <h:outputText value="#{reportInfo.departureTime}">  
+                                    <f:convertDateTime pattern="HH:mm" />
+                                </h:outputText>
+
+                            </p:column>
+
+                            <p:column headerText="#{msgs.arrival_time}"
+                                      style="width:20%"
+
+                                      sortBy="#{reportInfo.arrivalTime}">                    
+                                <h:outputText value="#{reportInfo.arrivalTime}">  
+                                    <f:convertDateTime pattern="HH:mm" />
+                                </h:outputText>  
+                            </p:column>
+                             <p:column headerText="#{msgs.license_plate}"
+                                      style="width:20%"
+
+                                      sortBy="#{reportInfo.licenseNumber!=null?reportInfo.licenseNumber:msgs.not_assigned}">                    
+                                 <h:outputText value="#{reportInfo.licenseNumber!=null?reportInfo.licenseNumber:msgs.not_assigned}"/>  
+                            </p:column>
+
+                        </p:dataTable>
+
+                        
+                    </h:form>
+            </ui:decorate>
+
+        </div>
+    </h:body>
+</html>

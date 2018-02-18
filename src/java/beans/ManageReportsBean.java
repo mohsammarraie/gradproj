@@ -58,6 +58,7 @@ public class ManageReportsBean implements Serializable {
     String error_message_header = "";
     String error_message_content = "";
     private String[] avgRatingArrayEn={"1","2","3","4","5","Not Available"};
+    private String[] avgRatingArrayAr={"1","2","3","4","5","غير متاح"};
     @Inject
     private SessionBean sessionBean;
 
@@ -79,6 +80,14 @@ public class ManageReportsBean implements Serializable {
         }
     }
 
+    public String[] getAvgRatingArrayAr() {
+        return avgRatingArrayAr;
+    }
+
+    public void setAvgRatingArrayAr(String[] avgRatingArrayAr) {
+        this.avgRatingArrayAr = avgRatingArrayAr;
+    }
+    
     public String getSelectedAvgRating() {
         return selectedAvgRating;
     }
@@ -303,6 +312,7 @@ public class ManageReportsBean implements Serializable {
             resultReportsArray = reportsDao.buildResultReports( scheduleId, routeId, busId, driverId, departureTime, arrivalTime,
                     statusEn, statusAr, departureTimeStatusEn, departureTimeStatusAr, arrivalTimeStatusEn, arrivalTimeStatusAr);
             displayTotalAvgRatingOnReport();
+            setSchedulesTimesOnFilter();
         } catch (Exception ex) {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
@@ -375,14 +385,16 @@ public class ManageReportsBean implements Serializable {
     Iterator<Report> itr = resultReportsArray.iterator();
 
         int i = 0;
-        int x;
-          if("Not Available".equals(selectedAvgRating)){
+        int x=0;
+          if("Not Available".equals(selectedAvgRating)|| "غير متاح".equals(selectedAvgRating) ){
              x = 0;
         
         }
           
         else{
-            x=Integer.parseInt(selectedAvgRating);
+              if(selectedAvgRating!=null){
+                x=Integer.parseInt(selectedAvgRating);
+              }
         }
         if (selectedAvgRating != null) {
             while (itr.hasNext()) {

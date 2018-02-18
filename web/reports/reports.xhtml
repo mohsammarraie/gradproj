@@ -18,7 +18,6 @@ and open the template in the editor.
     <h:body>
         <div style="width:100%;">
             <ui:decorate template="/app_templates/app_template.xhtml">
-                <p:scrollPanel mode="native" style="width:1920px;height:750px">
                     <p:fieldset legend="#{msgs.filtering_criteria}" style="margin-bottom:20px">
                         <h:form id="report_info_form">
                             <h:panelGrid columns="4" cellpadding="5">
@@ -134,7 +133,7 @@ and open the template in the editor.
                                     <f:selectItem itemLabel="#{msgs.all_rating}"
                                                   itemValue=""/>
                                     <f:selectItems var="review"
-                                                   value="#{manageReportsBean.avgRatingArrayEn}" 
+                                                   value="#{langBean.isEnglish?manageReportsBean.avgRatingArrayEn:manageReportsBean.avgRatingArrayAr}" 
                                                    itemLabel="#{review}"
                                                    itemValue="#{review}"/>                             
                                 </p:selectOneMenu>
@@ -180,10 +179,13 @@ and open the template in the editor.
                             </div>
                         </h:form> 
                     </p:fieldset>
+                
 
                     <h:form id="report_info_tbl_form">
                         <p:dataTable 
                             id="report_info_tbl"
+                            scrollable="true"
+                            scrollWidth	="100%"
                             value = "#{manageReportsBean.resultReportsArray}"
                             selection="#{manageReportsBean.selectedReport}"
                             rowKey="#{reportInfo.tripId}" 
@@ -204,7 +206,7 @@ and open the template in the editor.
                                 #{msgs.reports}
                             </f:facet> 
                             <p:column headerText="#{msgs.license_plate}"
-                                      style="width:15%"
+                                      style="width:20%"
 
                                       sortBy="#{reportInfo.licenseNumber}">                    
                                 <h:outputText value="#{reportInfo.licenseNumber}"/>  
@@ -237,14 +239,14 @@ and open the template in the editor.
                                 <h:outputText value="#{reportInfo.routeCode}"/>  
                             </p:column>
                             <p:column headerText="#{msgs.source}"
-                                      style="width:20%"
+                                      style="width:25%"
 
                                       sortBy="#{langBean.isEnglish?reportInfo.sourceEn:reportInfo.sourceAr}">                    
                                 <h:outputText value="#{langBean.isEnglish?reportInfo.sourceEn:reportInfo.sourceAr}"/>  
                             </p:column>
 
                             <p:column headerText="#{msgs.destination}"
-                                      style="width:20%"
+                                      style="width:25%"
 
                                       sortBy="#{langBean.isEnglish?reportInfo.destinationEn:reportInfo.destinationAr}">                    
                                 <h:outputText value="#{langBean.isEnglish?reportInfo.destinationEn:reportInfo.destinationAr}"/>  
@@ -312,8 +314,8 @@ and open the template in the editor.
 
                         </p:dataTable>
 
+                        
                     </h:form>
-                </p:scrollPanel>
             </ui:decorate>
 
         </div>

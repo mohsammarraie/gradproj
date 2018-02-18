@@ -48,24 +48,7 @@
                                       actionListener="#{sessionBean.setMenuIndex(0)}"
                                       action="#{sessionBean.navigateManageStops()}">                       
                     </p:commandButton>
-                    <p:commandButton  value="#{msgs.reports}" 
-                                      styleClass="ribbonButton" 
-                                      style="float:#{langBean.styleFloat};"
-                                      actionListener="#{sessionBean.setMenuIndex(0)}"
-                                      action="#{sessionBean.navigateReports()}">                       
-                    </p:commandButton>
-                      <p:commandButton  value="#{msgs.trips_details}" 
-                                      styleClass="ribbonButton" 
-                                      style="float:#{langBean.styleFloat};"
-                                      actionListener="#{sessionBean.setMenuIndex(0)}"
-                                      action="#{sessionBean.navigateTripsDetails()}">                       
-                    </p:commandButton>
-                       <p:commandButton  value="#{msgs.create_new_user}" 
-                                      styleClass="ribbonButton" 
-                                      style="float:#{langBean.styleFloat};"
-                                      actionListener="#{sessionBean.setMenuIndex(0)}"
-                                      action="#{sessionBean.navigateCreateNewUser()}">                       
-                    </p:commandButton>
+                   
                     <p:commandButton  value="GPS Mobile Test" 
                                       styleClass="ribbonButton" 
                                       style="float:#{langBean.styleFloat};"
@@ -81,8 +64,49 @@
                     
                 </p:ribbonGroup>               
             </p:tab>
-         
-
+            
+             <p:tab title="#{msgs.reports}">  
+                <p:ribbonGroup styleClass="ribbonGroup"
+                               style="float:#{langBean.styleFloat};">
+                    
+                    <p:commandButton  value="all route schedules" 
+                                      styleClass="ribbonButton" 
+                                      style="float:#{langBean.styleFloat};"
+                                      actionListener="#{sessionBean.setMenuIndex(1)}"
+                                      action="#{sessionBean.navigateRouteSchedulesView()}">                       
+                    </p:commandButton>
+                    <p:commandButton  value="#{msgs.reports}" 
+                                      styleClass="ribbonButton" 
+                                      style="float:#{langBean.styleFloat};"
+                                      actionListener="#{sessionBean.setMenuIndex(1)}"
+                                      action="#{sessionBean.navigateReports()}">                       
+                    </p:commandButton>
+                      <p:commandButton  value="#{msgs.trips_details}" 
+                                      styleClass="ribbonButton" 
+                                      style="float:#{langBean.styleFloat};"
+                                      actionListener="#{sessionBean.setMenuIndex(1)}"
+                                      action="#{sessionBean.navigateTripsDetails()}">                       
+                    </p:commandButton>
+                    
+                
+                    
+                </p:ribbonGroup>               
+            </p:tab>
+                <p:tab title="users">  
+                <p:ribbonGroup styleClass="ribbonGroup"
+                               style="float:#{langBean.styleFloat};">
+                  
+                
+                       <p:commandButton  value="#{msgs.create_new_user}" 
+                                      styleClass="ribbonButton" 
+                                      style="float:#{langBean.styleFloat};"
+                                      actionListener="#{sessionBean.setMenuIndex(2)}"
+                                      action="#{sessionBean.navigateCreateNewUser()}">                       
+                        </p:commandButton>
+                
+                    
+                </p:ribbonGroup>               
+            </p:tab>
          
 
         </p:ribbon>

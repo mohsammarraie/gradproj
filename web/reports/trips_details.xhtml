@@ -18,7 +18,6 @@ and open the template in the editor.
     <h:body>
         <div style="width:100%;">
             <ui:decorate template="/app_templates/app_template.xhtml">
-                <p:scrollPanel mode="native" style="width:1920px;height:750px">
                     <p:fieldset legend="#{msgs.filtering_criteria}" style="margin-bottom:20px">
                         <h:form id="trip_details_info_form">
                             <h:panelGrid columns="4" cellpadding="5">
@@ -184,6 +183,8 @@ and open the template in the editor.
                     <h:form id="trip_details_info_tbl_form">
                         <p:dataTable 
                             id="trip_details_info_tbl"
+                            scrollable="true"
+                            scrollWidth	="100%"
                             value = "#{manageReportsBean.resultReportsArray}"
                             selection="#{manageReportsBean.selectedReport}"
                             rowKey="#{reportInfo.tripId}" 
@@ -338,7 +339,6 @@ and open the template in the editor.
                         </p:dataTable>
 
                     </h:form>
-                </p:scrollPanel>
             </ui:decorate>
 
         </div>

@@ -330,6 +330,9 @@ public class SessionBean implements Serializable {
     public void navigateTripsReviews() {
         navigate("/reports/trip_reviews.xhtml");
     }
+    public void navigateRouteSchedulesView() {
+        navigate("/reports/all_routes_schedules_view.xhtml");
+    }
     public void navigateReviewPastTrips(){
         navigate("/student_pages/student_arrived_trips_review.xhtml");
     
