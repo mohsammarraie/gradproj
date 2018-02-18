@@ -8,6 +8,7 @@ package beans;
 import daos.BusesSchedulesDao;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -16,6 +17,7 @@ import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import models.BusSchedule;
+import models.BusScheduleConflict;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -32,6 +34,16 @@ public class AssignBusesToSchedulesBean implements Serializable {
     private int routeId;
     private int scheduleId;
     private String assignedBus;
+     private Date departureTime;
+    private Date arrivalTime;
+    private String sourceAr;
+    private String sourceEn;
+    private String destinationAr;
+    private String destinationEn;
+    private String routeCode;
+    private String licenseNumber;
+
+    
     BusSchedule busesSchedules = new BusSchedule();
     private final BusesSchedulesDao busesSchedulesDao = new BusesSchedulesDao();
 
@@ -70,6 +82,72 @@ public class AssignBusesToSchedulesBean implements Serializable {
             Logger.getLogger(AssignBusesToSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public Date getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(Date departureTime) {
+        this.departureTime = departureTime;
+    }
+
+    public Date getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(Date arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
+    public String getSourceAr() {
+        return sourceAr;
+    }
+
+    public void setSourceAr(String sourceAr) {
+        this.sourceAr = sourceAr;
+    }
+
+    public String getSourceEn() {
+        return sourceEn;
+    }
+
+    public void setSourceEn(String sourceEn) {
+        this.sourceEn = sourceEn;
+    }
+
+    public String getDestinationAr() {
+        return destinationAr;
+    }
+
+    public void setDestinationAr(String destinationAr) {
+        this.destinationAr = destinationAr;
+    }
+
+    public String getDestinationEn() {
+        return destinationEn;
+    }
+
+    public void setDestinationEn(String destinationEn) {
+        this.destinationEn = destinationEn;
+    }
+
+    public String getRouteCode() {
+        return routeCode;
+    }
+
+    public void setRouteCode(String routeCode) {
+        this.routeCode = routeCode;
+    }
+
+    public String getLicenseNumber() {
+        return licenseNumber;
+    }
+
+    public void setLicenseNumber(String licenseNumber) {
+        this.licenseNumber = licenseNumber;
+    }
+    
+
 
     public ArrayList<BusSchedule> getAvailableBusesArray() {
         return availableBusesArray;
@@ -176,14 +254,28 @@ public class AssignBusesToSchedulesBean implements Serializable {
 
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
-
-              if(error_message_content.contains("ORA-20100: CONFLICT.")){
-                error_message_content="The chosen bus is already assigned to other schedules that conflict in time with this schedule.";
+            String errorMessageArray[]= error_message_content.split("");
+           routeId= Integer.parseInt(errorMessageArray[11]);
+           scheduleId=Integer.parseInt(errorMessageArray[12]);
+            try {
+                BusScheduleConflict busScheduleConflict = busesSchedulesDao.getBusesSchedulesConflicts(routeId, scheduleId, busId);
+                    arrivalTime=busScheduleConflict.getArrivalTime();
+                    departureTime=busScheduleConflict.getDepartureTime();
+                    destinationAr=busScheduleConflict.getDestinationAr();
+                    destinationEn=busScheduleConflict.getDestinationEn();
+                    sourceAr=busScheduleConflict.getSourceAr();
+                    sourceEn=busScheduleConflict.getSourceEn();
+                    routeCode=busScheduleConflict.getRouteCode();
+                    licenseNumber=busScheduleConflict.getLicenseNumber();
             
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('confirmation_bus_schedule_conflict').show();");
+                
+               
+            } catch (Exception ex1) {
+                Logger.getLogger(AssignBusesToSchedulesBean.class.getName()).log(Level.SEVERE, null, ex1);
             }
-          
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(AssignBusesToSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 

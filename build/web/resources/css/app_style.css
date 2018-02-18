@@ -170,3 +170,10 @@
         color:orange;
         
     }
+    .ui-dialog-buttonpane.ui-dialog-footer.ui-widget-content.ui-helper-clearfix{
+        border:none!important;
+    }
+    .popupContent{
+        padding:1em;
+         
+    }

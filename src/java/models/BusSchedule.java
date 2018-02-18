@@ -12,7 +12,6 @@ import java.util.Date;
  * @author MOH
  */
 public class BusSchedule {
-
     private int busId;
     private int scheduleId;
     private int routeId;
@@ -20,6 +19,9 @@ public class BusSchedule {
     private Date toDate;
     private String assignedBus;
 
+  
+
+    
     public String getAssignedBus() {
         return assignedBus;
     }

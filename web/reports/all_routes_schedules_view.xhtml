@@ -13,7 +13,7 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>#{msgs.reports}</title>
+        <title>#{msgs.all_routes_schedules}</title>
     </h:head>
     <h:body>
         <div style="width:100%;">
@@ -133,7 +133,7 @@ and open the template in the editor.
                         
 
                             <f:facet name="header" id="header">
-                              all routes schedules
+                              #{msgs.all_routes_schedules}
                             </f:facet> 
                            
 
@@ -176,7 +176,7 @@ and open the template in the editor.
                                     <f:convertDateTime pattern="HH:mm" />
                                 </h:outputText>  
                             </p:column>
-                             <p:column headerText="#{msgs.license_plate}"
+                             <p:column headerText="#{msgs.bus_license_number}"
                                       style="width:20%"
 
                                       sortBy="#{reportInfo.licenseNumber!=null?reportInfo.licenseNumber:msgs.not_assigned}">                    

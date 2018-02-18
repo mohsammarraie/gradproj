@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import models.BusSchedule;
+import models.BusScheduleConflict;
 
 /**
  *
@@ -189,5 +190,58 @@ public class BusesSchedulesDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
+    
+    public BusScheduleConflict getBusesSchedulesConflicts(int routeId, int scheduleId, int busId) throws Exception {
+        try {
+            BusScheduleConflict busScheduleConflict = null;
+            Connection conn = getConnection();
+
+            String sql = "SELECT *"
+                    + " FROM"
+                    + " BUSES.ALL_SCHEDULES_BUSES_VIEW"
+                    + " WHERE"
+                    + " ROUTE_ID=?"
+                    + " AND"
+                    + " BUS_ID=?"
+                    + " AND"
+                    + " SCHEDULE_ID=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, routeId);
+             ps.setInt(2, busId);
+            ps.setInt(3, scheduleId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                busScheduleConflict = populateBusesSchedulesConflicts(rs);
+            }
+
+            rs.close();
+            ps.close();
+
+            return busScheduleConflict;
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+    
+      private BusScheduleConflict populateBusesSchedulesConflicts(ResultSet rs) throws SQLException {
+
+        BusScheduleConflict busesSchedulesConflicts = new BusScheduleConflict();
+        busesSchedulesConflicts.setBusId(rs.getInt("BUS_ID"));
+        busesSchedulesConflicts.setScheduleId(rs.getInt("SCHEDULE_ID"));
+        busesSchedulesConflicts.setRouteId(rs.getInt("ROUTE_ID"));
+        busesSchedulesConflicts.setDepartureTime(rs.getTimestamp("DEPARTURE_TIME"));
+        busesSchedulesConflicts.setArrivalTime(rs.getTimestamp("ARRIVAL_TIME"));
+        busesSchedulesConflicts.setSourceEn(rs.getString("SOURCE_EN"));
+        busesSchedulesConflicts.setSourceAr(rs.getString("SOURCE_AR"));
+        busesSchedulesConflicts.setDestinationEn(rs.getString("DESTINATION_EN"));
+        busesSchedulesConflicts.setDestinationAr(rs.getString("DESTINATION_AR"));
+        busesSchedulesConflicts.setRouteCode(rs.getString("ROUTE_CODE"));
+        busesSchedulesConflicts.setLicenseNumber(rs.getString("LICENSE_NUMBER"));
+
+
+        return busesSchedulesConflicts;
+    }
+    
 
 }
