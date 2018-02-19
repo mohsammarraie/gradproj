@@ -167,10 +167,10 @@ public class AddEditRouteScheduleBean implements Serializable {
                 }
                 sessionBean.navigateManageRouteSchedules();
             } else {
-                error_message_header = "Error!";
-                error_message_content = "Please enter times in the right order (from top to bottom) ";
-                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
-
+                //show error popup
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('popup_add_edit_schedule').show();");
+                
             }
 
         } catch (Exception ex) {
@@ -178,7 +178,7 @@ public class AddEditRouteScheduleBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(AddEditRouteScheduleBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 

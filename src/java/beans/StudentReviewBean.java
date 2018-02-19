@@ -129,12 +129,8 @@ public class StudentReviewBean implements Serializable {
         } catch (Exception ex) {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
-             if (error_message_content.contains("ORA-00001: unique constraint (BUSES.REVIEWS_PK) violated")) {
-                error_message_content = "You cannot review the same trip twice.";
 
-            }
-
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(StudentReviewBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 

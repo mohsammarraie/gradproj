@@ -108,10 +108,10 @@ public class LogInBean implements Serializable {
                     sessionBean.setStudentUserId(username);
                     success = true;
                 } else {
-                    error_message_header = "Error!";
-                    error_message_content = "Incorrect username or password.";
-                    RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
-
+                      //show error popup
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('popup_login_error').show();");
+                
                 }
             }
 

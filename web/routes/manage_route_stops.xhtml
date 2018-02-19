@@ -101,6 +101,13 @@ and open the template in the editor.
                                      actionListener="#{sessionBean.setSelectedRouteStopId(-1)}"
                                      action="#{manageRouteStopsBean.checklRouteSchedulesStops}" /> 
 
+                    <p:confirmDialog id="error_pop_up" header="#{msgs.error}" closeOnEscape="false" severity="alert" widgetVar="popup_route_stop" global="false" showEffect="fade"
+                                     hideEffect="fade"
+                                     message="#{msgs.route_stop_edit_delete_error_msg}"
+                                     style=" font-size: 17px; float:#{langBean.styleFloat}">
+
+                    </p:confirmDialog>
+
                 </h:form>
 
             </ui:decorate>

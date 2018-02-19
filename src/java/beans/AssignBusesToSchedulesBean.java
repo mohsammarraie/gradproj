@@ -269,7 +269,7 @@ public class AssignBusesToSchedulesBean implements Serializable {
                     licenseNumber=busScheduleConflict.getLicenseNumber();
             
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("PF('confirmation_bus_schedule_conflict').show();");
+                context.execute("PF('popup_bus_schedule_conflict').show();");
                 
                
             } catch (Exception ex1) {

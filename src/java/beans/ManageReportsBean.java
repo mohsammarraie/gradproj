@@ -75,7 +75,7 @@ public class ManageReportsBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(StudentTripsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -285,7 +285,7 @@ public class ManageReportsBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(ManageReportsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -317,7 +317,7 @@ public class ManageReportsBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(ManageReportsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -409,11 +409,3 @@ public class ManageReportsBean implements Serializable {
     }
 
 }
-
-
-//     for (i = 0; i < resultReportsArray.size(); i++) {
-//                if (x != resultReportsArray.get(i).getAvgRating()) {
-//                    resultReportsArray.remove(i);
-//                }
-//
-//            }

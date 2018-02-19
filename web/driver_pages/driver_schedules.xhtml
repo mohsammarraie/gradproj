@@ -104,6 +104,13 @@ and open the template in the editor.
                         </f:facet>
                     </p:dataTable>
 
+                    <p:confirmDialog id="error_pop_up" header="#{msgs.error}" closeOnEscape="false" severity="alert" widgetVar="popup_driver_schedule" global="false" showEffect="fade"
+                                     hideEffect="fade"
+                                     message="#{msgs.driver_schedule_error_msg}"
+                                     style=" font-size: 17px; float:#{langBean.styleFloat}">
+
+                    </p:confirmDialog>
+
                 </h:form>
 
             </ui:decorate>

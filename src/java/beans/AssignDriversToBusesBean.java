@@ -38,12 +38,13 @@ public class AssignDriversToBusesBean implements Serializable {
     private String driverNameAr;
 
     String error_message_header = "";
-    String error_message_content = "";
+    String errorMessageContent = "";
 
     BusesDriversDao busesDriversDao = new BusesDriversDao();
 
     @Inject
     private SessionBean sessionBean;
+    private LangBean langBean;
 
     public AssignDriversToBusesBean() {
     }
@@ -72,6 +73,14 @@ public class AssignDriversToBusesBean implements Serializable {
         }
     }
 
+    public String getErrorMessageContent() {
+        return errorMessageContent;
+    }
+
+    public void setErrorMessageContent(String errorMessageContent) {
+        this.errorMessageContent = errorMessageContent;
+    }
+    
     public ArrayList<BusDriver> getAvailableDriversArray() {
         return availableDriversArray;
     }
@@ -219,13 +228,17 @@ public class AssignDriversToBusesBean implements Serializable {
         } catch (Exception ex) {
 
             error_message_header = "Error!";
-            error_message_content = ex.getMessage();
-            if(error_message_content.contains("ORA-00001: unique constraint (BUSES.BUSES_DRIVERS_UK1) violated")){
-                error_message_content="Please assign unassigned driver";
+            errorMessageContent = ex.getMessage();
+            
+            if(errorMessageContent.contains("ORA-00001: unique constraint (BUSES.BUSES_DRIVERS_UK1) violated")){
+                //show error popup
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('popup_assign_driver_bus').show();");
             
             }
-
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            else{
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, errorMessageContent));
+            }
             Logger.getLogger(AssignDriversToBusesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 

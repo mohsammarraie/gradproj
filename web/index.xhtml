@@ -26,7 +26,7 @@
                                          value="#{loginBean.username}"
                                          style="width:300px"
                                          required="true"
-                                         requiredMessage="#{msgs.wrong_username}">
+                                         requiredMessage="#{msgs.enter_username}">
                                 <p:watermark for="login_username" value="#{msgs.enter_username}"/>                                                                                                
                             </p:inputText>
 
@@ -34,13 +34,20 @@
                             <p:password id="login_password" 
                                         maxlength="48"                                       
                                         required="true"
-                                        requiredMessage="#{msgs.wrong_password}"
+                                        requiredMessage="#{msgs.enter_password}"
                                         value="#{loginBean.password}"
                                         style="width:300px;">          
                                 <p:watermark for="login_password" value="#{msgs.enter_password}"/>                                
                             </p:password>                             
                         </h:panelGrid>
-                        
+
+                        <p:confirmDialog id="error_pop_up" header="#{msgs.error}" closeOnEscape="false" severity="alert" widgetVar="popup_login_error" global="false" showEffect="fade"
+                                         hideEffect="fade"
+                                         message="#{msgs.login_error_msg}"
+                                         style=" font-size: 17px; float:#{langBean.styleFloat}">
+
+                        </p:confirmDialog>
+
                         <h:panelGrid style="text-align: left" columns="1">
 
                             <p:commandButton   value="#{msgs.login_as_student}"                                                

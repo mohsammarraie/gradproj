@@ -46,7 +46,7 @@ public class ManageRouteStopsBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -81,11 +81,12 @@ public class ManageRouteStopsBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
             if (error_message_content.contains("ORA-02292: integrity constraint (BUSES.ROUTES_STOPS_SCHEDULES_FK1) violated - child record found")) {
-                error_message_content = "Please delete the route schedule assigned to this route stop in order to delete this stop";
-
+                //show error popup
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('popup_route_stop').show();");
+            } else {
+                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             }
-
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -95,8 +96,9 @@ public class ManageRouteStopsBean implements Serializable {
 
         try {
             if (flag) {
-                error_message_content = "Please delete the route schedule assigned to this route stop in order to edit this stop";
-                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+                //show error popup
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('popup_route_stop').show();");
             } else {
                 sessionBean.navigateAddEditRouteStop();
             }
@@ -105,7 +107,7 @@ public class ManageRouteStopsBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

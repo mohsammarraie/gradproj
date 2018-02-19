@@ -36,7 +36,8 @@ public class ManageBusesBean implements Serializable {
     private ArrayList<BusDriver> busesDriversArray;
     String error_message_header = "";
     String error_message_content = "";
-
+     private boolean flagDriver ;
+     private  boolean flagSchedule;
     BusesDriversDao busesDriversDao = new BusesDriversDao();
     @Inject
     private SessionBean sessionBean;
@@ -53,11 +54,27 @@ public class ManageBusesBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(ManageBusesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    public boolean isFlagDriver() {
+        return flagDriver;
+    }
+
+    public void setFlagDriver(boolean flagDriver) {
+        this.flagDriver = flagDriver;
+    }
+
+    public boolean isFlagSchedule() {
+        return flagSchedule;
+    }
+
+    public void setFlagSchedule(boolean flagSchedule) {
+        this.flagSchedule = flagSchedule;
+    }
+    
     public ArrayList<BusDriver> getBusesDriversArray() {
         return busesDriversArray;
     }
@@ -88,19 +105,27 @@ public class ManageBusesBean implements Serializable {
 
     public void deleteSelectedBus() {
         try {
-            boolean flagDriver = busesDao.checkBusesDrivers(selectedBus.getBusId());
+             flagDriver = busesDao.checkBusesDrivers(selectedBus.getBusId());
 
-            boolean flagSchedule = busesDao.checkBusesSchedules(selectedBus.getBusId());
-
+             flagSchedule = busesDao.checkBusesSchedules(selectedBus.getBusId());
+             
             if (flagSchedule || flagDriver) {
+              
+                
                 if (flagSchedule) {
-                    error_message_header = "Error!";
-                    error_message_content = "Please unassign this bus from all route schedules before deleting it.";
+                         //show error popup
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('popup_unassign_schedule_from_bus').show();");
+                
+                  
                 } else {
-                    error_message_header = "Error!";
-                    error_message_content = "Please unassign this bus from driver before deleting it.";
+                         //show error popup
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('popup_unassign_driver_from_bus').show();");
+                
+                  
                 }
-                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+//                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             } else {
                 busesDao.deleteBus(selectedBus.getBusId());
                 sessionBean.navigateManageBuses();
@@ -111,11 +136,15 @@ public class ManageBusesBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
             if (error_message_content.contains("ORA-02292: integrity constraint (BUSES.BUSES_DRIVERS_FK1) violated - child record found")) {
-                error_message_content = "Unable to delete bus with assigned driver. Please remove assigned driver first then try again.";
+                  //show error popup
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('popup_unassign_driver_from_bus').show();");
+                
+                //error_message_content = "Unable to delete bus with assigned driver. Please remove assigned driver first then try again.";
 
             }
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            //RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageBusesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -130,7 +159,7 @@ public class ManageBusesBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(ManageBusesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -151,20 +180,21 @@ public class ManageBusesBean implements Serializable {
         return flag;
     }
 
-    public void checklBusesSchedules() {
-        boolean flagSchedule = busesDao.checkBusesSchedules(selectedBus.getBusId());
-        boolean flagDriver = busesDao.checkBusesDrivers(selectedBus.getBusId());
+    public void checklBusesSchedulesDrivers() {
+         flagSchedule = busesDao.checkBusesSchedules(selectedBus.getBusId());
+         flagDriver = busesDao.checkBusesDrivers(selectedBus.getBusId());
 
         try {
             if (flagSchedule || flagDriver) {
                 if (flagSchedule) {
-                    error_message_header = "Error!";
-                    error_message_content = "Please unassign this bus from all route schedules before deleting it.";
+                //show error popup
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('popup_unassign_schedule_from_bus').show();");
                 } else {
-                    error_message_header = "Error!";
-                    error_message_content = "Please unassign this bus from driver before deleting it.";
+                    //show error popup
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('popup_unassign_driver_from_bus').show();");
                 }
-                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
 
             } else {
                 sessionBean.navigateAddEditBus();
@@ -174,7 +204,7 @@ public class ManageBusesBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

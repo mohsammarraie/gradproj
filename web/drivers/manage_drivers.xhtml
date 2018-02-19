@@ -106,7 +106,7 @@ and open the template in the editor.
                                                      styleClass="commandButton"
                                                      style="float:#{langBean.styleFloat}"                                                                                                
                                                      disabled="#{manageDriversBean.selectedDriver==null}"
-                                                     onclick="return confirm('#{msgs.confirm_delete_driver}?');"
+                                                     onclick="return confirm('#{msgs.confirm_delete_driver}');"
                                                      actionListener="#{manageDriversBean.deleteSelectedDriver()}" />
                                     <p:commandButton value="#{msgs.edit}"
                                                      icon="ui-icon-pencil"                                  
@@ -127,6 +127,13 @@ and open the template in the editor.
                                      style="float:#{langBean.styleFloat}" 
                                      actionListener="#{sessionBean.setSelectedDriverId(-1)}"
                                      action="#{sessionBean.navigateAddEditDriver()}" /> 
+                    
+                    <p:confirmDialog id="error_pop_up" header="#{msgs.error}" closeOnEscape="false" severity="alert" widgetVar="popup_delete_edit_driver" global="false" showEffect="fade"
+                                     hideEffect="fade"
+                                     message="#{msgs.delete_driver_edit_error_msg}"
+                                     style=" font-size: 17px; float:#{langBean.styleFloat}">
+
+                    </p:confirmDialog>
                 </h:form>
 
             </ui:decorate>

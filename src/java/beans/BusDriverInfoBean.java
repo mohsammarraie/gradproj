@@ -51,7 +51,7 @@ public class BusDriverInfoBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(BusDriverInfoBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

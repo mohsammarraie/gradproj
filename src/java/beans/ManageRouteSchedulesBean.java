@@ -60,7 +60,7 @@ public class ManageRouteSchedulesBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(ManageRouteSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -116,9 +116,9 @@ public class ManageRouteSchedulesBean implements Serializable {
 
                 try {
                     if (flag) {
-                        error_message_header = "Error!";
-                        error_message_content = "Please unassign bus before deleting this route schedule.";
-                        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+                //show error popup
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('popup_unassign_bus_from_route_schedule').show();");
                     }
                     else {
                 routeSchedulesDao.deleteRouteScheduleStops(selectedSchedule.getScheduleId(), routeId);
@@ -130,7 +130,7 @@ public class ManageRouteSchedulesBean implements Serializable {
                     error_message_header = "Error!";
                     error_message_content = ex.getMessage();
 
-                    RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+                    RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
                     Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
@@ -140,7 +140,7 @@ public class ManageRouteSchedulesBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
 
             Logger.getLogger(ManageRouteSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -154,7 +154,7 @@ public class ManageRouteSchedulesBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(AssignBusesToSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -179,9 +179,9 @@ public class ManageRouteSchedulesBean implements Serializable {
 
         try {
             if (flag) {
-                error_message_header = "Error!";
-                error_message_content = "Please unassign bus before editing or removing this route schedule.";
-                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+                 //show error popup
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('popup_unassign_bus_from_route_schedule').show();");
             } else {
                 sessionBean.navigateAddEditRouteSchedules();
             }
@@ -190,7 +190,7 @@ public class ManageRouteSchedulesBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         return flag;
@@ -205,16 +205,16 @@ public class ManageRouteSchedulesBean implements Serializable {
                 sessionBean.navigateAddEditRouteSchedules();
     
             } else {
-                error_message_header = "Error!";
-                error_message_content = "This route does not contain any stops. Please add stops first then try again.";
-                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            //show error popup
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('popup_route_schedules_stops_check').show();");
             }
 
         } catch (Exception ex) {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

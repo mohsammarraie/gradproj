@@ -50,10 +50,10 @@ and open the template in the editor.
 <!--                        <p:outputLabel for="displayed_bus" value="#{msgs.assigned_bus}:"/>
                         <h:outputText id="displayed_bus"  value="#{assignBusToScheduleBean.displayBusesSchedules(sessionBean.getSelectedRouteId(),sessionBean.getSelectedScheduleId(),langBean.isEnglish?1:0)}"/>   -->
                        
-                        <p:confirmDialog id="error_pop_up" header="#{msgs.error}" closeOnEscape="false" severity="alert" widgetVar="confirmation_bus_schedule_conflict" global="false" showEffect="fade"
+                        <p:confirmDialog id="error_pop_up" header="#{msgs.error}" closeOnEscape="false" severity="alert" widgetVar="popup_bus_schedule_conflict" global="false" showEffect="fade"
                                          hideEffect="fade"
                                          message="#{msgs.bus_schedule_conflict_msg}"
-                                         style=" font-size: 14px;">
+                                         style=" font-size: 14px; float:#{langBean.styleFloat}">
                             <div class="popupContent">
                                 <h:panelGrid id="popup_grid"
                                              style="float: #{langBean.styleFloat};" 

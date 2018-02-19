@@ -129,7 +129,21 @@ and open the template in the editor.
                                      styleClass="commandButton"
                                      style="float:#{langBean.styleFloat}" 
                                      actionListener="#{sessionBean.setSelectedScheduleId(-1)}"
-                                     action="#{manageRouteSchedulesBean.checklRouteStopsSchedules()}" /> 
+                                     action="#{manageRouteSchedulesBean.checklRouteStopsSchedules()}" />
+
+                    <p:confirmDialog id="error_pop_up_schedule_bus" header="#{msgs.error}" closeOnEscape="false" severity="alert" widgetVar="popup_unassign_bus_from_route_schedule" global="false" showEffect="fade"
+                                     hideEffect="fade"
+                                     message="#{msgs.route_schedule_delete_edit_error_msg}"
+                                     style=" font-size: 17px; float:#{langBean.styleFloat}">
+
+                    </p:confirmDialog>
+                    
+                    <p:confirmDialog id="error_pop_up_schedule_stop" header="#{msgs.error}" closeOnEscape="false" severity="alert" widgetVar="popup_route_schedules_stops_check" global="false" showEffect="fade"
+                                     hideEffect="fade"
+                                     message="#{msgs.route_stop_schedule_error_msg}"
+                                     style=" font-size: 17px; float:#{langBean.styleFloat}">
+
+                    </p:confirmDialog>
 
 
                 </h:form>

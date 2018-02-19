@@ -5,7 +5,6 @@
  */
 package beans;
 
-import daos.ReportStatusDao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -57,7 +56,7 @@ public class RouteSchedulesViewBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(StudentTripsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -146,7 +145,7 @@ public class RouteSchedulesViewBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(ManageReportsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -169,7 +168,7 @@ public class RouteSchedulesViewBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(ManageReportsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -186,8 +185,8 @@ public class RouteSchedulesViewBean implements Serializable {
     }
 
     public void addBusInfoToaAllSchedules() {
-        int i = 0;
-        int j = 0;
+        int i ;
+        int j ;
         for (j = 0; j < allRouteSchedulesArray.size(); j++) {
 
             for (i = 0; i < allrouteSchedulesBusesArray.size(); i++) {

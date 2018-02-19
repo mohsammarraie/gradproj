@@ -45,7 +45,7 @@ public class ManageDriversBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(ManageDriversBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -76,9 +76,11 @@ public class ManageDriversBean implements Serializable {
         try {
 
             if (flag) {
-                error_message_header = "Error!";
-                error_message_content = "Please unassign this driver from bus before deleting it.";
-                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+                  //show error popup
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('popup_delete_edit_driver').show();");
+                
+             
             } else {
                 driverDao.deleteDriver(selectedDriver.getDriverId());
                 sessionBean.navigateManageDrivers();
@@ -88,11 +90,12 @@ public class ManageDriversBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
             if (error_message_content.contains("ORA-02292: integrity constraint (BUSES.BUSES_DRIVERS_FK2) violated - child record found")) {
-                error_message_content = "This driver is currently assigned to a bus. Please unassign this driver from bus first then try again.";
+                 //show error popup
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('popup_delete_edit_driver').show();");
 
             }
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
             Logger.getLogger(ManageDriversBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -102,9 +105,9 @@ public class ManageDriversBean implements Serializable {
 
         try {
             if (flag) {
-                error_message_header = "Error!";
-                error_message_content = "Please unassign this driver from bus before editing it.";
-                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+             //show error popup
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('popup_delete_edit_driver').show();");
             } else {
                 sessionBean.navigateAddEditDriver();
             }
@@ -113,7 +116,7 @@ public class ManageDriversBean implements Serializable {
             error_message_header = "Error!";
             error_message_content = ex.getMessage();
 
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         return flag;

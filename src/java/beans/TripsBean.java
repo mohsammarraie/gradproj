@@ -16,11 +16,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import daos.TripsDao;
-import javax.faces.application.FacesMessage;
 import models.DriverSchedule;
 import models.Stop;
 import models.Trip;
-import org.primefaces.context.RequestContext;
 
 /**
  *

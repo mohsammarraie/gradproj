@@ -23,7 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.faces.application.FacesMessage;
-import models.Driver;
 import models.Trip;
 import org.primefaces.context.RequestContext;
 
@@ -177,12 +176,16 @@ public class DriverSchedulesBean implements Serializable {
                 sessionBean.navigateDriverMap();
 
             } else {
-                error_message_content = "This trip is unavailable. Please select from the available trips";
-                RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+                   //show error popup
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('popup_driver_schedule').show();");
+              
             }
 
         } catch (ParseException ex) {
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, error_message_header, error_message_content));
+               error_message_header = "Error!";
+                 error_message_content = ex.getMessage();
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
 
             Logger.getLogger(DriverSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }

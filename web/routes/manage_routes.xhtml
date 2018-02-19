@@ -129,6 +129,13 @@ and open the template in the editor.
                                      style="float:#{langBean.styleFloat}" 
                                      actionListener="#{sessionBean.setSelectedRouteId(-1)}"
                                      action="#{sessionBean.navigateAddEditRoutes()}" /> 
+
+                    <p:confirmDialog id="error_pop_up" header="#{msgs.error}" closeOnEscape="false" severity="alert" widgetVar="popup_edit_delete_route" global="false" showEffect="fade"
+                                     hideEffect="fade"
+                                     message="#{msgs.delete_edit_route_error_msg}"
+                                     style=" font-size: 17px; float:#{langBean.styleFloat}">
+
+                    </p:confirmDialog>
                 </h:form>
 
             </ui:decorate>
