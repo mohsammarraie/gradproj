@@ -90,7 +90,7 @@ and open the template in the editor.
                                                      styleClass="commandButton"
                                                      style="float:#{langBean.styleFloat}"                                                                                                
                                                      disabled="#{manageRoutesBean.selectedRoute==null}"
-                                                     onclick="return confirm('#{msgs.confirm_delete_route}?');"
+                                                     onclick="return confirm('#{msgs.confirm_delete_route}');"
                                                      actionListener="#{manageRoutesBean.deleteSelectedRoute()}" />
 
                                     <p:commandButton value="#{msgs.edit}"

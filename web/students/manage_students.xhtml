@@ -76,7 +76,7 @@ and open the template in the editor.
                                                      styleClass="commandButton"
                                                      style="float:#{langBean.styleFloat}"                                                                                                
                                                      disabled="#{manageStudentsBean.selectedStudent==null}"
-                                                     onclick="return confirm('#{msgs.confirm_delete_student}?');"
+                                                     onclick="return confirm('#{msgs.confirm_delete_student}');"
                                                      actionListener="#{manageStudentsBean.deleteSelectedStudent()}"/>
                                     <p:commandButton value="#{msgs.edit}"
                                                      icon="ui-icon-pencil"                                  

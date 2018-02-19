@@ -86,7 +86,7 @@ and open the template in the editor.
                                                      styleClass="commandButton"
                                                      style="float:#{langBean.styleFloat}"                                                                                                
                                                      disabled="#{manageRouteSchedulesBean.selectedSchedule==null}"
-                                                     onclick="return confirm('#{msgs.confirm_delete_schedule}?');"
+                                                     onclick="return confirm('#{msgs.confirm_delete_schedule}');"
                                                      actionListener="#{manageRouteSchedulesBean.deleteSelectedRouteSchedule()}"/>
                                     <p:commandButton value="#{msgs.edit}"
                                                      icon="ui-icon-pencil"                                  
@@ -111,7 +111,7 @@ and open the template in the editor.
                                                      styleClass="commandButton"
                                                      style="float:#{langBean.styleFloat}"   
                                                      disabled="#{manageRouteSchedulesBean.selectedSchedule==null || manageRouteSchedulesBean.checkRemoveBusButton()==false}"
-                                                     onclick="return confirm('#{msgs.confirm_remove_assigned_bus}?');"
+                                                     onclick="return confirm('#{msgs.confirm_remove_assigned_bus}');"
                                                      actionListener="#{manageRouteSchedulesBean.deleteBusSchdedule()}" />
                                 </p:toolbarGroup>
                             </p:toolbar>

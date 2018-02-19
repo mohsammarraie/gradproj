@@ -73,7 +73,7 @@ and open the template in the editor.
                                                      styleClass="commandButton"
                                                      style="float:#{langBean.styleFloat}"                                                                                                
                                                      disabled="#{manageRouteStopsBean.selectedRouteStop==null}"
-                                                     onclick="return confirm('#{msgs.confirm_delete_stop}?');"
+                                                     onclick="return confirm('#{msgs.confirm_delete_stop}');"
                                                      actionListener="#{manageRouteStopsBean.deleteSelectedRouteStop()}" />
                                     <p:commandButton value="#{msgs.edit}"
                                                      icon="ui-icon-pencil"                                  
