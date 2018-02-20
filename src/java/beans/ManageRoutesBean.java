@@ -5,6 +5,7 @@
  */
 package beans;
 
+import daos.RouteStopsDao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -27,12 +28,13 @@ import org.primefaces.context.RequestContext;
 public class ManageRoutesBean implements Serializable {
 
     private Route selectedRoute;
+    private final RouteStopsDao routeStopsDao = new RouteStopsDao();
     private final RoutesDao routesDao = new RoutesDao();
     private ArrayList<Route> routesArray;
     @Inject
     private SessionBean sessionBean;
     String error_message_header = "Error!";
-    String error_message_content = "Please delete all stops and schedules related to this route.";
+    String error_message_content = "";
 
     public ManageRoutesBean() {
     }
@@ -89,6 +91,26 @@ public class ManageRoutesBean implements Serializable {
                 RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
             }
             Logger.getLogger(ManageRoutesBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     public void checklRouteSchedulesStops() {
+        boolean flag = routeStopsDao.checkRouteStopsSchedules(selectedRoute.getRouteId());
+
+        try {
+            if (flag) {
+                //show error popup
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('popup_edit_delete_route').show();");
+            } else {
+                sessionBean.navigateAddEditRoutes();
+            }
+
+        } catch (Exception ex) {
+            error_message_header = "Error!";
+            error_message_content = ex.getMessage();
+
+            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, error_message_header, error_message_content));
+            Logger.getLogger(ManageRouteStopsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -100,7 +100,7 @@ and open the template in the editor.
                                                      style="float:#{langBean.styleFloat}"                                                                                                
                                                      disabled="#{manageRoutesBean.selectedRoute==null}"                                                 
                                                      actionListener="#{manageRoutesBean.saveSelectedRouteId()}"
-                                                     action="#{sessionBean.navigateAddEditRoutes()}" />
+                                                     action="#{manageRoutesBean.checklRouteSchedulesStops()}" />
 
                                     <p:commandButton value="#{msgs.stops}"
                                                      icon="ui-icon-pencil"                                  

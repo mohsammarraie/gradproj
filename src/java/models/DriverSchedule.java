@@ -25,7 +25,17 @@ public class DriverSchedule {
     private String routeCode;
     private Date departureTime;
     private Date arrivalTime;
+    private long departureTimeDifference;
 
+    public long getDepartureTimeDifference() {
+        return departureTimeDifference;
+    }
+
+    public void setDepartureTimeDifference(long departureTimeDifference) {
+        this.departureTimeDifference = departureTimeDifference;
+    }
+    
+    
     public int getDriverRouteScheduleId() {
         return driverRouteScheduleId;
     }

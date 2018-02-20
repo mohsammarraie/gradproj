@@ -21,6 +21,8 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import javax.faces.application.FacesMessage;
 import models.Trip;
@@ -44,6 +46,7 @@ public class DriverSchedulesBean implements Serializable {
     private int routeId;
     private String nationalId;
     private boolean color;
+    private String colorClass;
 
     String error_message_header = "";
     String error_message_content = "";
@@ -58,6 +61,8 @@ public class DriverSchedulesBean implements Serializable {
             nationalId= sessionBean.getDriverUserNationalId();
             driverId = driversDao.nationalIdToDriverId(nationalId);
             driverSchedulesArray = driverSchedulesDao.buildDriverSchedules(driverId);
+            Collections.sort(driverSchedulesArray, (DriverSchedule ds1, DriverSchedule ds2) -> Long.valueOf(ds2.getDepartureTimeDifference()).compareTo(ds1.getDepartureTimeDifference()));
+            
 
         } catch (Exception ex) {
 
@@ -65,6 +70,14 @@ public class DriverSchedulesBean implements Serializable {
         }
     }
 
+    public String getColorClass() {
+        return colorClass;
+    }
+
+    public void setColorClass(String colorClass) {
+        this.colorClass = colorClass;
+    }
+    
     public boolean isColor() {
         return color;
     }
@@ -145,10 +158,11 @@ public class DriverSchedulesBean implements Serializable {
             Calendar calEarlyTime = Calendar.getInstance();
 
             calCurrentTime.setTime(currentTimeOnly);
-            //calLateTime.setTime(scheduleDepartureTimeOnly);
+            calLateTime.setTime(scheduleDepartureTimeOnly);
             calEarlyTime.setTime(scheduleDepartureTimeOnly);
 
             calEarlyTime.add(Calendar.MINUTE, -30);
+            calLateTime.add(Calendar.MINUTE, 60);
 
             if (calCurrentTime.compareTo(calEarlyTime) > 0) {
                 
@@ -192,8 +206,14 @@ public class DriverSchedulesBean implements Serializable {
 
     }
 
-    public boolean startTripRestriction(Date scheduleDepartureTime) {
-    
+    public String startTripRestriction(Date scheduleDepartureTime) {
+        
+        try {
+            driverSchedulesArray = driverSchedulesDao.buildDriverSchedules(driverId);
+        } catch (Exception ex) {
+            Logger.getLogger(DriverSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         Date currentTime = new Date();
 //        scheduleDepartureTime = selectedSchedule.getDepartureTime();
         Format formatt = new SimpleDateFormat("dd-MM-yyyy HH:mm");
@@ -216,23 +236,39 @@ public class DriverSchedulesBean implements Serializable {
             Calendar calEarlyTime = Calendar.getInstance();
 
             calCurrentTime.setTime(currentTimeOnly);
-            //calLateTime.setTime(scheduleDepartureTimeOnly);
+            calLateTime.setTime(scheduleDepartureTimeOnly);
             calEarlyTime.setTime(scheduleDepartureTimeOnly);
 
             calEarlyTime.add(Calendar.MINUTE, -30);
-
-            if (calCurrentTime.compareTo(calEarlyTime) > 0) {
+            calLateTime.add(Calendar.MINUTE, 30);
+            
+            if (calCurrentTime.compareTo(calEarlyTime) > 0 && calCurrentTime.compareTo(calLateTime)<0) {
                 color =true;
+                colorClass="green";
+            }
+            else if(calCurrentTime.compareTo(calLateTime)>0){
+                colorClass="orange";
             }
             else{
                 color=false;
+                colorClass="red";
             }
 
         } catch (ParseException ex) {
             Logger.getLogger(DriverSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
             
-        return color;
+        return colorClass;
+    }
+    public void autoRefreshDataTable(){
+        try {
+            driverSchedulesArray = driverSchedulesDao.buildDriverSchedules(driverId);
+            Collections.sort(driverSchedulesArray, (DriverSchedule ds1, DriverSchedule ds2) -> Long.valueOf(ds2.getDepartureTimeDifference()).compareTo(ds1.getDepartureTimeDifference()));
+
+        } catch (Exception ex) {
+            Logger.getLogger(DriverSchedulesBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
 }
