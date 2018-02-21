@@ -18,14 +18,14 @@ and open the template in the editor.
     <h:body>
         <div style="width:100%;">
             <ui:decorate template="/app_templates/app_template.xhtml">
-                    <p:fieldset legend="#{msgs.filtering_criteria}" style="margin-bottom:20px">
+                    <p:fieldset legend="#{msgs.filtering_criteria}" style="margin-bottom:20px" styleClass="fieldset_box">
                         <h:form id="trip_details_info_form">
                             <h:panelGrid columns="4" cellpadding="5">
 
 
                                 <p:outputLabel value="#{msgs.route}:" for="report_route"/>
                                 <p:selectOneMenu value="#{manageReportsBean.routeId}"
-                                                 style="width: 320px;"
+                                                 style="width: 250px;"
                                                  id="report_route"
                                                  filter="true"
                                                  filterMatchMode="contains">
@@ -42,7 +42,7 @@ and open the template in the editor.
 
                                 <p:outputLabel value="#{msgs.status}:" for="report_status"/>
                                 <p:selectOneMenu value="#{langBean.isEnglish?manageReportsBean.statusEn:manageReportsBean.statusAr}"
-                                                 style="width: 320px;"
+                                                 style="width: 250px;"
                                                  id="report_status"
                                                  filter="true"
                                                  filterMatchMode="contains">
@@ -56,7 +56,7 @@ and open the template in the editor.
 
                                 <p:outputLabel value="#{msgs.route_schedules}" for="report_schedule_time"/>
                                 <p:selectOneMenu value="#{manageReportsBean.scheduleId}"
-                                                 style="width: 320px;"
+                                                 style="width: 250px;"
                                                  id="report_schedule_time"
                                                  filter="true"
                                                  filterMatchMode="contains">
@@ -71,7 +71,7 @@ and open the template in the editor.
 
                                 <p:outputLabel value="#{msgs.departure_time_status}:" for="report_departure_time_status"/>
                                 <p:selectOneMenu value="#{langBean.isEnglish?manageReportsBean.departureTimeStatusEn:manageReportsBean.departureTimeStatusAr}"
-                                                 style="width: 320px;"
+                                                 style="width: 250px;"
                                                  id="report_departure_time_status"
                                                  filter="true"
                                                  filterMatchMode="contains">
@@ -85,7 +85,7 @@ and open the template in the editor.
 
                                 <p:outputLabel value="#{msgs.driver_name}:" for="report_driver"/>
                                 <p:selectOneMenu value="#{manageReportsBean.driverId}"
-                                                 style="width: 320px;"
+                                                 style="width: 250px;"
                                                  id="report_driver"
                                                  filter="true"
                                                  filterMatchMode="contains">
@@ -99,7 +99,7 @@ and open the template in the editor.
 
                                 <p:outputLabel value="#{msgs.arrival_time_status}:" for="report_arrival_time_status"/>
                                 <p:selectOneMenu value="#{langBean.isEnglish?manageReportsBean.arrivalTimeStatusEn:manageReportsBean.arrivalTimeStatusAr}"
-                                                 style="width: 320px;"
+                                                 style="width: 250px;"
                                                  id="report_arrival_time_status"
                                                  filter="true"
                                                  filterMatchMode="contains">
@@ -113,7 +113,7 @@ and open the template in the editor.
 
                                 <p:outputLabel value="#{msgs.bus_license_number}:" for="report_license_number"/>
                                 <p:selectOneMenu value="#{manageReportsBean.busId}"
-                                                 style="width: 320px;"
+                                                 style="width: 250px;"
                                                  id="report_license_number"
                                                  filter="true"
                                                  filterMatchMode="contains">
@@ -127,7 +127,7 @@ and open the template in the editor.
 
                                 <p:outputLabel value="#{msgs.avg_rating_out_5}" for="report_avg_review"/>
                                 <p:selectOneMenu value="#{manageReportsBean.selectedAvgRating}"
-                                                 style="width: 320px;"
+                                                 style="width: 250px;"
                                                  id="report_avg_review"
                                                  filter="true"
                                                  filterMatchMode="contains">
@@ -180,11 +180,10 @@ and open the template in the editor.
                         </h:form> 
                     </p:fieldset>
 
-                    <h:form id="trip_details_info_tbl_form">
+                    <h:form id="trip_details_info_tbl_form" styleClass="trip_details_form">
                         <p:dataTable 
                             id="trip_details_info_tbl"
                             scrollable="true"
-                            scrollWidth	="100%"
                             value = "#{manageReportsBean.resultReportsArray}"
                             selection="#{manageReportsBean.selectedReport}"
                             rowKey="#{reportInfo.tripId}" 

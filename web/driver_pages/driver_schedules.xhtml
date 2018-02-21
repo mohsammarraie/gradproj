@@ -28,7 +28,7 @@ and open the template in the editor.
                         rowStyleClass="#{driverSchedulesBean.startTripRestriction(driverSchedule.departureTime)}" 
                         class = "dataTable"
                         var="driverSchedule"
-                        rows="20"
+                        rows="10"
                         rowsPerPageTemplate="5,10,20"
                         dir="#{langBean.dir}"
                         emptyMessage="#{msgs.no_schedules}"
@@ -36,8 +36,11 @@ and open the template in the editor.
                         paginatorPosition="top" 
                         paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
                         >
-                        <p:ajax event="rowSelectRadio"
-                                update=":driver_schedule_info_form:driver_schedule_info_tbl"/>  
+                        <p:ajax event="rowSelectRadio" listener="#{driverSchedulesBean.autoRefreshDataTable()}"
+                                update=":driver_schedule_info_form:driver_schedule_info_tbl"/> 
+                        
+                         <p:ajax event="page" listener="#{driverSchedulesBean.autoRefreshDataTable()}"
+                                update=":driver_schedule_info_form:driver_schedule_info_tbl"/> 
 
                         <f:facet name="header" id="header">
                             #{msgs.my_schedules}

@@ -64,6 +64,8 @@ public class DriverSchedulesBean implements Serializable {
             driverSchedulesArrayBeforeSort = driverSchedulesDao.buildDriverSchedules(driverId);
             Collections.sort(driverSchedulesArrayBeforeSort, (DriverSchedule ds1, DriverSchedule ds2) -> Long.valueOf(ds2.getDepartureTimeDifference()).compareTo(ds1.getDepartureTimeDifference()));
             driverSchedulesArray=driverSchedulesArrayBeforeSort;
+            
+        
 
         } catch (Exception ex) {
 

@@ -18,13 +18,13 @@ and open the template in the editor.
     <h:body>
         <div style="width:100%;">
             <ui:decorate template="/app_templates/app_template.xhtml">
-                    <p:fieldset legend="#{msgs.filtering_criteria}" style="margin-bottom:20px">
-                        <h:form id="report_info_form">
+                    <p:fieldset legend="#{msgs.filtering_criteria}" style="margin-bottom:20px" styleClass="fieldset_box">
+                        <h:form id="all_routes_schedules_form_search" >
                             <h:panelGrid columns="4" cellpadding="5">
 
                                 <p:outputLabel value="#{msgs.route}:" for="report_route"/>
                                 <p:selectOneMenu value="#{routeSchedulesViewBean.routeId}"
-                                                 style="width: 320px;"
+                                                 style="width: 250px;"
                                                  id="report_route"
                                                  filter="true"
                                                  filterMatchMode="contains">
@@ -55,7 +55,7 @@ and open the template in the editor.
                                 
                                 <p:outputLabel value="#{msgs.route_schedules}" for="report_schedule_time"/>
                                 <p:selectOneMenu value="#{routeSchedulesViewBean.scheduleId}"
-                                                 style="width: 320px;"
+                                                 style="width: 250px;"
                                                  id="report_schedule_time"
                                                  filter="true"
                                                  filterMatchMode="contains">
@@ -79,7 +79,7 @@ and open the template in the editor.
                                 
                                  <p:outputLabel value="#{msgs.bus_license_number}:" for="report_license_number"/>
                                 <p:selectOneMenu value="#{routeSchedulesViewBean.busId}"
-                                                 style="width: 320px;"
+                                                 style="width: 250px;"
                                                  id="report_license_number"
                                                  filter="true"
                                                  filterMatchMode="contains">
@@ -113,11 +113,10 @@ and open the template in the editor.
                     </p:fieldset>
                 
 
-                    <h:form id="report_info_tbl_form">
+                    <h:form id="all_routes_schedules_tbl_form" styleClass="all_routes_schedules_form">
                         <p:dataTable 
-                            id="report_info_tbl"
+                            id="all_routes_schedules_tbl"
                             scrollable="true"
-                            scrollWidth	="100%"
                             value = "#{routeSchedulesViewBean.allRouteSchedulesArray}"
                             class = "dataTable"
                             var="reportInfo"
