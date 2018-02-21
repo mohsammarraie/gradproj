@@ -25,54 +25,13 @@ and open the template in the editor.
 
                          direction:#{langBean.dir};margin-top:10px; font-size:10pt">
                     
-                        <c:if test="#{sessionBean.getSelectedScheduleId() gt 0}" >
                             <h:panelGrid id="edit"
-                                         style="float: #{langBean.styleFloat};" 
-                                         columns="4"                              
-                                         dir="#{langBean.dir}">
-
-                                <c:forEach var="routeStop" items="#{addEditRouteScheduleBean.routeStopsArray}" varStatus="loop">
-
-
-                                    <p:outputLabel for="time_#{loop.index}" value="#{langBean.isEnglish?routeStop.stopNameEn:routeStop.stopNameAr}:" />
-
-                                    <p:calendar id="time_#{loop.index}"
-                                                value="#{routeStop.time}"
-                                                dir="ltr"
-                                                pattern="HH:mm"
-                                                timeOnly="true"
-                                                navigator="true"
-                                                required="true"
-                                                yearRange="c-10:c+1"
-                                                timeInput="true"
-                                                requiredMessage=" #{msgs.required_msg}"/> 
-                                    <h:message for="time_#{loop.index}" styleClass="errorMsg"/>
-
-                                    <c:forEach var="routeSchedule" items="#{manageRouteSchedulesBean.routeScheduleStop}" >
-                                        <c:if test="#{routeSchedule.scheduleId==sessionBean.getSelectedScheduleId()}">
-                                            <h:form rendered="#{routeStop.stopId==routeSchedule.stopId}">
-        <!--                                                   <p:outputLabel for="displayed_driver_name" value="#{msgs.assigned_driver}:"/>-->
-
-                                                <h:outputLabel  value="#{routeSchedule.time}" for="time_#{loop.index}">  
-                                                    <f:convertDateTime pattern="HH:mm" />
-                                                </h:outputLabel>
-                                            </h:form>
-                                        </c:if>
-                                    </c:forEach>
-
-                                </c:forEach>  
-
-                            </h:panelGrid>
-                        </c:if>
-                        <c:if test="#{sessionBean.getSelectedScheduleId() le 0}" >
-                            <h:panelGrid id="add"
                                          style="float: #{langBean.styleFloat};" 
                                          columns="3"                              
                                          dir="#{langBean.dir}">
 
                                 <c:forEach var="routeStop" items="#{addEditRouteScheduleBean.routeStopsArray}" varStatus="loop">
 
-
                                     <p:outputLabel for="time_#{loop.index}" value="#{langBean.isEnglish?routeStop.stopNameEn:routeStop.stopNameAr}:" />
 
                                     <p:calendar id="time_#{loop.index}"
@@ -86,25 +45,9 @@ and open the template in the editor.
                                                 timeInput="true"
                                                 requiredMessage=" #{msgs.required_msg}"/> 
                                     <h:message for="time_#{loop.index}" styleClass="errorMsg"/>
-
-                                    <c:forEach var="routeSchedule" items="#{manageRouteSchedulesBean.routeScheduleStop}" >
-                                        <c:if test="#{routeSchedule.scheduleId==sessionBean.getSelectedScheduleId()}">
-                                            <h:form rendered="#{routeStop.stopId==routeSchedule.stopId}">
-        <!--                                                   <p:outputLabel for="displayed_driver_name" value="#{msgs.assigned_driver}:"/>-->
-
-                                                <h:outputLabel  value="#{routeSchedule.time}" for="time_#{loop.index}">  
-                                                    <f:convertDateTime pattern="HH:mm" />
-                                                </h:outputLabel>
-                                            </h:form>
-                                        </c:if>
-                                    </c:forEach>
-
                                 </c:forEach>  
 
                             </h:panelGrid>
-                        </c:if>
-
-
                 </p:panel>
 
                 <p:confirmDialog id="error_pop_up" header="#{msgs.error}" closeOnEscape="false" severity="alert" widgetVar="popup_add_edit_schedule" global="false" showEffect="fade"

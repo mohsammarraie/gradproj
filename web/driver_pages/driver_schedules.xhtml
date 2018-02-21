@@ -45,18 +45,18 @@ and open the template in the editor.
                         <p:column selectionMode="single" style="width:5%"/>
                     
                         <p:column headerText="#{msgs.route_code}"
-                                  style="width:20%"
+                                  style="width:14%"
                                   sortBy="#{driverSchedule.routeCode}">                    
                             <h:outputText value="#{driverSchedule.routeCode}"/>  
                         </p:column>
                         <p:column headerText="#{msgs.source}"
-                                  style="width:20%"
+                                  style="width:23%"
                                   sortBy="#{langBean.isEnglish?driverSchedule.sourceEn:driverSchedule.sourceAr}">                    
                             <h:outputText value="#{langBean.isEnglish?driverSchedule.sourceEn:driverSchedule.sourceAr}"/>  
                         </p:column>
 
                         <p:column headerText="#{msgs.destination}"
-                                  style="width:20%"
+                                  style="width:23%"
                                   sortBy="#{langBean.isEnglish?driverSchedule.destinationEn:driverSchedule.destinationAr}">                    
                             <h:outputText value="#{langBean.isEnglish?driverSchedule.destinationEn:driverSchedule.destinationAr}"/>  
                         </p:column>

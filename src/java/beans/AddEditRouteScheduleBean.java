@@ -36,16 +36,14 @@ public class AddEditRouteScheduleBean implements Serializable {
 
     private ArrayList<RouteSchedule> routeSchedulesArray;
     private ArrayList<Stop> routeScheduleStop = new ArrayList<>();
-    private ArrayList<Stop> addedStops = new ArrayList<>();
     private ArrayList<RouteStop> routeStopsArray;
-
+    
     private final RouteSchedulesDao routeSchedulesDao = new RouteSchedulesDao();
     private final RouteStopsDao routeStopsDao = new RouteStopsDao();
 
     private int scheduleId;
     private int stopId;
     private int routeId;
-    private Date time;
 
     String error_message_header = "";
     String error_message_content = "";
@@ -68,11 +66,13 @@ public class AddEditRouteScheduleBean implements Serializable {
             routeStopsArray = routeStopsDao.buildRouteStops(sessionBean.getSelectedRouteId()); // to display/iterate stops
 
             stopId = stops.getStopId();
+             scheduleId = sessionBean.getSelectedScheduleId();
             //to do here, stop id problem.
             if (scheduleId > 0) {
-
-                scheduleId = sessionBean.getSelectedScheduleId();
+               
                 routeScheduleStop = routeSchedulesDao.buildRouteScheduleStops(sessionBean.getSelectedRouteId());
+                setTimeOnCalander();
+
                
             }
         } catch (Exception ex) {
@@ -86,14 +86,6 @@ public class AddEditRouteScheduleBean implements Serializable {
 
     public void setRouteStopsArray(ArrayList<RouteStop> routeStopsArray) {
         this.routeStopsArray = routeStopsArray;
-    }
-
-    public ArrayList<Stop> getAddedStops() {
-        return addedStops;
-    }
-
-    public void setAddedStops(ArrayList<Stop> addedStops) {
-        this.addedStops = addedStops;
     }
 
     public ArrayList<Stop> getRouteScheduleStop() {
@@ -134,6 +126,21 @@ public class AddEditRouteScheduleBean implements Serializable {
 
     public void setStopId(int stopId) {
         this.stopId = stopId;
+    }
+
+    public void setTimeOnCalander() {
+
+        for (RouteStop routeStop : routeStopsArray) {
+            for (Stop routeSchedule : routeScheduleStop) {
+                if (routeSchedule.getScheduleId() == sessionBean.getSelectedScheduleId() && routeStop.getStopId() == routeSchedule.getStopId()) {
+
+                    routeStop.setTime(routeSchedule.getTime());
+                }
+
+            }
+
+        }
+
     }
 
     public void saveRouteSchedule() {
