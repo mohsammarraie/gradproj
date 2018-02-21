@@ -40,6 +40,7 @@ public class DriverSchedulesBean implements Serializable {
     private final TripsDao tripsDao = new TripsDao();
     private final DriversDao driversDao = new DriversDao();
     private ArrayList<DriverSchedule> driverSchedulesArray;
+     private ArrayList<DriverSchedule> driverSchedulesArrayBeforeSort;
     private DriverSchedule selectedSchedule;
     private int driverId;
     private int scheduleId;
@@ -60,9 +61,9 @@ public class DriverSchedulesBean implements Serializable {
             //startTripRestriction();
             nationalId= sessionBean.getDriverUserNationalId();
             driverId = driversDao.nationalIdToDriverId(nationalId);
-            driverSchedulesArray = driverSchedulesDao.buildDriverSchedules(driverId);
-            Collections.sort(driverSchedulesArray, (DriverSchedule ds1, DriverSchedule ds2) -> Long.valueOf(ds2.getDepartureTimeDifference()).compareTo(ds1.getDepartureTimeDifference()));
-            
+            driverSchedulesArrayBeforeSort = driverSchedulesDao.buildDriverSchedules(driverId);
+            Collections.sort(driverSchedulesArrayBeforeSort, (DriverSchedule ds1, DriverSchedule ds2) -> Long.valueOf(ds2.getDepartureTimeDifference()).compareTo(ds1.getDepartureTimeDifference()));
+            driverSchedulesArray=driverSchedulesArrayBeforeSort;
 
         } catch (Exception ex) {
 
@@ -70,6 +71,14 @@ public class DriverSchedulesBean implements Serializable {
         }
     }
 
+    public ArrayList<DriverSchedule> getDriverSchedulesArrayBeforeSort() {
+        return driverSchedulesArrayBeforeSort;
+    }
+
+    public void setDriverSchedulesArrayBeforeSort(ArrayList<DriverSchedule> driverSchedulesArrayBeforeSort) {
+        this.driverSchedulesArrayBeforeSort = driverSchedulesArrayBeforeSort;
+    }
+    
     public String getColorClass() {
         return colorClass;
     }

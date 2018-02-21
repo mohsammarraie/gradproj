@@ -18,8 +18,27 @@ public class StudentTripReview {
     private int rating1;
     private int rating2;
     private int rating3;
+     private int rating4;
+    private int rating5;
     private int avgRating;
 
+    public int getRating4() {
+        return rating4;
+    }
+
+    public void setRating4(int rating4) {
+        this.rating4 = rating4;
+    }
+
+    public int getRating5() {
+        return rating5;
+    }
+
+    public void setRating5(int rating5) {
+        this.rating5 = rating5;
+    }
+    
+    
     public int getReviewId() {
         return reviewId;
     }

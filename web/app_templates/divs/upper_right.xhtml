@@ -3,15 +3,26 @@
                 xmlns:h="http://java.sun.com/jsf/html">                            
     <h:form id="logout_form"> 
         <h:panelGrid cellspacing="5px" columns="2" >
+            
             <h:commandLink style="float:left"
                            styleClass="commandLink"
                            value="#{langBean.linkLabel}"                       
-                           actionListener="#{langBean.toggleLanguage()}"/>        
+                           actionListener="#{langBean.toggleLanguage()}">
+                 <h:graphicImage style="float:left;margin:5px;" 
+                                        library="images" 
+                                        name="language.png"
+                                        styleClass="imgCommandLink"/> 
+            </h:commandLink>        
             <h:commandLink value="#{msgs.logout}"  
                            styleClass="commandLink"
                            style="float:right"
                            actionListener="#{loginBean.logout()}"
-                           action="/index.xhtml"/> 
+                           action="/index.xhtml">
+                  <h:graphicImage style="float:left;margin:5px;" 
+                                        library="images" 
+                                        name="logout.png"
+                                        styleClass="imgCommandLink"/> 
+            </h:commandLink> 
         </h:panelGrid>
     </h:form>               
 </ui:composition>    

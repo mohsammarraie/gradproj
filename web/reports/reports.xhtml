@@ -182,6 +182,7 @@ and open the template in the editor.
                 
 
                     <h:form id="report_info_tbl_form">
+                        
                         <p:dataTable 
                             id="report_info_tbl"
                             scrollable="true"
@@ -206,19 +207,19 @@ and open the template in the editor.
                                 #{msgs.reports}
                             </f:facet> 
                             <p:column headerText="#{msgs.bus_license_number}"
-                                      style="width:20%"
+                                      style="width:100px"
 
                                       sortBy="#{reportInfo.licenseNumber}">                    
                                 <h:outputText value="#{reportInfo.licenseNumber}"/>  
                             </p:column>
                             <p:column headerText="#{msgs.bus_capacity}"
-                                      style="width:15%"
+                                      style="width:100px"
 
                                       sortBy="#{reportInfo.capacity}">                    
                                 <h:outputText value="#{reportInfo.capacity}"/>  
                             </p:column>
                             <p:column headerText="#{msgs.driver_national_id}"
-                                      style="width:20%"
+                                      style="width:100px"
 
                                       sortBy="#{reportInfo.nationalId}">                    
                                 <h:outputText value="#{reportInfo.nationalId}"/>  
@@ -226,34 +227,34 @@ and open the template in the editor.
 
 
                             <p:column headerText="#{msgs.driver_name}"
-                                      style="width:20%"
+                                      style="width:200px"
 
                                       sortBy="#{langBean.isEnglish?reportInfo.driverNameEn:reportInfo.driverNameAr}">                    
                                 <h:outputText value="#{langBean.isEnglish?reportInfo.driverNameEn:reportInfo.driverNameAr}"/>  
                             </p:column>
 
                             <p:column headerText="#{msgs.route_code}"
-                                      style="width:15%"
+                                      style="width:100px"
 
                                       sortBy="#{reportInfo.routeCode}">                    
                                 <h:outputText value="#{reportInfo.routeCode}"/>  
                             </p:column>
                             <p:column headerText="#{msgs.source}"
-                                      style="width:25%"
+                                      style="width:200px"
 
                                       sortBy="#{langBean.isEnglish?reportInfo.sourceEn:reportInfo.sourceAr}">                    
                                 <h:outputText value="#{langBean.isEnglish?reportInfo.sourceEn:reportInfo.sourceAr}"/>  
                             </p:column>
 
                             <p:column headerText="#{msgs.destination}"
-                                      style="width:25%"
+                                      style="width:200px"
 
                                       sortBy="#{langBean.isEnglish?reportInfo.destinationEn:reportInfo.destinationAr}">                    
                                 <h:outputText value="#{langBean.isEnglish?reportInfo.destinationEn:reportInfo.destinationAr}"/>  
                             </p:column>
 
                             <p:column headerText="#{msgs.departure_time}"
-                                      style="width:20%"
+                                      style="width:100px"
 
                                       sortBy="#{reportInfo.departureTime}">
                                 <h:outputText value="#{reportInfo.departureTime}">  
@@ -263,7 +264,7 @@ and open the template in the editor.
                             </p:column>
 
                             <p:column headerText="#{msgs.arrival_time}"
-                                      style="width:20%"
+                                      style="width:100px"
 
                                       sortBy="#{reportInfo.arrivalTime}">                    
                                 <h:outputText value="#{reportInfo.arrivalTime}">  
@@ -271,7 +272,7 @@ and open the template in the editor.
                                 </h:outputText>  
                             </p:column>
                             <p:column headerText="#{msgs.actual_departure_time}"
-                                      style="width:20%"
+                                      style="width:100px"
 
                                       sortBy="#{reportInfo.actualDepartureTime}">                    
                                 <h:outputText value="#{reportInfo.actualDepartureTime}">  
@@ -279,7 +280,7 @@ and open the template in the editor.
                                 </h:outputText>  
                             </p:column>
                             <p:column headerText="#{msgs.actual_arrival_time}"
-                                      style="width:20%"
+                                      style="width:100px"
 
                                       sortBy="#{reportInfo.actualArrivalTime}">                    
                                 <h:outputText value="#{reportInfo.actualArrivalTime}">  
@@ -287,26 +288,26 @@ and open the template in the editor.
                                 </h:outputText>  
                             </p:column>
                             <p:column headerText="#{msgs.status}"
-                                      style="width:20%"
+                                      style="width:100px"
 
                                       sortBy="#{langBean.isEnglish?reportInfo.statusEn:reportInfo.statusAr}">                    
                                 <h:outputText value="#{langBean.isEnglish?reportInfo.statusEn:reportInfo.statusAr}"/>  
                             </p:column>
                             <p:column headerText="#{msgs.departure_time_status}"
-                                      style="width:20%"
+                                      style="width:100px"
 
                                       sortBy="#{langBean.isEnglish?reportInfo.departureTimeStatusEn:reportInfo.departureTimeStatusAr}">                    
                                 <h:outputText value="#{langBean.isEnglish?reportInfo.departureTimeStatusEn:reportInfo.departureTimeStatusAr}"/>  
                             </p:column>
                             <p:column headerText="#{msgs.arrival_time_status}"
-                                      style="width:20%"
+                                      style="width:100px"
 
                                       sortBy="#{langBean.isEnglish?reportInfo.arrivalTimeStatusEn:reportInfo.arrivalTimeStatusAr}">                    
                                 <h:outputText value="#{langBean.isEnglish?reportInfo.arrivalTimeStatusEn:reportInfo.arrivalTimeStatusAr}"/>  
                             </p:column>
 
                             <p:column headerText="#{msgs.avg_rating}"
-                                      style="width:20%">
+                                      style="width:100px">
                                    
                                 <h:outputText value="#{reportInfo.avgRating>0?reportInfo.avgRating:msgs.not_available}"/>
 

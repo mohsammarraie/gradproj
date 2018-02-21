@@ -10,35 +10,47 @@
             <p:tab title="#{msgs.buses}">  
                 <p:ribbonGroup styleClass="ribbonGroup"
                                style="float:#{langBean.styleFloat};">
-
-                    <p:commandButton  value="#{msgs.home}" 
-                                      icon=" ui-icon-home"
-                                      iconPos="#{langBean.styleFloat}"
-                                      styleClass="ribbonButton" 
-                                      style="float:#{langBean.styleFloat};"
-                                      actionListener="#{sessionBean.setMenuIndex(0)}"
-                                      action="#{sessionBean.navigateDriverHome()}">                       
-                    </p:commandButton>
-                    <p:commandButton  value="#{msgs.my_schedules}" 
-                                      icon="ui-icon-calendar"
-                                      iconPos="#{langBean.styleFloat}"
-                                      styleClass="ribbonButton" 
-                                      style="float:#{langBean.styleFloat};"
-                                      actionListener="#{sessionBean.setMenuIndex(0)}"
-                                      action="#{sessionBean.navigateDriverSchedules()}">                       
-                    </p:commandButton>
-                    <p:commandButton  value="#{msgs.past_trips}" 
-                                      styleClass="ribbonButton" 
-                                      style="float:#{langBean.styleFloat};"
-                                      actionListener="#{sessionBean.setMenuIndex(0)}"
-                                      action="#{sessionBean.navigateDriverPastTrips()}">                       
-                    </p:commandButton>
-
+                    <div class="imgRibbonContainer">
+                        <p:commandButton  value="#{msgs.home}" 
+                                          styleClass="ribbonButton" 
+                                          style="float:#{langBean.styleFloat};"
+                                          actionListener="#{sessionBean.setMenuIndex(0)}"
+                                          action="#{sessionBean.navigateDriverHome()}">                       
+                        </p:commandButton>
+                        <h:graphicImage style="float:left;margin:5px;" 
+                                        library="images" 
+                                        name="home.png"
+                                        styleClass="imgRibbon"/> 
+                    </div>   
+                    <div class="imgRibbonContainer">
+                        <p:commandButton  value="#{msgs.my_schedules}" 
+                                          styleClass="ribbonButton" 
+                                          style="float:#{langBean.styleFloat};"
+                                          actionListener="#{sessionBean.setMenuIndex(0)}"
+                                          action="#{sessionBean.navigateDriverSchedules()}">                       
+                        </p:commandButton>
+                        <h:graphicImage style="float:left;margin:5px;" 
+                                        library="images" 
+                                        name="schedule.png"
+                                        styleClass="imgRibbon"/> 
+                    </div>      
+                    <div class="imgRibbonContainer">
+                        <p:commandButton  value="#{msgs.past_trips}" 
+                                          styleClass="ribbonButton" 
+                                          style="float:#{langBean.styleFloat};"
+                                          actionListener="#{sessionBean.setMenuIndex(0)}"
+                                          action="#{sessionBean.navigateDriverPastTrips()}">                       
+                        </p:commandButton>
+                        <h:graphicImage style="float:left;margin:5px;" 
+                                        library="images" 
+                                        name="past_trip.png"
+                                        styleClass="imgRibbon"/> 
+                    </div>
 
                 </p:ribbonGroup>
             </p:tab>
 
-     
+
 
         </p:ribbon>
     </h:form>

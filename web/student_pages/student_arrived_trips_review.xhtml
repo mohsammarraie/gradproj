@@ -25,6 +25,8 @@ and open the template in the editor.
                         selection="#{studentArrivedTripsReviewBean.selectedTrip}"
                         rowKey="#{studentPastTrip.tripId}"  
                         class = "dataTable"
+                         scrollable="true"
+                           scrollWidth	="100%"
                         var="studentPastTrip"
                         rows="5"
                         rowsPerPageTemplate="5,10,20"
@@ -40,65 +42,44 @@ and open the template in the editor.
                         <f:facet name="header" id="header">
                             #{msgs.review_past_trips}
                         </f:facet> 
-                        <p:column selectionMode="single" style="width:5%"/>
+                        <p:column selectionMode="single" style="width:30px"/>
 
-                        <p:column headerText="#{msgs.trip_id}"
-                                  style="width:20%"
-                                  filterBy="#{studentTrip.tripId}"
-                                  filterMatchMode="contains"
-                                  sortBy="#{studentTrip.tripId}">                    
-                            <h:outputText value="#{studentPastTrip.tripId}"/>  
-                        </p:column>
 
                         <p:column headerText="#{msgs.route_code}"
-                                  style="width:20%"
-                                  filterBy="#{studentTrip.routeCode}"
-                                  filterMatchMode="contains"
+                                  style="width:100px"
                                   sortBy="#{studentTrip.routeCode}">                    
                             <h:outputText value="#{studentPastTrip.routeCode}"/>  
                         </p:column>
 
                         <p:column headerText="#{msgs.bus_license_number}"
-                                  style="width:20%"
-                                  filterBy="#{studentPastTrip.licenseNumber}"
-                                  filterMatchMode="contains"
+                                  style="width:100px"
                                   sortBy="#{studentPastTrip.licenseNumber}">                    
                             <h:outputText value="#{studentPastTrip.licenseNumber}"/>  
                         </p:column>
                         <p:column headerText="#{msgs.capacity}"
-                                  style="width:20%"
-                                  filterBy="#{studentPastTrip.capacity}"
-                                  filterMatchMode="contains"
+                                  style="width:100px"
                                   sortBy="#{studentPastTrip.capacity}">                    
                             <h:outputText value="#{studentPastTrip.capacity}"/>  
                         </p:column>
                         <p:column headerText="#{msgs.driver_name}"
-                                  style="width:20%"
-                                  filterBy="#{langBean.isEnglish?studentPastTrip.driverNameEn:studentPastTrip.driverNameAr}"
-                                  filterMatchMode="contains"
+                                  style="width:200px"
                                   sortBy="#{langBean.isEnglish?studentPastTrip.driverNameEn:studentPastTrip.driverNameAr}">                    
                             <h:outputText value="#{langBean.isEnglish?studentPastTrip.driverNameEn:studentPastTrip.driverNameAr}"/>  
                         </p:column>
                         <p:column headerText="#{msgs.source}"
-                                  style="width:20%"
-                                  filterBy="#{langBean.isEnglish?studentPastTrip.sourceEn:studentPastTrip.sourceAr}"
-                                  filterMatchMode="contains"
+                                  style="width:200px"
                                   sortBy="#{langBean.isEnglish?studentPastTrip.sourceEn:studentPastTrip.sourceAr}">                    
                             <h:outputText value="#{langBean.isEnglish?studentPastTrip.sourceEn:studentPastTrip.sourceAr}"/>  
                         </p:column>
 
                         <p:column headerText="#{msgs.destination}"
-                                  style="width:20%"
-                                  filterBy="#{langBean.isEnglish?studentPastTrip.destinationEn:studentPastTrip.destinationAr}"
-                                  filterMatchMode="contains"
+                                  style="width:200px"
                                   sortBy="#{langBean.isEnglish?studentPastTrip.destinationEn:studentPastTrip.destinationAr}">                    
                             <h:outputText value="#{langBean.isEnglish?studentPastTrip.destinationEn:studentPastTrip.destinationAr}"/>  
                         </p:column>
 
                         <p:column headerText="#{msgs.departure_time}"
-                                  style="width:20%"
-                                  filterBy="#{studentPastTrip.departureTime}"
-                                  filterMatchMode="contains"
+                                  style="width:100px"
                                   sortBy="#{studentPastTrip.departureTime}">
                             <h:outputText value="#{studentPastTrip.departureTime}">  
                                 <f:convertDateTime pattern="HH:mm" />
@@ -107,27 +88,21 @@ and open the template in the editor.
                         </p:column>
 
                         <p:column headerText="#{msgs.arrival_time}"
-                                  style="width:20%"
-                                  filterBy="#{studentPastTrip.arrivalTime}"
-                                  filterMatchMode="contains"
+                                  style="width:100px"
                                   sortBy="#{studentPastTrip.arrivalTime}">                    
                             <h:outputText value="#{studentPastTrip.arrivalTime}">  
                                 <f:convertDateTime pattern="HH:mm" />
                             </h:outputText>  
                         </p:column>
                         <p:column headerText="#{msgs.actual_departure_time}"
-                                  style="width:20%"
-                                  filterBy="#{studentPastTrip.actualDepartureTime}"
-                                  filterMatchMode="contains"
+                                  style="width:100px"
                                   sortBy="#{studentPastTrip.actualDepartureTime}">
                             <h:outputText value="#{studentPastTrip.actualDepartureTime}">  
                                 <f:convertDateTime pattern="HH:mm" />
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msgs.actual_arrival_time}"
-                                  style="width:20%"
-                                  filterBy="#{studentPastTrip.actualArrivalTime}"
-                                  filterMatchMode="contains"
+                                  style="width:100px"
                                   sortBy="#{studentPastTrip.actualArrivalTime}">
                             <h:outputText value="#{studentPastTrip.actualArrivalTime}">  
                                 <f:convertDateTime pattern="HH:mm" />
@@ -136,9 +111,7 @@ and open the template in the editor.
                         </p:column>
 
                         <p:column headerText="#{msgs.review_status}"
-                                  style="width:20%"
-                                   filterBy="#{studentArrivedTripsReviewBean.displayReviewStatusOnStudentReview(studentPastTrip.tripId,langBean.isEnglish?1:0)}"
-                                    filterMatchMode="contains">
+                                  style="width:100px">
                            
                             <h:outputText value="#{studentArrivedTripsReviewBean.displayReviewStatusOnStudentReview(studentPastTrip.tripId,langBean.isEnglish?1:0)}"/>
 

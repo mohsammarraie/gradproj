@@ -33,6 +33,8 @@ public class StudentReviewBean implements Serializable {
     private int rating1;
     private int rating2;
     private int rating3;
+    private int rating4;
+    private int rating5;
     private int tripId;
     private String studentId;
     StudentTripReview studentTripReview = new StudentTripReview();
@@ -58,6 +60,22 @@ public class StudentReviewBean implements Serializable {
         }
     }
 
+    public int getRating4() {
+        return rating4;
+    }
+
+    public void setRating4(int rating4) {
+        this.rating4 = rating4;
+    }
+
+    public int getRating5() {
+        return rating5;
+    }
+
+    public void setRating5(int rating5) {
+        this.rating5 = rating5;
+    }
+    
     public ArrayList<StudentTripReview> getStudentTripReviewsArray() {
         return studentTripReviewsArray;
     }
@@ -121,6 +139,8 @@ public class StudentReviewBean implements Serializable {
             studentTripReview.setRating1(rating1);
             studentTripReview.setRating2(rating2);
             studentTripReview.setRating3(rating3);
+            studentTripReview.setRating4(rating4);
+            studentTripReview.setRating5(rating5);
             studentTripReview.setTripId(tripId);
             studentTripReview.setStudentId(studentId);
 

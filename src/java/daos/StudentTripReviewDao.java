@@ -54,6 +54,8 @@ public class StudentTripReviewDao extends ConnectionDao{
         studentTripReview.setRating1(rs.getInt("RATING_1"));
         studentTripReview.setRating2(rs.getInt("RATING_2"));
         studentTripReview.setRating3(rs.getInt("RATING_3"));
+        studentTripReview.setRating4(rs.getInt("RATING_4"));
+        studentTripReview.setRating5(rs.getInt("RATING_5"));
         studentTripReview.setAvgRating(rs.getInt("AVG_RATING"));
 
         return studentTripReview;
@@ -80,7 +82,8 @@ public class StudentTripReviewDao extends ConnectionDao{
                 countOrMax = "count";
             }
             
-            studentTripReview.setAvgRating((studentTripReview.getRating1()+studentTripReview.getRating2()+studentTripReview.getRating3())/3);
+            studentTripReview.setAvgRating((studentTripReview.getRating1()+studentTripReview.getRating2()+studentTripReview.getRating3()
+                    +studentTripReview.getRating4()+studentTripReview.getRating5())/5);
             
             
             String sql = "INSERT INTO BUSES.STUDENT_TRIP_REVIEWS (REVIEW_ID,"
@@ -90,8 +93,10 @@ public class StudentTripReviewDao extends ConnectionDao{
                     + " RATING_2,"
                     + " RATING_3,"
                     + " AVG_RATING,"
-                    + " REVIEW_TEXT)"
-                    + " VALUES ((select " + countOrMax + "(REVIEW_ID) from BUSES.STUDENT_TRIP_REVIEWS)+1,?,?,?,?,?,?,?)";
+                    + " REVIEW_TEXT,"
+                    + " RATING_4,"
+                    + " RATING_5)"
+                    + " VALUES ((select " + countOrMax + "(REVIEW_ID) from BUSES.STUDENT_TRIP_REVIEWS)+1,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, studentTripReview.getTripId());
@@ -101,6 +106,8 @@ public class StudentTripReviewDao extends ConnectionDao{
             ps.setInt(5, studentTripReview.getRating3());
             ps.setInt(6, studentTripReview.getAvgRating());
             ps.setString(7, studentTripReview.getReviewText());
+            ps.setInt(8, studentTripReview.getRating4());
+            ps.setInt(9, studentTripReview.getRating5());
             ps.executeUpdate();
 
             ps.close();

@@ -41,31 +41,23 @@ and open the template in the editor.
 
                         <p:column headerText="#{msgs.route_code}"
                                   style="width:20%"
-                                  filterBy="#{pastTrip.routeCode}"
-                                  filterMatchMode="contains"
                                   sortBy="#{pastTrip.routeCode}">                    
                             <h:outputText value="#{pastTrip.routeCode}"/>  
                         </p:column>
                         <p:column headerText="#{msgs.source}"
                                   style="width:20%"
-                                  filterBy="#{langBean.isEnglish?pastTrip.sourceEn:pastTrip.sourceAr}"
-                                  filterMatchMode="contains"
                                   sortBy="#{langBean.isEnglish?pastTrip.sourceEn:pastTrip.sourceAr}">                    
                             <h:outputText value="#{langBean.isEnglish?pastTrip.sourceEn:pastTrip.sourceAr}"/>  
                         </p:column>
 
                         <p:column headerText="#{msgs.destination}"
                                   style="width:20%"
-                                  filterBy="#{langBean.isEnglish?pastTrip.destinationEn:pastTrip.destinationAr}"
-                                  filterMatchMode="contains"
                                   sortBy="#{langBean.isEnglish?pastTrip.destinationEn:pastTrip.destinationAr}">                    
                             <h:outputText value="#{langBean.isEnglish?pastTrip.destinationEn:pastTrip.destinationAr}"/>  
                         </p:column>
 
                         <p:column headerText="#{msgs.departure_time}"
                                   style="width:20%"
-                                  filterBy="#{pastTrip.departureTime}"
-                                  filterMatchMode="contains"
                                   sortBy="#{pastTrip.departureTime}">
                             <h:outputText value="#{pastTrip.departureTime}">  
                                 <f:convertDateTime pattern="HH:mm" />
@@ -75,8 +67,6 @@ and open the template in the editor.
 
                         <p:column headerText="#{msgs.arrival_time}"
                                   style="width:20%"
-                                  filterBy="#{pastTrip.arrivalTime}"
-                                  filterMatchMode="contains"
                                   sortBy="#{pastTrip.arrivalTime}">                    
                             <h:outputText value="#{pastTrip.arrivalTime}">  
                                 <f:convertDateTime pattern="HH:mm" />
@@ -84,8 +74,6 @@ and open the template in the editor.
                         </p:column>
                         <p:column headerText="#{msgs.actual_departure_time}"
                                   style="width:20%"
-                                  filterBy="#{pastTrip.actualDepartureTime}"
-                                  filterMatchMode="contains"
                                   sortBy="#{pastTrip.actualDepartureTime}">                    
                             <h:outputText value="#{pastTrip.actualDepartureTime}">  
                                 <f:convertDateTime pattern="HH:mm" />
@@ -93,8 +81,6 @@ and open the template in the editor.
                         </p:column>
                         <p:column headerText="#{msgs.actual_arrival_time}"
                                   style="width:20%"
-                                  filterBy="#{pastTrip.actualArrivalTime}"
-                                  filterMatchMode="contains"
                                   sortBy="#{pastTrip.actualArrivalTime}">                    
                             <h:outputText value="#{pastTrip.actualArrivalTime}">  
                                 <f:convertDateTime pattern="HH:mm" />
@@ -102,8 +88,6 @@ and open the template in the editor.
                         </p:column>
                         <p:column headerText="#{msgs.status}"
                                   style="width:20%"
-                                  filterBy="#{langBean.isEnglish?pastTrip.statusEn:pastTrip.statusAr}"
-                                  filterMatchMode="contains"
                                   sortBy="#{langBean.isEnglish?pastTrip.statusEn:pastTrip.statusAr}">                    
                             <h:outputText value="#{langBean.isEnglish?pastTrip.statusEn:pastTrip.statusAr}"/>  
                         </p:column>

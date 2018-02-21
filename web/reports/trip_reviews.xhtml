@@ -64,19 +64,33 @@ and open the template in the editor.
                             <h:outputText value="#{tripReview.rating1}"/>  
                         </p:column>
 
-                        <p:column headerText="question 2"
+                        <p:column headerText="#{msgs.msg_question2}"
                                   style="width:15%"
                                   filterBy="#{tripReview.rating2}"
                                   filterMatchMode="contains"
                                   sortBy="#{tripReview.rating2}">                    
                             <h:outputText value="#{tripReview.rating2}"/>  
                         </p:column>
-                           <p:column headerText="question 3"
+                           <p:column headerText="#{msgs.msg_question3}"
                                   style="width:15%"
                                   filterBy="#{tripReview.rating3}"
                                   filterMatchMode="contains"
                                   sortBy="#{tripReview.rating3}">                    
                             <h:outputText value="#{tripReview.rating3}"/>  
+                        </p:column>
+                            <p:column headerText="#{msgs.msg_question4}"
+                                  style="width:15%"
+                                  filterBy="#{tripReview.rating4}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{tripReview.rating4}">                    
+                            <h:outputText value="#{tripReview.rating4}"/>  
+                        </p:column>
+                           <p:column headerText="#{msgs.msg_question5}"
+                                  style="width:15%"
+                                  filterBy="#{tripReview.rating5}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{tripReview.rating5}">                    
+                            <h:outputText value="#{tripReview.rating5}"/>  
                         </p:column>
                            <p:column headerText="#{msgs.avg_rating}"
                                   style="width:15%"

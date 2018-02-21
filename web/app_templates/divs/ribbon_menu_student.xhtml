@@ -6,30 +6,52 @@
     <h:form id="ribbon_menu"             
             style="direction:#{langBean.dir}; width:100%">           
         <p:ribbon activeIndex="#{sessionBean.menuIndex}">                        
-           <p:tab title="#{msgs.buses}">  
+            <p:tab title="#{msgs.buses}">  
                 <p:ribbonGroup styleClass="ribbonGroup"
                                style="float:#{langBean.styleFloat};">
+                    <div class="imgRibbonContainer">
 
-                    <p:commandButton  value="#{msgs.home}" 
-                                      icon=" ui-icon-home"
-                                      iconPos="#{langBean.styleFloat}"
-                                      styleClass="ribbonButton" 
-                                      style="float:#{langBean.styleFloat};"
-                                      actionListener="#{sessionBean.setMenuIndex(0)}"
-                                      action="#{sessionBean.navigateStudentHome()}">                       
-                    </p:commandButton>
-                    <p:commandButton  value="#{msgs.current_trips}" 
-                                      styleClass="ribbonButton" 
-                                      style="float:#{langBean.styleFloat};"
-                                      actionListener="#{sessionBean.setMenuIndex(0)}"
-                                      action="#{sessionBean.navigateStudentCurrentTrips()}">                       
-                    </p:commandButton>
+                        <p:commandButton  value="#{msgs.home}" 
+                                          styleClass="ribbonButton" 
+                                          style="float:#{langBean.styleFloat};"
+                                          actionListener="#{sessionBean.setMenuIndex(0)}"
+                                          action="#{sessionBean.navigateStudentHome()}">                       
+                        </p:commandButton>
+                        <h:graphicImage style="float:left;margin:5px;" 
+                                        library="images" 
+                                        name="home.png"
+                                        styleClass="imgRibbon"/> 
+                    </div>
+
+
+                    <div class="imgRibbonContainer">
+
+                        <p:commandButton  value="#{msgs.current_trips}" 
+                                          styleClass="ribbonButton" 
+                                          style="float:#{langBean.styleFloat};"
+                                          actionListener="#{sessionBean.setMenuIndex(0)}"
+                                          action="#{sessionBean.navigateStudentCurrentTrips()}">                       
+                        </p:commandButton>
+                        <h:graphicImage style="float:left;margin:5px;" 
+                                        library="images" 
+                                        name="current_trip.png"
+                                        styleClass="imgRibbon"/> 
+                    </div>
+
+
+                    <div class="imgRibbonContainer">
+
                         <p:commandButton  value="#{msgs.review_past_trips}" 
-                                      styleClass="ribbonButton" 
-                                      style="float:#{langBean.styleFloat};"
-                                      actionListener="#{sessionBean.setMenuIndex(0)}"
-                                      action="#{sessionBean.navigateReviewPastTrips()}">                       
-                    </p:commandButton>
+                                          styleClass="ribbonButton" 
+                                          style="float:#{langBean.styleFloat};"
+                                          actionListener="#{sessionBean.setMenuIndex(0)}"
+                                          action="#{sessionBean.navigateReviewPastTrips()}">                       
+                        </p:commandButton>
+                        <h:graphicImage style="float:left;margin:5px;" 
+                                        library="images" 
+                                        name="review.png"
+                                        styleClass="imgRibbon"/> 
+                    </div>
 
 
                 </p:ribbonGroup>
