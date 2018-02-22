@@ -244,9 +244,9 @@ public class AssignBusesToSchedulesBean implements Serializable {
         try {
 
             if (setFlag()) {
-                busesSchedulesDao.updateBusSchedule(busId, routeId, scheduleId);
+                busesSchedulesDao.updateBusSchedule(busId, sessionBean.getSelectedRouteId(),  sessionBean.getSelectedScheduleId());
             } else {
-                busesSchedulesDao.insertBusSchedule(busId, routeId, scheduleId);
+                busesSchedulesDao.insertBusSchedule(busId, sessionBean.getSelectedRouteId(),  sessionBean.getSelectedScheduleId());
             }
 
             sessionBean.navigateManageRouteSchedules();
@@ -258,6 +258,7 @@ public class AssignBusesToSchedulesBean implements Serializable {
            routeId= Integer.parseInt(errorMessageArray[11]);
            scheduleId=Integer.parseInt(errorMessageArray[12]);
             try {
+            
                 BusScheduleConflict busScheduleConflict = busesSchedulesDao.getBusesSchedulesConflicts(routeId, scheduleId, busId);
                     arrivalTime=busScheduleConflict.getArrivalTime();
                     departureTime=busScheduleConflict.getDepartureTime();
@@ -271,7 +272,7 @@ public class AssignBusesToSchedulesBean implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 context.execute("PF('popup_bus_schedule_conflict').show();");
                 
-               
+                   init();
             } catch (Exception ex1) {
                 Logger.getLogger(AssignBusesToSchedulesBean.class.getName()).log(Level.SEVERE, null, ex1);
             }

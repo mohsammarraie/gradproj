@@ -33,7 +33,7 @@ and open the template in the editor.
                                      maxlength="20"  
                                      requiredMessage="#{msgs.required_msg}"
                                      validatorMessage="#{msgs.national_id_valid_msg}">
-                            <f:validateRegex pattern="[a-zA-Z]?[0-9]{6,15}$"/>
+                            <f:validateRegex pattern="[a-zA-Z]?[0-9]{8,12}$"/>
                         </p:inputText>
                         <h:message for="national_id" styleClass="errorMsg"/>
 

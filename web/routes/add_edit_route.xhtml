@@ -88,13 +88,7 @@ and open the template in the editor.
                         </p:inputText>
                         <h:message for="destination_ar" styleClass="errorMsg"/>
 
-                        <p:outputLabel value="#{msgs.active}:" for="msg_checked"/>
-                        <p:column  style="width:5%">
-                            <p:growl id="msg_checked" />
-                            <p:selectBooleanCheckbox value="#{addEditRouteBean.checkBoxValue}">
-                                <p:ajax update="msg_checked" listener="#{addEditRouteBean.addActive}" />
-                            </p:selectBooleanCheckbox>
-                        </p:column>
+
 
 
                     </h:panelGrid>
