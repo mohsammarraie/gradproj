@@ -38,15 +38,15 @@ and open the template in the editor.
                         >
                         <p:ajax event="rowSelectRadio" listener="#{driverSchedulesBean.autoRefreshDataTable()}"
                                 update=":driver_schedule_info_form:driver_schedule_info_tbl"/> 
-                        
-                         <p:ajax event="page" listener="#{driverSchedulesBean.autoRefreshDataTable()}"
+
+                        <p:ajax event="page" listener="#{driverSchedulesBean.autoRefreshDataTable()}"
                                 update=":driver_schedule_info_form:driver_schedule_info_tbl"/> 
 
                         <f:facet name="header" id="header">
                             #{msgs.my_schedules}
                         </f:facet> 
                         <p:column selectionMode="single" style="width:5%"/>
-                    
+
                         <p:column headerText="#{msgs.route_code}"
                                   style="width:14%"
                                   sortBy="#{driverSchedule.routeCode}">                    
@@ -96,6 +96,32 @@ and open the template in the editor.
                             </p:toolbar>
                         </f:facet>
                     </p:dataTable>
+
+                    <div  style="float:#{langBean.styleFloat}; direction:#{langBean.dir};">
+                        <div id="red_legend" >
+                            <h:outputText id="red_sign" />
+
+                        </div>
+
+                        <p:outputLabel for="red_sign" value="#{msgs.red_legend_msg}"/>
+                        <br></br>
+                        <div id="green_legend" >
+                            <h:outputText id="green_sign" />
+
+                        </div>
+
+                        <p:outputLabel for="green_sign" value="#{msgs.green_legend_msg}"/>
+                        <br></br>
+                        <div id="orange_legend" >
+                            <h:outputText id="orange_sign" />
+
+                        </div>
+
+                        <p:outputLabel for="orange_sign" value="#{msgs.orange_legend_msg}"/>
+                        <div style="margin-bottom:20px;"/>
+                    </div>
+
+
                     <p:poll interval="60" listener="#{driverSchedulesBean.autoRefreshDataTable()}" update="driver_schedule_info_tbl"/>
 
                     <p:confirmDialog id="error_pop_up" header="#{msgs.error}" closeOnEscape="false" severity="alert" widgetVar="popup_driver_schedule" global="false" showEffect="fade"

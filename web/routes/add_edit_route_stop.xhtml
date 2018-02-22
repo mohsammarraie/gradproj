@@ -57,6 +57,13 @@ and open the template in the editor.
                         <h:message for="stop_order" styleClass="errorMsg"/>    
                     </h:panelGrid>
                 </p:panel>
+                
+                 <p:confirmDialog id="error_pop_up" header="#{msgs.error}" closeOnEscape="false" severity="alert" widgetVar="popup_add_edit_route_stop" global="false" showEffect="fade"
+                                 hideEffect="fade"
+                                 message="#{msgs.add_edit_route_stop_msg}"
+                                 style=" font-size: 17px; float:#{langBean.styleFloat}">
+
+                </p:confirmDialog>
 
                 <p:commandButton value="#{msgs.save}"
                                  styleClass="commandButton"

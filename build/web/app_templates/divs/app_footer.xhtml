@@ -1,9 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html">                  
-    <h:outputText style="float:left;"
+    <h:outputText style="float:#{langBean.styleFloat}; direction:#{langBean.dir};"
                   value="#{msgs.footer_text}"/>
-    <h:outputText style="float:right;"
-                  value=""/>   
+      
 </ui:composition>
-    

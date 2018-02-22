@@ -149,7 +149,7 @@
     width:99.8%;
     margin-top:10px;
     margin-bottom:15px;  
-  
+
 }
 
 .commandButton{ 
@@ -283,20 +283,47 @@ legend.ui-fieldset-legend.ui-corner-all.ui-state-default{
     width: 100%;
     margin-top:10px;
 }
+#red_legend{
+    background-color: #E55451;
+    height:20px;
+    width: 20px;
+    display:inline-block;
+    margin-left:3px;
+    margin-right:3px;
+
+}
+#orange_legend{
+    background-color: orange;
+    height:20px;
+    width: 20px;
+    display:inline-block;
+    margin-left:3px;
+    margin-right:3px;
+
+}
+#green_legend{
+    background-color: lightgreen;
+    height:20px;
+    width: 20px;
+    display:inline-block;
+    margin-left:3px;
+    margin-right:3px;
+
+}
 
 @media(max-width:1220px){
 
-/*.ui-fieldset.ui-widget.ui-widget-content.ui-corner-all.ui-hidden-container.fieldset_box{
-   float: left;
-   width: 115%;
-}
-.report_table_form > .dataTable, .trip_details_form > .dataTable, .all_routes_schedules_form > .dataTable{
-
-    width:118%!important;
-   
-}*/
-#app_container{
-  width   :118% 
-}
+    /*.ui-fieldset.ui-widget.ui-widget-content.ui-corner-all.ui-hidden-container.fieldset_box{
+       float: left;
+       width: 115%;
+    }
+    .report_table_form > .dataTable, .trip_details_form > .dataTable, .all_routes_schedules_form > .dataTable{
+    
+        width:118%!important;
+       
+    }*/
+    #app_container{
+        width   :118% 
+    }
 
 }
