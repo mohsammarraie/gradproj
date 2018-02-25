@@ -35,13 +35,15 @@ public class StudentMapBean implements Serializable {
     private MapModel model = new DefaultMapModel();
     private double lat;
     private double lng;
-
+    private String studentId;
     @Inject
     private SessionBean sessionBean;
 
     @PostConstruct
     public void init() {
-        try {
+        try { 
+            
+            studentId = sessionBean.getStudentUserId();
 
             studentRouteSchedulesStopsArray = studentTripsDao.buildStudentRouteStopsSchedules(sessionBean.getSelectedTripId());
             displayLongLatOnMap();
@@ -51,6 +53,23 @@ public class StudentMapBean implements Serializable {
         }
     }
 
+    public void checkStudentOrAdminBackButton() {
+
+        if (studentId != null) {
+            sessionBean.navigateStudentCurrentTrips();
+        } else {
+            sessionBean.navigateTripsDetails();
+        }
+
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
     public double getLat() {
         return lat;
     }
