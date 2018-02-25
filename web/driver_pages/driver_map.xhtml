@@ -22,7 +22,7 @@
 
                 <h:form id="driver_trip_info_form">
 
-                    <p:fieldset legend="#{msgs.route_stops}" style="margin-bottom:20px; " >
+                    <p:fieldset legend="#{msgs.route_stops}"  style=" direction:#{langBean.dir}; margin-bottom:20px" >
                         <h:panelGrid columns="2" cellpadding="5" style="float: #{langBean.styleFloat};  direction:#{langBean.dir};">
 
                             <c:forEach var="driverRouteScheduleStop" items="#{tripsBean.driverRouteSchedulesStopsArray}" varStatus="loop">

@@ -19,7 +19,7 @@ and open the template in the editor.
         <div>
             <ui:decorate template="/app_templates/app_template_driver.xhtml">
 
-             <table cellpadding="4" style="float: left" width="180px">
+             <table cellpadding="4" style="float: #{langBean.styleFloat};  direction:#{langBean.dir};">
                     <tbody>
                         <tr>
                             <td>
@@ -31,8 +31,8 @@ and open the template in the editor.
                        
                     </tbody>
                 </table>
-                <p:fieldset legend="#{msgs.personal_information}" style="margin-bottom:20px">
-                    <h:panelGrid columns="2" cellpadding="5">
+                <p:fieldset legend="#{msgs.personal_information}" style=" direction:#{langBean.dir}; margin-bottom:20px">
+                    <h:panelGrid columns="2" cellpadding="5" style="float: #{langBean.styleFloat};  direction:#{langBean.dir};">
                     
                         <p:outputLabel style="font-weight: bold;" value="#{msgs.first_name}:" for="driver__home_first_name"/>
                         <h:outputText id="driver__home_first_name" value="#{langBean.isEnglish?busDriverInfoBean.getBusDriverInfoArray().get(0).getFirstNameEn():busDriverInfoBean.getBusDriverInfoArray().get(0).getFirstNameAr()}" />
@@ -56,8 +56,8 @@ and open the template in the editor.
                         <h:outputText id="driver__home_phone_number"  value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getPhoneNumber()}" />
                     </h:panelGrid>
                 </p:fieldset>
-                  <p:fieldset legend="#{msgs.assigned_bus_information}" style="margin-bottom:20px">
-                    <h:panelGrid columns="2" cellpadding="5">
+                  <p:fieldset legend="#{msgs.assigned_bus_information}"  style=" direction:#{langBean.dir}; margin-bottom:20px">
+                    <h:panelGrid columns="2" cellpadding="5"  style="float: #{langBean.styleFloat};  direction:#{langBean.dir};">
 
                         <p:outputLabel style="font-weight: bold;" value="#{msgs.license_plate}:" for="driver__home_license_plate"/>
                         <h:outputText id="driver__home_license_plate" value="#{busDriverInfoBean.getBusDriverInfoArray().get(0).getLicenseNumber()}" />
