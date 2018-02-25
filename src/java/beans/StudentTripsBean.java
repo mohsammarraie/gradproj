@@ -34,13 +34,14 @@ private SessionBean sessionBean;
 @PostConstruct
 public void init() {
     try {
-
         studentTripsArray = studentTripsDao.buildStudentTrips();
 
     } catch (Exception ex) {
         Logger.getLogger(StudentTripsBean.class.getName()).log(Level.SEVERE, null, ex);
     }
 }
+
+ 
 
     public ArrayList<StudentTrip> getStudentTripsArray() {
         return studentTripsArray;

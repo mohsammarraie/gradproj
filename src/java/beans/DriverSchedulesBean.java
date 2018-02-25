@@ -201,6 +201,7 @@ public class DriverSchedulesBean implements Serializable {
                 sessionBean.navigateDriverMap();
 
             } else {
+                    autoRefreshDataTable();
                    //show error popup
                 RequestContext context = RequestContext.getCurrentInstance();
                 context.execute("PF('popup_driver_schedule').show();");
