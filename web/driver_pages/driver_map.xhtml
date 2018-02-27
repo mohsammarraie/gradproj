@@ -10,7 +10,7 @@
         <title>#{msgs.trip_map}</title>
 
     </h:head>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyAT-PnUumnLEeph1uswtj11VoLEjdeO_90"></script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZOv1lsxpln_a88Wx20uzgJo8iRy5w-WU"></script> <!--mobile sensor based-->
 
 
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
@@ -76,7 +76,9 @@
                         setMapCenter(position.coords.latitude, position.coords.longitude);
                     }, function () {
                         checkGeolocationByLoaderAPI(); // Error go back to Loader API.
-                    });
+                    },
+                     {enableHighAccuracy: true}
+        );
                 }
 
                 function checkGeolocationByLoaderAPI() {

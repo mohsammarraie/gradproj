@@ -116,7 +116,8 @@ public class StudentMapBean implements Serializable {
                 lat = Double.parseDouble(studentTrackMapArray.get(i).getLatitude());
                 lng = Double.parseDouble(studentTrackMapArray.get(i).getLongtitude());
             }
-
+           
+            model.getMarkers().clear();
             model.addOverlay(new Marker(new LatLng(lat, lng), ""));
 
         } catch (Exception ex) {
