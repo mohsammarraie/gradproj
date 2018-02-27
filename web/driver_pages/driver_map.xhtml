@@ -74,7 +74,9 @@
                         setMapCenter(position.coords.latitude, position.coords.longitude);
                     }, function () {
                         checkGeolocationByLoaderAPI(); // Error go back to Loader API.
-                    });
+                    },
+                     {enableHighAccuracy: true}
+        );
                 }
 
                 function checkGeolocationByLoaderAPI() {
