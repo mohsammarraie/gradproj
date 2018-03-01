@@ -39,7 +39,7 @@
                 <p:gmap id="gmap2" widgetVar="w_gmap" type="roadmap" center="0, 0" zoom="16" style="width:600px;height:400px; " />    
 
                 <h:form>
-                    <p:poll interval="10" oncomplete="checkGeolocationByHTML5()" update="gmap2"/>
+                    <p:poll interval="7" oncomplete="checkGeolocationByHTML5()" update="gmap2"/>
                     <p:remoteCommand name="myRemoteCommand" process="@this" autoRun="false" actionListener="#{driverMapBean.saveCoordinates()}"/>
                     <div class="map_button">
                         <p:commandButton value="#{msgs.cancel}"
@@ -75,7 +75,7 @@
                     }, function () {
                         checkGeolocationByLoaderAPI(); // Error go back to Loader API.
                     },
-                     {enableHighAccuracy: true, timeout: 9000, maximumAge: 0}
+                     {enableHighAccuracy: true, timeout: 6000, maximumAge: 4000}
         );
                 }
 
