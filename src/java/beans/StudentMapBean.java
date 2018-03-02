@@ -54,16 +54,6 @@ public class StudentMapBean implements Serializable {
         }
     }
 
-    public void checkStudentOrAdminBackButton() {
-        if (studentId != null) {
-            sessionBean.navigateStudentCurrentTrips();
-        } else {
-            sessionBean.navigateTripsDetails();
-        }
-        
-        replayIndex = 0; // Dr. Firas Al-Hawari
-    }
-
     public String getStudentId() {
         return studentId;
     }
