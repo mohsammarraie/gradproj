@@ -120,13 +120,39 @@ public class StudentTripsDao extends ConnectionDao {
         stops.setStopNameAr(rs.getString("STOP_NAME_AR"));
         return stops;
     }
+    
+    // Dr. Firas Al-Hawari
+    public ArrayList<StudentTrip> buildStudentReplayMap(int tripId) throws Exception {
+        ArrayList<StudentTrip> list = new ArrayList<>();
+        Connection conn = getConnection();
+
+        try {
+            String sql = "SELECT * FROM"
+                    + " BUSES.TRIPS_COORDINATES"
+                    + " WHERE TRIP_ID=?";
+            
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, tripId);            
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(populateStudentTrackMap(rs));
+            }
+
+            rs.close();
+            ps.close();
+
+            return list;
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
 
     public ArrayList<StudentTrip> buildStudentTrackMap(int tripId) throws Exception {
         ArrayList<StudentTrip> list = new ArrayList<>();
         Connection conn = getConnection();
 
         try {
-
             String sql = "SELECT * FROM"
                     + " BUSES.TRIPS_COORDINATES"
                     + " WHERE TRIP_ID=?"
@@ -141,7 +167,6 @@ public class StudentTripsDao extends ConnectionDao {
 
             while (rs.next()) {
                 list.add(populateStudentTrackMap(rs));
-
             }
 
             rs.close();
@@ -162,7 +187,6 @@ public class StudentTripsDao extends ConnectionDao {
         studentTrips.setTripCoordinatesId(rs.getInt("TRIP_COORDINATES_ID"));
         studentTrips.setTripId(rs.getInt("TRIP_ID"));
         return studentTrips;
-
     }
 
     public ArrayList<StudentTrip> buildStudentArrivedTrips() throws Exception {
@@ -181,7 +205,6 @@ public class StudentTripsDao extends ConnectionDao {
 
             while (rs.next()) {
                 list.add(populateStudentTrips(rs));
-
             }
 
             rs.close();
@@ -192,5 +215,4 @@ public class StudentTripsDao extends ConnectionDao {
             throw new SQLException(e.getMessage());
         }
     }
-
 }

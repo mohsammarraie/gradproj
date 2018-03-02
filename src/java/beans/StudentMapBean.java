@@ -24,11 +24,11 @@ import org.primefaces.model.map.Marker;
 /**
  *
  * @author MOH
+ * 
  */
 @Named(value = "studentMapBean")
 @ViewScoped
 public class StudentMapBean implements Serializable {
-
     private final StudentTripsDao studentTripsDao = new StudentTripsDao();
     private ArrayList<Stop> studentRouteSchedulesStopsArray;
     private ArrayList<StudentTrip> studentTrackMapArray;
@@ -36,31 +36,32 @@ public class StudentMapBean implements Serializable {
     private double lat;
     private double lng;
     private String studentId;
+    private static int replayIndex = 0; // Dr. Firas Al-Hawari
+    
     @Inject
     private SessionBean sessionBean;
 
     @PostConstruct
     public void init() {
-        try { 
-            
+        try {            
             studentId = sessionBean.getStudentUserId();
 
             studentRouteSchedulesStopsArray = studentTripsDao.buildStudentRouteStopsSchedules(sessionBean.getSelectedTripId());
+            
             displayLongLatOnMap();
-
         } catch (Exception ex) {
             Logger.getLogger(StudentMapBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void checkStudentOrAdminBackButton() {
-
         if (studentId != null) {
             sessionBean.navigateStudentCurrentTrips();
         } else {
             sessionBean.navigateTripsDetails();
         }
-
+        
+        replayIndex = 0; // Dr. Firas Al-Hawari
     }
 
     public String getStudentId() {
@@ -70,6 +71,7 @@ public class StudentMapBean implements Serializable {
     public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
+    
     public double getLat() {
         return lat;
     }
@@ -106,12 +108,49 @@ public class StudentMapBean implements Serializable {
         return this.model;
     }
 
+    // Dr. Firas Al-Hawari
+    public static int getReplayIndex() {
+        return replayIndex;
+    }
+
+    // Dr. Firas Al-Hawari
+    public static void setReplayIndex(int replayIndex) {
+        StudentMapBean.replayIndex = replayIndex;
+    }        
+
+    // Dr. Firas Al-Hawari
+    public void replayLongLatOnMap() {
+        try {                        
+            ArrayList<StudentTrip> studentReplayMapArray = studentTripsDao.buildStudentReplayMap(sessionBean.getSelectedTripId());
+            
+            if (studentReplayMapArray != null && studentReplayMapArray.size() > 0) {
+                if (replayIndex == studentReplayMapArray.size()) {
+                    replayIndex = 0;
+                }
+
+                lat = Double.parseDouble(studentReplayMapArray.get(replayIndex).getLatitude());
+                lng = Double.parseDouble(studentReplayMapArray.get(replayIndex).getLongtitude());
+                
+                replayIndex++;
+            } else {
+                lat = 0;
+                lng = 0;
+            }
+                       
+            model.getMarkers().clear();
+            model.addOverlay(new Marker(new LatLng(lat, lng), ""));                        
+        } catch (Exception ex) {
+            Logger.getLogger(StudentMapBean.class.getName()).log(Level.SEVERE, null, ex);                        
+        }
+    }
+    
     public void displayLongLatOnMap() {
         try {
             int i;
             lat = 0;
             lng = 0;
             studentTrackMapArray = studentTripsDao.buildStudentTrackMap(sessionBean.getSelectedTripId());
+            
             for (i = 0; i < studentTrackMapArray.size(); i++) {
                 lat = Double.parseDouble(studentTrackMapArray.get(i).getLatitude());
                 lng = Double.parseDouble(studentTrackMapArray.get(i).getLongtitude());
@@ -119,11 +158,8 @@ public class StudentMapBean implements Serializable {
            
             model.getMarkers().clear();
             model.addOverlay(new Marker(new LatLng(lat, lng), ""));
-
         } catch (Exception ex) {
             Logger.getLogger(StudentMapBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
-
 }

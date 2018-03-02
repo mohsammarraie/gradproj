@@ -318,6 +318,11 @@ public class SessionBean implements Serializable {
     public void navigateStudentTripTrackMap() {
         navigate("/student_pages/student_trip_track_map.xhtml");
     }
+    
+    public void navigateStudentTripReplayMap() {
+        navigate("/student_pages/student_trip_replay_map.xhtml");
+    }
+    
     public void navigateReports() {
         navigate("/reports/reports.xhtml");
     }
