@@ -351,12 +351,10 @@ public class SessionBean implements Serializable {
     
     }
     
-    public void navigateMapTestOnMobile(){
-        navigate("/gps_mobile_test.xhtml");
+    public void navigateMapTripTrackOnMap(){
+        navigate("/reports/trip_track_map.xhtml");
     }
-     public void navigateMapEx1(){
-        navigate("/GPS_test_firas.xhtml");
-    }
+   
      
     public void navigate(String url) {
         FacesContext facesContext = FacesContext.getCurrentInstance();

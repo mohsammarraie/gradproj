@@ -349,7 +349,7 @@ and open the template in the editor.
                                                          onclick="return confirm('#{msgs.confirm_track_trip}');"
                                                          disabled="#{manageReportsBean.selectedReport==null|| manageReportsBean.getSelectedReport().statusEn != 'Ongoing'}"                                                 
                                                          actionListener="#{manageReportsBean.saveSelectedTripId()}"
-                                                         action="#{sessionBean.navigateStudentTripTrackMap()}" />
+                                                         action="#{sessionBean.navigateMapTripTrackOnMap()}" />
                                          
                                          <p:commandButton value="#{msgs.replay_trip}"
                                                          icon="ui-icon-flag"                                  
@@ -357,7 +357,7 @@ and open the template in the editor.
                                                          styleClass="commandButton"
                                                          style="float:#{langBean.styleFloat}"
                                                          onclick="return confirm('#{msgs.confirm_replay_trip}');"
-                                                         disabled="#{manageReportsBean.selectedReport==null|| manageReportsBean.getSelectedReport().statusEn != 'Arrived'}"                                                 
+                                                         disabled="#{manageReportsBean.selectedReport==null|| manageReportsBean.getSelectedReport().statusEn == 'Ongoing'}"                                                 
                                                          actionListener="#{manageReportsBean.saveSelectedTripId()}"
                                                          action="#{sessionBean.navigateStudentTripReplayMap()}" />
                                     </p:toolbarGroup>
