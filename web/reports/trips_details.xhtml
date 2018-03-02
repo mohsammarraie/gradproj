@@ -238,7 +238,15 @@ and open the template in the editor.
 
                                       sortBy="#{reportInfo.routeCode}">                    
                                 <h:outputText value="#{reportInfo.routeCode}"/>  
+                            </p:column>  
+                            
+                            <p:column headerText="#{msgs.trip_id}"
+                                      style="width:100px"
+
+                                      sortBy="#{reportInfo.tripId}">                    
+                                <h:outputText value="#{reportInfo.tripId}"/>  
                             </p:column>
+                            
                             <p:column headerText="#{msgs.source}"
                                       style="width:200px"
 
