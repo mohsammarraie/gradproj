@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>#{msgs.app_title}</title>
+    </h:head>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZOv1lsxpln_a88Wx20uzgJo8iRy5w-WU"></script> <!--mobile sensor based-->
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <h:body> 
+        <ui:decorate template="/app_templates/app_template_student.xhtml">   
+            <div class="centered_div">
+                <div  style="float:#{langBean.styleFloat}">
+                <h:form id="student_trip_info_form">
+
+
+                    <p:fieldset legend="#{msgs.route_stops}"  style=" direction:#{langBean.dir}; margin-bottom:20px">
+                        <h:panelGrid columns="2" cellpadding="5" style="float: #{langBean.styleFloat};  direction:#{langBean.dir};" >
+
+                            <c:forEach var="studentRouteScheduleStop" items="#{studentMapBean.studentRouteSchedulesStopsArray}" varStatus="loop">
+
+                                <p:outputLabel style="font-weight: bold;" value="#{langBean.isEnglish?studentRouteScheduleStop.stopNameEn:studentRouteScheduleStopstopNameAr}:" for="student_stop_time_#{loop.index}"/>
+                                <h:outputText id="student_stop_time_#{loop.index}" value="#{studentRouteScheduleStop.time}">  
+                                    <f:convertDateTime pattern="HH:mm" />
+                                </h:outputText>                    
+                            </c:forEach>
+                        </h:panelGrid>
+                    </p:fieldset>
+
+
+
+
+                </h:form>
+
+                <p:gmap id="gmap2" 
+                        widgetVar="w_gmap" 
+                        type="roadmap" 
+                        center="#{studentMapBean.lat}, #{studentMapBean.lng}" 
+                        zoom="16"
+                        model="#{studentMapBean.model}"
+                        style="width:600px;height:400px" />       
+                <h:form>
+                    <p:poll interval="9" listener="#{studentMapBean.displayLongLatOnMap()}" update="gmap2"/>
+                    <div class="map_button">
+                        <p:commandButton value="#{msgs.back}"
+                                         icon="ui-icon-arrowreturnthick-1-n"
+                                         iconPos="#{langBean.styleFloat}"
+                                         styleClass="commandButton"
+                                         style="float:#{langBean.styleFloat}"
+                                         immediate="true"
+                                         action="#{studentMapBean.checkStudentOrAdminBackButton()}" />
+                   </div>
+                </h:form> 
+
+
+
+            </div>
+            </div>
+        </ui:decorate>
+    </h:body>
+</html>
