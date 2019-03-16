@@ -25,7 +25,7 @@ public class StudentTripsDao extends ConnectionDao {
 
         try {
 
-            String sql = "SELECT * FROM STUDENT_CURRENT_TRIPS_VIEW"
+            String sql = "SELECT * FROM BUSES.STUDENT_CURRENT_TRIPS_VIEW"
                     + " WHERE"
                     + " STATUS_EN=?"
                     + " ORDER BY DEPARTURE_TIME";
@@ -84,13 +84,13 @@ public class StudentTripsDao extends ConnectionDao {
             String sql = "SELECT STOP_NAME_EN,STOP_NAME_AR,BUSES.STOPS.STOP_ID,TIME  FROM"
                     + " BUSES.ROUTES_STOPS_SCHEDULES,"
                     + " BUSES.STOPS ,"
-                    + " TRIPS"
+                    + " BUSES.TRIPS"
                     + " WHERE"
                     + " BUSES.ROUTES_STOPS_SCHEDULES.STOP_ID = BUSES.STOPS.STOP_ID"
                     + " AND"
-                    + " BUSES.ROUTES_STOPS_SCHEDULES.ROUTE_ID=TRIPS.ROUTE_ID"
+                    + " BUSES.ROUTES_STOPS_SCHEDULES.ROUTE_ID=BUSES.TRIPS.ROUTE_ID"
                     + " AND"
-                    + " BUSES.ROUTES_STOPS_SCHEDULES.SCHEDULE_ID=TRIPS.SCHEDULE_ID "
+                    + " BUSES.ROUTES_STOPS_SCHEDULES.SCHEDULE_ID=BUSES.TRIPS.SCHEDULE_ID "
                     + " AND TRIP_ID = ?"
                     + " ORDER BY TIME";
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -195,7 +195,7 @@ public class StudentTripsDao extends ConnectionDao {
 
         try {
 
-            String sql = "SELECT * FROM STUDENT_CURRENT_TRIPS_VIEW"
+            String sql = "SELECT * FROM BUSES.STUDENT_CURRENT_TRIPS_VIEW"
                     + " WHERE"
                     + " STATUS_EN=?"
                     + " ORDER BY DEPARTURE_TIME DESC";

@@ -99,7 +99,7 @@ public class BusesSchedulesDao extends ConnectionDao {
         try {
             Connection conn = getConnection();
 
-            CallableStatement cs = conn.prepareCall("{call INSERT_WITH_CONFLICT_CHECK(?,?,?) }");
+            CallableStatement cs = conn.prepareCall("{call BUSES.INSERT_WITH_CONFLICT_CHECK(?,?,?) }");
             cs.setInt(1, busId);
             cs.setInt(2, routeId);
             cs.setInt(3, scheduleId);
@@ -117,7 +117,7 @@ public class BusesSchedulesDao extends ConnectionDao {
 
             Connection conn = getConnection();
             
-            CallableStatement cs = conn.prepareCall("{call UPDATE_WITH_CONFLICT_CHECK(?,?,?) }");
+            CallableStatement cs = conn.prepareCall("{call BUSES.UPDATE_WITH_CONFLICT_CHECK(?,?,?) }");
             cs.setInt(1, busId);
             cs.setInt(2, routeId);
             cs.setInt(3, scheduleId);

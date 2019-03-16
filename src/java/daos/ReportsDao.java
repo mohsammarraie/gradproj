@@ -28,7 +28,7 @@ public class ReportsDao extends ConnectionDao {
 
         try {
 
-            String sql = "SELECT * FROM REPORTS_VIEW";
+            String sql = "SELECT * FROM BUSES.REPORTS_VIEW";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -90,7 +90,7 @@ public class ReportsDao extends ConnectionDao {
         Connection conn = getConnection();
 
         try {
-            String sql = "SELECT * FROM REPORTS_VIEW";
+            String sql = "SELECT * FROM BUSES.REPORTS_VIEW";
             if ( scheduleId>0 || routeId > 0 || busId > 0 || driverId > 0 || departureTime != null || arrivalTime != null || statusEn != null || statusAr != null
                     || departureTimeStatusEn != null || departureTimeStatusAr != null || arrivalTimeStatusEn != null || arrivalTimeStatusAr != null) {
                 sql += " WHERE ";
@@ -215,7 +215,7 @@ public class ReportsDao extends ConnectionDao {
 
             String sql = "SELECT ROUTE_ID, SCHEDULE_ID, DEPARTURE_TIME, ARRIVAL_TIME"
                     + " FROM"
-                    + " ROUTES_SCHEDULES_TIMES_VIEW"
+                    + " BUSES.ROUTES_SCHEDULES_TIMES_VIEW"
                     + " WHERE ROUTE_ID=?";
 
             PreparedStatement ps = conn.prepareStatement(sql);

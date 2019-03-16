@@ -21,7 +21,7 @@ public class ReportStatusDao extends ConnectionDao{
 
         try {
 
-            String sql = "SELECT * FROM REPORT_STATUS";
+            String sql = "SELECT * FROM BUSES.REPORT_STATUS";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 

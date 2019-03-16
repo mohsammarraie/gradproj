@@ -77,7 +77,7 @@ public class TripsDao extends ConnectionDao {
 
         try {
 
-            String sql = "SELECT * FROM PAST_TRIPS_VIEW"
+            String sql = "SELECT * FROM BUSES.PAST_TRIPS_VIEW"
                     + " WHERE DRIVER_ID =?"
                     + " ORDER BY DEPARTURE_TIME DESC";
             PreparedStatement ps = conn.prepareStatement(sql);

@@ -22,11 +22,11 @@ public class ReportsRouteStopsSchedulesDao extends ConnectionDao {
 
         try {
             String sql = "SELECT STOPS.STOP_ID, STOP_NAME_AR, STOP_NAME_EN, TIME, TRIPS.SCHEDULE_ID"
-                    + " FROM STOPS,ROUTES_STOPS_SCHEDULES,TRIPS"
-                    + " WHERE STOPS.STOP_ID = ROUTES_STOPS_SCHEDULES.STOP_ID"
-                    + " AND TRIPS.ROUTE_ID = ROUTES_STOPS_SCHEDULES.ROUTE_ID"
-                    + " AND TRIPS.SCHEDULE_ID = ROUTES_STOPS_SCHEDULES.SCHEDULE_ID"
-                    + " AND TRIPS.TRIP_ID  = ?";
+                    + " FROM BUSES.STOPS, BUSES.ROUTES_STOPS_SCHEDULES, BUSES.TRIPS"
+                    + " WHERE BUSES.STOPS.STOP_ID = BUSES.ROUTES_STOPS_SCHEDULES.STOP_ID"
+                    + " AND BUSES.TRIPS.ROUTE_ID = BUSES.ROUTES_STOPS_SCHEDULES.ROUTE_ID"
+                    + " AND BUSES.TRIPS.SCHEDULE_ID = BUSES.ROUTES_STOPS_SCHEDULES.SCHEDULE_ID"
+                    + " AND BUSES.TRIPS.TRIP_ID  = ?";
 
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, tripId);

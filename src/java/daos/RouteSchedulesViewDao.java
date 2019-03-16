@@ -26,7 +26,7 @@ public class RouteSchedulesViewDao  extends ConnectionDao{
 
         try {
 
-            String sql = "SELECT * FROM ALL_SCHEDULES_VIEW";
+            String sql = "SELECT * FROM BUSES.ALL_SCHEDULES_VIEW";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -66,7 +66,7 @@ public class RouteSchedulesViewDao  extends ConnectionDao{
 
         try {
 
-            String sql = "SELECT * FROM ALL_SCHEDULES_BUSES_VIEW";
+            String sql = "SELECT * FROM BUSES.ALL_SCHEDULES_BUSES_VIEW";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -109,7 +109,7 @@ public class RouteSchedulesViewDao  extends ConnectionDao{
         Connection conn = getConnection();
 
         try {
-            String sql = "SELECT * FROM ALL_SCHEDULES_VIEW";
+            String sql = "SELECT * FROM BUSES.ALL_SCHEDULES_VIEW";
             if ( scheduleId>0 || routeId > 0  || departureTime != null || arrivalTime != null) {
                 sql += " WHERE ";
             }

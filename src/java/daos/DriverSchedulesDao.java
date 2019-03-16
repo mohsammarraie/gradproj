@@ -31,12 +31,12 @@ public class DriverSchedulesDao extends ConnectionDao {
         Connection conn = getConnection();
 
         try {
-//             String sql = "select * from DRIVERS_SCHEDULES_VIEW where to_char(DEPARTURE_TIME, 'HH24:MI:SS') >  to_char(SYSDATE - 0.0208333333333333, 'HH24:MI:SS')"
+//             String sql = "select * from BUSES.DRIVERS_SCHEDULES_VIEW where to_char(DEPARTURE_TIME, 'HH24:MI:SS') >  to_char(SYSDATE - 0.0208333333333333, 'HH24:MI:SS')"
 //                    + " AND"
 //                    + " DRIVER_ID=?"
 //                    + " ORDER BY DEPARTURE_TIME";
              
-            String sql = "select * from DRIVERS_SCHEDULES_VIEW"
+            String sql = "select * from BUSES.DRIVERS_SCHEDULES_VIEW"
                     + " WHERE"
                     + " DRIVER_ID=?";
             PreparedStatement ps = conn.prepareStatement(sql);

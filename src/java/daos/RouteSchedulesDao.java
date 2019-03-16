@@ -114,8 +114,8 @@ public class RouteSchedulesDao extends ConnectionDao {
 
         try {
             String sql = "SELECT STOPS.STOP_ID, STOP_NAME_AR, STOP_NAME_EN, TIME, SCHEDULE_ID"
-                    + " FROM STOPS JOIN ROUTES_STOPS_SCHEDULES ON"
-                    + " STOPS.STOP_ID = ROUTES_STOPS_SCHEDULES.STOP_ID"
+                    + " FROM BUSES.STOPS JOIN BUSES.ROUTES_STOPS_SCHEDULES ON"
+                    + " BUSES.STOPS.STOP_ID = BUSES.ROUTES_STOPS_SCHEDULES.STOP_ID"
                     + " WHERE ROUTE_ID=?";
 
             PreparedStatement ps = conn.prepareStatement(sql);

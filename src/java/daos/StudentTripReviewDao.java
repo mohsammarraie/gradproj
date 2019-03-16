@@ -25,7 +25,7 @@ public class StudentTripReviewDao extends ConnectionDao{
         try {
 
 
-            String sql = "SELECT * FROM STUDENT_TRIP_REVIEWS"
+            String sql = "SELECT * FROM BUSES.STUDENT_TRIP_REVIEWS"
                     + " WHERE TRIP_ID=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, tripId);
