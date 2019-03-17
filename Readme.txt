@@ -67,3 +67,10 @@ we have implemented a filtering mechanic similar to that of MyGJU course section
 need when analyzing past performance of the bus transit system.
 
 Another form of feedback is of course the rating and written reviews submitted by students.
+
+Supervisor:
+Dr. Firas Al-Hawari
+
+Developers:
+Mohammed Al-Sammarraie
+Taha Al-Khaffaf
