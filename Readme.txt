@@ -1,4 +1,3 @@
-
 1- Project setup:
 *The database is a dmp file in the database folder. To import database, type in command line: imp
 *Database login credential is included in ConnectionDao.js
