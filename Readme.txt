@@ -1,6 +1,7 @@
 
 1- Project setup:
 *The database is a dmp file in the database folder. To import database, type in command line: imp
+database login credential is included in ConnectionDao.js
 
 *You need to create a username and password for each user type (admin, driver or/and student).
 
