@@ -2,6 +2,8 @@
 1- Project setup:
 *The database is a dmp file in the database folder. To import database, type in command line: imp
 *Database login credential is included in ConnectionDao.js
+*You can access the database using sql developer.
+*You can use glassfish server 4 and set it up with Netbeans IDE.
 
 *You need to create a username and password for each user type (admin, driver or/and student).
 
