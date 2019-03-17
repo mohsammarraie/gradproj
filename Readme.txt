@@ -54,7 +54,8 @@ viewed and tracked by students and admins.
 
 The driver now can either 'end the trip' (if the destination is reached) which will save additional information to the database
 (like actual arrival time) or cancel the trip (this means the trip has not reached its destination and the admin is notified of this).
-Now that we have trips of different routes and schedules and by different drivers, student can sign into their accounts and view all available 'ongoing' trips and its relevant information and they are able to track each trip on the map. In addition to this,
+Now that we have trips of different routes and schedules and by different drivers, student can sign into their accounts and view all
+available 'ongoing' trips and its relevant information and they are able to track each trip on the map. In addition to this,
 students can also submit ratings and reviews of trips based on criteria we have created which are then viewed by admins.
 
 The cycle concludes with the admins again as they receive feedback in the form of reports created automatically by the app from
